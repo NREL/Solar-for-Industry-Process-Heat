@@ -1,0 +1,42 @@
+Values	Description	ipf_value
+204	Establishments with no paid employees	0
+207	Establishments with less than 10 employees	<=10
+209	Establishments with less than 20 employees	<=20
+210	Establishments with less than 5 employees	<=5
+211	Establishments with less than 4 employees	<=4
+212	Establishments with 1 to 4 employees	1-4
+213	Establishments with 1 employee	1
+214	Establishments with 2 employees	2
+215	Establishments with 3 or 4 employees	3-4
+219	Establishments with 0 to 4 employees	0-4
+220	Establishments with 5 to 9 employees	5-9
+221	Establishments with 5 or 6 employees	5-6
+222	Establishments with 7 to 9 employees	7-9
+223	Establishments with 10 to 14 employees	10-14
+230	Establishments with 10 to 19 employees	10-19
+231	Establishments with 10 to 14 employees	10-14
+232	Establishments with 15 to 19 employees	15-19
+235	Establishments with 20 or more employees	20 and Over
+240	Establishments with 20 to 99 employees	20-99
+241	Establishments with 20 to 49 employees	20-49
+242	Establishments with 50 to 99 employees	50-99
+243	Establishments with 50 employees or more	50 and Over
+249	Establishments with 100 to 499 employees	100-499
+250	Establishments with 100 or more employees	100 and Over
+251	Establishments with 100 to 249 employees	100-249
+252	Establishments with 250 to 499 employees	250-499
+253	Establishments with 500 employees or more	500 and Over
+254	Establishments with 500 to 999 employees	500-999
+260	"Establishments with 1,000 employees or more"	1000 and Over
+261	"Establishments with 1,000 to 2,499 employees"	1000-2499
+262	"Establishments with 1,000 to 1,499 employees"	1000-1499
+263	"Establishments with 1,500 to 2,499 employees"	1500-2499
+270	"Establishments with 2,500 employees or more"	2500 and Over
+271	"Establishments with 2,500 to 4,999 employees"	2500-4999
+272	"Establishments with 5,000 to 9,999 employees"	5000-9999
+273	"Establishments with 5,000 employees or more"	5000 and Over
+280	"Establishments with 10,000 employees or more"	10000 and Over
+281	"Establishments with 10,000 to 24,999 employees"	10000-24999
+282	"Establishments with 25,000 to 49,999 employees"	25000-49999
+283	"Establishments with 50,000 to 99,999 employees"	50000-99999
+290	"Establishments with 100,000 employees or more"	100000 and Over

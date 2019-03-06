@@ -1,0 +1,925 @@
+C_T3EQC4C8MONTHLYINPUTS.FACILITY_ID,C_T3EQC4C8MONTHLYINPUTS.REPORTING_YEAR,C_T3EQC4C8MONTHLYINPUTS.FACILITY_NAME,C_T3EQC4C8MONTHLYINPUTS.UNIT_NAME,C_T3EQC4C8MONTHLYINPUTS.FUEL_TYPE,C_T3EQC4C8MONTHLYINPUTS.CARBON_CONTENT,C_T3EQC4C8MONTHLYINPUTS.CARBON_CONTENT_UOM,C_T3EQC4C8MONTHLYINPUTS.FUEL_COMBUSTED,C_T3EQC4C8MONTHLYINPUTS.FUEL_COMBUSTED_UOM,C_T3EQC4C8MONTHLYINPUTS.HIGH_HEAT_VALUE,C_T3EQC4C8MONTHLYINPUTS.HIGH_HEAT_VALUE_UOM,C_T3EQC4C8MONTHLYINPUTS.MONTH
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,51026,gallons/month,,,February
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,April
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,May
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.32,kg C per gallon,2,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.17,kg C per gallon,4116280.98,gallons/month,,,September
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.2,kg C per gallon,2707355.30,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.21,kg C per gallon,2021249.60,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,1724951.20,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.16,kg C per gallon,2315928.00,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,2050505.50,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.19,kg C per gallon,2551767.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.19,kg C per gallon,4885363.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.2,kg C per gallon,4806125.00,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.10,kg C per gallon,2153118.8,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.10,kg C per gallon,2370619.9,gallons/month,,,October
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.12,kg C per gallon,2220437.2,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.10,kg C per gallon,2395226.0,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.17,kg C per gallon,839772.2,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.10,kg C per gallon,1758001.3,gallons/month,,,October
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,2488476.90,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,1224561.00,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,4743026.1,gallons/month,,,August
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.332,kg C per gallon,18312,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.15,kg C per gallon,538075,gallons/month,,,March
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.16,kg C per gallon,480438.2,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.12,kg C per gallon,1171666.5,gallons/month,,,July
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.17,kg C per gallon,1073499.9,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.08,kg C per gallon,752676.6,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.17,kg C per gallon,2687848.4,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.1,kg C per gallon,2560030.2,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.14,kg C per gallon,1971456.9,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,342395.5,gallons/month,,,December
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,2220193.2,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.21,kg C per gallon,1581085.7,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.07,kg C per gallon,5153351.4,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.16,kg C per gallon,3018850.7,gallons/month,,,September
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,1.92,kg C per gallon,5642,gallons/month,,,April
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,December
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,3289231.68,gallons/month,,,October
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.23,kg C per gallon,263654.16,gallons/month,,,March
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,June
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,October
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.12,kg C per gallon,3090363.78,gallons/month,,,September
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.269,kg C per gallon,131218,gallons/month,,,March
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.268,kg C per gallon,980181,gallons/month,,,July
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.311,kg C per gallon,338083,gallons/month,,,April
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.240,kg C per gallon,0,gallons/month,,,November
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,378,gallons/month,,,July
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.36,kg C per gallon,11227,gallons/month,,,October
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.10,kg C per gallon,6194148.66,gallons/month,,,December
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.16,kg C per gallon,2940621.18,gallons/month,,,July
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.25,kg C per gallon,2354442.72,gallons/month,,,September
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,788,gallons/month,,,November
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.24,kg C per gallon,0.0,gallons/month,,,September
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.20,kg C per gallon,14781052.86,gallons/month,,,March
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.20,kg C per gallon,12804296.82,gallons/month,,,May
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.28,kg C per gallon,2910,gallons/month,,,April
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,June
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,July
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.20,kg C per gallon,1537,gallons/month,,,December
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,February
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,July
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.20,kg C per gallon,20014,gallons/month,,,June
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,September
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.14,kg C per gallon,228575.60,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.17,kg C per gallon,228734.30,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.180,kg C per gallon,712093.20,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.200,kg C per gallon,693636.80,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.170,kg C per gallon,429771.70,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.12,kg C per gallon,670140.3,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.11,kg C per gallon,955.90,gallons/month,,,June
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.12,kg C per gallon,2492093.70,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2371237.40,gallons/month,,,November
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.381,kg C per gallon,31458,gallons/month,,,January
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.39,kg C per gallon,23100,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.17,kg C per gallon,344193.80,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,149489.60,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,806864.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.15,kg C per gallon,314590.00,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.14,kg C per gallon,648806.10,gallons/month,,,June
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.17,kg C per gallon,2828178.90,gallons/month,,,January
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,2507431.20,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.14,kg C per gallon,2436917.00,gallons/month,,,June
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.26,kg C per gallon,9520636.86,gallons/month,,,February
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.18,kg C per gallon,13548191.58,gallons/month,,,November
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,December
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.19,kg C per gallon,15682063.32,gallons/month,,,January
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.20,kg C per gallon,812088.06,gallons/month,,,September
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.20,kg C per gallon,0,gallons/month,,,October
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,July
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.18,kg C per gallon,3222744,gallons/month,,,November
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,June
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.19,kg C per gallon,3464934.48,gallons/month,,,October
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.25,kg C per gallon,5093342.1,gallons/month,,,January
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.11,kg C per gallon,0,gallons/month,,,May
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,September
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.11,kg C per gallon,0,gallons/month,,,June
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.17,kg C per gallon,29864.1,gallons/month,,,September
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.25,kg C per gallon,2551040.52,gallons/month,,,January
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.340,kg C per gallon,0,gallons/month,,,September
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.36,kg C per gallon,101898,gallons/month,,,November
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.25,kg C per gallon,3868285.68,gallons/month,,,February
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.16,kg C per gallon,482299.86,gallons/month,,,August
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.22,kg C per gallon,4038243.3,gallons/month,,,November
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,March
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.14,kg C per gallon,2100382.62,gallons/month,,,April
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,4050823.14,gallons/month,,,June
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.21,kg C per gallon,3992977.38,gallons/month,,,March
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.22,kg C per gallon,4119318,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.2,kg C per gallon,1726110.00,gallons/month,,,September
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.14,kg C per gallon,2032782.10,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.2,kg C per gallon,544718.10,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.21,kg C per gallon,2770736.40,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.19,kg C per gallon,2746310.80,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.14,kg C per gallon,2491723.00,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.21,kg C per gallon,4197491.90,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.19,kg C per gallon,4208645.70,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.2,kg C per gallon,0,gallons/month,,,February
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.92,kg C per gallon,0,gallons/month,,,January
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.84,kg C per gallon,0,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.17,kg C per gallon,2217419.2,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,2262567.6,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.12,kg C per gallon,2139898.2,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,2206659.0,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.16,kg C per gallon,2585231.5,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.17,kg C per gallon,4557677.3,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,1470406.1,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.12,kg C per gallon,4444692.6,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.10,kg C per gallon,637550.0,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,4117635.4,gallons/month,,,September
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.234,kg C per gallon,12264,gallons/month,,,June
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.352,kg C per gallon,3738,gallons/month,,,November
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.355,kg C per gallon,6552,gallons/month,,,December
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.04,kg C per gallon,0,gallons/month,,,February
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.87,kg C per gallon,0,gallons/month,,,March
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.96,kg C per gallon,0,gallons/month,,,April
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.64,kg C per gallon,0,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.15,kg C per gallon,234954.4,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.17,kg C per gallon,204328.4,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.08,kg C per gallon,101746.9,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.15,kg C per gallon,965049.5,gallons/month,,,March
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.17,kg C per gallon,959194.4,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.17,kg C per gallon,493117,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.15,kg C per gallon,785362.6,gallons/month,,,May
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.17,kg C per gallon,1141860.3,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.13,kg C per gallon,377372.6,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.15,kg C per gallon,865865.6,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.13,kg C per gallon,2385878.4,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,2185098.3,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,1672977.8,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.21,kg C per gallon,1194055.2,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.07,kg C per gallon,2385040.9,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.09,kg C per gallon,2178933.6,gallons/month,,,January
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,2219382.9,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.1,kg C per gallon,2616853.5,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,2525037,gallons/month,,,April
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,817248.3,gallons/month,,,June
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,2054852.7,gallons/month,,,December
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,314174.2,gallons/month,,,June
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.14,kg C per gallon,4114097.1,gallons/month,,,October
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,March
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,3845785.02,gallons/month,,,March
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,February
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,April
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,July
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,December
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.24,kg C per gallon,0,gallons/month,,,February
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,331299.78,gallons/month,,,March
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.17,kg C per gallon,3582106.08,gallons/month,,,November
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.23,kg C per gallon,3069939.6,gallons/month,,,January
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.17,kg C per gallon,3578793.96,gallons/month,,,November
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.268,kg C per gallon,517876,gallons/month,,,August
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.268,kg C per gallon,570596,gallons/month,,,September
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.249,kg C per gallon,0,gallons/month,,,October
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,23651,gallons/month,,,February
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.39,kg C per gallon,16774,gallons/month,,,March
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,May
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.16,kg C per gallon,7723908.78,gallons/month,,,June
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.23,kg C per gallon,3281075.7,gallons/month,,,May
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.25,kg C per gallon,2666342.7,gallons/month,,,September
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.10,kg C per gallon,3013658.75,gallons/month,,,December
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.19,kg C per gallon,3662180.34,gallons/month,,,May
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.11,kg C per gallon,7294505.82,gallons/month,,,August
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.28,kg C per gallon,32947,gallons/month,,,April
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.21,kg C per gallon,85563,gallons/month,,,May
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,July
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,August
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,March
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.27,kg C per gallon,133560,gallons/month,,,July
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.21,kg C per gallon,5060944.56,gallons/month,,,February
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.21,kg C per gallon,3828570.9,gallons/month,,,September
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.20,kg C per gallon,1650649.98,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.18,kg C per gallon,8599.00,gallons/month,,,December
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.18,kg C per gallon,465678.80,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.190,kg C per gallon,267232.20,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.160,kg C per gallon,995960.30,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.110,kg C per gallon,1208716.40,gallons/month,,,June
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.180,kg C per gallon,375011.00,gallons/month,,,December
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.19,kg C per gallon,1378036.5,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.11,kg C per gallon,775155.7,gallons/month,,,June
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.19,kg C per gallon,2357385.30,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.18,kg C per gallon,2039867.70,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,2073336.90,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,1614707.60,gallons/month,,,November
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.17,kg C per gallon,1740175.80,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.17,kg C per gallon,1577517.50,gallons/month,,,January
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.13,kg C per gallon,395564.00,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.14,kg C per gallon,566654.00,gallons/month,,,September
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.11,kg C per gallon,2753472.00,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.15,kg C per gallon,2498859.00,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2580391.20,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,985294.60,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.13,kg C per gallon,2932782.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.13,kg C per gallon,2734487.00,gallons/month,,,November
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.18,kg C per gallon,13785830.52,gallons/month,,,April
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.16,kg C per gallon,11715982.74,gallons/month,,,August
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.16,kg C per gallon,1123500,gallons/month,,,October
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.13,kg C per gallon,0,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,January
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.25,kg C per gallon,6247668,gallons/month,,,February
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.23,kg C per gallon,6657630,gallons/month,,,June
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.10,kg C per gallon,5864790.54,gallons/month,,,September
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,December
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.21,kg C per gallon,5292727.44,gallons/month,,,November
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.11,kg C per gallon,2949188.76,gallons/month,,,June
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,1625795.64,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.14,kg C per gallon,2607644.34,gallons/month,,,April
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,July
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,January
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,May
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.21,kg C per gallon,2555879.76,gallons/month,,,March
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.15,kg C per gallon,3186538.62,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.19,kg C per gallon,2230940.80,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.11,kg C per gallon,2342876.00,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2194511.10,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.11,kg C per gallon,2604338.00,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.11,kg C per gallon,4567463.00,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.2,kg C per gallon,0,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.2,kg C per gallon,3274443.00,gallons/month,,,September
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.08,kg C per gallon,32336,gallons/month,,,May
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3,kg C per gallon,0,gallons/month,,,October
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.10,kg C per gallon,2239771.2,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.17,kg C per gallon,1958683.4,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.17,kg C per gallon,625032.30,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.10,kg C per gallon,2636948.30,gallons/month,,,October
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.16,kg C per gallon,4743460.3,gallons/month,,,June
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.263,kg C per gallon,13860,gallons/month,,,July
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.357,kg C per gallon,16464,gallons/month,,,September
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.66,kg C per gallon,0,gallons/month,,,July
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.74,kg C per gallon,0,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.15,kg C per gallon,176926.5,gallons/month,,,May
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.17,kg C per gallon,260626.2,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.17,kg C per gallon,271408.4,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.13,kg C per gallon,65615.9,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.12,kg C per gallon,317281.3,gallons/month,,,July
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.13,kg C per gallon,937441.3,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.16,kg C per gallon,1022933.3,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.13,kg C per gallon,672622,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.13,kg C per gallon,2334441.9,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.15,kg C per gallon,2206264.3,gallons/month,,,May
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2417492.8,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.13,kg C per gallon,2495627.7,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,2435233.9,gallons/month,,,April
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.21,kg C per gallon,2148389.2,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,2671261.7,gallons/month,,,June
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.16,kg C per gallon,2613325.5,gallons/month,,,September
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,2504838.2,gallons/month,,,June
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,875510,gallons/month,,,December
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.16,kg C per gallon,2498024,gallons/month,,,September
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,2533460.4,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.16,kg C per gallon,2563172.7,gallons/month,,,September
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,3108947.3,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,4377697.3,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,5022286.8,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,3536186.22,gallons/month,,,January
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.27,kg C per gallon,0,gallons/month,,,April
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.17,kg C per gallon,1351596.12,gallons/month,,,November
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,May
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,September
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.27,kg C per gallon,2294962.32,gallons/month,,,April
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.26,kg C per gallon,1041380.34,gallons/month,,,May
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.14,kg C per gallon,4061440.74,gallons/month,,,December
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.269,kg C per gallon,0,gallons/month,,,February
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.240,kg C per gallon,32124,gallons/month,,,November
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.240,kg C per gallon,595725,gallons/month,,,December
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.268,kg C per gallon,0,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.32,kg C per gallon,2899,gallons/month,,,December
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.20,kg C per gallon,6331197.18,gallons/month,,,July
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.16,kg C per gallon,4333346.64,gallons/month,,,October
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,February
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.20,kg C per gallon,3155055.12,gallons/month,,,July
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.27,kg C per gallon,2834698.02,gallons/month,,,August
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,February
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.21,kg C per gallon,2371587.96,gallons/month,,,November
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.10,kg C per gallon,1070737.08,gallons/month,,,December
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.20,kg C per gallon,0.0,gallons/month,,,March
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.24,kg C per gallon,13409481.54,gallons/month,,,September
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.20,kg C per gallon,3017,gallons/month,,,September
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,November
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,May
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,August
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,October
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.28,kg C per gallon,18207,gallons/month,,,March
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,October
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.20,kg C per gallon,1460,gallons/month,,,December
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,April
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,September
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,December
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.20,kg C per gallon,2963120.16,gallons/month,,,January
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.21,kg C per gallon,2329314.96,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.11,kg C per gallon,127466.00,gallons/month,,,June
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.19,kg C per gallon,243278.50,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.20,kg C per gallon,237152.80,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.19,kg C per gallon,394785.70,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,233299.40,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,157424.50,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.18,kg C per gallon,103876.00,gallons/month,,,December
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.18,kg C per gallon,631453.0,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.14,kg C per gallon,1073201.0,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.20,kg C per gallon,2672972.30,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2498037.40,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.14,kg C per gallon,1323472.80,gallons/month,,,July
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.384,kg C per gallon,3276,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.13,kg C per gallon,399980.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.15,kg C per gallon,246047.00,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.15,kg C per gallon,439328.40,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.16,kg C per gallon,1201856.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,318477.30,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.14,kg C per gallon,448741.50,gallons/month,,,June
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.17,kg C per gallon,2502038.50,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.13,kg C per gallon,2878773.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2924796.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.14,kg C per gallon,2471572.00,gallons/month,,,September
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.16,kg C per gallon,14904364.86,gallons/month,,,April
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.15,kg C per gallon,7173978,gallons/month,,,July
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.18,kg C per gallon,4404500.52,gallons/month,,,November
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.17,kg C per gallon,3931626.3,gallons/month,,,May
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.25,kg C per gallon,2958359.88,gallons/month,,,January
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.19,kg C per gallon,3272106.18,gallons/month,,,April
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.13,kg C per gallon,2274454.56,gallons/month,,,May
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.11,kg C per gallon,2293773.3,gallons/month,,,June
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.14,kg C per gallon,3937741.08,gallons/month,,,July
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.19,kg C per gallon,0,gallons/month,,,March
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.17,kg C per gallon,2849640.36,gallons/month,,,September
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.19,kg C per gallon,2471206.08,gallons/month,,,October
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.365,kg C per gallon,12683.2,gallons/month,,,November
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,4314382.38,gallons/month,,,January
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.22,kg C per gallon,4748090.76,gallons/month,,,October
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.24,kg C per gallon,4065708.36,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.14,kg C per gallon,936797.40,gallons/month,,,April
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.15,kg C per gallon,4160656.08,gallons/month,,,May
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.16,kg C per gallon,4206357.96,gallons/month,,,July
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.17,kg C per gallon,3092905.2,gallons/month,,,September
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.19,kg C per gallon,2269582.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.2,kg C per gallon,2081822.00,gallons/month,,,September
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.21,kg C per gallon,462406.70,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.19,kg C per gallon,2272391.60,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.2,kg C per gallon,2457868.90,gallons/month,,,February
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.19,kg C per gallon,2967062.00,gallons/month,,,July
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.19,kg C per gallon,2903151.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.11,kg C per gallon,2861678.00,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.14,kg C per gallon,4503538.60,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.19,kg C per gallon,2675605.20,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.14,kg C per gallon,4619494.50,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.11,kg C per gallon,4509876.00,gallons/month,,,October
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.56,kg C per gallon,0,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.09,kg C per gallon,2188588.4,gallons/month,,,April
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.16,kg C per gallon,1000396.9,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,2377394.7,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,2112343.0,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.17,kg C per gallon,550397.6,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.09,kg C per gallon,2147006.4,gallons/month,,,April
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,1712401.5,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.17,kg C per gallon,2298778.60,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.12,kg C per gallon,2409552.20,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.09,kg C per gallon,4606769.1,gallons/month,,,April
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.17,kg C per gallon,4567004.2,gallons/month,,,July
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.10,kg C per gallon,4670616.7,gallons/month,,,October
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.299,kg C per gallon,12516,gallons/month,,,April
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.265,kg C per gallon,6552,gallons/month,,,May
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.82,kg C per gallon,0,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.15,kg C per gallon,273557.3,gallons/month,,,May
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.13,kg C per gallon,24731.4,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,May
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,140804.6,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.13,kg C per gallon,332492.2,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.15,kg C per gallon,2445194.2,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.07,kg C per gallon,2636342.5,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.10,kg C per gallon,412234.4,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.21,kg C per gallon,2052816.3,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.1,kg C per gallon,2237462.6,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,991672.7,gallons/month,,,June
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.07,kg C per gallon,776.2,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,63.4,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,4642647.9,gallons/month,,,December
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,1.83,kg C per gallon,1012,gallons/month,,,June
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,October
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.24,kg C per gallon,2641711.8,gallons/month,,,February
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.27,kg C per gallon,2140910.94,gallons/month,,,April
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,3945256.14,gallons/month,,,October
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.21,kg C per gallon,2487575.16,gallons/month,,,July
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.20,kg C per gallon,5675765.76,gallons/month,,,January
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.21,kg C per gallon,4094472.48,gallons/month,,,March
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.311,kg C per gallon,470984,gallons/month,,,April
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.318,kg C per gallon,0,gallons/month,,,June
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.268,kg C per gallon,0,gallons/month,,,July
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.268,kg C per gallon,39767,gallons/month,,,September
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,0,gallons/month,,,July
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.23,kg C per gallon,3028058.04,gallons/month,,,May
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.27,kg C per gallon,6440823.06,gallons/month,,,August
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.21,kg C per gallon,5452277.88,gallons/month,,,November
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.22,kg C per gallon,2635463.04,gallons/month,,,January
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,2183037.78,gallons/month,,,November
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.17,kg C per gallon,3500857.92,gallons/month,,,June
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1512,gallons/month,,,March
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.18,kg C per gallon,14595303.24,gallons/month,,,January
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.19,kg C per gallon,12417286.98,gallons/month,,,February
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.36,kg C per gallon,49103,gallons/month,,,January
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,August
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.2,kg C per gallon,4782,gallons/month,,,June
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.20,kg C per gallon,64554,gallons/month,,,January
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,February
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,March
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,May
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.17,kg C per gallon,3442702.62,gallons/month,,,December
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.15,kg C per gallon,3069140.76,gallons/month,,,October
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.14,kg C per gallon,3094222.74,gallons/month,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.17,kg C per gallon,3378298.56,gallons/month,,,December
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.19,kg C per gallon,126639.50,gallons/month,,,January
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.18,kg C per gallon,224228.00,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.11,kg C per gallon,165631.90,gallons/month,,,June
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.2,kg C per gallon,384852.80,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.18,kg C per gallon,95396.0,gallons/month,,,December
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.14,kg C per gallon,1767507.10,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.18,kg C per gallon,2389869.00,gallons/month,,,December
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.382,kg C per gallon,37254,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.14,kg C per gallon,984891.00,gallons/month,,,September
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,522885.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.11,kg C per gallon,1088423.00,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.14,kg C per gallon,2500470.00,gallons/month,,,September
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.13,kg C per gallon,2693719.00,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.14,kg C per gallon,898603.50,gallons/month,,,June
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.15,kg C per gallon,1944911.00,gallons/month,,,December
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.26,kg C per gallon,11112057.18,gallons/month,,,February
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,April
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,May
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.20,kg C per gallon,0,gallons/month,,,August
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,July
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.10,kg C per gallon,0,gallons/month,,,September
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.22,kg C per gallon,720132,gallons/month,,,December
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.22,kg C per gallon,2407104,gallons/month,,,December
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.22,kg C per gallon,3304698.6,gallons/month,,,January
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.13,kg C per gallon,4778637.36,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.20,kg C per gallon,4554417.42,gallons/month,,,August
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.21,kg C per gallon,926545.62,gallons/month,,,November
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.11,kg C per gallon,0,gallons/month,,,June
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,July
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.19,kg C per gallon,0,gallons/month,,,October
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,July
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.19,kg C per gallon,2427532.38,gallons/month,,,March
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.11,kg C per gallon,3070490.64,gallons/month,,,May
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,November
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.365,kg C per gallon,179.9,gallons/month,,,October
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.40,kg C per gallon,39092,gallons/month,,,January
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.39,kg C per gallon,426069,gallons/month,,,March
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.36,kg C per gallon,102122,gallons/month,,,October
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.15,kg C per gallon,2154130.44,gallons/month,,,May
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,July
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,November
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,4009857.18,gallons/month,,,January
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.25,kg C per gallon,3855569.34,gallons/month,,,February
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.22,kg C per gallon,3727859.94,gallons/month,,,November
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,January
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.16,kg C per gallon,4460244.6,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.2,kg C per gallon,1940170.80,gallons/month,,,February
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.14,kg C per gallon,1709666.10,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.19,kg C per gallon,2272072.00,gallons/month,,,July
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.21,kg C per gallon,2189826.60,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.11,kg C per gallon,310045.00,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.19,kg C per gallon,2544370.00,gallons/month,,,July
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.16,kg C per gallon,2741625.00,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.2,kg C per gallon,2882955.00,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,4673395.30,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.19,kg C per gallon,184243.00,gallons/month,,,July
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.87,kg C per gallon,0,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2025686.8,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.10,kg C per gallon,1673284.0,gallons/month,,,October
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.12,kg C per gallon,355585.2,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,66081.50,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.13,kg C per gallon,864479.90,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,4220440.9,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,4485097.2,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,4604999.0,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.17,kg C per gallon,3885398.5,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.09,kg C per gallon,0.0,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.15,kg C per gallon,307461,gallons/month,,,March
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.13,kg C per gallon,324920.3,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.12,kg C per gallon,791182.5,gallons/month,,,July
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2159520.2,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.12,kg C per gallon,2434756.7,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,1858805.2,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,2122183.9,gallons/month,,,April
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.14,kg C per gallon,2299427.7,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.21,kg C per gallon,2449892.5,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,2023325.2,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.1,kg C per gallon,5124556.3,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,4715159.8,gallons/month,,,April
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,4805616.8,gallons/month,,,June
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,January
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,1.83,kg C per gallon,679,gallons/month,,,July
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.29,kg C per gallon,3001947.06,gallons/month,,,June
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2619972.6,gallons/month,,,July
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.12,kg C per gallon,3839172.12,gallons/month,,,September
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.14,kg C per gallon,2562727.86,gallons/month,,,December
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,4289138.28,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.14,kg C per gallon,3160207.68,gallons/month,,,December
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.21,kg C per gallon,1882357.26,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.12,kg C per gallon,0,gallons/month,,,September
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.266,kg C per gallon,309326,gallons/month,,,January
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.240,kg C per gallon,0,gallons/month,,,December
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,0,gallons/month,,,May
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,March
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.23,kg C per gallon,2185620.36,gallons/month,,,April
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,402,gallons/month,,,January
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.11,kg C per gallon,0.0,gallons/month,,,August
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.09,kg C per gallon,11527631.64,gallons/month,,,July
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.16,kg C per gallon,14372533.56,gallons/month,,,December
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,February
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.28,kg C per gallon,6611,gallons/month,,,March
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.2,kg C per gallon,5032,gallons/month,,,December
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,January
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,February
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,September
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.14,kg C per gallon,0,gallons/month,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,June
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.21,kg C per gallon,910560,gallons/month,,,August
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.15,kg C per gallon,0,gallons/month,,,October
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.22,kg C per gallon,5015857.14,gallons/month,,,May
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.21,kg C per gallon,4845017.94,gallons/month,,,August
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.22,kg C per gallon,3184549.62,gallons/month,,,April
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.22,kg C per gallon,3710610.54,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.12,kg C per gallon,117343.30,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.14,kg C per gallon,217481.90,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.19,kg C per gallon,431174.00,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,534676.0,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.20,kg C per gallon,753665.6,gallons/month,,,September
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.17,kg C per gallon,899960.8,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.17,kg C per gallon,2669539.40,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.19,kg C per gallon,173674.40,gallons/month,,,January
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.376,kg C per gallon,6258,gallons/month,,,June
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.388,kg C per gallon,9828,gallons/month,,,August
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.338,kg C per gallon,17220,gallons/month,,,September
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.317,kg C per gallon,1512,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.15,kg C per gallon,177000.70,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.16,kg C per gallon,329278.70,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.16,kg C per gallon,485115.00,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.13,kg C per gallon,832301.00,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.15,kg C per gallon,641864.40,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,633709.70,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.14,kg C per gallon,1238149.00,gallons/month,,,September
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.11,kg C per gallon,2894091.00,gallons/month,,,October
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.16,kg C per gallon,12053054.16,gallons/month,,,March
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.24,kg C per gallon,13050281.58,gallons/month,,,May
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.19,kg C per gallon,16589587.98,gallons/month,,,June
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.18,kg C per gallon,6622280.28,gallons/month,,,July
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.23,kg C per gallon,0,gallons/month,,,June
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,April
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,October
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.13,kg C per gallon,5128200,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.20,kg C per gallon,6322892.52,gallons/month,,,August
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.16,kg C per gallon,7846647.06,gallons/month,,,October
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.25,kg C per gallon,1627836,gallons/month,,,February
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.17,kg C per gallon,3379631.64,gallons/month,,,August
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,January
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,February
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,April
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,5390,gallons/month,,,June
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.38,kg C per gallon,128103,gallons/month,,,July
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.21,kg C per gallon,2602123.02,gallons/month,,,March
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.14,kg C per gallon,0,gallons/month,,,April
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.24,kg C per gallon,0,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.17,kg C per gallon,4194357.3,gallons/month,,,September
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.25,kg C per gallon,1342647.18,gallons/month,,,February
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.24,kg C per gallon,4822201.02,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.19,kg C per gallon,2040527.90,gallons/month,,,April
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.2,kg C per gallon,2641950.50,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.11,kg C per gallon,446815.00,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.21,kg C per gallon,224967.80,gallons/month,,,March
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,4328653.70,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.19,kg C per gallon,1144255.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.11,kg C per gallon,3730365.00,gallons/month,,,December
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3,kg C per gallon,0,gallons/month,,,April
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.57,kg C per gallon,0,gallons/month,,,July
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.14,kg C per gallon,0,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,1727513.0,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.09,kg C per gallon,2233358.4,gallons/month,,,April
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2115475.6,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,0.00,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.16,kg C per gallon,2506259.60,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.12,kg C per gallon,1146938.5,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,4645772.0,gallons/month,,,December
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.329,kg C per gallon,15918,gallons/month,,,February
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.744,kg C per gallon,14818,gallons/month,,,May
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.05,kg C per gallon,0,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,68919,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.13,kg C per gallon,280909.3,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,304212.6,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.12,kg C per gallon,246283.4,gallons/month,,,July
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.08,kg C per gallon,74316.6,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,28093,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.13,kg C per gallon,144721.7,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.13,kg C per gallon,602682.4,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.08,kg C per gallon,1019677.9,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.15,kg C per gallon,1144559.2,gallons/month,,,March
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.15,kg C per gallon,1551540.7,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.15,kg C per gallon,1227781.4,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.09,kg C per gallon,2204056.3,gallons/month,,,January
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,2002279.5,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.09,kg C per gallon,2056416.9,gallons/month,,,January
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,77405.7,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,1410978.4,gallons/month,,,April
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.07,kg C per gallon,2174767.7,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.16,kg C per gallon,2241319.4,gallons/month,,,September
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.14,kg C per gallon,2024543.8,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.09,kg C per gallon,2144442.6,gallons/month,,,January
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2435601.5,gallons/month,,,December
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.09,kg C per gallon,3804645,gallons/month,,,January
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,September
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.26,kg C per gallon,2565498.6,gallons/month,,,May
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,January
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.29,kg C per gallon,4154570.28,gallons/month,,,June
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.318,kg C per gallon,941580,gallons/month,,,June
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.269,kg C per gallon,0,gallons/month,,,March
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.314,kg C per gallon,0,gallons/month,,,May
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.40,kg C per gallon,8879,gallons/month,,,January
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.34,kg C per gallon,0,gallons/month,,,September
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.21,kg C per gallon,3292971.36,gallons/month,,,April
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,1805057.1,gallons/month,,,April
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.16,kg C per gallon,3305428.98,gallons/month,,,October
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1245,gallons/month,,,August
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1036,gallons/month,,,October
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,876,gallons/month,,,December
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.18,kg C per gallon,0.0,gallons/month,,,January
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.21,kg C per gallon,0.0,gallons/month,,,June
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.23,kg C per gallon,14069476.26,gallons/month,,,October
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,October
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,,,,,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,June
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.27,kg C per gallon,0,gallons/month,,,July
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.21,kg C per gallon,846468,gallons/month,,,August
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,December
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.15,kg C per gallon,3549343.14,gallons/month,,,October
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.14,kg C per gallon,2792742.96,gallons/month,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.22,kg C per gallon,4743989.04,gallons/month,,,March
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.25,kg C per gallon,3365781.72,gallons/month,,,June
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.21,kg C per gallon,2715306.72,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,41070.70,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.12,kg C per gallon,305389.70,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.120,kg C per gallon,1426460.90,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.19,kg C per gallon,1016523.3,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,33668.00,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.11,kg C per gallon,2422882.20,gallons/month,,,June
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.373,kg C per gallon,24570,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,138846.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.14,kg C per gallon,78786.10,gallons/month,,,June
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.11,kg C per gallon,333276.00,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.17,kg C per gallon,1148817.90,gallons/month,,,January
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.11,kg C per gallon,942871.00,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.17,kg C per gallon,383665.00,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.13,kg C per gallon,943170.00,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,2765567.00,gallons/month,,,August
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.17,kg C per gallon,2894607.50,gallons/month,,,January
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.22,kg C per gallon,4392102.96,gallons/month,,,May
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.15,kg C per gallon,15979963.02,gallons/month,,,August
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.13,kg C per gallon,15310514.52,gallons/month,,,October
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.19,kg C per gallon,15039051.3,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,February
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,January
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,May
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.18,kg C per gallon,2906888.46,gallons/month,,,November
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.18,kg C per gallon,0,gallons/month,,,August
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.18,kg C per gallon,0,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.319,kg C per gallon,520.7,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.24,kg C per gallon,2866108.14,gallons/month,,,December
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,February
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,September
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.22,kg C per gallon,1442150.64,gallons/month,,,October
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.16,kg C per gallon,4121398.68,gallons/month,,,July
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.22,kg C per gallon,3995558.28,gallons/month,,,October
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.23,kg C per gallon,4460244.60,gallons/month,,,June
+1003649,2015,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.22,kg C per gallon,4517370.48,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.11,kg C per gallon,1987215.00,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.11,kg C per gallon,2099554.00,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.19,kg C per gallon,2374173.00,gallons/month,,,July
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.19,kg C per gallon,2347067.00,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.2,kg C per gallon,2606491.20,gallons/month,,,January
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.2,kg C per gallon,1187400.00,gallons/month,,,September
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.11,kg C per gallon,0,gallons/month,,,October
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.11,kg C per gallon,2977432.00,gallons/month,,,December
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.16,kg C per gallon,2296838.00,gallons/month,,,November
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.97,kg C per gallon,41036,gallons/month,,,March
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.91,kg C per gallon,0,gallons/month,,,November
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.15,kg C per gallon,2158750.1,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.17,kg C per gallon,2028790.6,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.16,kg C per gallon,2102473.6,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,1661423.2,gallons/month,,,September
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2636366.2,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.16,kg C per gallon,2051051.4,gallons/month,,,June
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,1675788.0,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.10,kg C per gallon,4828467.9,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,4697820.7,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,4172928.1,gallons/month,,,February
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.344,kg C per gallon,16170,gallons/month,,,March
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.004394434,kg C per gallon,55013,gallons/month,,,January
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,3.04,kg C per gallon,0,gallons/month,,,September
+1006366,2017,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.97,kg C per gallon,0,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.13,kg C per gallon,50872.2,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.15,kg C per gallon,80478.6,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,449140,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.12,kg C per gallon,873748.4,gallons/month,,,July
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.13,kg C per gallon,1123176.4,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.13,kg C per gallon,2259729.8,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.17,kg C per gallon,2426221.2,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.08,kg C per gallon,793786.9,gallons/month,,,December
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.13,kg C per gallon,2404901.4,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.15,kg C per gallon,2858370.9,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.13,kg C per gallon,3889642.8,gallons/month,,,February
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.21,kg C per gallon,4584420.1,gallons/month,,,May
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.16,kg C per gallon,1155.7,gallons/month,,,September
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.10,kg C per gallon,3646245.1,gallons/month,,,March
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.13,kg C per gallon,0,gallons/month,,,April
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,1.83,kg C per gallon,15048,gallons/month,,,May
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,November
+1003649,2016,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,2920010.94,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.29,kg C per gallon,3751067.04,gallons/month,,,June
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.23,kg C per gallon,4446281.28,gallons/month,,,March
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.23,kg C per gallon,1177269.66,gallons/month,,,October
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.269,kg C per gallon,0,gallons/month,,,February
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,June
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,86465.3,gallons/month,,,February
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,March
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.16,kg C per gallon,2613043.86,gallons/month,,,June
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,January
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.28,kg C per gallon,2689727.46,gallons/month,,,August
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,887,gallons/month,,,February
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1249,gallons/month,,,May
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1049,gallons/month,,,September
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.19,kg C per gallon,0.0,gallons/month,,,February
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.39,kg C per gallon,0.0,gallons/month,,,April
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.23,kg C per gallon,0.0,gallons/month,,,October
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.16,kg C per gallon,0.0,gallons/month,,,December
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.22,kg C per gallon,13479304.86,gallons/month,,,November
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,March
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,April
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,September
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.20,kg C per gallon,1024800,gallons/month,,,January
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,February
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,May
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.25,kg C per gallon,4931178.42,gallons/month,,,June
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.27,kg C per gallon,56286.3,gallons/month,,,July
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.21,kg C per gallon,4110143.52,gallons/month,,,February
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.27,kg C per gallon,44402.82,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.17,kg C per gallon,181149.10,gallons/month,,,October
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.140,kg C per gallon,266622.60,gallons/month,,,July
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.190,kg C per gallon,854163.00,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.160,kg C per gallon,695728.10,gallons/month,,,November
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,903106.9,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,991356.1,gallons/month,,,November
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.12,kg C per gallon,0.00,gallons/month,,,May
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.18,kg C per gallon,2108491.00,gallons/month,,,December
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.355,kg C per gallon,12768,gallons/month,,,October
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.329,kg C per gallon,9912,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.14,kg C per gallon,87644.00,gallons/month,,,September
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.11,kg C per gallon,326128.00,gallons/month,,,October
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.17,kg C per gallon,1216640.60,gallons/month,,,January
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,96583.60,gallons/month,,,April
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.13,kg C per gallon,346823.00,gallons/month,,,November
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.15,kg C per gallon,783524.70,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.17,kg C per gallon,382354.70,gallons/month,,,March
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.15,kg C per gallon,1163903.00,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.15,kg C per gallon,1224785.50,gallons/month,,,February
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.17,kg C per gallon,2662632.00,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,January
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.13,kg C per gallon,0,gallons/month,,,March
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.22,kg C per gallon,2639910,gallons/month,,,December
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.18,kg C per gallon,0,gallons/month,,,November
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.25,kg C per gallon,4858340.76,gallons/month,,,February
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.16,kg C per gallon,3341070.18,gallons/month,,,October
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,December
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.19,kg C per gallon,0,gallons/month,,,March
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.19,kg C per gallon,3871686.84,gallons/month,,,October
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.21,kg C per gallon,7856337.3,gallons/month,,,December
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.25,kg C per gallon,2503620,gallons/month,,,February
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.18,kg C per gallon,2750091.96,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,0,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2550,Residual Fuel Oil No. 6,3.34,kg C per gallon,0,gallons/month,,,September
+1003649,2015,PREPA San Juan Steam Power Plant,SJ8,Residual Fuel Oil No. 6,3.23,kg C per gallon,563046.12,gallons/month,,,June
+1003649,2015,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,August
+1003649,2015,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.16,kg C per gallon,4317430.74,gallons/month,,,August
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.2,kg C per gallon,2027129.30,gallons/month,,,February
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.14,kg C per gallon,2064143.70,gallons/month,,,June
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.16,kg C per gallon,1893996.00,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.2,kg C per gallon,858678.20,gallons/month,,,February
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K3,Residual Fuel Oil No. 6,3.16,kg C per gallon,0,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.15,kg C per gallon,1555548.10,gallons/month,,,May
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.2,kg C per gallon,2430307.00,gallons/month,,,September
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.2,kg C per gallon,3599274.80,gallons/month,,,February
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.16,kg C per gallon,4247858.00,gallons/month,,,November
+1007740,2015,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.19,kg C per gallon,4819716.00,gallons/month,,,July
+1006366,2016,Catalyst Paper Operations Inc. Rumford Division,Power Boiler No. 3,Residual Fuel Oil No. 6,2.91,kg C per gallon,0,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,714732.0,gallons/month,,,December
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.15,kg C per gallon,2118818.9,gallons/month,,,February
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.17,kg C per gallon,2066592.6,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K2,Residual Fuel Oil No. 6,3.13,kg C per gallon,2034924.5,gallons/month,,,August
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.09,kg C per gallon,2522323.60,gallons/month,,,April
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.10,kg C per gallon,3029824.00,gallons/month,,,May
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.15,kg C per gallon,4352583.4,gallons/month,,,January
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.17,kg C per gallon,3547596.4,gallons/month,,,March
+1007740,2016,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K5,Residual Fuel Oil No. 6,3.10,kg C per gallon,1314939.7,gallons/month,,,October
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.344,kg C per gallon,27846,gallons/month,,,August
+1001906,2016,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.348,kg C per gallon,2016,gallons/month,,,October
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.17,kg C per gallon,400251.9,gallons/month,,,August
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.15,kg C per gallon,766990.8,gallons/month,,,February
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.16,kg C per gallon,1037360.1,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,1433682.5,gallons/month,,,January
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,2583875.7,gallons/month,,,June
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.17,kg C per gallon,2861867.1,gallons/month,,,September
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.13,kg C per gallon,878504.1,gallons/month,,,November
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.08,kg C per gallon,1954427,gallons/month,,,December
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.13,kg C per gallon,2148.7,gallons/month,,,April
+1007845,2017,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.17,kg C per gallon,1347732.3,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K1,Residual Fuel Oil No. 6,3.13,kg C per gallon,1641292.4,gallons/month,,,August
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.07,kg C per gallon,1909760.2,gallons/month,,,July
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K4,Residual Fuel Oil No. 6,3.14,kg C per gallon,2065642,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.09,kg C per gallon,5085201.6,gallons/month,,,January
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.14,kg C per gallon,4078046.9,gallons/month,,,October
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,2457865.2,gallons/month,,,November
+1007740,2017,HAWAIIAN ELECTRIC COMPANY (HECO) KAHE GENERATING STATION,K6,Residual Fuel Oil No. 6,3.15,kg C per gallon,3988689.4,gallons/month,,,December
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,February
+1007033,2017,CEMEX de Puerto Rico  Inc.,Kiln 1 (Lime Plant),Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,August
+1003649,2016,PREPA San Juan Steam Power Plant,SJ10,Residual Fuel Oil No. 6,0,kg C per gallon,0,gallons/month,,,November
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.23,kg C per gallon,2118274.62,gallons/month,,,January
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.26,kg C per gallon,3773659.26,gallons/month,,,May
+1003649,2016,PREPA San Juan Steam Power Plant,SJ9,Residual Fuel Oil No. 6,3.18,kg C per gallon,4054996.68,gallons/month,,,July
+1003649,2016,PREPA San Juan Steam Power Plant,SJ7,Residual Fuel Oil No. 6,3.24,kg C per gallon,3914549.1,gallons/month,,,February
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.23,kg C per gallon,4992616.44,gallons/month,,,February
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.315,kg C per gallon,688472,gallons/month,,,May
+1004611,2014,Tanguisson Power Plant,1,Residual Fuel Oil No. 6,3.249,kg C per gallon,394430,gallons/month,,,October
+1004611,2014,Tanguisson Power Plant,2,Residual Fuel Oil No. 6,3.266,kg C per gallon,0,gallons/month,,,January
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,April
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.38,kg C per gallon,0,gallons/month,,,August
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,3.36,kg C per gallon,5701,gallons/month,,,November
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.404,kg C per gallon,13352.4,gallons/month,,,January
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.392,kg C per gallon,4529.1,gallons/month,,,March
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,5787.3,gallons/month,,,April
+1000348,2015,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.384,kg C per gallon,0,gallons/month,,,June
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.25,kg C per gallon,5847534.42,gallons/month,,,September
+1003650,2016,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.16,kg C per gallon,3181187.1,gallons/month,,,October
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1461,gallons/month,,,April
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1295,gallons/month,,,June
+1007985,2016,NATIONAL CEMENT COMPANY INC.,Kiln #1,Other Oil (>401 deg F),0.5990,kg C per gallon,1227,gallons/month,,,July
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.20,kg C per gallon,0.0,gallons/month,,,May
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.09,kg C per gallon,0.0,gallons/month,,,July
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.22,kg C per gallon,0.0,gallons/month,,,November
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.39,kg C per gallon,14286415.92,gallons/month,,,April
+1005504,2016,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.21,kg C per gallon,12460157.22,gallons/month,,,June
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-2605,Residual Fuel Oil No. 6,,,,,,,May
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,3.36,kg C per gallon,93843,gallons/month,,,January
+1000348,2017,Resolute FP US Inc. - Catawba Operations,08-3705,Residual Fuel Oil No. 6,,,,,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.22,kg C per gallon,0,gallons/month,,,April
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.14,kg C per gallon,0,gallons/month,,,November
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.22,kg C per gallon,5680248.84,gallons/month,,,March
+1007452,2016,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.22,kg C per gallon,4501249.62,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,197566.20,gallons/month,,,April
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.16,kg C per gallon,281006.80,gallons/month,,,November
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.16,kg C per gallon,0.00,gallons/month,,,November
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.160,kg C per gallon,156921.40,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.19,kg C per gallon,2831512.10,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.18,kg C per gallon,2525655.80,gallons/month,,,February
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.16,kg C per gallon,2340445.50,gallons/month,,,March
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.19,kg C per gallon,527399.10,gallons/month,,,August
+1007845,2016,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.20,kg C per gallon,2345279.70,gallons/month,,,September
+1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,No 6 Power Boiler,Residual Fuel Oil No. 6,3.385,kg C per gallon,18564,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W3,Residual Fuel Oil No. 6,3.14,kg C per gallon,61550.10,gallons/month,,,June
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W4,Residual Fuel Oil No. 6,3.13,kg C per gallon,254173.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.13,kg C per gallon,781652.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W5,Residual Fuel Oil No. 6,3.15,kg C per gallon,559544.00,gallons/month,,,December
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.17,kg C per gallon,914625.60,gallons/month,,,January
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W6,Residual Fuel Oil No. 6,3.13,kg C per gallon,674680.00,gallons/month,,,July
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W7,Residual Fuel Oil No. 6,3.16,kg C per gallon,2483151.00,gallons/month,,,May
+1007845,2015,HAWAIIAN ELECTRIC COMPANY (HECO) - WAIAU GENERATING STATION,W8,Residual Fuel Oil No. 6,3.15,kg C per gallon,2421682.50,gallons/month,,,February
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.16,kg C per gallon,15760093.44,gallons/month,,,January
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.16,kg C per gallon,3149752.62,gallons/month,,,June
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.20,kg C per gallon,15013529.16,gallons/month,,,July
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG2,Residual Fuel Oil No. 6,3.20,kg C per gallon,14849074.8,gallons/month,,,September
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.18,kg C per gallon,326489.52,gallons/month,,,November
+1005504,2015,PREPA AGUIRRE POWER GENERATION COMPLEX,AG1,Residual Fuel Oil No. 6,3.17,kg C per gallon,12538382.64,gallons/month,,,December
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC3,Residual Fuel Oil No. 6,3.10,kg C per gallon,25284,gallons/month,,,September
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.25,kg C per gallon,0,gallons/month,,,February
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC4,Residual Fuel Oil No. 6,3.20,kg C per gallon,0,gallons/month,,,August
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.16,kg C per gallon,6215706,gallons/month,,,April
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC5,Residual Fuel Oil No. 6,3.17,kg C per gallon,6272742,gallons/month,,,May
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.16,kg C per gallon,4336643.64,gallons/month,,,April
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.23,kg C per gallon,4616046.54,gallons/month,,,June
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.15,kg C per gallon,4581396.12,gallons/month,,,July
+1007452,2015,PR ELEC POWER AUTH SOUTH COAST STATION,SC6,Residual Fuel Oil No. 6,3.10,kg C per gallon,4126866.66,gallons/month,,,September
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.23,kg C per gallon,3438445.92,gallons/month,,,March
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS2,Residual Fuel Oil No. 6,3.17,kg C per gallon,2995349.28,gallons/month,,,September
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.25,kg C per gallon,413826,gallons/month,,,February
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.17,kg C per gallon,0,gallons/month,,,April
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,November
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS4,Residual Fuel Oil No. 6,3.21,kg C per gallon,0,gallons/month,,,December
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS3,Residual Fuel Oil No. 6,3.11,kg C per gallon,0,gallons/month,,,May
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.17,kg C per gallon,1567760.46,gallons/month,,,April
+1003650,2015,PREPA Palo Seco Steam Power Plant,PS1,Residual Fuel Oil No. 6,3.15,kg C per gallon,2680788.18,gallons/month,,,July
