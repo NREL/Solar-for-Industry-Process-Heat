@@ -7,16 +7,20 @@ Modified on Thur Feb 9 16:09:00 2017 by colin
 
 import numpy as np
 import os
-import sys
 import itertools as it
+import pandas as pd
 
 class IPF:
     
-    def __init__(self):
+    def __init__(self, year, table3_2, table3_3):
         
-        self.__location__ = os.path.realpath(
-            os.path.join(os.getcwd(), sys.argv[0])
-            ) + '\\'
+        self.__location__ =  os.path.join('../', 'calculation_data/')
+
+        self.year = year
+        
+        self.naics_df = table3_2
+        
+        self.emply_df = table3_3
         
         self.colDict = {'regions': ['Northeast', 'Midwest', 'South', 'West'],
            'energy': ['Net_electricity', 'Residual_fuel_oil', 'Diesel',
@@ -91,15 +95,20 @@ class IPF:
         if error > 1e-13: print("Max Iterations ", error)
         return seed
     
-    def mecs_ipf(self, seed_df, naics_df, emply_df):
+    def mecs_ipf(self, seed_df):
         """
         Set up and run 2-D IPF to estimate MECS fuel use by industry,
         region, fuel type, and employement size class.
         naics_df == MECS table 3.2
         emply_df == MECS table 3.3
         """
+        
         seed_shop = seed_df.copy(deep=True)
+        
+        seed_shop.set_index(['region', 'Unnamed: 0'], inplace=True)
+
         seed_shop = seed_shop.T
+
         seed_shop_dict = {}
     
         # Iterate through all of the fuel types
@@ -119,11 +128,11 @@ class IPF:
 
                 print(reg, fuel)
                 
-                col = naics_df[naics_df.region==reg][fuel].values
+                col = self.naics_df[self.naics_df.region==reg][fuel].values
                 
-                row = emply_df[
-                        (emply_df.region==reg) &
-                        (emply_df.Data_cat=='Employment_size')
+                row = self.emply_df[
+                        (self.emply_df.region==reg) &
+                        (self.emply_df.Data_cat=='Employment_size')
                         ][fuel].values
 
                 col = np.array([col])
@@ -132,7 +141,7 @@ class IPF:
 
                 col = np.transpose(col)
 
-                seed = np.array(seed_shop_dict[reg].iloc[1:82,:])
+                seed = np.array(seed_shop_dict[reg].iloc[0:81,:])
                 
                 seed = seed.astype(float)
 
@@ -152,15 +161,17 @@ class IPF:
                 first = False
 
         naics_emply = np.hstack((
-            naics_df[naics_df.region=='West'].iloc[:, 0].values.reshape(81,1),
-            naics_emply)
-            )
+            self.naics_df[
+                    self.naics_df.region=='West'
+                    ].iloc[:, 0].values.reshape(81,1), naics_emply
+            ))
                     
         self.headings_all.insert(0, 'naics')
 
         naics_emply = np.vstack((self.headings_all, naics_emply))
 
-        filename = 'mecs_ipf_results_naics_employment.csv'
+        filename = 'mecs_' + str(self.year) + \
+            '_ipf_results_naics_employment.csv'
         
         np.savetxt(self.__location__ + filename, naics_emply, fmt='%s',
                    delimiter=",")

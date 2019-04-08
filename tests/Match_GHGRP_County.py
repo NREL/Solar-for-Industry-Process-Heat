@@ -1,0 +1,604 @@
+import pandas as pd
+import numpy as np
+import itertools as itools
+import os
+
+#%%
+class County_matching:
+    """
+    Class containing methods to import and format Census Business Patterns (CBP)
+    establishment count data by NAICS and employment size. Then corrects
+    establishment count data using EPA GHGRP data.
+    """
+
+    def __init__(self, year):
+        
+        self.year = year
+        
+        self.data_dir = 'calculation_data'
+    
+        self.mecs2010_naics_file = '/mecs_naics.csv'
+    
+        self.mecs2014_naics_file = '/mecs_naics_2012.csv'
+    
+        self.fips_file = '/US_FIPS_Codes.csv'
+        
+        if self.year > 2011:
+            
+            mecs_naics_file = self.mecs2014_naics_file
+            
+        else:
+            
+            mecs_naics_file = self.mecs2010_naics_file
+            
+        self.mecs_naics = pd.read_csv(
+                os.path.join('../', self.data_dir + mecs_naics_file)
+                )
+        
+        self.MECS_regions = pd.read_csv(
+            os.path.join('../', self.data_dir + self.fips_file),
+            index_col=['COUNTY_FIPS']
+            )
+
+    def format_cbp(self, cbp):
+        """
+        Futher format Census County Business Patterns data after running
+        get_cbp.py
+        """
+
+        cbp['naics_n'] = cbp.naics.apply(lambda x: len(str(x)))
+
+        cbp['industry'] = cbp.loc[cbp[cbp.naics != 0].index, 'naics'].apply(
+            lambda x: int(str(x)[0:2]) in [11, 21, 23, 31, 32, 33]
+            )
+
+        cbp_matching = pd.DataFrame(
+                cbp[(cbp.industry == True) & (cbp.naics_n == 6)])
+
+        cbp_matching['fips_matching'] = cbp_matching.fipstate.astype(str) + \
+            cbp_matching.fipscty.astype(str)
+
+        cbp_matching['fips_matching'] = cbp_matching.fips_matching.astype(int)
+
+        #Correct instances where CBP NAICS are wrong
+        #Hancock County, WV has a large electroplaing and rolling facility
+        #that shouldn't be classified as 331110/331111 
+        if self.year >= 2012:
+
+            cbp_matching.drop(
+                cbp_matching[(cbp_matching.fips_matching == 54029) &
+                             (cbp_matching.naics == 331110)].index,
+                inplace=True
+                )
+
+        else:
+
+            cbp_matching.drop(
+                cbp_matching[(cbp_matching.fips_matching == 54029) &
+                             (cbp_matching.naics == 331111)].index,
+                inplace=True
+                )
+
+        #Create n1-49 column to match MECS reporting.
+        cbp_matching['n1_49'] = cbp_matching['Under 50']
+
+        cbp_matching['fips_n'] = [
+            i for i in zip(cbp_matching.loc[:, 'fips_matching'], \
+                cbp_matching.loc[:,'naics'])
+            ]
+
+        #Remove state-wide "999" county FIPS
+        cbp_matching = pd.DataFrame(
+            cbp_matching[cbp_matching.fipscty != 999]
+            )
+        
+        cbp_matching.reset_index(drop=True, inplace=True)
+
+        return cbp_matching
+
+    def format_ghgrp(self, energy_ghgrp, cbp_matching):
+        """
+        Import GHGRP reporting data and calculated energy. Create count of GHGRP 
+        reporters by zip and NAICS.Excludes facilities where calculated 
+        energy == 0. This avoids removing facilities from the CBP count that 
+        don't have a GHGRP-calculated energy value.
+        """
+
+        ghgrp_matching = pd.DataFrame(
+            energy_ghgrp[(energy_ghgrp.MMBtu_TOTAL !=0) &
+                         (energy_ghgrp.REPORTING_YEAR == self.year)],
+            columns=['FACILITY_ID', 'FACILITY_NAME',
+                     'COUNTY', 'COUNTY_FIPS', 'LATITUDE','LONGITUDE', 'STATE',
+                     'ZIP', 'PRIMARY_NAICS_CODE','SECONDARY_NAICS_CODE']
+            )
+
+        #Apply pimary NAICS code as secondary NAICS code where facility has 
+        #reported none.
+        
+        snaics_na = ghgrp_matching[
+                ghgrp_matching.SECONDARY_NAICS_CODE.isnull()
+                ].index
+        
+        ghgrp_matching.loc[snaics_na, 'SECONDARY_NAICS_CODE'] = \
+            ghgrp_matching.loc[snaics_na, 'PRIMARY_NAICS_CODE']
+
+        ghgrp_matching.COUNTY_FIPS.fillna(0, inplace=True)
+
+        for c in ['SECONDARY_NAICS_CODE', 'PRIMARY_NAICS_CODE', 'COUNTY_FIPS']:
+
+            ghgrp_matching[c] = ghgrp_matching[c].astype('int')
+
+        ghgrp_matching['INDUSTRY'] = ghgrp_matching.PRIMARY_NAICS_CODE.apply(
+            lambda x: (int(str(x)[0:2]) in [11, 21, 23, 31, 32, 33])
+            ) | (ghgrp_matching.SECONDARY_NAICS_CODE.apply(
+                    lambda x: (int(str(x)[0:2]) in [11, 21, 23, 31, 32, 33])
+                    ))
+        
+        ghgrp_matching = pd.DataFrame(
+                ghgrp_matching[ghgrp_matching.INDUSTRY == True]
+                )
+
+        ghgrp_matching.drop_duplicates(['FACILITY_ID'], inplace=True)
+
+        #Update NAICS (2007) to 2012 NAICS if year > 2011
+        if self.year > 2011:
+
+            naics07_12 = pd.read_csv(
+                os.path.join('../', self.data_dir+'/2007_to_2012_NAICS.csv')
+                )
+
+            for c in ['2007 NAICS Code', '2012 NAICS Code']:
+
+                naics07_12[c] = naics07_12[c].astype('int32')
+
+            naics07_12.drop_duplicates(['2007 NAICS Code'], keep='last',
+                                       inplace=True)
+            
+            naics07_12 = pd.DataFrame(
+                naics07_12[naics07_12['2007 NAICS Code'].isin(
+                    [x for x in zip(*ghgrp_matching[
+                        ['PRIMARY_NAICS_CODE','SECONDARY_NAICS_CODE']
+                        ].values)][0]
+                            )]
+                    )
+
+            naics07_12.set_index('2007 NAICS Code', inplace=True)
+
+            for c in ['PRIMARY_NAICS_CODE', 'SECONDARY_NAICS_CODE']:
+                
+                naics_column = c + '_12'
+
+                ghgrp_matching[naics_column] = ghgrp_matching[c].map(
+                        naics07_12['2012 NAICS Code'].to_dict()
+                        )
+                
+                ghgrp_matching[naics_column].fillna(0, inplace=True)
+
+                ghgrp_matching[naics_column] = \
+                    ghgrp_matching[naics_column].astype(int)
+
+                ghgrp_matching['FIP_' + c[0] + 'N_12'] = [
+                    i for i in zip(ghgrp_matching['COUNTY_FIPS'],
+                                   ghgrp_matching[naics_column])
+                    ]
+
+        else:
+
+            for c in ['PRIMARY_NAICS_CODE', 'SECONDARY_NAICS_CODE']:
+
+                ghgrp_matching['FIP_' + c[0] +'N'] = \
+                    [i for i in zip(ghgrp_matching.loc[:,'COUNTY_FIPS'],
+                                    ghgrp_matching.loc[:, c])]
+
+    #Find updated GHGRP NAICS that aren't in the CBP.
+    #Results show that 111419 Other Food Crops Grown Under Cover is not listed 
+    #in the CBP. There are only two GHGRP facilities that report under this 
+    #NAICS. It is not clear what the alternative NAICS should be based on the 
+    #NAICS values reported for the counties the GHGRP facilities are located in. 
+
+        if self.year > 2011:
+            
+            ghgrp_matching['pn12_in_cbp']  = \
+                ghgrp_matching.PRIMARY_NAICS_CODE_12.isin(cbp_matching.naics)
+
+            ghgrp_matching['sn12_in_cbp']  = \
+                ghgrp_matching.SECONDARY_NAICS_CODE_12.isin(cbp_matching.naics)
+
+            ghgrp_manual = pd.DataFrame(
+                ghgrp_matching[(ghgrp_matching.pn12_in_cbp == False) &
+                               (ghgrp_matching.sn12_in_cbp == False)][[
+                                       'PRIMARY_NAICS_CODE_12',
+                                       'SECONDARY_NAICS_CODE_12',
+                                       'COUNTY', 'FACILITY_NAME'
+                                        ]]
+                )
+
+        else:
+
+            ghgrp_matching['pn_in_cbp']  = \
+                ghgrp_matching.PRIMARY_NAICS_CODE.isin(cbp_matching.naics)
+
+            ghgrp_matching['sn_in_cbp']  = \
+                ghgrp_matching.SECONDARY_NAICS_CODE.isin(cbp_matching.naics)
+
+            ghgrp_manual = pd.DataFrame(
+                ghgrp_matching[(ghgrp_matching.pn_in_cbp == False) &
+                               (ghgrp_matching.sn_in_cbp == False)][[
+                                       'PRIMARY_NAICS_CODE',
+                                       'SECONDARY_NAICS_CODE',
+                                       'COUNTY', 'FACILITY_NAME'
+                                       ]]
+                )
+
+        #Select NAICS that corresponds to CBP data.
+        if self.year > 2011:
+            
+            ghgrp_matching.loc[
+                ghgrp_matching[ghgrp_matching.pn12_in_cbp == True].index,
+                'NAICS_USED'
+                ] = ghgrp_matching[ghgrp_matching.pn12_in_cbp == True][
+                        'PRIMARY_NAICS_CODE_12'
+                        ]
+
+            ghgrp_matching.loc[ghgrp_matching[
+                    (ghgrp_matching.pn12_in_cbp == False) &
+                    (ghgrp_matching.sn12_in_cbp == True)
+                    ].index, 'NAICS_USED'] = ghgrp_matching[
+                        (ghgrp_matching.pn12_in_cbp == False) & 
+                        (ghgrp_matching.sn12_in_cbp == True)][
+                            'SECONDARY_NAICS_CODE_12'
+                            ]
+
+        else:
+            
+            ghgrp_matching.loc[
+                ghgrp_matching[ghgrp_matching.pn_in_cbp == True].index,
+                    'NAICS_USED'
+                ] = ghgrp_matching[ghgrp_matching.pn_in_cbp == True][
+                    'PRIMARY_NAICS_CODE'
+                    ]
+
+            ghgrp_matching.loc[ghgrp_matching[(
+                ghgrp_matching.pn_in_cbp == False
+                    ) & (ghgrp_matching.sn_in_cbp == True)].index, 'NAICS_USED'
+                ] = ghgrp_matching[(
+                    ghgrp_matching.pn_in_cbp == False
+                ) & (ghgrp_matching.sn_in_cbp == True)]['SECONDARY_NAICS_CODE']
+             
+        # Export facilities for manual NAICS mapping with CBP
+        ghgrp_manual.to_csv(os.path.join(
+                '../', self.data_dir + \
+                '/facilities_for_manual_cbp-ghgrp_matching.csv'
+                ))
+
+        return ghgrp_matching
+
+    def ghgrp_counts(self, cbp_matching, ghgrp_matching):
+        """
+        Method for adding GHGRP facility counts to formatted CBP data.
+        Identify which NAICS codes in the Census data are covered in MECS
+        Begin by importing MECS data. Note that CBP data after 2011 use 2012 
+        NAICS. MECS data are based on 2007 NAICS. Most significant difference is
+        aggregationof Alkalies and Chlorine Manufacturing, 
+        Carbon Black Manufacturing, and 
+        All other Basic Inorganic Chemical Manufacturing into a single 
+        NAICS code.
+        """
+
+        cbp_matching['in_ghgrp'] = \
+            cbp_matching.fips_matching.isin(ghgrp_matching.COUNTY_FIPS)
+
+        def facility_counts(df, c):
+            """
+            Counts how many GHGRP-reporting facilities by NAICS are located
+            in a county
+            """
+            counts = pd.DataFrame(df.groupby(c)['COUNTY_FIPS'].count())
+            
+            counts.columns = ['FAC_COUNT']
+    
+            return counts
+
+        #Create dictionaries of ghgrp facility counts based on NAICS updated 
+        #to 2012 values.
+        
+        if self.year > 2011:
+    
+            ghgrpcounts_FIPPN_dict = facility_counts(ghgrp_matching, 
+                'FIP_PN_12')['FAC_COUNT'].to_dict()
+
+            ghgrpcounts_FIPSN_dict = facility_counts(ghgrp_matching, 
+                'FIP_SN_12')['FAC_COUNT'].to_dict()
+    
+        else:
+    
+            ghgrpcounts_FIPPN_dict = facility_counts(ghgrp_matching, 
+                'FIP_PN')['FAC_COUNT'].to_dict()
+
+            ghgrpcounts_FIPSN_dict = facility_counts(ghgrp_matching, 
+                'FIP_SN')['FAC_COUNT'].to_dict()
+
+        #Map GHGRP facilities count to Census data
+        cbp_matching['ghgrp_pn'] = [fn in ghgrpcounts_FIPPN_dict.keys()
+            for fn in cbp_matching.fips_n.tolist()
+            ]
+
+        cbp_matching['ghgrp_sn'] = [fn in ghgrpcounts_FIPSN_dict.keys() 
+            for fn in cbp_matching.fips_n.tolist()
+            ]
+
+        cbp_matching['ghgrp_fac'] = 0
+
+        cbp_matching['est_small'] = cbp_matching.loc[
+            :, ('n1_4'): ('n20_49')].sum(axis = 1)
+
+        cbp_matching['est_large'] = cbp_matching.loc[
+            :, ('n50_99'): ('n1000')].sum(axis = 1)
+
+        cbp_matching['n_in_mecs'] = \
+            cbp_matching.naics.isin(self.mecs_naics.MECS_NAICS)
+
+        def MatchMECS_NAICS(DF, naics_column):
+            """
+            Method for matching 6-digit NAICS codes with adjusted MECS NAICS. 
+            """
+            
+            DF[naics_column].fillna(0, inplace=True)
+            
+            if DF[naics_column].dtype != int:
+    
+                DF[naics_column] = DF[naics_column].astype(int)
+
+            DF_index = DF[DF[naics_column]>0].index
+            
+            nctest = [
+                DF.loc[DF_index, naics_column].apply(lambda x: int(str(x)[
+                    0:len(str(x))- i
+                    ])) for i in range(0,4)
+                ]
+
+            nctest = pd.concat(nctest, axis = 1)
+
+            nctest.columns = ['N6', 'N5', 'N4', 'N3']
+
+            #Pare down to manufacturing NAICS only (311 - 339)
+            nctest = pd.DataFrame(nctest[nctest.N3.between(311, 339)])
+
+            #Match GHGRP NAICS to highest-level MECS NAICS. Will match to 
+            #"dummy-09" NAICS where available. This is messy, but functional.
+            ncmatch = pd.concat(
+                [pd.merge(nctest, self.mecs_naics, left_on=column,
+                          right_on=self.mecs_naics.MECS_NAICS,
+                          how='left').iloc[:, -1] 
+                            for column in nctest.columns], axis =1
+                )
+                
+            ncmatch.columns = nctest.columns
+
+            ncmatch.index = nctest.index
+            
+            ncmatch['NAICS_MATCH'] = np.nan
+            
+            for n in range(3, 7):
+
+                column = 'N'+str(n)
+
+                ncmatch.NAICS_MATCH.update(ncmatch[column].dropna())
+
+#            ncmatch['NAICS_MATCH'] = ncmatch.apply(
+#                lambda x: int(list(x.dropna())[0]), axis = 1
+#                )
+
+            #Update GHGRP dataframe with matched MECS NAICS.
+            DF['MECS_NAICS'] = 0
+            
+            DF.MECS_NAICS.update(ncmatch.NAICS_MATCH)
+            
+            return DF
+
+        #Match Census NAICS to NAICS available in MECS. Note that MECS does not
+        #include agriculture, mining, and construction industries and does not 
+        #include6-digit detail for all manufacturing NAICS (31 - 33)
+        cbp_matching = MatchMECS_NAICS(cbp_matching, 'naics')
+        
+        cbp_matching.set_index('fipstate', inplace=True)
+        
+        cbp_matching = cbp_matching.join(
+                self.MECS_regions.drop_duplicates(
+                        ['FIPS State']
+                        ).set_index('FIPS State')['MECS_Region']
+                )
+        
+        cbp_matching.reset_index(inplace=True, drop=False)
+
+#        cbp_matching.loc[:,'MECS_Region'] = cbp_matching.fipstate.map(
+#            dict(MECS_regions[['FIPS State', 'MECS_Region']].values))
+
+        matching_index_pn = cbp_matching[
+            (cbp_matching.ghgrp_pn == True)
+            ].index
+
+        matching_index_sn =  cbp_matching[
+            (cbp_matching.ghgrp_sn == True) & \
+                (cbp_matching.ghgrp_pn == False)
+            ].index
+
+        cbp_matching.loc[matching_index_pn, 'ghgrp_fac'] = \
+            cbp_matching.loc[matching_index_pn, 'fips_n'].map(
+                ghgrpcounts_FIPPN_dict
+            )
+
+        cbp_matching.loc[matching_index_sn, 'ghgrp_fac'] = \
+            cbp_matching.loc[matching_index_sn, 'fips_n'].map(
+                ghgrpcounts_FIPSN_dict
+            )
+
+        return cbp_matching
+
+ 
+    def flag_counties(self, cbp_matching, ghgrp_matching):
+        """
+        Identifies counties where the GHGRP or CBP NAICS designation is 
+        potentially incorrect.
+        Outputs to working drive csv ("flagged_county_list") of flagged 
+        counties.
+        """
+        count_flagged_cbp = pd.DataFrame(
+            cbp_matching[cbp_matching.in_ghgrp == True], copy = True
+            )
+
+        count_flagged_cbp['N2'] = count_flagged_cbp.naics.apply(
+            lambda x: int(str(x)[0:2]))
+
+        count_flagged_cbp = count_flagged_cbp[
+            count_flagged_cbp.N2 != 23
+            ]
+
+        count_flagged_cbp.drop('N2', axis = 1, inplace = True)
+
+        count_flagged_cbp = count_flagged_cbp.groupby(
+            ['fips_matching', 'naics']
+            )['ghgrp_fac'].sum()
+
+        if self.year > 2011:
+    
+            ghgrp_count = ghgrp_matching.groupby([
+                'COUNTY_FIPS', 'PRIMARY_NAICS_CODE_12'])['FACILITY_ID'].count()
+
+        else:
+            ghgrp_count = ghgrp_matching.groupby([
+                'COUNTY_FIPS', 'PRIMARY_NAICS_CODE'])['FACILITY_ID'].count()
+
+        fac_count_compare = pd.concat(
+            [count_flagged_cbp, ghgrp_count], axis = 1
+            )
+
+        flagged_list = pd.DataFrame(
+            fac_count_compare[fac_count_compare.ghgrp_fac.isnull() == True], \
+                copy = True
+            )
+
+        flagged_list.to_csv(
+            os.path.join('../', self.data_dir + '/flagged_county_list.csv')
+            )
+
+        return flagged_list
+
+    # ghgrp_for_matching['flagged'] = [i in fac_count_compare[(
+    #   fac_count_compare.ghgrp_fac != fac_count_compare.FACILITY_ID
+    #   )].index for i in ghgrp_for_matching.COUNTY_FIPS]
+
+    # #Export flagged facilities for manual NAICS correction
+    # ghgrp_for_matching[ghgrp_for_matching.flagged == True].iloc[:,0:5].to_csv(
+    #   'ghgrp_facilities_county-flagged.csv'
+    #   )
+
+    @staticmethod
+    def correct_cbp(cbp_matching):
+        """
+        Method for correcting CBP facility counts based on GHGRP facilities.
+        """
+        
+        def fac_correct(df, index):
+            """
+            Removes the largest facilities in a given county with matching GHGRP
+            facilities.
+            """
+
+            large = ['n50_99', 'n100_249', 'n250_499', 'n500_999', 'n1000']
+
+            small = ['n1_4', 'n5_9', 'n10_19', 'n20_49']
+
+            ghgrp_fac_count = df.loc[index, 'ghgrp_fac']
+
+            fac_count_large = df.loc[index, 'est_large']
+
+            fac_count_small = df.loc[index, 'est_small']
+
+            fac_count_total = df.loc[index, 'est']
+            
+            # The iteration by dataframe index starting at line 547 is 
+            # slow and an alternative approach should be tested.
+#            cbp_ghgrp = pd.DataFrame(
+#                    cbp_matching[cbp_matching.in_ghgrp == True]
+#                    )
+#
+#            cbp_ghgrp['ghgrp_lessthan_cbp'] = \
+#                cbp_ghgrp.ghgrp_fac <= cbp_ghgrp.est
+#
+#            cbp_ghgrp['final_fac_count'] = 0
+#            
+#            cbp_ghgrp['final_fac_count'].update(
+#                    cbp_ghgrp[cbp_ghgrp.ghgrp_lessthan_cbp == True].ghgrp_fac
+#                    )
+#            
+#            cbp_ghgrp['final_fac_count'].update(
+#                    cbp_ghgrp[cbp_ghgrp.ghgrp_lessthan_cbp == False].est
+#                    )
+            
+            if ghgrp_fac_count <= fac_count_total:
+
+                n = ghgrp_fac_count
+
+            else:
+
+                n = fac_count_total
+
+            while n > 0:
+
+                maxsize = [c for c in itools.compress(small + large, df.ix[
+                        index, ('n1_4'):('n1000')
+                    ].values)][-1]
+
+                df.loc[index, maxsize] = df.loc[index, maxsize] - 1
+
+                n = n - 1
+
+            df.loc[index, 'est_large_corrected'] = df.loc[
+                index, ('n50_99'):('n1000')
+                ].sum()
+
+            df.loc[index, 'est_small_corrected'] = df.loc[
+                index, ('n1_4'):('n20_49')
+                ].sum()
+
+        #Apply method for removing GHGRP facilities from the counts of the 
+        #largest CBP facilities. 'cbp_matching' contains the original 
+        #CBP facility counts. 
+        cbp_ghgrp = pd.DataFrame(
+            cbp_matching[cbp_matching.in_ghgrp == True]
+            )
+
+        for i in cbp_ghgrp[cbp_ghgrp.ghgrp_fac > 0].index:
+            
+            fac_correct(cbp_ghgrp, i)
+
+        cbp_corrected = pd.DataFrame(cbp_matching)
+
+        cbp_corrected.update(cbp_ghgrp)
+        
+        # Change dtypes
+        for c in cbp_corrected.columns.difference(
+                ['empflag', 'emp_nf', 'qp1_nf', 'qp1', 'ap_nf', 'ap', 
+                  'COUNTY_FIPS', 'region', 'industry', 'fips_n', 'in_ghgrp',
+                  'ghgrp_pn', 'ghgrp_sn', 'n_in_mecs', 'MECS_Region']
+                ):
+            
+            cbp_corrected[c] = cbp_corrected[c].astype(int)
+
+        return cbp_corrected
+
+
+        #The following data frame provides the original facility counts for 
+        #the matching counties provided in cbp_corrected.
+        #Aggregate original and corrected CBP manufacturing facility counts 
+        #by MECS region.
+        # cbp_original_byMECS = cbp_matching[
+        #     cbp_matching.MECS_NAICS != 0
+        #     ].groupby(['MECS_Region', 'MECS_NAICS'])
+
+        # cbp_corrected_byMECS = cbp_corrected[
+        #     cbp_corrected.MECS_NAICS != 0
+        #     ].groupby(['MECS_Region', 'MECS_NAICS'])
+
+        

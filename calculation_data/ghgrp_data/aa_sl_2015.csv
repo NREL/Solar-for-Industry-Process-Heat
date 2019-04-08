@@ -1,0 +1,283 @@
+,FACILITY_ID,REPORTING_YEAR,FACILITY_NAME,SPENT_LIQUOR_CO2_EMISSIONS,SPENT_LIQUOR_CH4_EMISSIONS,UNIT_NAME,UNIT_TYPE,SPENT_LIQUOR_N2O_EMISSIONS,BIOMASS_CH4_EMISSIONS_FACTOR,BIOMASS_N2O_EMISSIONS_FACTOR
+0,1000166,2015,KapStone Paper and Packaging Corp,,,09-PU-004,Pulp Mill Lime Kiln,,,
+1,1000166,2015,KapStone Paper and Packaging Corp,616612.3,12.41,08-PU-012,Chemical Recovery Furnace,2.743,0.0019,0.00042
+2,1000183,2015,P H Glatfelter Company - Chillicothe Fac,543207.3,11.01,B011,Chemical Recovery Furnace,2.433,0.0019,0.00042
+3,1000183,2015,P H Glatfelter Company - Chillicothe Fac,,,P001,Pulp Mill Lime Kiln,,,
+4,1000196,2015,International Paper - Pensacola Mill,505144.1,10.17,#1 Recovery Boiler,Chemical Recovery Furnace,2.247,0.0019,0.00042
+5,1000196,2015,International Paper - Pensacola Mill,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+6,1000196,2015,International Paper - Pensacola Mill,521397,10.49,No. 2 Recovery Boiler,Chemical Recovery Furnace,2.32,0.0019,0.00042
+7,1000228,2015,International Paper - New Bern Mill,748913.8,15.07,Recovery Furnace,Chemical Recovery Furnace,3.332,0.0019,0.00042
+8,1000228,2015,International Paper - New Bern Mill,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+9,1000229,2015,Domtar Paper Company LLC - Plymouth,1049207.5,21.12,No. 5 Recovery Furnace,Chemical Recovery Furnace,4.668,0.0019,0.00042
+10,1000229,2015,Domtar Paper Company LLC - Plymouth,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+11,1000230,2015,Blue Ridge Paper Products LLC,,,Lime Kiln No.5,Pulp Mill Lime Kiln,,,
+12,1000230,2015,Blue Ridge Paper Products LLC,,,Lime Kiln No.4,Pulp Mill Lime Kiln,,,
+13,1000230,2015,Blue Ridge Paper Products LLC,487708.1,9.86,Recovery Furnace No.10,Chemical Recovery Furnace,2.179,0.0019,0.00042
+14,1000230,2015,Blue Ridge Paper Products LLC,501657.7,10.14,Recovery Furnace No.11,Chemical Recovery Furnace,2.241,0.0019,0.00042
+15,1000256,2015,"WestRock Virginia, Covington",464540,9.41,No. 1 Recovery Furnace REC001,Chemical Recovery Furnace,2.079,0.0019,0.00042
+16,1000256,2015,"WestRock Virginia, Covington",,,No. 2 Lime Kiln REC047,Pulp Mill Lime Kiln,,,
+17,1000256,2015,"WestRock Virginia, Covington",919960.8,18.63,No. 2 Recovery Furnace REC010,Chemical Recovery Furnace,4.118,0.0019,0.00042
+18,1000258,2015,International Paper-Franklin Mill,797924.9,16.06,Recovery Boiler 6,Chemical Recovery Furnace,3.55,0.0019,0.00042
+19,1000258,2015,International Paper-Franklin Mill,,,Lime Kiln 4,Pulp Mill Lime Kiln,,,
+20,1000262,2015,"WestRock Coated Board, LLC",535474.3,10.79,No 1. Recovery Furnace,Chemical Recovery Furnace,2.385,0.0019,0.00042
+21,1000262,2015,"WestRock Coated Board, LLC",,,No. 2 Lime Kiln,Pulp Mill Lime Kiln,,,
+22,1000262,2015,"WestRock Coated Board, LLC",700124.2,14.11,No. 2 Recovery Furnace,Chemical Recovery Furnace,3.118,0.0019,0.00042
+23,1000262,2015,"WestRock Coated Board, LLC",,,No. 1 Lime Kiln,Pulp Mill Lime Kiln,,,
+24,1000273,2015,"GP Big Island, LLC",60016.1,1.14,REC 13,Chemical Recovery Combustion Unit,.251,0.0019,0.00042
+25,1000305,2015,Resolute Forest Product - Coosa Pines Operation,681598.4,13.72,Z003,Chemical Recovery Furnace,3.033,0.0019,0.00042
+26,1000305,2015,Resolute Forest Product - Coosa Pines Operation,,,Z032,Pulp Mill Lime Kiln,,,
+27,1000311,2015,Resolute Forest Products Calhoun Operation,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+28,1000311,2015,Resolute Forest Products Calhoun Operation,570344.7,11.54,No.3 Recovery Furnace,Chemical Recovery Furnace,2.551,0.0019,0.00042
+29,1000319,2015,"WestRock CP, LLC - Florence Mill",626895.3,12.62,RF1,Chemical Recovery Furnace,2.789,0.0019,0.00042
+30,1000319,2015,"WestRock CP, LLC - Florence Mill",,,LK1,Pulp Mill Lime Kiln,,,
+31,1000319,2015,"WestRock CP, LLC - Florence Mill",,,LK2,Pulp Mill Lime Kiln,,,
+32,1000324,2015,Marlboro Paper Mill,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+33,1000324,2015,Marlboro Paper Mill,806528.2,16.23,Recovery Boiler,Chemical Recovery Furnace,3.588,0.0019,0.00042
+34,1000345,2015,"Foley Cellulose, LLC",,,No. 4 Lime Kiln,Pulp Mill Lime Kiln,,,
+35,1000345,2015,"Foley Cellulose, LLC",308555.5,6.21,No. 3 Recovery Boiler,Chemical Recovery Furnace,1.373,0.0019,0.00042
+36,1000345,2015,"Foley Cellulose, LLC",349435.9,7.03,No. 2 Recovery Boiler,Chemical Recovery Furnace,1.555,0.0019,0.00042
+37,1000345,2015,"Foley Cellulose, LLC",483184.8,9.73,No. 4 Recovery Boiler,Chemical Recovery Furnace,2.15,0.0019,0.00042
+38,1000348,2015,Resolute FP US Inc. - Catawba Operations,,,07-2723,Pulp Mill Lime Kiln,,,
+39,1000348,2015,Resolute FP US Inc. - Catawba Operations,347871.8,7,07-2505,Chemical Recovery Furnace,1.548,0.0019,0.00042
+40,1000348,2015,Resolute FP US Inc. - Catawba Operations,679702.8,13.68,07-5105,Chemical Recovery Furnace,3.024,0.0019,0.00042
+41,1000353,2015,Sonoco Products Co.,8269.5,.15,Chemical Recovery Kiln,Chemical Recovery Combustion Unit,.033,0.0019,0.00042
+42,1000426,2015,KapStone Charleston Kraft LLC,,,No. 5 Lime Kiln/CP002,Pulp Mill Lime Kiln,,,
+43,1000426,2015,KapStone Charleston Kraft LLC,,,No. 4 Lime Kiln/CP001,Pulp Mill Lime Kiln,,,
+44,1000426,2015,KapStone Charleston Kraft LLC,582152.8,11.76,No. 9 Recovery Boiler/REC007,Chemical Recovery Furnace,2.6,0.0019,0.00042
+45,1000426,2015,KapStone Charleston Kraft LLC,854700.2,17.27,No. 1 Recovery Boiler/REC004,Chemical Recovery Furnace,3.817,0.0019,0.00042
+46,1000434,2015,International Paper - Vicksburg Mill,635375.2,12.82,RB1 (AA005),Chemical Recovery Furnace,2.834,0.0019,0.00042
+47,1000434,2015,International Paper - Vicksburg Mill,,,LK1 (AA003),Pulp Mill Lime Kiln,,,
+48,1000593,2015,VERSO ANDROSCOGGIN LLC,,,A Lime Kiln,Pulp Mill Lime Kiln,,,
+49,1000593,2015,VERSO ANDROSCOGGIN LLC,,,B Lime Kiln,Pulp Mill Lime Kiln,,,
+50,1000593,2015,VERSO ANDROSCOGGIN LLC,313113,6.35,Recovery Boiler 1,Chemical Recovery Furnace,1.403,0.0019,0.00042
+51,1000593,2015,VERSO ANDROSCOGGIN LLC,441867.9,8.89,Recovery Boiler 2,Chemical Recovery Furnace,1.966,0.0019,0.00042
+52,1000602,2015,"GRAPHIC PACKAGING INTERNATIONAL LLC, West Monroe Mill Plant 31",,,No. 2 Lime Kiln (L04003),Pulp Mill Lime Kiln,,,
+53,1000602,2015,"GRAPHIC PACKAGING INTERNATIONAL LLC, West Monroe Mill Plant 31",350764.5,7.06,No. 5 Recovery Boiler (L03007/L03008),Chemical Recovery Furnace,1.561,0.0019,0.00042
+54,1000602,2015,"GRAPHIC PACKAGING INTERNATIONAL LLC, West Monroe Mill Plant 31",480708,9.68,No. 4 Recovery Boiler (L03004/L03005),Chemical Recovery Furnace,2.139,0.0019,0.00042
+55,1000602,2015,"GRAPHIC PACKAGING INTERNATIONAL LLC, West Monroe Mill Plant 31",,,No. 1 Lime Kiln (L04002),Pulp Mill Lime Kiln,,,
+56,1000624,2015,WestRock Tacoma Mill,,,Lime kiln #2,Pulp Mill Lime Kiln,,,
+57,1000624,2015,WestRock Tacoma Mill,,,Lime kiln #1,Pulp Mill Lime Kiln,,,
+58,1000624,2015,WestRock Tacoma Mill,622582.4,12.53,Recovery Boiler #4,Chemical Recovery Furnace,2.77,0.0019,0.00042
+59,1000961,2015,DOMTAR PAPER CO LLC HAWESVILLE MILL,350203.4,7.1,No. 3 Recovery Furnace,Chemical Recovery Furnace,1.57,0.0019,0.00042
+60,1000961,2015,DOMTAR PAPER CO LLC HAWESVILLE MILL,,,No. 3 Lime Kiln,Pulp Mill Lime Kiln,,,
+61,1000961,2015,DOMTAR PAPER CO LLC HAWESVILLE MILL,637602.9,12.93,No. 4 Recovery Furnace,Chemical Recovery Furnace,2.858,0.0019,0.00042
+62,1001237,2015,Verso Luke LLC,591383.1,11.97,Recovery Boiler #3,Chemical Recovery Furnace,2.647,0.0019,0.00042
+63,1001237,2015,Verso Luke LLC,0,0,Recovery Boiler #2,Chemical Recovery Furnace,0,0.0019,0.00042
+64,1001237,2015,Verso Luke LLC,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+65,1001733,2015,International Paper - Red River Mill,,,LK (1224-06-06),Pulp Mill Lime Kiln,,,
+66,1001733,2015,International Paper - Red River Mill,898376.9,18.08,RB3 (NA-41-41),Chemical Recovery Furnace,3.997,0.0019,0.00042
+67,1001807,2015,"RAYONIER PERFORMANCE FIBERS LLC, JESUP MILL",636938.8,12.85,No. 5 Recovery Furnace,Chemical Recovery Furnace,2.841,0.0019,0.00042
+68,1001807,2015,"RAYONIER PERFORMANCE FIBERS LLC, JESUP MILL",,,D Lime Kiln,Pulp Mill Lime Kiln,,,
+69,1001807,2015,"RAYONIER PERFORMANCE FIBERS LLC, JESUP MILL",1136231.7,22.92,No. 6 Recovery Furnace,Chemical Recovery Furnace,5.068,0.0019,0.00042
+70,1001889,2015,WOODLAND PULP LLC,843142.4,17.1,Unit 02,Chemical Recovery Furnace,3.779,0.0019,0.00042
+71,1001889,2015,WOODLAND PULP LLC,,,Unit 15,Pulp Mill Lime Kiln,,,
+72,1001892,2015,"Verso Quinnesec, LLC",,,Lime Kiln,Pulp Mill Lime Kiln,,,
+73,1001892,2015,"Verso Quinnesec, LLC",768085.6,15.57,Recovery Boiler,Chemical Recovery Furnace,3.443,0.0019,0.00042
+74,1001906,2015,RAYONIER PERFORMANCE FIBERS LLC Fernandina Mill,406135.6,9.01,Recovery Boiler,Chemical Recovery Combustion Unit,1.993,0.0019,0.00042
+75,1001995,2015,SAPPI CLOQUET LLC,862144.3,17.48,EU 005,Chemical Recovery Furnace,3.864,0.0019,0.00042
+76,1001995,2015,SAPPI CLOQUET LLC,,,EU 033,Pulp Mill Lime Kiln,,,
+77,1002098,2015,GREEN BAY PACKAGING/ARK KRAFT,,,Unit 2 (#2 Lime Kiln  SN-08),Pulp Mill Lime Kiln,,,
+78,1002098,2015,GREEN BAY PACKAGING/ARK KRAFT,354325.6,7.13,Unit 1 (Recover Boiler  SN-05A),Chemical Recovery Furnace,1.576,0.0019,0.00042
+79,1002113,2015,International Paper - Pine Hill Mill,,,LK1,Pulp Mill Lime Kiln,,,
+80,1002113,2015,International Paper - Pine Hill Mill,689415,13.91,RB1,Chemical Recovery Furnace,3.075,0.0019,0.00042
+81,1002149,2015,International Paper - Springfield Mill,,,"Lime Kilns, Combined, EU 455",Pulp Mill Lime Kiln,,,
+82,1002149,2015,International Paper - Springfield Mill,529772.4,10.66,#4 Kraft Recovery Furnace EU445C,Chemical Recovery Furnace,2.357,0.0019,0.00042
+83,1002272,2015,"WestRock CP, LLC - Fernandina Beach Mill (Formerly Smurfit-Stone)",472794.7,9.52,RB5,Chemical Recovery Furnace,2.104,0.0019,0.00042
+84,1002272,2015,"WestRock CP, LLC - Fernandina Beach Mill (Formerly Smurfit-Stone)",,,LK4,Pulp Mill Lime Kiln,,,
+85,1002272,2015,"WestRock CP, LLC - Fernandina Beach Mill (Formerly Smurfit-Stone)",438744.8,8.83,RB4,Chemical Recovery Furnace,1.952,0.0019,0.00042
+86,1002305,2015,"WESTROCK TEXAS, L.P.",,,No. 7 Lime Kiln,Pulp Mill Lime Kiln,,,
+87,1002305,2015,"WESTROCK TEXAS, L.P.",,,No. 1 Lime Kiln,Pulp Mill Lime Kiln,,,
+88,1002305,2015,"WESTROCK TEXAS, L.P.",810666.6,16.37,No. 4 Recovery Boiler,Chemical Recovery Furnace,3.619,0.0019,0.00042
+89,1002305,2015,"WESTROCK TEXAS, L.P.",469486.9,9.48,No. 3 Recovery Boiler,Chemical Recovery Furnace,2.096,0.0019,0.00042
+90,1002339,2015,THILMANY MILL,124523.9,2.53,8 Kraft Recovery Furnace/B08,Chemical Recovery Furnace,.558,0.0019,0.00042
+91,1002339,2015,THILMANY MILL,,,Kraft Lime Kiln/P12,Pulp Mill Lime Kiln,,,
+92,1002339,2015,THILMANY MILL,176421,3.58,10 Kraft Recovery Furnace/B10,Chemical Recovery Furnace,.791,0.0019,0.00042
+93,1002708,2015,CLEARWATER PAPER CORP-CYPRESS BEND MILL,529377.3,10.72,#1 Recovery Boiler,Chemical Recovery Furnace,2.37,0.0019,0.00042
+94,1002708,2015,CLEARWATER PAPER CORP-CYPRESS BEND MILL,,,#1 Lime Kiln,Pulp Mill Lime Kiln,,,
+95,1002733,2015,"Brunswick Cellulose, Inc.",1171362.1,23.58,R407,Chemical Recovery Furnace,5.212,0.0019,0.00042
+96,1002733,2015,"Brunswick Cellulose, Inc.",,,L537,Pulp Mill Lime Kiln,,,
+97,1002733,2015,"Brunswick Cellulose, Inc.",781889,15.74,R401,Chemical Recovery Furnace,3.479,0.0019,0.00042
+98,1002823,2015,GEORGIA-PACIFIC CEDAR SPRINGS LLC,311590.9,6.28,No. 1 Recovery Furnace (R400),Chemical Recovery Furnace,1.388,0.0019,0.00042
+99,1002823,2015,GEORGIA-PACIFIC CEDAR SPRINGS LLC,461006.2,9.29,No. 3 Recovery Furnace (R402),Chemical Recovery Furnace,2.054,0.0019,0.00042
+100,1002823,2015,GEORGIA-PACIFIC CEDAR SPRINGS LLC,322376.2,6.5,No. 2 Recovery Furnace (R401),Chemical Recovery Furnace,1.436,0.0019,0.00042
+101,1002823,2015,GEORGIA-PACIFIC CEDAR SPRINGS LLC,,,No. 2 Lime Kiln (L601),Pulp Mill Lime Kiln,,,
+102,1002823,2015,GEORGIA-PACIFIC CEDAR SPRINGS LLC,,,No. 1 Lime Kiln (L600),Pulp Mill Lime Kiln,,,
+103,1002846,2015,"Hood Container of Louisiana, LLC",448790,9.03,Recovery Furnace,Chemical Recovery Furnace,1.997,0.0019,0.00042
+104,1002846,2015,"Hood Container of Louisiana, LLC",,,Lime Kiln,Pulp Mill Lime Kiln,,,
+105,1002893,2015,BOISE PAPER,0,0,No. 2 Recovery Furnace,Chemical Recovery Furnace,0,0.0019,0.00042
+106,1002893,2015,BOISE PAPER,564536.7,11.38,No. 3 Recovery Furnace,Chemical Recovery Furnace,2.515,0.0019,0.00042
+107,1002893,2015,BOISE PAPER,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+108,1002963,2015,BOISE WHITE PAPER MILL,,,Z003,Pulp Mill Lime Kiln,,,
+109,1002963,2015,BOISE WHITE PAPER MILL,490028.3,9.9,Z011,Chemical Recovery Furnace,2.189,0.0019,0.00042
+110,1003048,2015,SAPPI FINE PAPER (S.D. WARREN ) MILL,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+111,1003048,2015,SAPPI FINE PAPER (S.D. WARREN ) MILL,933622.4,18.9,Recovery Boiler,Chemical Recovery Furnace,4.178,0.0019,0.00042
+112,1003280,2015,PACKAGING CORP. OF AMERICA,712886.8,14.35,7040,Chemical Recovery Furnace,3.172,0.0019,0.00042
+113,1003280,2015,PACKAGING CORP. OF AMERICA,,,6063,Pulp Mill Lime Kiln,,,
+114,1003320,2015,Verso Escanaba LLC,,,EULK29,Pulp Mill Lime Kiln,,,
+115,1003320,2015,Verso Escanaba LLC,721686.5,14.53,EURF15,Chemical Recovery Furnace,3.211,0.0019,0.00042
+116,1003419,2015,"WestRock CP, LLC",36028.3,.78,N001,Chemical Recovery Combustion Unit,.173,0.0019,0.00042
+117,1003470,2015,GRAPHIC PACKAGING INTERNATIONAL,708503.7,14.26,D001,Chemical Recovery Furnace,3.152,0.0019,0.00042
+118,1003470,2015,GRAPHIC PACKAGING INTERNATIONAL,,,L001,Pulp Mill Lime Kiln,,,
+119,1003470,2015,GRAPHIC PACKAGING INTERNATIONAL,,,L002,Pulp Mill Lime Kiln,,,
+120,1003501,2015,EVERGREEN PACKAGING-PINE BLUFF,202605.6,4.09,Recovery Boiler No. 3,Chemical Recovery Furnace,.904,0.0019,0.00042
+121,1003501,2015,EVERGREEN PACKAGING-PINE BLUFF,673096.6,13.59,Recovery Boiler No. 4,Chemical Recovery Furnace,3.003,0.0019,0.00042
+122,1003501,2015,EVERGREEN PACKAGING-PINE BLUFF,198037.3,4,Recovery Boiler No. 2,Chemical Recovery Furnace,.884,0.0019,0.00042
+123,1003501,2015,EVERGREEN PACKAGING-PINE BLUFF,,,Lime Kiln No. 2,Pulp Mill Lime Kiln,,,
+124,1003501,2015,EVERGREEN PACKAGING-PINE BLUFF,,,Lime Kiln No. 1,Pulp Mill Lime Kiln,,,
+125,1003633,2015,"Mondi Bags USA, LLC",131617.8,2.65,Recovery Boiler,Chemical Recovery Furnace,.586,0.0019,0.00042
+126,1003884,2015,PACKAGING CORPORATION OF AMERICA-TOMAHAWK,60280.5,1,B25,Chemical Recovery Combustion Unit,.221,0.0019,0.00042
+127,1003943,2015,GREIF RIVERVILLE LLC,59782.8,1.06,Recovery Boiler,Chemical Recovery Combustion Unit,.235,0.0019,0.00042
+128,1004017,2015,CASCADE PACIFIC PULP HALSEY PULP MILL,513003.3,10.33,Recovery Furnace,Chemical Recovery Furnace,2.282,0.0019,0.00042
+129,1004017,2015,CASCADE PACIFIC PULP HALSEY PULP MILL,,,LIme Kiln,Pulp Mill Lime Kiln,,,
+130,1004055,2015,GEORGIA-PACIFIC TOLEDO LLC,,,EU3 Lime Kiln #3,Pulp Mill Lime Kiln,,,
+131,1004055,2015,GEORGIA-PACIFIC TOLEDO LLC,231049.3,4.65,EU14 Recovery Boiler #1,Chemical Recovery Furnace,1.029,0.0019,0.00042
+132,1004055,2015,GEORGIA-PACIFIC TOLEDO LLC,,,EU2 Lime Kiln #2,Pulp Mill Lime Kiln,,,
+133,1004055,2015,GEORGIA-PACIFIC TOLEDO LLC,249774.1,5.03,EU16 Recovery Boiler #2,Chemical Recovery Furnace,1.112,0.0019,0.00042
+134,1004055,2015,GEORGIA-PACIFIC TOLEDO LLC,,,EU1 Lime Kiln #1,Pulp Mill Lime Kiln,,,
+135,1004199,2015,P.H. Glatfelter Company,,,Calciner,Pulp Mill Lime Kiln,,,
+136,1004199,2015,P.H. Glatfelter Company,437654,8.97,Recovery Boiler #3,Chemical Recovery Furnace,1.98,0.0019,0.00042
+137,1004396,2015,DOMTAR A. W. LLC-NEKOOSA,304967.4,6.16,B14,Chemical Recovery Furnace,1.362,0.0019,0.00042
+138,1004396,2015,DOMTAR A. W. LLC-NEKOOSA,,,P22,Pulp Mill Lime Kiln,,,
+139,1004705,2015,CLEARWATER PAPER CORP,899000.1,18.09,Number 5 Recovery Furnace,Chemical Recovery Furnace,4,0.0019,0.00042
+140,1004705,2015,CLEARWATER PAPER CORP,264846.4,5.33,Number 4 Recovery Furnace,Chemical Recovery Furnace,1.178,0.0019,0.00042
+141,1004705,2015,CLEARWATER PAPER CORP,,,Number 3 Lime Kiln,Pulp Mill Lime Kiln,,,
+142,1004705,2015,CLEARWATER PAPER CORP,,,Number 4 Lime Kiln,Pulp Mill Lime Kiln,,,
+143,1004874,2015,WISCONSIN RAPIDS PAPER MILL,253785.3,5.11,Recovery Boiler #3 (P37),Chemical Recovery Furnace,1.129,0.0019,0.00042
+144,1004874,2015,WISCONSIN RAPIDS PAPER MILL,264331.9,5.32,Recovery Boiler #2 (P36),Chemical Recovery Furnace,1.176,0.0019,0.00042
+145,1004874,2015,WISCONSIN RAPIDS PAPER MILL,,,Lime Kiln (P30),Pulp Mill Lime Kiln,,,
+146,1004874,2015,WISCONSIN RAPIDS PAPER MILL,258931.5,5.21,Recovery Boiler #1 (P39),Chemical Recovery Furnace,1.152,0.0019,0.00042
+147,1004886,2015,INTERSTATE PAPER LLC,291523,5.87,Recovery Boiler,Chemical Recovery Furnace,1.297,0.0019,0.00042
+148,1004886,2015,INTERSTATE PAPER LLC,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+149,1004901,2015,International Paper-Port Wentworth,,,LK01,Pulp Mill Lime Kiln,,,
+150,1004901,2015,International Paper-Port Wentworth,789383,15.89,RE01,Chemical Recovery Furnace,3.512,0.0019,0.00042
+151,1005012,2015,"WESTROCK CP, LLC - HODGE MILL",589467.3,11.86,RB2,Chemical Recovery Furnace,2.623,0.0019,0.00042
+152,1005012,2015,"WESTROCK CP, LLC - HODGE MILL",342871.3,6.9,RB3,Chemical Recovery Furnace,1.525,0.0019,0.00042
+153,1005012,2015,"WESTROCK CP, LLC - HODGE MILL",,,LK2,Pulp Mill Lime Kiln,,,
+154,1005012,2015,"WESTROCK CP, LLC - HODGE MILL",,,LK1,Pulp Mill Lime Kiln,,,
+155,1005579,2015,"WestRock CP, LLC - West Point Mill",,,LK1,Pulp Mill Lime Kiln,,,
+156,1005579,2015,"WestRock CP, LLC - West Point Mill",386680.4,7.84,RF5,Chemical Recovery Furnace,1.733,0.0019,0.00042
+157,1005579,2015,"WestRock CP, LLC - West Point Mill",376737.8,7.58,RF4,Chemical Recovery Furnace,1.676,0.0019,0.00042
+158,1005579,2015,"WestRock CP, LLC - West Point Mill",,,LK2,Pulp Mill Lime Kiln,,,
+159,1005653,2015,INTERNATIONAL PAPER - BOGALUSA MILL,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+160,1005653,2015,INTERNATIONAL PAPER - BOGALUSA MILL,523461.5,10.54,Recovery Furnace No. 21,Chemical Recovery Furnace,2.329,0.0019,0.00042
+161,1005653,2015,INTERNATIONAL PAPER - BOGALUSA MILL,372312.1,7.49,Recovery Furnace No. 20,Chemical Recovery Furnace,1.656,0.0019,0.00042
+162,1005669,2015,APPLETON ROARING SPRING PAPER MFG,133425.5,2.71,038 - No. 3 Recovery Boiler,Chemical Recovery Furnace,.598,0.0019,0.00042
+163,1005669,2015,APPLETON ROARING SPRING PAPER MFG,,,103A - Lime Kiln,Pulp Mill Lime Kiln,,,
+164,1005706,2015,"Domtar Paper Company, LLC",442741.2,8.97,Chemical Recovery Furnace,Chemical Recovery Furnace,1.983,0.0019,0.00042
+165,1005706,2015,"Domtar Paper Company, LLC",,,Lime Kiln,Pulp Mill Lime Kiln,,,
+166,1005732,2015,PORT TOWNSEND PAPER CORP,319735.3,6.44,Recovery Furnace,Chemical Recovery Furnace,1.423,0.0019,0.00042
+167,1005732,2015,PORT TOWNSEND PAPER CORP,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+168,1005738,2015,International Paper - Mansfield Mill,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+169,1005738,2015,International Paper - Mansfield Mill,546723,11.03,No. 1 Recovery Boiler,Chemical Recovery Furnace,2.438,0.0019,0.00042
+170,1005738,2015,International Paper - Mansfield Mill,523774,10.57,No. 2 Recovery Boiler,Chemical Recovery Furnace,2.336,0.0019,0.00042
+171,1005909,2015,International Paper - Orange Mill,,,LK,Pulp Mill Lime Kiln,,,
+172,1005909,2015,International Paper - Orange Mill,225254.3,4.53,RF2,Chemical Recovery Furnace,1.002,0.0019,0.00042
+173,1005909,2015,International Paper - Orange Mill,238009.3,4.79,RF1,Chemical Recovery Furnace,1.059,0.0019,0.00042
+174,1005948,2015,GEORGIA-PACIFIC BREWTON LLC,,,BR-CRP7-S015,Pulp Mill Lime Kiln,,,
+175,1005948,2015,GEORGIA-PACIFIC BREWTON LLC,131062.5,2.65,BR-REC1-M003,Chemical Recovery Furnace,.585,0.0019,0.00042
+176,1005948,2015,GEORGIA-PACIFIC BREWTON LLC,,,BR-CRP5-S010,Pulp Mill Lime Kiln,,,
+177,1005948,2015,GEORGIA-PACIFIC BREWTON LLC,178601.7,3.61,BR-REC2-M006,Chemical Recovery Furnace,.798,0.0019,0.00042
+178,1005948,2015,GEORGIA-PACIFIC BREWTON LLC,312494.2,6.31,BR-REC3-M010,Chemical Recovery Furnace,1.396,0.0019,0.00042
+179,1005959,2015,DOMTAR PAPER KINGSPORT MILL,471025.2,9.55,82-0022-34,Chemical Recovery Furnace,2.111,0.0019,0.00042
+180,1005959,2015,DOMTAR PAPER KINGSPORT MILL,,,82-0022-36,Pulp Mill Lime Kiln,,,
+181,1005994,2015,DOMTAR AW LLC ASHDOWN MILL,,,No. 3 Lime Kiln,Pulp Mill Lime Kiln,,,
+182,1005994,2015,DOMTAR AW LLC ASHDOWN MILL,,,No. 2 Lime Kiln,Pulp Mill Lime Kiln,,,
+183,1005994,2015,DOMTAR AW LLC ASHDOWN MILL,576598.8,11.65,No. 2 Recovery Boiler,Chemical Recovery Furnace,2.575,0.0019,0.00042
+184,1005994,2015,DOMTAR AW LLC ASHDOWN MILL,830653.7,16.78,No. 3 Recovery Boiler,Chemical Recovery Furnace,3.709,0.0019,0.00042
+185,1005998,2015,GEORGIA-PACIFIC CONSUMER OPERATIONS LLC,430003.3,8.67,4RF,Chemical Recovery Furnace,1.918,0.0019,0.00042
+186,1005998,2015,GEORGIA-PACIFIC CONSUMER OPERATIONS LLC,,,4LK,Pulp Mill Lime Kiln,,,
+187,1006209,2015,International Paper - Flint River Mill,850891.3,17.13,Recovery Furnace (U500),Chemical Recovery Furnace,3.786,0.0019,0.00042
+188,1006209,2015,International Paper - Flint River Mill,,,Lime Kiln (U800),Pulp Mill Lime Kiln,,,
+189,1006256,2015,PACKAGING CORPORATION OF AMERICA,,,Lime Kiln 69-04,Pulp Mill Lime Kiln,,,
+190,1006256,2015,PACKAGING CORPORATION OF AMERICA,743773.3,14.97,Recovery Boiler 69-01,Chemical Recovery Furnace,3.309,0.0019,0.00042
+191,1006262,2015,International Paper-Eastover Mill,,,No.1 Lime Kiln,Pulp Mill Lime Kiln,,,
+192,1006262,2015,International Paper-Eastover Mill,,,No.2 Lime Kiln,Pulp Mill Lime Kiln,,,
+193,1006262,2015,International Paper-Eastover Mill,971662.5,19.65,No.2 Recovery Furnace,Chemical Recovery Furnace,4.344,0.0019,0.00042
+194,1006262,2015,International Paper-Eastover Mill,452243.2,9.15,No.1 Recovery Furnace,Chemical Recovery Furnace,2.022,0.0019,0.00042
+195,1006360,2015,NIPPON DYNAWAVE PACKAGING,782647.6,15.75,GHG-01_RB10,Chemical Recovery Furnace,3.482,0.0019,0.00042
+196,1006360,2015,NIPPON DYNAWAVE PACKAGING,,,GHG-02_LK,Pulp Mill Lime Kiln,,,
+197,1006366,2015,Catalyst Paper Operations Inc. Rumford Division,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+198,1006366,2015,Catalyst Paper Operations Inc. Rumford Division,700615.2,14.18,Chemical Recovery Furnace,Chemical Recovery Furnace,3.133,0.0019,0.00042
+199,1006367,2015,PACKAGING CORPORATION OF AMERICA,59444.4,1.08,EUCOPELAND,Chemical Recovery Combustion Unit,.24,0.0019,0.00042
+200,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",672609.6,13.54,No. 22 Recovery Furnace / 8201-10,Chemical Recovery Furnace,2.993,0.0019,0.00042
+201,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",,,No. 3 Lime Kiln / 1431-00,Pulp Mill Lime Kiln,,,
+202,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",,,No. 4 Lime Kiln / 1450-00,Pulp Mill Lime Kiln,,,
+203,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",514298.3,10.35,No. 19 Recovery Furnace / 1261-10,Chemical Recovery Furnace,2.288,0.0019,0.00042
+204,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",0,0,No. 18 Recovery Furnace / 1246-10,Chemical Recovery Furnace,0,0.0019,0.00042
+205,1006454,2015,"LONGVIEW FIBRE PAPER AND PACKAGING, INC",,,No. 5 Lime Kiln / 1567-00,Pulp Mill Lime Kiln,,,
+206,1006608,2015,FINCH PAPER LLC,179370.7,3.61,"Boilers 6,7,8,10",Chemical Recovery Furnace,.798,0.0019,0.00042
+207,1006668,2015,Graphic Packaging International - Texarkana Mill,,,LK1,Pulp Mill Lime Kiln,,,
+208,1006668,2015,Graphic Packaging International - Texarkana Mill,403788.1,8.16,RB1,Chemical Recovery Furnace,1.804,0.0019,0.00042
+209,1006668,2015,Graphic Packaging International - Texarkana Mill,,,LK2,Pulp Mill Lime Kiln,,,
+210,1006668,2015,Graphic Packaging International - Texarkana Mill,749733.5,15.16,RB2,Chemical Recovery Furnace,3.35,0.0019,0.00042
+211,1006703,2015,International Paper - Columbus Mill,1196545.7,24.08,Recovery Boiler,Chemical Recovery Furnace,5.324,0.0019,0.00042
+212,1006703,2015,International Paper - Columbus Mill,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+213,1006731,2015,Graphic Packaging International - Augusta,,,LK2,Pulp Mill Lime Kiln,,,
+214,1006731,2015,Graphic Packaging International - Augusta,,,LK1,Pulp Mill Lime Kiln,,,
+215,1006731,2015,Graphic Packaging International - Augusta,1002599.3,20.31,RB3,Chemical Recovery Furnace,4.489,0.0019,0.00042
+216,1006760,2015,International Paper ROME LINERBOARD MILL,,,LK2,Pulp Mill Lime Kiln,,,
+217,1006760,2015,International Paper ROME LINERBOARD MILL,926155.1,18.64,RF5,Chemical Recovery Furnace,4.121,0.0019,0.00042
+218,1006760,2015,International Paper ROME LINERBOARD MILL,,,LK1,Pulp Mill Lime Kiln,,,
+219,1006776,2015,International Paper - Valliant Mill,865935.1,17.46,Recovery Furnace (EUG D6),Chemical Recovery Furnace,3.859,0.0019,0.00042
+220,1006776,2015,International Paper - Valliant Mill,,,Lime Kiln (EUG E7),Pulp Mill Lime Kiln,,,
+221,1006788,2015,International Paper-Riverdale Mill,356394.8,7.2,RB2,Chemical Recovery Furnace,1.592,0.0019,0.00042
+222,1006788,2015,International Paper-Riverdale Mill,196302.1,3.97,RB1,Chemical Recovery Furnace,.877,0.0019,0.00042
+223,1006788,2015,International Paper-Riverdale Mill,,,LK3,Pulp Mill Lime Kiln,,,
+224,1006803,2015,INTERNATIONAL PAPER SAVANNA MILL,,,LK07,Pulp Mill Lime Kiln,,,
+225,1006803,2015,INTERNATIONAL PAPER SAVANNA MILL,1267276.5,25.53,RF15,Chemical Recovery Furnace,5.644,0.0019,0.00042
+226,1006885,2015,International Paper Ticonderoga Mill,355499.6,7.2,RF1,Chemical Recovery Furnace,1.591,0.0019,0.00042
+227,1006885,2015,International Paper Ticonderoga Mill,,,LK1,Pulp Mill Lime Kiln,,,
+228,1006892,2015,International Paper-Prattville Mill,,,Lime Kiln No. 2/ Z013,Pulp Mill Lime Kiln,,,
+229,1006892,2015,International Paper-Prattville Mill,,,Lime Kiln No. 1/ Z003,Pulp Mill Lime Kiln,,,
+230,1006892,2015,International Paper-Prattville Mill,599920,12.1,Recovery Boiler No. 2/ Z011,Chemical Recovery Furnace,2.675,0.0019,0.00042
+231,1006892,2015,International Paper-Prattville Mill,471638.9,9.51,Recovery Boiler No. 1/ Z001,Chemical Recovery Furnace,2.103,0.0019,0.00042
+232,1006958,2015,"WestRock CP, LLC - Panama City Mill (Formerly RockTenn)",477798,9.62,RF#2,Chemical Recovery Furnace,2.126,0.0019,0.00042
+233,1006958,2015,"WestRock CP, LLC - Panama City Mill (Formerly RockTenn)",472098.1,9.5,RF#1,Chemical Recovery Furnace,2.101,0.0019,0.00042
+234,1006958,2015,"WestRock CP, LLC - Panama City Mill (Formerly RockTenn)",,,LK#1,Pulp Mill Lime Kiln,,,
+235,1006962,2015,GEORGIA-PACIFIC CONSUMER PRODUCTS LP,,,X026,Pulp Mill Lime Kiln,,,
+236,1006962,2015,GEORGIA-PACIFIC CONSUMER PRODUCTS LP,849673.8,17.19,X024,Chemical Recovery Furnace,3.799,0.0019,0.00042
+237,1006975,2015,GEORGIA-PACIFIC PORT HUDSON OPERATIONS,,,LK01,Pulp Mill Lime Kiln,,,
+238,1006975,2015,GEORGIA-PACIFIC PORT HUDSON OPERATIONS,635678.5,12.86,RF02,Chemical Recovery Furnace,2.842,0.0019,0.00042
+239,1006975,2015,GEORGIA-PACIFIC PORT HUDSON OPERATIONS,,,LK02,Pulp Mill Lime Kiln,,,
+240,1006975,2015,GEORGIA-PACIFIC PORT HUDSON OPERATIONS,341546.6,6.91,RF01,Chemical Recovery Furnace,1.527,0.0019,0.00042
+241,1007069,2015,Expera Old Town LLC,202119.2,4.09,recovery furnace,Chemical Recovery Furnace,.904,0.0019,0.00042
+242,1007135,2015,GEORGIA PACIFIC CONSUMER OPERATIONS LLC,694524.5,13.99,EU 018 No. 4 Recovery Boiler,Chemical Recovery Furnace,3.093,0.0019,0.00042
+243,1007135,2015,GEORGIA PACIFIC CONSUMER OPERATIONS LLC,,,EU 017 No. 4 Lime Kiln,Pulp Mill Lime Kiln,,,
+244,1007196,2015,Verso Wickliffe LLC,219416.2,4.44,03,Chemical Recovery Furnace,.98,0.0019,0.00042
+245,1007196,2015,Verso Wickliffe LLC,,,08,Pulp Mill Lime Kiln,,,
+246,1007214,2015,GEORGIA-PACIFIC Crossett Paper Operations,829166,16.77,8R Boiler (SN26),Chemical Recovery Furnace,3.707,0.0019,0.00042
+247,1007214,2015,GEORGIA-PACIFIC Crossett Paper Operations,,,Lime Kiln (SN25),Pulp Mill Lime Kiln,,,
+248,1007226,2015,International Paper-Riegelwood,380749.8,7.69,RB4,Chemical Recovery Furnace,1.7,0.0019,0.00042
+249,1007226,2015,International Paper-Riegelwood,,,LK3,Pulp Mill Lime Kiln,,,
+250,1007226,2015,International Paper-Riegelwood,,,LK4,Pulp Mill Lime Kiln,,,
+251,1007226,2015,International Paper-Riegelwood,1212963.5,24.5,RB5,Chemical Recovery Furnace,5.415,0.0019,0.00042
+252,1007273,2015,Expera Specialty Solutions LLC - Mosinee Mill,,,Lime Kiln (P36),Pulp Mill Lime Kiln,,,
+253,1007273,2015,Expera Specialty Solutions LLC - Mosinee Mill,130138.7,2.62,#14 Recovery Boiler (B21),Chemical Recovery Furnace,.58,0.0019,0.00042
+254,1007627,2015,GEORGIA PACIFIC MONTICELLO LLC,469361.9,9.45,#2 Recovery Boiler,Chemical Recovery Furnace,2.088,0.0019,0.00042
+255,1007627,2015,GEORGIA PACIFIC MONTICELLO LLC,,,Lime Kiln,Pulp Mill Lime Kiln,,,
+256,1007627,2015,GEORGIA PACIFIC MONTICELLO LLC,485177.3,9.77,#1 Recovery Boiler,Chemical Recovery Furnace,2.159,0.0019,0.00042
+257,1007867,2015,Packaging Corporation of America,595036.5,11.98,Recovery Boiler #3,Chemical Recovery Furnace,2.649,0.0019,0.00042
+258,1007867,2015,Packaging Corporation of America,321508.3,6.47,Recovery Boiler #2,Chemical Recovery Furnace,1.431,0.0019,0.00042
+259,1007867,2015,Packaging Corporation of America,,,Lime Kiln #2,Pulp Mill Lime Kiln,,,
+260,1007867,2015,Packaging Corporation of America,315936.7,6.36,Recovery Boiler #1,Chemical Recovery Furnace,1.406,0.0019,0.00042
+261,1007867,2015,Packaging Corporation of America,,,Lime Kiln #1,Pulp Mill Lime Kiln,,,
+262,1007912,2015,International Paper - Georgetown Mill,,,No. 2 Lime Kiln,Pulp Mill Lime Kiln,,,
+263,1007912,2015,International Paper - Georgetown Mill,,,No. 1 Lime Kiln,Pulp Mill Lime Kiln,,,
+264,1007912,2015,International Paper - Georgetown Mill,710128.6,14.32,No. 2 Recovery Boiler,Chemical Recovery Furnace,3.165,0.0019,0.00042
+265,1007912,2015,International Paper - Georgetown Mill,600794.6,12.11,No. 1 Recovery Boiler,Chemical Recovery Furnace,2.677,0.0019,0.00042
+266,1007917,2015,"ALABAMA RIVER CELLULOSE, LLC",1113215.8,22.41,X012,Chemical Recovery Furnace,4.953,0.0019,0.00042
+267,1007917,2015,"ALABAMA RIVER CELLULOSE, LLC",851279.8,17.18,X001,Chemical Recovery Furnace,3.799,0.0019,0.00042
+268,1007917,2015,"ALABAMA RIVER CELLULOSE, LLC",,,X003,Pulp Mill Lime Kiln,,,
+269,1007917,2015,"ALABAMA RIVER CELLULOSE, LLC",,,X014,Pulp Mill Lime Kiln,,,
+270,1007964,2015,"West Rock Mill Company, LLC",,,LK3,Pulp Mill Lime Kiln,,,
+271,1007964,2015,"West Rock Mill Company, LLC",785309.8,15.89,RF3,Chemical Recovery Furnace,3.512,0.0019,0.00042
+272,1007994,2015,BOISE WHITE PAPER LLC,,,Lime Kiln EU 340,Pulp Mill Lime Kiln,,,
+273,1007994,2015,BOISE WHITE PAPER LLC,542995.4,10.99,Recovery Furnace EU 320,Chemical Recovery Furnace,2.43,0.0019,0.00042
+274,1008025,2015,LEAF RIVER CELLULOSE LLC,,,AA-013,Pulp Mill Lime Kiln,,,
+275,1008025,2015,LEAF RIVER CELLULOSE LLC,1233701,24.83,AA-011,Chemical Recovery Furnace,5.489,0.0019,0.00042
+276,1008042,2015,WAUNA MILL,491706.3,9.91,Chem Rec Furn - EU24 (Swd & Hwd),Chemical Recovery Furnace,2.191,0.0019,0.00042
+277,1008042,2015,WAUNA MILL,,,LK / EU-21,Pulp Mill Lime Kiln,,,
+278,1008553,2015,"WestRock CP, LLC - Stevenson Mill",162279.7,3.29,RB1,Chemical Recovery Furnace,.727,0.0019,0.00042
+279,1008708,2015,"WestRock CP, LLC--Hopewell Mill (Formerly RockTenn)",,,LK1,Pulp Mill Lime Kiln,,,
+280,1008708,2015,"WestRock CP, LLC--Hopewell Mill (Formerly RockTenn)",423952.3,8.53,RF1,Chemical Recovery Furnace,1.886,0.0019,0.00042
+281,1008999,2015,Cosmopolis Pulp Mill,967745.7,15.37,Combined Recovery Stack AP10,Chemical Recovery Combustion Unit,3.398,0.0019,0.00042

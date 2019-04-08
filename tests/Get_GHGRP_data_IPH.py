@@ -77,9 +77,9 @@ def get_GHGRP_records(reporting_year, table, rows=None):
             
         except requests.exceptions.RequestException as e:
             
-            print(e)
+            print(e, table_url)
 
-            exit
+            sys.exit(1)
             
         else:
             
@@ -103,9 +103,9 @@ def get_GHGRP_records(reporting_year, table, rows=None):
 
                 except requests.exceptions.RequestException as e:
                     
-                    print(e)
+                    print(e, table_url)
                     
-                    exit
+                    sys.exit(1)
 #                    r_records.raise_for_status()
                     
                 else:
@@ -134,9 +134,9 @@ def get_GHGRP_records(reporting_year, table, rows=None):
 
             except requests.exceptions.RequestException as e:
                     
-                print(e)
+                print(e, table_url)
                     
-                exit
+                sys.exit(1)
 
             else:
                 
@@ -153,9 +153,9 @@ def get_GHGRP_records(reporting_year, table, rows=None):
 
         except requests.exceptions.RequestException as e:
                     
-            print(e)
+            print(e, table_url)
                     
-            exit
+            sys.exit(1)
 
         else:
             
@@ -168,9 +168,3 @@ def get_GHGRP_records(reporting_year, table, rows=None):
     ghgrp.drop_duplicates(inplace = True)
 
     return ghgrp
-
-
-#for t in ['V_GHG_EMITTER_FACILITIES']:
-#    year = 2015
-#    df = get_GHGRP_records(year, t)
-#    df.to_csv(t[0:7] + '_' + str(year) + '.csv', index = False)

@@ -1,79 +1,124 @@
 import requests
 import pandas as pd
-import numpy as np
 import io
 import os
 import zipfile
-import json
-from bs4 import BeautifulSoup
 import re
-
+#%%
 class CBP:
 
     def __init__(self, year):
+        
+        self.data_dir = 'calculation_data'
+        
+        self.year = year
 
-        f = open(
-            'Censu_data_2014_cbp_variables_NAICS2012_values.html',
-            'r'
-            )
+        def naics_table(year):
+            """
+            Get the relevant NAICS values for a CBP dataset.
+            Check if NAICS codes have been downloaded to disk. Download
+            from Census API if not.
+            """
+            
+            base_html = 'https://api.census.gov/data/'
+            
+            if year < 2012:
+                
+                naics_file = 'naics_2007.csv'
+                
+                html = \
+                    base_html + '2011/cbp?get=NAICS2007,NAICS2007_TTL&for=us'
+                    
+            if year >= 2012:
+                
+                naics_file = 'naics_2012.csv'
+                
+                html = \
+                    base_html + '2012/cbp?get=NAICS2012,NAICS2012_TTL&for=us'
+                    
+            if naics_file in os.listdir(os.path.join('../', self.data_dir)):
+                
+                naics_df = pd.read_csv(self.data_dir + '/' + naics_file)
+    
+            else:
+                
+                r = requests.get(html)
+                
+                naics_df = pd.DataFrame(r.json()[2:],
+                                        columns=['naics', 'desc', 'us'])
+                
+                naics_df.drop(['us'], axis=1, inplace=True)
+                
+                naics_df = pd.DataFrame(
+                        naics_df[(naics_df.naics != '31-33') & 
+                                 (naics_df.naics != '44-45') & 
+                                 (naics_df.naics != '48-49')])
+        
+                naics_df['n_naics'] = naics_df.naics.apply(
+                        lambda x: len(x)
+                        )
+                
+                naics_df['naics'] = naics_df.naics.astype('int')
+                
+                naics_df = pd.DataFrame(
+                        naics_df[naics_df.naics.between(1, 400000)]
+                        )
+                
+                naics_df.to_csv(
+                    os.path.join('../', self.data_dir + '/' + naics_file)
+                    )
+                    
+            return naics_df
 
-        naics2012_soup = BeautifulSoup(f, "lxml")
+        self.naics_df = naics_table(self.year)
 
-        naics2012_table_html = naics2012_soup.find_all('table')[0]
+#            naics_soup = BeautifulSoup(f, "lxml")
+#    
+#            naics_table_html = naics_soup.find_all('table')[0]
+#    
+#            naics_df = pd.DataFrame(columns=['naics', 'desc'],
+#                index=range(0, len(naics_table_html.find_all('tr'))))
+#    
+#            row_marker = 0
+#    
+#            for row in naics_table_html.find_all('tr'):
+#                column_marker = 0
+#                columns = row.find_all('td')
+#                for column in columns:
+#                    naics_df.iat[row_marker, column_marker] = \
+#                        column.get_text()
+#                    column_marker += 1
+#                row_marker += 1
+#    
+#            naics_df.dropna(inplace=True)
+#    
+#            naics_df.loc[:, 'desc'] = naics_df.desc.apply(
+#                lambda x: x.split("\n")[0]
+#                )
+#    
+#            naics_df.loc[:, 'n_naics'] = naics_df.naics.apply(
+#                lambda x: len(x)
+#                )
+#    
+#            naics_df = naics_df[(naics_df.n_naics == 6)]
+#    
+#            naics_df.loc[:, 'naics'] = naics_df.naics.apply(
+#                lambda x: int(x)
+#                )
 
-        naics2012_df = pd.DataFrame(columns=['naics', 'desc'],
-            index=range(0, len(naics2012_table_html.find_all('tr'))))
+        
+        self.naics_cbp = {}
 
-        row_marker = 0
-
-        for row in naics2012_table_html.find_all('tr'):
-            column_marker = 0
-            columns = row.find_all('td')
-            for column in columns:
-                naics2012_df.iat[row_marker, column_marker] = \
-                    column.get_text()
-                column_marker += 1
-            row_marker += 1
-
-        naics2012_df.dropna(inplace=True)
-
-        naics2012_df.loc[:, 'desc'] = naics2012_df.desc.apply(
-            lambda x: x.split("\n")[0]
-            )
-
-        naics2012_df.loc[:, 'n_naics'] = naics2012_df.naics.apply(
-            lambda x: len(x)
-            )
-
-        naics2012_df = naics2012_df[(naics2012_df.n_naics == 6)]
-
-        naics2012_df.loc[:, 'naics'] = naics2012_df.naics.apply(
-            lambda x: int(x)
-            )
-
-        naics2012_df = \
-            naics2012_df[naics2012_df.naics.between(1, 400000)]
-
-        naics2012_df.reset_index(inplace=True, drop=True)
-
-        naics2012_df.drop(['n_naics'], axis=1, inplace=True)
-
-        self.naics2012 = naics2012_df
-
-        year = str(year)
-
-        user = os.getenv('username')
-
-        cbp_file = 'cbp' + year[2:] + 'co'
-
-        zip_path = 'C:\\Users\\' + user + '\\Desktop\\'
+        cbp_file = 'cbp' + str(self.year)[2:] + 'co'
 
         cbp_csv_url = \
             'https://www2.census.gov/programs-surveys/cbp/' + \
-            'datasets/' + year + '/' + cbp_file + '.zip'
+            'datasets/' + str(self.year) + '/' + cbp_file + '.zip'
 
         # first check if file exists
-        if cbp_file + '.zip' not in os.listdir(zip_path):
+        if cbp_file + '.zip' not in os.listdir(
+                os.path.join('../', self.data_dir)
+                ):
 
             zip_cbp =  zipfile.ZipFile(
                 io.BytesIO(
@@ -81,9 +126,11 @@ class CBP:
                     )
                 )
 
-            zip_cbp.extractall(zip_path)
+            zip_cbp.extractall(os.path.join('../', self.data_dir))
 
-        cbp = pd.read_csv(zip_path + cbp_file + '.txt')
+        cbp = pd.read_csv(
+                os.path.join('../', self.data_dir + '/' + cbp_file + '.txt')
+                )
 
         # NAICS codes are a strings that include - and / characters
         def fix_naics(naics):
@@ -129,17 +176,15 @@ class CBP:
 
             return fips
 
-        cbp.loc[:, 'COUNTY_FIPS'] = \
+        cbp['COUNTY_FIPS'] = \
             cbp.fipstate.apply(state_fips_str) + \
                 cbp.fipscty.apply(county_fips_str)
 
         census_regions = pd.read_csv(
-            'C:\\Users\\cmcmilla\\' + \
-            'Solar-for-Industry-Process-Heat\\' + \
-            'US_FIPS_Codes.csv', index_col=['COUNTY_FIPS']
-            )
+                os.path.join('../', self.data_dir + '/US_FIPS_Codes.csv'),
+                index_col=['COUNTY_FIPS'])
 
-        cbp.loc[:,'region'] = cbp.fipstate.map(
+        cbp['region'] = cbp.fipstate.map(
             dict(census_regions[
                 ['FIPS State', 'MECS_Region']
                 ].values)

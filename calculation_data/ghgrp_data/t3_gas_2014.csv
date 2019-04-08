@@ -1,0 +1,49 @@
+,FACILITY_ID,REPORTING_YEAR,FACILITY_NAME,UNIT_NAME,FUEL_TYPE,MONTH,CARBON_CONTENT,CARBON_CONTENT_UOM,FUEL_COMBUSTED,FUEL_COMBUSTED_UOM,HIGH_HEAT_VALUE,HIGH_HEAT_VALUE_UOM,MOLECULAR_WEIGHT,MOLECULAR_WEIGHT_UOM
+0,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),September,0.706,kg C per kg,96640266.0,scf/month,,,16.99,kg/kg-mole
+1,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,July,0.177,kg C per kg,3365820300.0,scf/month,,,27.29,kg/kg-mole
+2,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,February,0.1899,kg C per kg,3037833300.0,scf/month,,,28.58,kg/kg-mole
+3,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,April,0.1891,kg C per kg,539404600.0,scf/month,,,29.2,kg/kg-mole
+4,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,April,0.1891,kg C per kg,1940957900.0,scf/month,,,29.2,kg/kg-mole
+5,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,September,0.188,kg C per kg,2367508800.0,scf/month,,,30.0,kg/kg-mole
+6,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,October,0.1823,kg C per kg,3371995300.0,scf/month,,,28.78,kg/kg-mole
+7,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,January,0.1893,kg C per kg,1400450300.0,scf/month,,,29.11,kg/kg-mole
+8,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),December,0.705,kg C per kg,94904910.0,scf/month,,,17.448,kg/kg-mole
+9,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,August,0.1881,kg C per kg,2366877500.0,scf/month,,,29.85,kg/kg-mole
+10,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,March,0.1889,kg C per kg,1020295000.0,scf/month,,,29.29,kg/kg-mole
+11,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,May,0.1882,kg C per kg,2697137800.0,scf/month,,,29.93,kg/kg-mole
+12,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,February,0.1899,kg C per kg,2253037300.0,scf/month,,,28.58,kg/kg-mole
+13,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,February,0.1899,kg C per kg,708949900.0,scf/month,,,28.58,kg/kg-mole
+14,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,April,0.1891,kg C per kg,2166671000.0,scf/month,,,29.2,kg/kg-mole
+15,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,May,0.1882,kg C per kg,1072421400.0,scf/month,,,29.93,kg/kg-mole
+16,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,September,0.188,kg C per kg,1948908100.0,scf/month,,,30.0,kg/kg-mole
+17,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,October,0.1823,kg C per kg,0.0,scf/month,,,28.78,kg/kg-mole
+18,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,November,0.1892,kg C per kg,1318300100.0,scf/month,,,29.46,kg/kg-mole
+19,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),February,0.706,kg C per kg,79275547.0,scf/month,,,17.026,kg/kg-mole
+20,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),April,0.705,kg C per kg,73224094.0,scf/month,,,17.2,kg/kg-mole
+21,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),May,0.7020000000000001,kg C per kg,49840772.0,scf/month,,,17.345,kg/kg-mole
+22,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),November,0.708,kg C per kg,86797258.0,scf/month,,,16.852999999999998,kg/kg-mole
+23,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,March,0.1889,kg C per kg,2948015300.0,scf/month,,,29.29,kg/kg-mole
+24,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,October,0.1823,kg C per kg,3383032500.0,scf/month,,,28.78,kg/kg-mole
+25,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,January,0.1893,kg C per kg,2472233000.0,scf/month,,,29.11,kg/kg-mole
+26,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,August,0.1881,kg C per kg,3634781000.0,scf/month,,,29.85,kg/kg-mole
+27,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),March,0.7120000000000001,kg C per kg,102781393.0,scf/month,,,17.581,kg/kg-mole
+28,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),July,0.703,kg C per kg,75833467.0,scf/month,,,16.750999999999998,kg/kg-mole
+29,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,January,0.1893,kg C per kg,1882578400.0,scf/month,,,29.11,kg/kg-mole
+30,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,July,0.177,kg C per kg,460900400.0,scf/month,,,27.29,kg/kg-mole
+31,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,September,0.188,kg C per kg,2889823300.0,scf/month,,,30.0,kg/kg-mole
+32,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,June,0.1885,kg C per kg,2907428000.0,scf/month,,,29.6,kg/kg-mole
+33,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,November,0.1892,kg C per kg,1827482300.0,scf/month,,,29.46,kg/kg-mole
+34,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,July,0.177,kg C per kg,2923611500.0,scf/month,,,27.29,kg/kg-mole
+35,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,December,0.1885,kg C per kg,2661255000.0,scf/month,,,29.88,kg/kg-mole
+36,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),June,0.705,kg C per kg,62809953.0,scf/month,,,16.961,kg/kg-mole
+37,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),October,0.705,kg C per kg,89708827.0,scf/month,,,17.144000000000002,kg/kg-mole
+38,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,March,0.1889,kg C per kg,3181055300.0,scf/month,,,29.29,kg/kg-mole
+39,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,December,0.1885,kg C per kg,1931538600.0,scf/month,,,29.88,kg/kg-mole
+40,1006695,2014,Dearborn Industrial Generation,BL1100,Blast Furnace Gas,June,0.1885,kg C per kg,2810385500.0,scf/month,,,29.6,kg/kg-mole
+41,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),January,0.706,kg C per kg,75418673.0,scf/month,,,16.944000000000003,kg/kg-mole
+42,1007923,2014,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,H-2101,Natural Gas (Weighted U.S. Average),August,0.7040000000000001,kg C per kg,76742711.0,scf/month,,,16.762999999999998,kg/kg-mole
+43,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,June,0.1885,kg C per kg,1309739600.0,scf/month,,,29.6,kg/kg-mole
+44,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,November,0.1892,kg C per kg,2995041300.0,scf/month,,,29.46,kg/kg-mole
+45,1006695,2014,Dearborn Industrial Generation,BL3100,Blast Furnace Gas,December,0.1885,kg C per kg,1809906600.0,scf/month,,,29.88,kg/kg-mole
+46,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,May,0.1882,kg C per kg,3204152000.0,scf/month,,,29.93,kg/kg-mole
+47,1006695,2014,Dearborn Industrial Generation,BL2100,Blast Furnace Gas,August,0.1881,kg C per kg,1280828900.0,scf/month,,,29.85,kg/kg-mole

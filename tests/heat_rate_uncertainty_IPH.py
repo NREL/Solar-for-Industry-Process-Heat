@@ -8,7 +8,7 @@ Created on Wed Dec  5 21:50:55 2018
 import pandas as pd
 import os
 import numpy as np
-from GHGRP_dl.Get_GHGRP_data import xml_to_df, get_GHGRP_records
+from Get_GHGRP_data_IPH import get_GHGRP_records
 
 #%%
 class FuelUncertainty:
@@ -53,7 +53,7 @@ class FuelUncertainty:
     
     """
 
-    def __init__(self, agr='by_fuel', years=2014):
+    def __init__(self, agr=None, years=None, std_efs=None):
         
         self.tier_tables = {'t2_hhv': ['C_T2EQC2AMONTHLYINPUTS'],
                             't2_boiler': ['C_T2EQC2CMONTHLYINPUTS'], 
@@ -61,16 +61,24 @@ class FuelUncertainty:
                                    'C_T3EQC4C8MONTHLYINPUTS', 
                                    'C_T3EQC5C8MONTHLYINPUTS']}
         
-        self.ef_file_path = os.path.join('.', 'data_for_heat_calcs',
+        self.ef_file_path = os.path.join('../', 'calculation_data/',
                                          'EPA_FuelEFs.csv')
         
-        self.fuel_efs = pd.read_csv(self.ef_file_path)
+        if std_efs is None:
         
+            self.fuel_efs = pd.read_csv(self.ef_file_path)
+            
+        else:
+            
+            self.fuel_efs = std_efs
+            
         self.fuel_efs.columns = [x.lower() for x in self.fuel_efs.columns]
         
-        self.agr = agr
-
-        self.years = years
+        if agr == None:
+            
+            self.agr = 'by_fuel'
+        
+        self.years = [years]
 
     def dl_tier(self, tier):
         """
@@ -87,20 +95,12 @@ class FuelUncertainty:
         t3: Carbon content by fuel for Tier 3 methodology
         
         """
-
-        if type(self.years) == tuple:
-
-            year_range = range(self.years[0], self.years[1]+1)
-
-        else:
-
-            year_range = list(self.years)
         
         tier_df = pd.DataFrame()
 
         for t in self.tier_tables[tier]:
 
-            for y in year_range:
+            for y in self.years:
                 
                 df = get_GHGRP_records(y, t)
                 
@@ -109,6 +109,8 @@ class FuelUncertainty:
         tier_df.columns = [x.lower() for x in tier_df.columns]
         
         # Fix issues with natural gas HHV reporting
+        # Other fuel HHVs were exammined manually. There's a wide range for
+        # wood and wood residuals, but not other fuels.
         if tier == 't2_hhv':
             
             tier_df['high_heat_value'] = \
@@ -132,7 +134,7 @@ class FuelUncertainty:
             
             drop_index = tier_df[
                 (tier_df.fuel_type == 'Natural Gas (Weighted U.S. Average)') & 
-                (tier_df.high_heat_value > 0.0012 )
+                (tier_df.high_heat_value.between(0.0012, 0.0014))
                 ].index
             
             tier_df = tier_df[~tier_df.index.isin(drop_index)]
@@ -289,7 +291,7 @@ class FuelUncertainty:
         # SI units as 101.560 kPa, 288.706 K, 0.02316847 m3. Ideal gas
         # constant is 8.314 kPa*m3/(kg-mol*K)
         scf_per_kgmol = (8.314 * 288.706) / (101.560 * 0.028316847)
-        
+    
         conv_dict = {'percent by weight, expressed as a decimal fraction': \
                      907.185, 'kg C per kg': scf_per_kgmol,
                      'kg C per gallon': 1}
