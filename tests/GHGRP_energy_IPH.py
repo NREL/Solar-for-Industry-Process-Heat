@@ -470,7 +470,7 @@ class GHGRP:
         merge_cols.append('FACILITY_ID')
 
         energy_subC = pd.merge(
-            energy_subC, all_fac[merge_cols], how='inner', on='FACILITY_ID'
+            energy_subC, all_fac[merge_cols], how='left', on='FACILITY_ID'
             )
 
         return energy_subC
@@ -489,7 +489,7 @@ class GHGRP:
         merge_cols.append('FACILITY_ID')
     
         energy_subD = pd.merge(
-            formatted_subD, all_fac[merge_cols], how='inner', on='FACILITY_ID'
+            formatted_subD, all_fac[merge_cols], how='left', on='FACILITY_ID'
             )
 
     #   First, zero out 40 CFR Part 75 energy use for electric utilities
@@ -516,7 +516,7 @@ class GHGRP:
         merge_cols.append('FACILITY_ID')
     
         energy_subAA = pd.merge(
-            energy_subAA, all_fac[merge_cols], how='inner', on='FACILITY_ID'
+            energy_subAA, all_fac[merge_cols], how='left', on='FACILITY_ID'
             )
         
         ghgrp_energy = pd.DataFrame()
@@ -528,6 +528,8 @@ class GHGRP:
         
         # Drop all facilities that do not have an industrial primary or
         # secondary NAICS code
+        ghgrp_energy.dropna(subset=['PRIMARY_NAICS_CODE'], inplace=True)
+        
         ghgrp_energy['NAICS2_p'] = ghgrp_energy.PRIMARY_NAICS_CODE.apply(
                 lambda x: int(str(x)[0:2])
                 )

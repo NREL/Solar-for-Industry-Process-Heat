@@ -22,6 +22,9 @@ class tier_energy:
             self.std_efs = pd.DataFrame(
                     hr_uncert.FuelUncertainty().fuel_efs)
             
+            #make sure no duplicate fuel types
+            self.std_efs = self.std_efs.drop_duplicates(subset='fuel_type')
+            
             self.std_efs.set_index('fuel_type', inplace=True)
             
             self.std_efs.index.names = ['FUEL_TYPE']
@@ -29,6 +32,7 @@ class tier_energy:
         else:
 
             self.std_efs = std_efs
+            
         
         self.std_efs.rename(
                 columns={'co2_kgco2_per_mmbtu': 'CO2_kgCO2_per_mmBtu'},
@@ -223,7 +227,7 @@ class tier_energy:
         self.t3_data_annual = pd.DataFrame(
                 self.t3_data_annual[self.t3_data_annual.fuel_combusted !=0]
                 )
-# %%
+
     def filter_data(self, subpart_c_df, tier_column):
         """
         Filter relevant emissions data from subpart C dataframe based 
@@ -466,8 +470,8 @@ class tier_energy:
             
         energy = pd.DataFrame()
         
-        # Calculated annual hhv (mass or volumne per mmbtu) by fuel and 
-        # facility
+        # Calculated annual hhv (mass or volumne per mmbtu) by fuel. 
+        # Note that reporting for these measurements began in 2014.
         hhv_average = self.t2hhv_data_annual.reset_index().groupby(
                 ['FUEL_TYPE']
                 ).hhv_wa.mean()
@@ -490,65 +494,71 @@ class tier_energy:
 
                 dataframe[col] = dataframe[col].astype('str')
             
-        t3_mmbtu.set_index(['FACILITY_ID', 'REPORTING_YEAR', 'FUEL_TYPE',
-                              'UNIT_NAME'], 
-                              inplace=True)
-
+        t3_mmbtu.set_index(['FACILITY_ID', 'REPORTING_YEAR','UNIT_NAME'], 
+                            inplace=True)
+        
+        ghg_data.set_index(['FACILITY_ID', 'REPORTING_YEAR','UNIT_NAME'], 
+                            inplace=True)
+        
+        ghg_data = ghg_data.join(t3_mmbtu[['energy_mmbtu']])
+        
+        ghg_data.reset_index(inplace=True)
+        
+        energy = energy.append(
+                ghg_data[ghg_data.energy_mmbtu.notnull()].copy(deep=True),
+                ignore_index=True)
+        
+        # Match fuel types for remaining data
         fuel_type_cats = ['FUEL_TYPE', 'FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND']
 
         for ft in fuel_type_cats:
             
-            df = pd.DataFrame(ghg_data.dropna(subset=[ft], axis=0))
-    
-            if df.empty == True:
+            df_by_ef = pd.DataFrame(
+                    ghg_data[ghg_data.energy_mmbtu.isnull()].dropna(
+                            subset=[ft], axis=0
+                            )
+                    )
+
+            if df_by_ef.empty == True:
                 
                 continue
             
             else:
+
+#                # Calculate emissions first by hhv_average[by_fac], then by
+#                # hhv_average[by_fuel], then by std emission factors                
+#                df.set_index(['FACILITY_ID', 'REPORTING_YEAR','UNIT_NAME'], 
+#                              inplace=True)
+#
+#
+#
+#                df_by_ef = pd.DataFrame(df[~df.index.isin(df_by_hhv.index)])
                 
-                if ft != 'FUEL_TYPE':
-                    
-                    df.drop(set(fuel_type_cats).difference({ft}), axis=1,
-                            inplace=True)
-
-                    df.rename(columns={ft: 'FUEL_TYPE'}, inplace=True)
-
-                # Calculate emissions first by hhv_average[by_fac], then by
-                # hhv_average[by_fuel], then by std emission factors                
-                df.set_index(['FACILITY_ID', 'REPORTING_YEAR', 'FUEL_TYPE',
-                              'UNIT_NAME'], 
-                              inplace=True)
-
-                df_by_hhv = pd.merge(
-                    df, t3_mmbtu, left_index=True, right_index=True,
-                    how='inner'
-                    )
-
-                df_by_ef = pd.DataFrame(df[~df.index.isin(df_by_hhv.index)])
-                
-                df_by_ef = pd.merge(
-                    df_by_ef.reset_index(),
-                    self.std_efs.reset_index()[['FUEL_TYPE',
-                                                'CO2_kgCO2_per_mmBtu']],
-                    on='FUEL_TYPE', how='left'
-                    )
+                df_by_ef = df_by_ef.set_index(ft).join(
+                        self.std_efs['CO2_kgCO2_per_mmBtu']
+                        )
+    
+#                df_by_ef = pd.merge(df_by_ef,
+#                    self.std_efs.reset_index()[['FUEL_TYPE',
+#                                                'CO2_kgCO2_per_mmBtu']],
+#                    right_on='FUEL_TYPE', left_on=ft, how='left'
+#                    )
+#                
+#                print('len after merge',len(df_by_ef))
     
                 df_by_ef['energy_mmbtu'] = df_by_ef[tier_column].divide(
                         df_by_ef['CO2_kgCO2_per_mmBtu']
                         )*1000
 
-                for dfs in [df_by_hhv, df_by_ef]:
+                df_by_ef.reset_index(inplace=True)
+                
+                df_by_ef.rename(columns={'index': ft}, inplace=True)
                     
-                    if dfs.index.names != [None]:
-                        
-                        dfs.reset_index(inplace=True)
-                    
-                    energy = energy.append(
-                        dfs[['FACILITY_ID', 'REPORTING_YEAR', 'FUEL_TYPE',
-                             'UNIT_NAME', tier_column, 'UNIT_TYPE',
-                             'energy_mmbtu']],
-                        ignore_index=True, sort=True
-                        )
+                energy = energy.append(
+                    df_by_ef[['FACILITY_ID', 'REPORTING_YEAR', ft,'UNIT_NAME',
+                              tier_column, 'UNIT_TYPE', 'energy_mmbtu']],
+                              ignore_index=True, sort=True
+                    )
 
         energy.sort_index(inplace=True)
     
@@ -586,6 +596,8 @@ class tier_energy:
             energy = energy.append(df, sort=True)
 
         energy.drop(['CH4_gCH4_per_mmBtu'], axis=1, inplace=True)
+        
+        return energy
 
     def calc_all_tiers(self, subpart_c_df):
         """

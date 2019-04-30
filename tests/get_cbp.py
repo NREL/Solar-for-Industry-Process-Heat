@@ -9,7 +9,7 @@ class CBP:
 
     def __init__(self, year):
         
-        self.data_dir = 'calculation_data'
+        self.data_dir = 'calculation_data/'
         
         self.year = year
 
@@ -33,21 +33,37 @@ class CBP:
                 
                 naics_file = 'naics_2012.csv'
                 
-                html = \
-                    base_html + '2012/cbp?get=NAICS2012,NAICS2012_TTL&for=us'
+                html = 'https://api.census.gov/data/2012/cbp/variables.json'
                     
             if naics_file in os.listdir(os.path.join('../', self.data_dir)):
                 
-                naics_df = pd.read_csv(self.data_dir + '/' + naics_file)
+                naics_df = pd.read_csv(
+                        os.path.join('../', self.data_dir+naics_file)
+                        )
     
             else:
                 
                 r = requests.get(html)
                 
-                naics_df = pd.DataFrame(r.json()[2:],
-                                        columns=['naics', 'desc', 'us'])
+                if year >=2012:
+                    
+                    naics_df = pd.DataFrame.from_dict(
+                        r.json()['variables']['NAICS2012']['values']['item'],
+                        orient='index'
+                        )
+                    
+                    naics_df = naics_df[2:]
+                    
+                    naics_df.reset_index(inplace=True)
+                    
+                    naics_df.columns=['naics', 'desc']
                 
-                naics_df.drop(['us'], axis=1, inplace=True)
+                else:
+                    
+                    naics_df = pd.DataFrame(r.json()[2:],
+                                            columns=['naics', 'desc', 'us'])
+                    
+                    naics_df.drop(['us'], axis=1, inplace=True)
                 
                 naics_df = pd.DataFrame(
                         naics_df[(naics_df.naics != '31-33') & 
@@ -65,7 +81,7 @@ class CBP:
                         )
                 
                 naics_df.to_csv(
-                    os.path.join('../', self.data_dir + '/' + naics_file)
+                    os.path.join('../', self.data_dir + naics_file)
                     )
                     
             return naics_df
@@ -116,7 +132,7 @@ class CBP:
             'datasets/' + str(self.year) + '/' + cbp_file + '.zip'
 
         # first check if file exists
-        if cbp_file + '.zip' not in os.listdir(
+        if cbp_file + '.txt' not in os.listdir(
                 os.path.join('../', self.data_dir)
                 ):
 
@@ -197,11 +213,62 @@ class CBP:
             ['n1_4', 'n5_9', 'n10_19', 'n20_49']
             ].sum(axis=1)
 
-        cbp.loc[:, '1000 and Over'] = cbp[
-            ['n1000','n1000_1','n1000_2','n1000_3','n1000_4']
-            ].sum(axis=1)
-
         self.cbp = cbp
+        
+        # Remaining lines of code further format cbp data into cbp_matching
+        # for comparison against GHGRP facilities.
+        self.cbp['naics_n'] = self.cbp.naics.apply(lambda x: len(str(x)))
+
+        self.cbp['industry'] = \
+            self.cbp.loc[self.cbp[self.cbp.naics != 0].index, 'naics'].apply(
+                    lambda x: int(str(x)[0:2]) in [11, 21, 23, 31, 32, 33]
+                    )
+
+        self.cbp_matching = pd.DataFrame(
+                self.cbp[(self.cbp.industry == True) &
+                         (self.cbp.naics_n == 6)])
+
+        self.cbp_matching['fips_matching'] = \
+            self.cbp_matching.fipstate.astype(str) + \
+                self.cbp_matching.fipscty.astype(str)
+
+        self.cbp_matching['fips_matching'] = \
+            self.cbp_matching.fips_matching.astype(int)
+
+        #Correct instances where CBP NAICS are wrong
+        #Hancock County, WV has a large electroplaing and rolling facility
+        #that shouldn't be classified as 331110/331111 
+        if self.year >= 2012:
+
+            self.cbp_matching.drop(
+                self.cbp_matching[(self.cbp_matching.fips_matching == 54029) &
+                             (self.cbp_matching.naics == 331110)].index,
+                inplace=True
+                )
+
+        else:
+
+            self.cbp_matching.drop(
+                self.cbp_matching[(self.cbp_matching.fips_matching == 54029) &
+                             (self.cbp_matching.naics == 331111)].index,
+                inplace=True
+                )
+
+        #Create n1-49 column to match MECS reporting.
+        self.cbp_matching['n1_49'] = self.cbp_matching['Under 50']
+
+        self.cbp_matching['fips_n'] = [
+            i for i in zip(self.cbp_matching.loc[:, 'fips_matching'], \
+                self.cbp_matching.loc[:,'naics'])
+            ]
+
+        #Remove state-wide "999" county FIPS
+        self.cbp_matching = pd.DataFrame(
+            self.cbp_matching[self.cbp_matching.fipscty != 999]
+            )
+        
+        self.cbp_matching.reset_index(drop=True, inplace=True)
+
 
 # It'd be nice to use the Census API, but querying all counties for a given
 # state results in an error about exceeding cell limit.
@@ -434,9 +501,4 @@ class CBP:
 #     return seed_df
 #
 # # %%
-#
-# seed_df = import_seed('IPF_seed.csv')
-#
-# seed_df = seed_correct_cbp(seed_df, cbp)
-#
-# seed_df = seed_correct_MECS(seed_df, table3_2)
+
