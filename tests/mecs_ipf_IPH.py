@@ -7,7 +7,7 @@ Modified on Thur Feb 9 16:09:00 2017 by colin
 
 import numpy as np
 import os
-import itertools as it
+import itertools as itools
 import pandas as pd
 
 class IPF:
@@ -18,9 +18,13 @@ class IPF:
 
         self.year = year
         
-        self.naics_df = table3_2
+        self.naics_df = pd.DataFrame(table3_2.reset_index())
         
-        self.emply_df = table3_3
+        self.emply_df = pd.DataFrame(table3_3)
+        
+        self.empsize_dict = {'Under 50': 'n1_49', '50-99': 'n50_99',
+                     '100-249': 'n100_249','250-499': 'n250_499',
+                     '500-999': 'n500_999','1000 and Over': 'n1000'}
         
         self.colDict = {'regions': ['Northeast', 'Midwest', 'South', 'West'],
            'energy': ['Net_electricity', 'Residual_fuel_oil', 'Diesel',
@@ -30,6 +34,8 @@ class IPF:
                           '500-999', '1000 and Over'],
            'value': ['Under 20', '20-49', '50-99', '100-249', '250-499',
                      '500 and Over']}
+           
+        self.colDict['energy'].sort()
 
         def combine(self, columns):
             """
@@ -39,7 +45,7 @@ class IPF:
         
             labels = [self.colDict[x] for x in columns]
     
-            labels = list(it.product(*labels))
+            labels = list(itools.product(*labels))
     
             output = []
     
@@ -93,6 +99,7 @@ class IPF:
             if error < 1e-15: break
         #report error if max iterations reached
         if error > 1e-13: print("Max Iterations ", error)
+    
         return seed
     
     def mecs_ipf(self, seed_df):
@@ -105,7 +112,7 @@ class IPF:
         
         seed_shop = seed_df.copy(deep=True)
         
-        seed_shop.set_index(['region', 'Unnamed: 0'], inplace=True)
+        seed_shop.set_index(['region', 'index'], inplace=True)
 
         seed_shop = seed_shop.T
 
@@ -126,10 +133,8 @@ class IPF:
                         :, (0 + counter):(6 + counter)
                         ]
 
-                print(reg, fuel)
-                
                 col = self.naics_df[self.naics_df.region==reg][fuel].values
-                
+
                 row = self.emply_df[
                         (self.emply_df.region==reg) &
                         (self.emply_df.Data_cat=='Employment_size')
@@ -150,29 +155,143 @@ class IPF:
                 row = row.astype(float)
                 
                 if first: 
+                    # Something awry with previous method of stacking numpy
+                    # arrays. Just using Dataframes instead.
+#                    naics_emply = self.ipf2D_calc(seed, col, row)
                     
-                    naics_emply = self.ipf2D_calc(seed, col, row)
+                    naics_emply = pd.DataFrame.from_records(
+                             self.ipf2D_calc(seed, col, row),
+                             columns=self.empsize_dict.values()
+                             )
     
+                    naics_emply['MECS_Region'] = reg
+                    
+                    naics_emply['MECS_FT'] = fuel
+                    
+                    naics_emply['naics'] = self.naics_df.naics
+                    
                 else: 
-                    naics_emply = np.hstack(
-                            (naics_emply, self.ipf2D_calc(seed, col, row))
-                            )
-    
-                first = False
-
-        naics_emply = np.hstack((
-            self.naics_df[
-                    self.naics_df.region=='West'
-                    ].iloc[:, 0].values.reshape(81,1), naics_emply
-            ))
+#                    naics_emply = np.hstack(
+#                            (naics_emply, self.ipf2D_calc(seed, col, row))
+#                            )
                     
-        self.headings_all.insert(0, 'naics')
+                    ipf_results = pd.DataFrame.from_records(
+                             self.ipf2D_calc(seed, col, row),
+                             columns=self.empsize_dict.values()
+                             )
+                    
+                    ipf_results['MECS_Region'] = reg
+                    
+                    ipf_results['MECS_FT'] = fuel
+                    
+                    ipf_results['naics'] = self.naics_df.naics
+                    
+                    naics_emply = naics_emply.append(ipf_results,
+                                                     ignore_index=True)
 
-        naics_emply = np.vstack((self.headings_all, naics_emply))
+                first = False
+                
+#        naics_emply = np.hstack((
+#            self.naics_df[
+#                    self.naics_df.region=='West'
+#                    ].loc[:, 'naics'].values.reshape(80,1), naics_emply
+#            ))
+#                    
+#        self.headings_all.insert(0, 'naics')
+#
+#        naics_emply = np.vstack((self.headings_all, naics_emply))
+        
+        #Begin formatting IPF results for use elsewhere.
+#        ipf_results_formatted = pd.DataFrame(naics_emply[1:],
+#                                             columns=naics_emply[0],
+#                                             dtype='float32')
+        
+        ipf_results_formatted = pd.melt(
+                naics_emply, id_vars=['MECS_Region', 'MECS_FT', 'naics'],
+                var_name='Emp_Size'
+                )
+        
+#        ipf_results_formatted = ipf_results_formatted.set_index('naics').T
+        
+#        ipf_results_formatted.columns = \
+#            ipf_results_formatted.columns.astype(int)
+            
+#        ipf_results_formatted.drop('naics', axis=0, inplace=True)
+            
+        # Check energy sum of IPF (in TBtu):
+        print('Total IPF energy (TBtu): ', '\n', 
+              ipf_results_formatted.value.sum())
+
+#        ipf_results_formatted["MECS_FT"] = [
+#            x[x.find("_") + 1 : x.rfind("_")] for x \
+#                in list(ipf_results_formatted.index)
+#            ]
+
+#        ipf_results_formatted["MECS_Region"] = [
+#            x[0 : x.find("_")] for x in list(ipf_results_formatted.index)
+#            ]
+
+#        ipf_results_formatted["Emp_Size"] = [
+#            x[x.rfind("_") + 1 : len(x)] for x in list(
+#                ipf_results_formatted.index
+#                )
+#            ]
+
+#        ipf_results_formatted.loc[:, 'Emp_Size'] = \
+#            ipf_results_formatted['Emp_Size'].map(self.empsize_dict)
+
+        ipf_results_formatted.fillna(0, inplace=True)
+        
+        ipf_results_formatted = pd.pivot_table(
+                ipf_results_formatted, index=['MECS_Region', 'MECS_FT',
+                                              'Emp_Size'],
+                values=['value'], columns=['naics'], aggfunc=sum
+                )
+
+        ipf_results_formatted.columns = \
+            ipf_results_formatted.columns.droplevel(0)
+
+        ipf_results_formatted.reset_index(inplace=True)
 
         filename = 'mecs_' + str(self.year) + \
             '_ipf_results_naics_employment.csv'
+            
+        ipf_results_formatted.to_csv(self.__location__+filename)
         
-        np.savetxt(self.__location__ + filename, naics_emply, fmt='%s',
-                   delimiter=",")
+#        np.savetxt(self.__location__ + filename, naics_emply, fmt='%s',
+#                   delimiter=",")
+    
+#    def interpolate_ipf(self, years=(2010, 2014)):
+#        """
+#        Interpolate between-year IPF results for two MECS years 
+#        (e.g., 2010 and 2014)
+#        """
+#        
+#        ipf_results_y1 = pd.read_csv(
+#                self.__location__ + 'mecs_'+str(years[0])+\
+#                '_ipf_results_naics_employment.csv'
+#                )
+#        
+#        ipf_results_y2 = pd.read_csv(
+#                self.__location__ + 'mecs_'+str(years[1])+\
+#                '_ipf_results_naics_employment.csv'
+#                )
+#        
+#        columns_all_ipf = [x for x in itools.product(
+#                range(years), ipf_results_y1.columns
+#                )]
+#        
+#        ipf_all = pd.DataFrame(columns=columns_all_ipf)
+#        
+#        for df in [ipf_results_y1, ipf_results_y2]:
+#
+#            
+#        
+#        filename = 'mecs_' + str() + \
+#            '_ipf_results_naics_employment.csv'
+#            
+#        ipf_results_formatted.to_csv(self.__location__+filename)
+            
+        
+        
         

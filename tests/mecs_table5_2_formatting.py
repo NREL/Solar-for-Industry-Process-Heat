@@ -7,11 +7,12 @@ Created on Wed Mar 27 14:06:54 2019
 import pandas as pd
 import numpy as np
 import os
+import re
 
 class table5_2:
     
     def __init__(self, year):
-        
+
         self.base_url = 'https://www.eia.gov/consumption/manufacturing/data/'
         
         self.year = year
@@ -19,7 +20,7 @@ class table5_2:
         if self.year == 2010:
             
             skipfooter = 43
-            
+    
             file_url = '2010/xls/table5_2.xls'
             
         else:
@@ -28,8 +29,19 @@ class table5_2:
             
             file_url = '2014/xls/table5_2.xlsx'
 
-        table_url = base_url + file_url
+        table_url = self.base_url + file_url
         
+#        # Check to see if formatted table 5_2 exists. If it does,
+#        # skip all of the initial importing and formatting.
+#        formatted_files = ['bio'+str(self.year)+'_formatted.csv',
+#                           'byp'+str(self.year)+'_formatted.csv',
+#                           'table5_2_'+str(self.year)+'_formatted.csv']
+#        
+#        if all(
+#            [f in os.listdir('../calculation_data/') for f in formatted_files]
+#            ):
+#            
+                
         self.fuels = ['total', 'net_electricity', 'fuel_oil', 'diesel',
                       'natural_gas', 'NGL_HGL', 'coal', 'other']
         
@@ -71,23 +83,20 @@ class table5_2:
        # fix missing 'End Use Not Reported' row for Gypsum (32740)
         if self.year == 2014:
  #%%              
-            gypsum = pd.DataFrame([[327420,'End Use Not Reported',0.01,0,0,0,0,
-                                   0,0,0.01,6,'End Use Not Reported',False]],
+            gypsum = pd.DataFrame([[327420,'End Use Not Reported',0.01,0,0,0,
+                                   0,0,0.01,6,'End Use Not Reported',True]],
                                     columns=self.eu_table.columns)
                                    
             self.eu_table = self.eu_table.append(gypsum, ignore_index=True)     
-            
- 
-        #self.eu_table['total'] = self.eu_table.total.astype(int)
-        
-        
-        #Also: loop through TOTAL FUEL COSNUMPTION ROWS. If count(Q, *) =1, then
-        # if col == total, q = sum(remaining); if col != total, q = total - sum(remaining)
-        # Also check if not_total == False rows are correctly filling in all instances where there's only one missing value
-        
-        
-        self.eu_table.set_index(['naics', 'enduse_cat', 'enduse_total', 'end_use'],
-                               inplace=True)
+
+        self.eu_table['end_use'] = self.eu_table.end_use.apply(
+                lambda x: x.strip()
+                )
+
+        self.eu_table.set_index(
+                ['naics', 'enduse_cat', 'enduse_total', 'end_use'],
+                inplace=True
+                )
         
         self.eu_table.sort_index(inplace=True)
         
@@ -96,8 +105,8 @@ class table5_2:
                  'End Use Not Reported',), ('net_electricity'):('other')
                 ].replace(
                     {'*': 0.01, '  Facility HVAC (g)': '  Facility HVAC'}
-                    )()
-        
+                    ))
+
         # Calcualte missing values (* and Q) for enduse category totals
         for i in self.eu_table.xs(
                 'TOTAL FUEL CONSUMPTION', level='enduse_cat'
@@ -230,12 +239,12 @@ class table5_2:
     #                             'End Use Not Reported'), f] in ['Q', '*']):
     #                                
     #                            continue
-                            
+
                 if (self.eu_table.loc[(naics, 'TOTAL FUEL CONSUMPTION',True,
                                   'TOTAL FUEL CONSUMPTION'), f] in ['Q', '*']) &\
                    (self.eu_table.loc[(naics, 'End Use Not Reported',True,
                                  'End Use Not Reported'), f] not in ['Q', '*']):
-    
+
                     try:
                         
                         self.eu_table.loc[
@@ -266,7 +275,6 @@ class table5_2:
                                  'Indirect Uses-Boiler Fuel',
                                  'End Use Not Reported')), f].sum()
 #%%      
-
         def q_fill(enduse_total):
             """
             Method for filling in 'Q' (data withheld due to standard error) values.
@@ -280,15 +288,15 @@ class table5_2:
                 
             if enduse_total == False:
                 
-                eu_grpd = \
-                    self.eu_table[self.eu_table.enduse_total == enduse_total].groupby(
-                            ['naics', 'enduse_cat']
-                            )
+                eu_grpd = self.eu_table[
+                        self.eu_table.enduse_total == enduse_total
+                        ].groupby(['naics', 'enduse_cat'])
 
             else:
 
-                eu_grpd = \
-                    self.eu_table[self.eu_table.enduse_total == enduse_total].groupby(['naics'])
+                eu_grpd = self.eu_table[
+                        self.eu_table.enduse_total == enduse_total
+                        ].groupby(['naics'])
         
             for g in eu_grpd.groups:
                 
@@ -304,7 +312,7 @@ class table5_2:
                         
                         i = df_grp[df_grp[f] == 'Q'].index
     
-                        if self.eu_table.loc[i, 'enduse_cat'].values != 'TOTAL FUEL CONSUMPTION':
+                        if self.eu_table.loc[i, 'enduse_cat'].values!='TOTAL FUEL CONSUMPTION':
                             
                             if enduse_total == True:
                                 
@@ -312,7 +320,7 @@ class table5_2:
                                     df_grp[
                                         df_grp.enduse_cat=='TOTAL FUEL CONSUMPTION'
                                         ][f].values
-                                            
+        
                             else:
                                 
                                 try: 
@@ -338,33 +346,35 @@ class table5_2:
                         else:
                             
                             continue
-                    
-                else:
-                    
-                    continue
-                
-            return self.eu_table
 
-#%%    
+                else:
+
+                    continue
+
+            return self.eu_table
+ 
         # fill 'Q' values first for end use category totals, then individual 
         # end use categories
         self.eu_table = q_fill(enduse_total=True)
-        
+
         self.eu_table = q_fill(enduse_total=False)
-            
-    
+
         # Save the table for final manual filling in of data.
+        # After manual operations, file is saved as table5_2_[year]_formatted.csv
         self.eu_table.to_csv(os.path.join('../calculation_data/',
                              'table5_2_'+str(self.year)+'.csv'), index=False)
-        
 
     def format_other_use(self):
         
         if self.year == 2010:
-            
+
             byp_url = '2010/xls/table3_5.xls'
-            
+
             bio_url = '2010/xls/table3_6.xls'
+            
+            bio_skip = 21
+            
+            bio_cols = [n for n in range(0, 8)]
             
         if self.year == 2014:
             
@@ -372,7 +382,10 @@ class table5_2:
             
             bio_url = '2014/xls/table3_6.xlsx'
             
-        
+            bio_skip = 18
+            
+            bio_cols = None
+
         self.byp_table = pd.read_excel(
                 self.base_url + byp_url, skiprows=13, header=None,
                 names=['naics', 'naics_desc', 'total', 'blast_furnace',
@@ -381,20 +394,19 @@ class table5_2:
                 )
         
         self.bio_table = pd.read_excel(
-                self.base_url + bio_url, skiprows=20, header=None,
+                self.base_url + bio_url, skiprows=bio_skip, header=None,
                 names=['naics', 'naics_desc', 'pulp_liq', 'total_bio', 
                          'ag_waste', 'wood', 'wood_res', 'wood_paper_ref'],
-                sheet_name=0
+                sheet_name=0, usecols=bio_cols
                 )
         
         self.byp_table.name = 'byp'
         
         self.bio_table.name = 'bio'
-                    
         
         for df in [self.byp_table, self.bio_table]:
             
-            df.replace({'*':0.1}, inplace=True)
+            df.replace({'*': 0.1}, inplace=True)
             
             df.dropna(thresh=3, axis=0, inplace=True)
             
@@ -402,9 +414,13 @@ class table5_2:
                 
                 other_index = df[df.naics_desc=='Other Manufacturing'].index
                 
-                df.loc[other_index, 'naics'] == '399'
+                df.loc[other_index, 'naics'] = 339
+                
+                df = df[~df.naics.isnull()]
                 
             df.naics.fillna('31-33', inplace=True)
+            
+            df['naics'] = df.naics.astype('str')
             
             df['naics'] = df.naics.apply(lambda x: x.strip())
             
@@ -420,88 +436,287 @@ class table5_2:
             df.loc[total_index, 'n_naics'] = 2
             
             # Export for manual formatting (i.e., filling in Q values)
-            
+            # Renaming to "_formatted.csv" is required.
             df.to_csv(os.path.join(
                     '../calculation_data/' + df.name + str(self.year) + '.csv'
                     ), index=False)
-            
 
-        def calculate_eu_share(eu_table, bio_table, byp_table):
+    def calculate_eu_share(self):
+        """
+        Returns a dictionary of end use fraction by fuel type and NAICS 
+        for GHGRP reporters and non-GHGRP reporters. 
+        """
+        # Check if formatted files exist
+        formatted_files = ['bio'+str(self.year)+'_formatted.csv',
+                           'byp'+str(self.year)+'_formatted.csv',
+                           'table5_2_'+str(self.year)+'_formatted.csv']
+        
+        for f in formatted_files:
             
-            
-            
-            # calculate fuel totals by NAICS, subtracting amount
-            # without a specified end use.
-            
-            
-            
-            enduse.set_index(['naics', 'end_use'], inplace=True)
-            
-            adj_total = enduse.xs(
-                'TOTAL FUEL CONSUMPTION', level=1
-                ).loc[:, 'total':].subtract(enduse.xs('End Use Not Reported',
-                                                      level=1).loc[:,
-                                                                   'total':],
-                level=1
-                    )
+            if f in os.listdir('../calculation_data/'):
                 
-            enduse.reset_index('enduse', inplace=True)
+                continue
+
+            else:
+                
+                print(f, 'does not exist in /calculation_data/', '\n',
+                      'Please create it')
+    
+        bio_table = pd.read_csv('../calculation_data/' + \
+                                'bio' + str(self.year) +'_formatted.csv')
+
+        byp_table = pd.read_csv('../calculation_data/' +\
+                                'byp' + str(self.year) + '_formatted.csv')
+        
+        eu_table = pd.read_csv('../calculation_data/' +\
+                               'table5_2_' + str(self.year) + '_formatted.csv')
+        
+        def format_biobyp_tables(df):
             
-            enduse_fraction = enduse.divide(adj_total, axis=1, level=0)
+            df = pd.DataFrame(df[df.region == 'us'])
             
+            df['naics'].replace({'31-33': 31}, inplace=True)
             
-            # Net steam use is estimated as the difference between the
-            # "Other" column of Table 5.2 and the sum of byproducts
-            # (less wood chips) and biomass.
-            #
-            
-            byp_bio = byp_table[byp_table.region == 'us'].set_index(
-                'naics'
-                ).total.subtract(
-                    byp_table[byp_table.region == 'us'].set_index(
-                            'naics'
-                            ).wood_chips
-                    )
-            
-            byp_bio = byp_bio.add(
-                    bio_table[bio_table.region == 'us'].set_index(
-                            'naics'
-                            ).total_bio
+            for c in df.columns:
+                
+                if c in ['region', 'n_naics', 'naics_desc']:
+                    
+                    continue
+                
+                else:
+                    
+                    df[c] = df[c].astype('float32')
+
+            return df
+        
+        bio_table = format_biobyp_tables(bio_table)
+        
+        byp_table = format_biobyp_tables(byp_table)
+
+        eu_table.set_index(['naics', 'end_use'], inplace=True)
+
+        adj_total = eu_table.xs(
+            'TOTAL FUEL CONSUMPTION', level=1
+            ).total.subtract(
+                    eu_table.xs('End Use Not Reported',
+                                level=1).total, level=1
                     )
                     
-            steam_fraction = pd.read_csv(
-                os.path.join(
-                    '../calculation_data/'+'steam_enduse_fraction.csv'
-                    )
+        adj_total.name = 'adj_total'
+            
+        eu_table.reset_index('end_use', inplace=True)
+
+        # Need to estimate end uses of "Other" fuel category, which
+        # is composed of byproducts, biomass, and net steam.
+        # Net steam use is estimated as the difference between the
+        # "Other" column of Table 5.2 and the sum of byproducts
+        # (less wood chips) and biomass.
+        byp_bio = byp_table.set_index('naics').total.subtract(
+                byp_table.set_index('naics').wood_chips
                 )
+        
+        byp_bio = byp_bio.add(
+                bio_table.set_index('naics').total_bio,
+                fill_value=0
+                )
+
+        def format_steam_other_enduse(df):
+            """
+            Format end use dataframes for steam and other fuels.
+            """
+
+            df.fillna(method='ffill', inplace=True)
+            
+            if '31-33' in df.naics.values:
                 
-            steam_fraction.fillna(method='ffill', inplace=True)
-            
-            steam_fraction = pd.melt(steam_fraction, id_vars='naics', 
-                                 var_name='end_use', value_name='other')
+                df.naics.replace({'31-33': 31}, inplace=True)
+                
+                df = pd.melt(df, id_vars='naics', var_name='end_use',
+                             value_name='other')
 
-            steam = pd.DataFrame(
-                    eu_table[eu_table.other !=0][['naics', 'other']],
-                    index_col=['naics']
-                    )
+            df['naics'] = df.naics.astype(int)
             
-            steam = steam.other.subtract(byp_bio)
+            df['cat_total'] = \
+                df.end_use.apply(lambda x: re.match('\  ', x)==None)
             
-            #calculate steam energy by end use using breakout from
-            #Energetics footprint doc
+            df = pd.DataFrame(df[~df['cat_total']])
             
+            df.drop('cat_total', axis=1, inplace=True)
             
-            #Separately calculate byproduct and biomass end use energy
-            # using assumptions.
-            #other_fraction = pd.read_csv()
-            # fillna for naics
-            # reindex with eu_table index (set to naics and end_use)
-            # fill in nan values with 31-33
+            df['end_use'] = df.end_use.apply(lambda x: x.strip())
             
+            return df
             
-            
+        #Calculate steam energy by end use using breakout from
+        #Energetics footprint doc. Remaining MECS NAICS are estimated
+        # based on Energetics values.
+        steam_fraction = pd.read_csv(
+                '../calculation_data/steam_enduse_fraction.csv'
+                )
+
+        steam_fraction = format_steam_other_enduse(steam_fraction)
+
+        # Other fraction is defined using expert judgement. 
+        other_fraction = pd.read_csv(
+                '../calculation_data/other_enduse_fraction.csv'
+                )
+
+        other_fraction = format_steam_other_enduse(other_fraction)
+
+        steam = pd.DataFrame(
+                eu_table[(eu_table.other !=0) &
+                         (eu_table.end_use=='End Use Not Reported')]['other']
+                )
         
+        steam = steam.other.subtract(byp_bio)
         
+        # Negative values may result due to rounding and filling in missing
+        # data points.
+        steam = steam.where(steam>0).fillna(0)
         
+
+        #Need to reindex and fill values for other_fraction
+        other_fraction_all_naics = pd.DataFrame(
+                eu_table.reset_index()[
+                        eu_table.reset_index().not_total==True][
+                                ['naics', 'end_use']
+                                ]
+                )
+        
+        other_fraction_all_naics['other'] = np.nan
+        
+        other_fraction_all_naics.set_index(['naics', 'end_use'], 
+                                           inplace=True)
+        
+        other_fraction_all_naics.update(
+                other_fraction.set_index(['naics', 'end_use'])
+                )
+        
+        #Fill in remaining, missing values with assumptions for all
+        #manufacturing (NAICS 31).
+        enduse31 =  other_fraction_all_naics.xs(31, level=0)
+        
+        other_fraction_all_naics.reset_index('naics', inplace=True,
+                                             drop=False)
+        
+        other_fraction_all_naics.update(enduse31, overwrite=False)
+        
+        other_fraction_all_naics.reset_index(inplace=True)
+        
+        # For GHGRP-reporting facilities--whose "other" fuels are 
+        # combusted and aren't steam, the "Other" fraction is simply
+        # other_fraction. For non-GHGRP reporters, the "Other" fraction is
+        # a weighted average of steam and bio/byproducts.
+        # For non-GHGRP reporters 
+        #(sum by NAICS may not equal 1 due to rounding):
+        other_fraction_weighted = \
+            steam.multiply(steam_fraction.set_index(['naics', 'end_use']).other,
+                       level=0, fill_value=0).add(byp_bio.multiply(
+                               other_fraction_all_naics.set_index(
+                                       ['naics', 'end_use']
+                                       ).other, level=0, fill_value=0
+                               ), fill_value=0
+                ).divide(steam.add(byp_bio))
+                               
+        eu_table.set_index('end_use', append=True, inplace=True)
+        
+        eu_fraction = {}
+        
+        eu_fraction['nonGHGRP'] = eu_table[self.fuels].divide(
+                eu_table.xs('TOTAL FUEL CONSUMPTION', level=1)[self.fuels], 
+                fill_value=0, axis=1
+                )
+
+        eu_fraction['nonGHGRP'].other.update(other_fraction_weighted)
+
+        eu_fraction['GHGRP'] = pd.DataFrame(eu_fraction['nonGHGRP'])
     
+        # Update GHGRP end use fraction "other" with end use fraction
+        # assumptions for byproducs and biomass.
+        eu_fraction['GHGRP'].other.update(
+                other_fraction_all_naics.set_index(['naics', 'end_use']).other
+                )
+        
+        for df in eu_fraction.keys():
+            
+            eu_fraction[df].reset_index(inplace=True)
+            
+            eu_fraction[df].rename(
+                columns={'naics': 'MECS_NAICS', 'NGL_HGL': 'LPG_NGL',
+                         'fuel_oil': 'Residual_fuel_oil', 'diesel': 'Diesel',
+                         'net_electricity': 'Net_electricity', 'coal': 'Coal',
+                         'natural_gas': 'Natural_gas', 'other': 'Other'},
+                inplace=True
+                )
+            
+        eu_fraction['GHGRP']['Coke_and_breeze'] = \
+             eu_fraction['GHGRP']['Coal']
+             
+        eu_fraction['nonGHGRP']['Coke_and_breeze'] = \
+             eu_fraction['nonGHGRP']['Coal']
+        
+        def eu_reformat(eu_df):
+            """
+            Reformat end use fraction data frame for use in calculating
+            county-level end uses.
+            """
+            
+            if 'index' in eu_df.columns:
+                eu_df.drop(['index'], axis=1, inplace=True)
+            
+            euses = eu_df.end_use.unique().tolist()
+        
+            for eu in ['Direct Uses-Total Nonprocess',
+                       'Direct Uses-Total Process', 'End Use Not Reported',
+                       'Indirect Uses-Boiler Fuel', 'TOTAL FUEL CONSUMPTION']:
+            
+                euses.remove(eu)
+            
+            df_ref = eu_df[eu_df.end_use.isin(euses)].drop(
+                    ['total'], axis=1
+                    ).set_index(['MECS_NAICS', 'end_use'])
+            
+            new_columns = pd.MultiIndex.from_tuples(
+                    df_ref.index.to_native_types()
+                    )
+        
+            df_ref = pd.DataFrame(df_ref.T)
+        
+            df_ref.columns = new_columns
+        
+            eu_reformatted = pd.DataFrame()
+        
+            for naics in df_ref.columns.levels[0]:
+                
+                naics_enduse = pd.DataFrame(df_ref[naics]).reset_index()
+                
+                naics_enduse.rename(columns={'index':'MECS_FT'}, inplace=True)
+                
+                naics_enduse['MECS_NAICS'] = naics
+                
+                eu_reformatted = eu_reformatted.append(naics_enduse,
+                                                       ignore_index=True,
+                                                       sort=True)
+                
+            eu_reformatted['MECS_NAICS'] = \
+                eu_reformatted.MECS_NAICS.astype(int)
+                
+            eu_reformatted.fillna(0, inplace=True)
+            
+            eu_reformatted.set_index(['MECS_NAICS', 'MECS_FT'], inplace=True)
+                
+            return eu_reformatted
+        
+        for k in eu_fraction.keys():
+            
+            eu_fraction[k] = eu_reformat(eu_fraction[k])
 
+        eu_fraction['GHGRP'].to_csv('../calculation_data/eu_frac_GHGRP_' +\
+                   str(self.year) + '.csv')
+        
+        eu_fraction['nonGHGRP'].to_csv(
+                '../calculation_data/eu_frac_nonGHGRP_' + \
+                str(self.year) + '.csv'
+                )
+        
+        return eu_fraction

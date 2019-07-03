@@ -1,0 +1,103 @@
+﻿naics,end_use,other
+31,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,0
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,1
+,  CHP and/or Cogeneration Process,0.9
+,  Conventional Boiler Use,0.1
+311,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,0
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,1
+,  CHP and/or Cogeneration Process,0.9
+,  Conventional Boiler Use,0.1
+322,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,0
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,1
+,  CHP and/or Cogeneration Process,0.9
+,  Conventional Boiler Use,0.1
+324110,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0.08
+,  Electro-Chemical Processes,0
+,  Machine Drive,0.0168
+,  Other Process Use,0.004
+,  Process Cooling and Refrigeration,0.0016
+,  Process Heating,0.0576
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,0.92
+,  CHP and/or Cogeneration Process,0.0828
+,  Conventional Boiler Use,0.8372
+325,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0.24
+,  Electro-Chemical Processes,0
+,  Machine Drive,0.0696
+,  Other Process Use,0.024
+,  Process Cooling and Refrigeration,0.0096
+,  Process Heating,0.1368
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,0.76
+,  CHP and/or Cogeneration Process,0.684
+,  Conventional Boiler Use,0.076
+331,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,0.05
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,0.05
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,0.95
+,  CHP and/or Cogeneration Process,0.95
+,  Conventional Boiler Use,0

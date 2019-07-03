@@ -164,11 +164,11 @@ class CBP:
 
         cbp.naics = cbp.naics.apply(fix_naics)
 
-        # Keep only manufacturing NAICS codes
-        cbp = cbp[(cbp.naics.between(300000, 400000)) |
-                  (cbp.naics.between(30000, 40000)) |
-                  (cbp.naics.between(3000, 4000)) |
-                  (cbp.naics.between(300, 400))]
+#        # Keep only manufacturing NAICS codes
+#        cbp = cbp[(cbp.naics.between(300000, 400000)) |
+#                  (cbp.naics.between(30000, 40000)) |
+#                  (cbp.naics.between(3000, 4000)) |
+#                  (cbp.naics.between(300, 400))]
 
         # Create concatentated FIPS field to match GHGRP COUNTY_FIPS
         def state_fips_str(x):
@@ -195,6 +195,8 @@ class CBP:
         cbp['COUNTY_FIPS'] = \
             cbp.fipstate.apply(state_fips_str) + \
                 cbp.fipscty.apply(county_fips_str)
+                
+        cbp['COUNTY_FIPS'] = cbp.COUNTY_FIPS.astype(int)
 
         census_regions = pd.read_csv(
                 os.path.join('../', self.data_dir + '/US_FIPS_Codes.csv'),
@@ -228,9 +230,9 @@ class CBP:
                 self.cbp[(self.cbp.industry == True) &
                          (self.cbp.naics_n == 6)])
 
-        self.cbp_matching['fips_matching'] = \
-            self.cbp_matching.fipstate.astype(str) + \
-                self.cbp_matching.fipscty.astype(str)
+        self.cbp_matching['fips_matching'] = self.cbp_matching['COUNTY_FIPS']
+#            self.cbp_matching.fipstate.astype(str) + \
+#                self.cbp_matching.fipscty.astype(str)
 
         self.cbp_matching['fips_matching'] = \
             self.cbp_matching.fips_matching.astype(int)

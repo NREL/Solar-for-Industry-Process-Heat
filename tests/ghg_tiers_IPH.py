@@ -129,6 +129,20 @@ class tier_energy:
                     tier_data.dropna(subset=[c], axis=0, inplace=True)
                     
                     tier_data[c] = tier_data[c].astype(float)
+                    
+                
+                # Correct HHV values that appear to be off by an order of
+                # magnitude for natural gas
+                
+                hhv_correct = tier_data[
+                    (tier_data.fuel_type=='Natural Gas (Weighted U.S. Average)') &
+                    (tier_data.high_heat_value.between(0, 0.00019,
+                                                       inclusive=False))
+                    ].high_heat_value*10
+                
+                if hhv_correct.empty != True:
+                    
+                    tier_data.high_heat_value.update(hhv_correct)
                 
                 tier_data['energy_mmbtu'] = \
                     tier_data.fuel_combusted.multiply(
@@ -237,12 +251,20 @@ class tier_energy:
         ghg_data = pd.DataFrame(
                 subpart_c_df.dropna(subset=[tier_column], axis=0)
                 )
+        
+        data_columns = [x for x in self.data_columns]
 
-        self.data_columns.append(tier_column)
+        data_columns.append(tier_column)
         
-        ghg_data = pd.DataFrame(ghg_data[self.data_columns])
+        if tier_column == 'T4CH4COMBUSTIONEMISSIONS':
+            
+            data_columns.append('ANNUAL_HEAT_INPUT')
         
-        self.data_columns.remove(tier_column)
+        ghg_data = pd.DataFrame(ghg_data[data_columns])
+        
+        ghg_data = pd.DataFrame(
+                ghg_data[ghg_data.REPORTING_YEAR.isin(self.years)]
+                )
         
         return ghg_data
 
@@ -568,25 +590,36 @@ class tier_energy:
         """
         Annual heat input and fuel quantity are not consistently reported
         by facilities using the Tier 4 approach. As a result, energy values
-        are estimated using reported CH4 emissions and standard CH4 emissions
-        factors. 
+        that are not reported under the column ANNUAL_HEAT_INPUT are estimated
+        using reported CH4 emissions and standard CH4 emissions factors. 
         This is effectively the same approach and code used for Tier 1
         reported emissions
         """
 
+        #CH4 emissions in metric tons
         tier_column = 'T4CH4COMBUSTIONEMISSIONS'
         
         ghg_data = self.filter_data(subpart_c_df, tier_column)
         
         energy = pd.DataFrame()
         
+        reported_energy = pd.DataFrame(
+                ghg_data[ghg_data.ANNUAL_HEAT_INPUT.notnull()]
+                )
+        
+        reported_energy.rename(columns={'ANNUAL_HEAT_INPUT': 'energy_mmbtu'},
+                               inplace=True)
+        
         for ftc in ['FUEL_TYPE', 'FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND']:
             
-            df = pd.merge(ghg_data,
+            df = pd.merge(
+                    ghg_data[~ghg_data.index.isin(reported_energy.index)],
                           pd.DataFrame(
                                   self.std_efs.loc[:, 'CH4_gCH4_per_mmBtu']
                                   ), left_on=ftc, right_index=True,
-                          how='inner')
+                          how='inner'
+                    )
+                          
             # multiply by 10**6 because emission factor in grams and not
             # kilograms
             df['energy_mmbtu'] = df[tier_column].multiply(10**6).divide(
@@ -597,6 +630,8 @@ class tier_energy:
 
         energy.drop(['CH4_gCH4_per_mmBtu'], axis=1, inplace=True)
         
+        energy = energy.append(reported_energy, sort=True)
+        
         return energy
 
     def calc_all_tiers(self, subpart_c_df):
@@ -606,6 +641,44 @@ class tier_energy:
         """
 
         energy = pd.DataFrame()
+        
+#        tier1_results = self.tier1_calc(subpart_c_df)
+#        
+#        tier2_results = self.tier2_calc(subpart_c_df)
+#        
+#        tier3_results = self.tier3_calc(subpart_c_df)
+#        
+#        tier4_results = self.tier4_calc(subpart_c_df)
+#        
+#        def final_formatting(df):
+#            
+#            df.reset_index(inplace=True)
+#            
+#            fts = ['FUEL_TYPE', 'FUEL_TYPE_BLEND', 'FUEL_TYPE_OTHER']
+#            
+#            fts = list(set.intersection(set(fts), df.columns))
+#            
+#            df.loc[:, 'final_ft'] = df[fts].apply(
+#                    lambda x: pd.Series(x).sort_values()[0], axis=1
+#                    )
+#            
+#            df.dropna(axis=1, how='all', inplace=True)
+#            
+#            df = df.set_index('final_ft').join(self.std_efs)
+#            
+#            return df
+#        print('tier1')
+#        tier1_results = final_formatting(tier1_results)
+#        print('tier2')
+#        tier2_results = final_formatting(tier2_results)
+#        print('tier3')
+#        tier3_results = final_formatting(tier3_results)
+#        print('tier4')
+#        tier4_results = final_formatting(tier4_results)
+#        tier1_results.dropna(axis=1, how='all').to_csv('check_tier12_c.csv')
+#        tier2_results.dropna(axis=1, how='all').to_csv('check_tier22_c.csv')
+#        tier3_results.dropna(axis=1, how='all').to_csv('check_tier3_c.csv')
+#        tier4_results.dropna(axis=1, how='all').to_csv('check_tier42_c.csv')
 
         energy = energy.append(self.tier1_calc(subpart_c_df),
                                ignore_index=True, sort=True)
@@ -618,6 +691,8 @@ class tier_energy:
         
         energy = energy.append(self.tier4_calc(subpart_c_df),
                                ignore_index=True, sort=True)
+        
+        energy.dropna(axis=1, how='all', inplace=True)
         
         energy.rename(columns={'energy_mmbtu': 'MMBtu_TOTAL'}, inplace=True)
 

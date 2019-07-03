@@ -8,7 +8,7 @@ class EnergyEndUse(object):
     Calcualte energy end uses by industry subsector.
     """
     county_file = \
-        'Y:\\6A20\\Public\\ICET\\Data for calculations\\Data foundation\\' +
+        'Y:\\6A20\\Public\\ICET\\Data for calculations\\Data foundation\\' +\
         'County_IndustryDataFoundation_2014_update_20170910-0116.csv'
 
     mecs_naics_file = 'mecs_naics.csv'

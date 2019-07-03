@@ -16,7 +16,9 @@ import Get_GHGRP_data_IPH
 # %%
 class GHGRP:
     """
-    
+    Estimates industrial (i.e., manufacturing, ag, construction, mining) 
+    facility energy use based on either reported energy use or
+    reported greenhouse gas emissions.
     """
     
     table_dict = {'subpartC': 'C_FUEL_LEVEL_INFORMATION',
@@ -49,6 +51,8 @@ class GHGRP:
                                index_col = ['Fuel_Type'])
     
     std_efs.index.name = 'FUEL_TYPE'
+    
+    std_efs = std_efs[~std_efs.index.duplicated()]
     
     MECS_regions = pd.read_csv(
             file_dir+'/US_FIPS_Codes.csv', index_col=['COUNTY_FIPS']
@@ -89,6 +93,20 @@ class GHGRP:
         
     
         # Fix errors in reported data.
+        GHGs.set_index('FACILITY_ID', inplace=True)
+        
+        GHGs.loc[1003006, 'PRIMARY_NAICS_CODE'] = 424710
+        
+        GHGs.loc[1004861, 'PRIMARY_NAICS_CODE'] = 325193   
+        
+        GHGs.loc[1005954, 'PRIMARY_NAICS_CODE'] = 311211
+        
+        GHGs.loc[1004098, 'PRIMARY_NAICS_CODE'] = 322121
+        
+        GHGs.loc[1005445, 'PRIMARY_NAICS_CODE'] = 331524 
+        
+        GHGs.reset_index(inplace=True)
+        
         if 2014 in self.years:
             
             for i in list(GHGs[(GHGs.FACILITY_ID == 1005675) & \
@@ -492,10 +510,15 @@ class GHGRP:
             formatted_subD, all_fac[merge_cols], how='left', on='FACILITY_ID'
             )
 
-    #   First, zero out 40 CFR Part 75 energy use for electric utilities
-        energy_subD.loc[
-            energy_subD[energy_subD.PRIMARY_NAICS_CODE == 221112
-            ].index, 'TOTAL_ANNUAL_HEAT_INPUT'] = 0
+    #   First, drop 40 CFR Part 75 energy use for electric utilities
+    
+        energy_subD = pd.DataFrame(
+                energy_subD.where(energy_subD.PRIMARY_NAICS_CODE !=221112)
+                ).dropna(subset=['PRIMARY_NAICS_CODE'], axis=0)
+        
+#        energy_subD.loc[
+#            energy_subD[energy_subD.PRIMARY_NAICS_CODE == 221112
+#            ].index, 'TOTAL_ANNUAL_HEAT_INPUT'] = 0
     
         energy_subD.rename(columns={'TOTAL_ANNUAL_HEAT_INPUT':'MMBtu_TOTAL'},
                            inplace=True)
