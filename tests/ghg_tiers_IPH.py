@@ -14,7 +14,7 @@ class tier_energy:
     reported to the EPA's GHGRP.
     """
     
-    def __init__(self, years=None, std_efs=None):
+    def __init__(self, years=None, std_efs=None, calc_uncert=False):
         
         # EPA standard emission factors by fuel type
         if std_efs is None:
@@ -44,8 +44,10 @@ class tier_energy:
                              'CO2e_TOTAL']
         
         self.years = years
+        
+        self.calc_uncert = calc_uncert
 
-        def tier_table_wa(tier_table):
+        def tier_table_wa(tier_table, uncert=False):
             """
             Format and calculate weighted average for data reported in
             tier 2 and tier 3 data tables.
@@ -53,7 +55,7 @@ class tier_energy:
             """
             
             filedir = os.path.join('../', 'calculation_data/', 'ghgrp_data/')
-            
+
             #Check first if data have been downloaded already
             dl_tables = {'t2_hhv': ['t2_hhv'],
                          't2_boiler': ['t2_boiler'], 
@@ -103,24 +105,17 @@ class tier_energy:
                             
                             tier_data.columns = \
                                 [x.lower() for x in tier_data.columns]
-
-            field_dict = {'t2_hhv':{'weight_field': 'fuel_combusted',
-                                    'calc_field': ['energy_mmbtu']},
-                          't2_boiler':{'weight_field': 'mass_of_steam',
-                                    'calc_field': ['energy_mmbtu']},
-                          't3': {'weight_field': 'fuel_combusted',
-                                 'calc_field': ['carbon_content', 
-                                                'molecular_weight']},
-                          'wa_names': {'energy_mmbtu': 'hhv_wa',
-                                       'carbon_content': 'cc_wa', 
-                                       'molecular_weight': 'mw_wa'}}
     
             for c in ['reporting_year', 'facility_id']:
                 
                 tier_data.dropna(subset=[c], axis=0, inplace=True)
                 
                 tier_data.loc[:, c] = tier_data[c].astype(int)
-
+                
+            if 'unnamed: 0' in tier_data.columns:
+                
+                tier_data.drop('unnamed: 0', axis=1, inplace=True)
+                
             # CaLculate monthly mmbtu use by reported hhv
             if tier_table == 't2_hhv':
                 
@@ -129,11 +124,9 @@ class tier_energy:
                     tier_data.dropna(subset=[c], axis=0, inplace=True)
                     
                     tier_data[c] = tier_data[c].astype(float)
-                    
                 
                 # Correct HHV values that appear to be off by an order of
                 # magnitude for natural gas
-                
                 hhv_correct = tier_data[
                     (tier_data.fuel_type=='Natural Gas (Weighted U.S. Average)') &
                     (tier_data.high_heat_value.between(0, 0.00019,
@@ -143,11 +136,68 @@ class tier_energy:
                 if hhv_correct.empty != True:
                     
                     tier_data.high_heat_value.update(hhv_correct)
-                
+                    
+                # Bootstrap hhv monthly hhv by year if uncert == True
+                if uncert:
+                    
+                    if 'hhv_uncertainty.csv' not in os.listdir(
+                            os.path.join('../', 'calculation_data/')
+                            ):
+                    
+                        hhv_uncert = tier_data[
+                            tier_data.high_heat_value >0
+                            ].groupby(
+                                ['reporting_year', 'fuel_type']
+                                ).high_heat_value.apply(lambda x: \
+                                    hr_uncert.FuelUncertainty().bootstrap(x))
+                        
+                        hhv_uncert = pd.DataFrame.from_records(
+                                list(hhv_uncert.values),index=hhv_uncert.index,
+                                columns=['mean', 'std']
+                                )
+                        
+                        hhv_uncert = hhv_uncert.reset_index(
+                                'reporting_year'
+                                ).join(
+                                    tier_data.set_index(
+                                        'fuel_type'
+                                        ).high_heat_value_uom.drop_duplicates()
+                                )
+                        
+                        hhv_uncert.set_index('reporting_year', append=True,
+                                             inplace=True)
+                        
+                        hhv_uncert.to_csv(
+                                '../calculation_data/hhv_uncertainty.csv'
+                                )
+                    
                 tier_data['energy_mmbtu'] = \
                     tier_data.fuel_combusted.multiply(
                             tier_data.high_heat_value
                             )
+                    
+                tier_data_annual = pd.DataFrame(tier_data.groupby(
+                        ['facility_id', 'reporting_year', 'fuel_type',
+                         'unit_name']
+                        )['fuel_combusted'].sum())
+    
+                # Some months have more than one entry. Take the mean of
+                # these values
+                tier_wa = tier_data[tier_data.fuel_combusted>0].groupby(
+                        ['facility_id', 'reporting_year','fuel_type',
+                         'unit_name', 'month']
+                        )['high_heat_value', 'fuel_combusted'].mean()
+
+                tier_wa = tier_wa.high_heat_value.multiply(
+                        tier_wa.fuel_combusted
+                        ).sum(level=(0,1,2,3)).divide(
+                            tier_wa.fuel_combusted.sum(level=(0,1,2,3))
+                            )
+                              
+                tier_data_annual['hhv_wa'] = tier_wa
+
+#                tier_data_annual = pd.concat([tier_data_annual, tier_wa],
+#                                             axis=1, sort=True)
                     
             if tier_table == 't2_boiler':
                 
@@ -161,7 +211,27 @@ class tier_energy:
                     tier_data.mass_of_steam.multiply(
                             tier_data.boiler_ratio_b
                             )
-                    
+
+                tier_data_annual = pd.DataFrame(tier_data.groupby(
+                        ['facility_id', 'reporting_year', 'fuel_type',
+                         'unit_name']
+                        )['energy_mmbtu'].sum())
+                
+                # Some months have more than one entry. Take the mean of
+                # these values
+                tier_wa = tier_data[tier_data.mass_of_steam>0].groupby(
+                        ['facility_id', 'reporting_year','fuel_type',
+                         'unit_name', 'month']
+                        )['mass_of_steam', 'boiler_ratio_b'].mean()
+
+                tier_wa = tier_wa.boiler_ratio_b.multiply(
+                        tier_wa.mass_of_steam
+                        ).sum(level=(0,1,2,3)).divide(
+                            tier_wa.mass_of_steam.sum(level=(0,1,2,3))
+                            )
+                              
+                tier_data_annual['boiler_ratio_wa'] = tier_wa
+
             if tier_table == 't3':
                 
                 tier_data.molecular_weight = \
@@ -172,63 +242,45 @@ class tier_energy:
                     tier_data.dropna(subset=[c], axis=0, inplace=True)
                     
                     tier_data[c] = tier_data[c].astype(float)
-
-            # Aggregate monthly calculated mmbtu values.
-            tier_data_annual = tier_data.groupby(
-                ['facility_id', 'reporting_year', 'fuel_type', 'unit_name'],
-                as_index=False
-                )[field_dict[tier_table]['weight_field']].sum()
-           
-            tier_data_annual.set_index(['facility_id', 'reporting_year', 
-                                       'fuel_type', 'unit_name'], inplace=True)
-                
-            # Take annual weighted average of fuel heat rate by facility and
-            # unit name
-            for cf in field_dict[tier_table]['calc_field']:
-                
-                tier_wa = \
-                    tier_data[
-                        tier_data[field_dict[tier_table]['weight_field']]>0
-                        ].groupby(
+                    
+                tier_data_annual = pd.DataFrame(tier_data.groupby(
+                        ['facility_id', 'reporting_year', 'fuel_type',
+                         'unit_name']
+                        )['fuel_combusted'].sum())
+                    
+                for col in ['molecular_weight', 'carbon_content']:
+                    
+                    tier_wa = tier_data[tier_data.fuel_combusted>0].groupby(
                             ['facility_id', 'reporting_year','fuel_type',
-                             'unit_name']
-                            )[cf].sum()
-                              
-                tier_data_annual[cf] = tier_wa
-                              
-                tier_wa = tier_wa.divide(
-                    tier_data[tier_data[
-                        field_dict[tier_table]['weight_field']
-                        ]>0].groupby(
-                            ['facility_id', 'reporting_year','fuel_type',
-                             'unit_name']
-                            )[field_dict[tier_table]['weight_field']].sum(),
-                    fill_value=0
-                    )
-
-                tier_wa.name = field_dict['wa_names'][cf]
-
-                tier_data_annual = pd.concat([tier_data_annual, tier_wa],
-                                             axis=1, sort=True)
-
-#            hhv_wa = hhv_data[hhv_data.fuel_combusted > 0].groupby(
-#                ['facility_id', 'reporting_year', 'fuel_type', 'unit_name']
-#                ).energy_mmbtu.sum().divide(
-#                    hhv_data[hhv_data.fuel_combusted > 0].groupby(
-#                        ['facility_id', 'reporting_year', 'fuel_type', 'unit_name']
-#                        ).fuel_combusted.sum()
-#                    )
+                             'unit_name', 'month']
+                            )[col, 'fuel_combusted'].mean()
     
-#            hhv_data_annual = pd.concat([hhv_data_annual,hhv_wa], axis=1)
+                    tier_wa = tier_wa[col].multiply(
+                            tier_wa.fuel_combusted
+                            ).sum(level=(0,1,2,3)).divide(
+                                tier_wa[col].sum(level=(0,1,2,3))
+                                )
+                    
+                    if col == 'molecular_weight':
+                        
+                        tier_data_annual['mw_wa'] = tier_wa
+                        
+                        if uncert:
+                            
+                            if 'mw_uncertainty.csv' not in os.listdir(
+                                os.path.join('../', 'calculation_data/')
+                                ):
+                    
+                                
+                        
+                    else:
+                        
+                        tier_data_annual['cc_wa'] = tier_wa
+
                 
             tier_data_annual.index.names = \
                 [x.upper() for x in tier_data_annual.index.names]
-                
-            if tier_table == 't2_boiler': 
-                
-                tier_data_annual.rename(columns={'hhv_wa': 'boiler_ratio_wa'},
-                                        inplace=True)
-
+    
             return tier_data_annual
 
         self.t2hhv_data_annual = tier_table_wa('t2_hhv')
@@ -241,7 +293,11 @@ class tier_energy:
         self.t3_data_annual = pd.DataFrame(
                 self.t3_data_annual[self.t3_data_annual.fuel_combusted !=0]
                 )
-
+        
+#        if self.calc_uncert == True:
+#            
+            
+#%%
     def filter_data(self, subpart_c_df, tier_column):
         """
         Filter relevant emissions data from subpart C dataframe based 
@@ -330,6 +386,11 @@ class tier_energy:
         Tier 1 methodology.
         """
         
+        if self.calc_uncert == True:
+            
+            
+        
+            
         tier_column = 'TIER1_CO2_COMBUSTION_EMISSIONS'
         
         ghg_data = self.filter_data(subpart_c_df, tier_column)

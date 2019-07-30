@@ -9,6 +9,7 @@ import pandas as pd
 import os
 import numpy as np
 from Get_GHGRP_data_IPH import get_GHGRP_records
+from sklearn.utils import resample
 
 #%%
 class FuelUncertainty:
@@ -203,6 +204,46 @@ class FuelUncertainty:
 
         return results_dict
     
+    def bootstrap(data, iterations=10000):
+        """
+        Nonparametric bootstrapping for mean and standard deviation of data.
+        """
+
+        boot_mean = []
+        
+        for n in range(0, iterations):
+            
+            boot = resample(data, replace=True, n_samples=None,
+                            random_state=None)
+            
+            boot_mean.append(np.mean(boot))
+            
+        final_mean = np.mean(boot_mean)
+        
+        final_std = np.std(boot_mean, dtype=np.float64)
+        
+        return final_mean, final_std
+    
+    def tier_bootsrap(data, value_col, data_abbrev):
+        
+        uncert = data[data[value_col] >0].groupby(
+                ['reporting_year', 'fuel_type']
+                )[value_col].apply(lambda x: bootstrap(x))
+        
+        uncert = pd.DataFrame.from_records(
+                list(uncert.values),index=uncert.index,
+                columns=['mean', 'std']
+                )
+        
+        uncert = uncert.reset_index('reporting_year').join(
+                    data.set_index('fuel_type')[value_col].drop_duplicates()
+                    )
+        
+        uncert.set_index('reporting_year', append=True, inplace=True)
+        
+        uncert.to_csv('../calculation_data/'+data_abbrev+'uncertainty.csv') 
+
+    
     def calc_error_prop(self, tier2_hhv, tier3):
         """
         Calculate error propogation of carbon content of fuels
@@ -211,6 +252,47 @@ class FuelUncertainty:
         and Tier 3 emission calculation approaches.
     
         """
+        
+        # Bootstrap HHV values calculated from reported tier2 values
+        bootstrapped_hhv = pd.DataFrame(
+                columns=['mean', 'std'],
+                index=tier2_hhv.index.get_level_values('FUEL_TYPE').unique()
+                )
+        
+        for fuel in bootstrapped_hhv.index:
+            
+            bootstrapped_hhv.loc[fuel, :] = \
+                bootstrap(
+                    tier2_hhv.xs(fuel,level='FUEL_TYPE').fuel_combusted.divide(
+                        tier2_hhv.xs(fuel, level='FUEL_TYPE').energy_mmbtu
+                        ).values)
+            
+            
+        # Bootrap molecular weight values from reported tier 3 values
+        bootstrapped_mw = pd.DataFrame(
+                columns=['mean', 'std'],
+                index=tier3.index.get_level_values('FUEL_TYPE').unique()
+                )
+        
+        for fuel in bootstrapped_mw.index:
+            
+            bootstrapped_mw.loc[fuel, :] = \
+                bootstrap(
+                    tier3.xs(fuel, level='FUEL_TYPE').molecular_weight.values
+                    )
+        
+        # Bootrap carbon content values from reported tier 3 values
+        bootstrapped_cc = pd.DataFrame(
+                columns=['mean', 'std'],
+                index=tier3.index.get_level_values('FUEL_TYPE').unique()
+                )
+        
+        for fuel in bootstrapped_cc.index:
+            
+            bootstrapped_cc.loc[fuel, :] = \
+                bootstrap(
+                    tier3.xs(fuel, level='FUEL_TYPE').carbon_content.values
+                    )
         
         def calc_sq_std(df):
             """
@@ -234,42 +316,98 @@ class FuelUncertainty:
         
         for f in ['Natural Gas (Weighted U.S. Average)', 'Fuel Gas']:
             
-            scf_df = tier3[self.agr]['molecular_weight'].xs(
-                        f, level='fuel_type'
-                        )
+            scf_df = pd.DataFrame(tier3['molecular_weight'].xs(
+                        f, level='FUEL_TYPE'
+                        ))
             
-            scf_df['fuel_type'] = f
+            scf_df['FUEL_TYPE'] = f
             
             gas_scf_to_kg = gas_scf_to_kg.append(scf_df)
             
-        gas_scf_to_kg.set_index('fuel_type', append=True, inplace=True)
-        
-        gas_scf_to_kg.reset_index('molecular_weight_uom', inplace=True,
-                                  drop=False)
+        gas_scf_to_kg.set_index('FUEL_TYPE', append=True, inplace=True)
         
         error_prop = pd.merge(
-            calc_sq_std(
-                tier2_hhv[self.agr]['high_heat_value']
-                ).reset_index(level=1),
-            calc_sq_std(
-                tier3[self.agr]['carbon_content']
-                ).reset_index(level=1),
+            calc_sq_std(bootstrapped_hhv), calc_sq_std(bootstrapped_cc),
             left_index=True, right_index=True, how='inner',
-            suffixes=['_hhv', '_C'])
+            suffixes=['_hhv', '_C']
+            )
+            
+#        error_prop = pd.merge(
+#            calc_sq_std(
+#                tier2_hhv['high_heat_value']
+#                ).reset_index(level=1),
+#            calc_sq_std(
+#                tier3['carbon_content']
+#                ).reset_index(level=1),
+#            left_index=True, right_index=True, how='inner',
+#            suffixes=['_hhv', '_C'])
             
         # Include error of molecular weight of fuel gas and natural gas
-        error_prop = pd.merge(error_prop, calc_sq_std(gas_scf_to_kg), 
+        error_prop = pd.merge(error_prop, calc_sq_std(bootstrapped_mw), 
                               left_index=True, right_index=True, how='outer')
         
-        error_prop.rename(columns={'sq_std': 'sq_std_mm'}, inplace=True)
+        error_prop.rename(columns={'sq_std': 'sq_std_mw'}, inplace=True)
         
         error_prop['final_uncert'] = error_prop.sq_std_hhv.add(
                 error_prop.sq_std_C
                 ).add(
-                    error_prop.sq_std_mm, fill_value=0
+                    error_prop.sq_std_mw, fill_value=0
                     )
         
-        return error_prop, gas_scf_to_kg
+        error_prop.dropna(subset=['sq_std_hhv'], axis=0, inplace=True)
+
+        # Calculate kg-mol per SCF for natural gas and fuel gas. SCF defined in
+        # SI units as 101.560 kPa, 288.706 K, 0.02316847 m3. Ideal gas
+        # constant is 8.314 kPa*m3/(kg-mol*K)
+        scf_per_kgmol = (8.314 * 288.706) / (101.560 * 0.028316847)
+    
+        conv_dict = {'percent by weight, expressed as a decimal fraction': \
+                     907.185, 'kg C per kg': scf_per_kgmol,
+                     'kg C per gallon': 1}
+                
+        t2t3_efs = pd.DataFrame(index=error_prop.index,
+                                columns=['reported_mean'])
+        
+        for fuel in error_prop.index:
+
+            if 'Gas' in fuel:
+                
+                t2t3_efs.loc[fuel, 'reported_mean'] = (tier2_hhv.xs(
+                        fuel, level='FUEL_TYPE'
+                        ).hhv_wa.mean() * scf_per_kgmol / \
+                        tier3.xs(fuel, level='FUEL_TYPE').molecular_weight.mean() / \
+                        tier3.xs(fuel, level='FUEL_TYPE').carbon_content.mean() * \
+                        (12/44))**-1
+                
+                
+            if 'Oil' in fuel:
+                
+                t2t3_efs.loc[fuel, 'reported_mean'] = tier3.xs(
+                        fuel, level='FUEL_TYPE'
+                        ).carbon_content.mean() / \
+                        tier2_hhv.xs(fuel, level='FUEL_TYPE').hhv_wa.mean() * \
+                        (44/12)
+                            
+            else:
+                
+                t2t3_efs.loc[fuel, 'reported_mean'] = tier3.xs(
+                        fuel, level='FUEL_TYPE'
+                        ).carbon_content.mean() / 100 / \
+                        tier2_hhv.xs(fuel, level='FUEL_TYPE').hhv_wa.mean() * \
+                        (44/12) 
+                        
+        t2t3_efs = pd.merge(t2t3_efs, error_prop[['final_uncert']],
+                left_index=True, right_index=True,
+                how='inner')
+        
+        t2t3_efs.rename(columns={'mean': 'kgCO2_per_mmBtu'}, inplace=True)
+        
+        # Create column for the uncertainty amount in kg CO2/mmBtu (+/-)
+        t2t3_efs['ef_plus_minus'] = t2t3_efs.kgCO2_per_mmBtu.multiply(
+                t2t3_efs.final_uncert
+                )
+        
+        return error_prop, bootstrapped_mw
     
     
     def calc_EF(self, error_prop, tier2_hhv_summary, tier3_summary,
@@ -296,6 +434,9 @@ class FuelUncertainty:
                      907.185, 'kg C per kg': scf_per_kgmol,
                      'kg C per gallon': 1}
         
+#        for fuel in error_prop.index:
+#            
+#            if fuel == 
         for uom in uom_dict.keys():
 
             if uom == 'kg C per kg':
