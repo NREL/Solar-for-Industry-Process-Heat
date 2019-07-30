@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import os
 import re
-
+#%%
 class table5_2:
     
     def __init__(self, year):
@@ -82,7 +82,7 @@ class table5_2:
         
        # fix missing 'End Use Not Reported' row for Gypsum (32740)
         if self.year == 2014:
- #%%              
+             
             gypsum = pd.DataFrame([[327420,'End Use Not Reported',0.01,0,0,0,
                                    0,0,0.01,6,'End Use Not Reported',True]],
                                     columns=self.eu_table.columns)
@@ -274,7 +274,7 @@ class table5_2:
                                  'Direct Uses-Total Process',
                                  'Indirect Uses-Boiler Fuel',
                                  'End Use Not Reported')), f].sum()
-#%%      
+    
         def q_fill(enduse_total):
             """
             Method for filling in 'Q' (data withheld due to standard error) values.

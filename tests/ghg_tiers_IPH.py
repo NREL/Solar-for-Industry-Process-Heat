@@ -105,6 +105,7 @@ class tier_energy:
                             
                             tier_data.columns = \
                                 [x.lower() for x in tier_data.columns]
+
     
             for c in ['reporting_year', 'facility_id']:
                 
@@ -115,6 +116,92 @@ class tier_energy:
             if 'unnamed: 0' in tier_data.columns:
                 
                 tier_data.drop('unnamed: 0', axis=1, inplace=True)
+                
+            def calc_wa(data, weighting_column, weighted_column):
+                """
+                Method for calculating annual weighted average of monthly
+                reported values for high heat, molecular weight,
+                and carbon content.
+                """
+                
+                for c in [weighting_column, weighted_column]:
+                
+                    data.dropna(subset=[c], axis=0, inplace=True)
+                    
+                    data[c] = data[c].astype(float)
+                 
+                if 'molecular_weight' in data.columns:
+                    
+                    data.molecular_weight = data.molecular_weight.astype(float)
+    
+                # Correct HHV values that appear to be off by an order of
+                # magnitude for natural gas
+                if weighted_column == 'high_heat_value':
+                    
+                    hhv_correct = data[
+                        (data.fuel_type=='Natural Gas (Weighted U.S. Average)') &
+                        (data[weighted_column].between(0, 0.00019,
+                                                       inclusive=False))
+                        ][weighted_column]*10
+                    
+                    if hhv_correct.empty != True:
+                        
+                        tier_data[weighted_column].update(hhv_correct)
+
+                data['energy_mmbtu'] = data[weighting_column].multiply(
+                            data[weighted_column]
+                            )
+
+                data_annual = pd.DataFrame(data.groupby(
+                        ['facility_id', 'reporting_year', 'fuel_type',
+                         'unit_name']
+                        )['energy_mmbtu'].sum())
+                
+                # Some months have more than one entry. Take the mean of
+                # these values
+                tier_wa = data[data[weighting_column]>0].groupby(
+                        ['facility_id', 'reporting_year','fuel_type',
+                         'unit_name', 'month']
+                        )[weighting_column, weighted_column].mean()
+
+                tier_wa = tier_wa[weighted_column].multiply(
+                        tier_wa[weighting_column]
+                        ).sum(level=(0,1,2,3)).divide(
+                            tier_wa[weighting_column].sum(level=(0,1,2,3))
+                            )
+                              
+                data_annual[weighted_column+'_wa'] = tier_wa
+
+                data_annual.index.names = \
+                    [x.upper() for x in data_annual.index.names]
+                
+                return data_annual
+            
+            # Calculate uncertainty if specified.
+            if uncert:
+                
+                
+            
+            if tier_table == 't2_hhv':
+    
+                tier_data_annual = calc_wa(tier_data, 'fuel_combusted', 
+                                           'high_heat_value')
+                
+            if tier_table == 't2_boiler':
+    
+                tier_data_annual = calc_wa(tier_data, 'mass_of_steam',
+                                           'boiler_ratio_b')
+                
+            if tier_table == 't3':
+                
+                tier_data_annual = pd.concat(
+                        [calc_wa(tier_data, 'fuel_combusted', 'carbon_content',
+                                 'cc'),
+                         calc_wa(tier_data,'fuel_combusted','molecular_weight',
+                                 'mw')['molecular_weight_wa']], axis=1
+                        )
+            
+            return tier_data_annual
                 
             # CaLculate monthly mmbtu use by reported hhv
             if tier_table == 't2_hhv':
@@ -234,9 +321,6 @@ class tier_energy:
 
             if tier_table == 't3':
                 
-                tier_data.molecular_weight = \
-                    tier_data.molecular_weight.astype(float)
-
                 for c in ['fuel_combusted', 'carbon_content']:
 
                     tier_data.dropna(subset=[c], axis=0, inplace=True)
@@ -271,15 +355,25 @@ class tier_energy:
                                 os.path.join('../', 'calculation_data/')
                                 ):
                     
-                                
-                        
+                                hr_uncert.FuelUncertainty().tier_bootstrap(
+                                        tier_data, col, 'mw'
+                                        )
                     else:
                         
                         tier_data_annual['cc_wa'] = tier_wa
+                        
+                        if uncert:
+                            
+                            if 'cc_uncertainty.csv' not in os.listdir(
+                                os.path.join('../', 'calculation_data/')
+                                ):
+                    
+                                hr_uncert.FuelUncertainty().tier_bootstrap(
+                                        tier_data, col, 'cc'
+                                        )
 
                 
-            tier_data_annual.index.names = \
-                [x.upper() for x in tier_data_annual.index.names]
+
     
             return tier_data_annual
 
