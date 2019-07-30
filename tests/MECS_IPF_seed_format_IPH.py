@@ -237,7 +237,6 @@ class IPF_seed:
             
         self.table3_3.fillna(0, inplace=True)
 
-
         # For IPF, need to remove NAICS group totals and create dummy NAICS
         # in Table 3.2 to capture energy use of NAICS codes not covered by
         # MECS.

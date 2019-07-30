@@ -377,13 +377,13 @@ class County_matching:
                                 ))]
                 ).drop_duplicates(subset='FIPS_NAICS_MATCHED')
             
-        if len(ghgrp_missing) > 3:
-            
-            print("%d unmatched GHGRP facilities remain" % len(
-                    ghgrp_missing
-                    ))
-            
-            return
+#        if len(ghgrp_missing) > 3:
+#            
+#            print("%d unmatched GHGRP facilities remain" % len(
+#                    ghgrp_missing
+#                    ))
+#            
+#            return
 
                 
 #            ghgrp_matching.loc[
