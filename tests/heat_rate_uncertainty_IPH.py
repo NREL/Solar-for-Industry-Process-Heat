@@ -204,6 +204,7 @@ class FuelUncertainty:
 
         return results_dict
     
+    @staticmethod
     def bootstrap(data, iterations=10000):
         """
         Nonparametric bootstrapping for mean and standard deviation of data.
@@ -224,27 +225,28 @@ class FuelUncertainty:
         
         return final_mean, final_std
     
-    def tier_bootsrap(data, value_col, data_abbrev):
+    @classmethod    
+    def tier_bootstrap(cls, data, value_col, data_abbrev):
         
-        uncert = data[data[value_col] >0].groupby(
-                ['reporting_year', 'fuel_type']
-                )[value_col].apply(lambda x: bootstrap(x))
+        if data_abbrev+'_uncertainty.csv' not in os.listdir(
+                os.path.join('../', 'calculation_data/')
+                ):
         
-        uncert = pd.DataFrame.from_records(
-                list(uncert.values),index=uncert.index,
-                columns=['mean', 'std']
-                )
-        
-        uncert = uncert.reset_index('reporting_year').join(
-                    data.set_index('fuel_type')[value_col].drop_duplicates()
+            uncert = data[data[value_col] >0].groupby(
+                    ['reporting_year', 'fuel_type']
+                    )[value_col].apply(lambda x: cls.bootstrap(x))
+            
+            uncert = pd.DataFrame.from_records(
+                    list(uncert.values),index=uncert.index,
+                    columns=['mean', 'std']
                     )
-        
-        uncert.set_index('reporting_year', append=True, inplace=True)
-        
-        uncert.to_csv('../calculation_data/'+data_abbrev+'uncertainty.csv') 
+            
+            uncert.to_csv(
+                    '../calculation_data/'+data_abbrev+'_uncertainty.csv'
+                    ) 
 
     
-    def calc_error_prop(self, tier2_hhv, tier3):
+    def calc_error_prop_ef(self, tier2_hhv, tier3):
         """
         Calculate error propogation of carbon content of fuels
         (kg CO2/mmBtu)--agregated by fuel, reporting year and fuel, or
@@ -252,47 +254,16 @@ class FuelUncertainty:
         and Tier 3 emission calculation approaches.
     
         """
-        
-        # Bootstrap HHV values calculated from reported tier2 values
-        bootstrapped_hhv = pd.DataFrame(
-                columns=['mean', 'std'],
-                index=tier2_hhv.index.get_level_values('FUEL_TYPE').unique()
-                )
-        
-        for fuel in bootstrapped_hhv.index:
-            
-            bootstrapped_hhv.loc[fuel, :] = \
-                bootstrap(
-                    tier2_hhv.xs(fuel,level='FUEL_TYPE').fuel_combusted.divide(
-                        tier2_hhv.xs(fuel, level='FUEL_TYPE').energy_mmbtu
-                        ).values)
-            
-            
-        # Bootrap molecular weight values from reported tier 3 values
-        bootstrapped_mw = pd.DataFrame(
-                columns=['mean', 'std'],
-                index=tier3.index.get_level_values('FUEL_TYPE').unique()
-                )
-        
-        for fuel in bootstrapped_mw.index:
-            
-            bootstrapped_mw.loc[fuel, :] = \
-                bootstrap(
-                    tier3.xs(fuel, level='FUEL_TYPE').molecular_weight.values
-                    )
-        
-        # Bootrap carbon content values from reported tier 3 values
-        bootstrapped_cc = pd.DataFrame(
-                columns=['mean', 'std'],
-                index=tier3.index.get_level_values('FUEL_TYPE').unique()
-                )
-        
-        for fuel in bootstrapped_cc.index:
-            
-            bootstrapped_cc.loc[fuel, :] = \
-                bootstrap(
-                    tier3.xs(fuel, level='FUEL_TYPE').carbon_content.values
-                    )
+
+        #Import boostrap data (by year and fuel) for hhv and tier 3 data
+        hhv_boot = pd.read_csv('../calculation_data/hhv_uncertainty.csv',
+                               index_col=[0,1])
+
+        mw_boot = pd.read_csv('../calculation_data/mw_uncertainty.csv',
+                              index_col=[0,1])
+
+        cc_boot = pd.read_csv('../calculation_data/cc_uncertainty.csv',
+                              index_col=[0,1])
         
         def calc_sq_std(df):
             """
@@ -327,23 +298,29 @@ class FuelUncertainty:
         gas_scf_to_kg.set_index('FUEL_TYPE', append=True, inplace=True)
         
         error_prop = pd.merge(
-            calc_sq_std(bootstrapped_hhv), calc_sq_std(bootstrapped_cc),
+            calc_sq_std(hhv_boot), calc_sq_std(cc_boot),
             left_index=True, right_index=True, how='inner',
             suffixes=['_hhv', '_C']
             )
+        
+        # Data reporting began in 2014 and coverage is spotty.
+        # Repeat 2015 data for 2010 - 2014.
+        error_prop.drop(2014, axis=0, level=0, inplace=True)
+        
+        for y in range(2010, 2015):
             
-#        error_prop = pd.merge(
-#            calc_sq_std(
-#                tier2_hhv['high_heat_value']
-#                ).reset_index(level=1),
-#            calc_sq_std(
-#                tier3['carbon_content']
-#                ).reset_index(level=1),
-#            left_index=True, right_index=True, how='inner',
-#            suffixes=['_hhv', '_C'])
+            new_year = error_prop.loc[2015].reset_index()
+            
+            new_year['reporting_year'] = y
+            
+            error_prop = error_prop.append(
+                    new_year.set_index(['reporting_year', 'fuel_type'])
+                    )
+            
+        error_prop.sort_index(level=0, inplace=True)
             
         # Include error of molecular weight of fuel gas and natural gas
-        error_prop = pd.merge(error_prop, calc_sq_std(bootstrapped_mw), 
+        error_prop = pd.merge(error_prop, calc_sq_std(mw_boot), 
                               left_index=True, right_index=True, how='outer')
         
         error_prop.rename(columns={'sq_std': 'sq_std_mw'}, inplace=True)
@@ -407,7 +384,7 @@ class FuelUncertainty:
                 t2t3_efs.final_uncert
                 )
         
-        return error_prop, bootstrapped_mw
+        return error_prop, mw_boot
     
     
     def calc_EF(self, error_prop, tier2_hhv_summary, tier3_summary,
@@ -476,13 +453,9 @@ class FuelUncertainty:
                 t2t3_efs.final_uncert
                 )
         
-        return t2t3_efs
-    
-    def create_efs(self, t2t3_efs):
-        """
-        Make a dataframe with columns of standard EPA emission factors and 
-        substitutes from uncertainty calculations. 
-        """
+        
+        #Make a dataframe with columns of standard EPA emission factors and 
+        #substitutes from uncertainty calculations. 
         
         efs_for_energy = pd.DataFrame(
             np.tile(self.fuel_efs.co2_kgco2_per_mmbtu.values, (4, 1)).T,
