@@ -453,7 +453,6 @@ class FuelUncertainty:
                 t2t3_efs.final_uncert
                 )
         
-        
         #Make a dataframe with columns of standard EPA emission factors and 
         #substitutes from uncertainty calculations. 
         

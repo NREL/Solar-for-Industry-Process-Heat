@@ -151,11 +151,20 @@ class tier_energy:
                     data[weighting_column].dropna().multiply(
                             data[weighted_column].dropna()
                             )
-
-                data_annual = pd.DataFrame(data.groupby(
+                    
+                if weighting_column == 'mass_of_steam':
+                    
+                    data_annual = pd.DataFrame(data.groupby(
                         ['facility_id', 'reporting_year', 'fuel_type',
                          'unit_name']
                         )['energy_mmbtu'].sum())
+
+                else:
+                    
+                    data_annual = pd.DataFrame(data.groupby(
+                            ['facility_id', 'reporting_year', 'fuel_type',
+                             'unit_name']
+                            )['energy_mmbtu', 'fuel_combusted'].sum())
                 
                 # Some months have more than one entry. Take the mean of
                 # these values
@@ -174,7 +183,7 @@ class tier_energy:
 
                 data_annual.index.names = \
                     [x.upper() for x in data_annual.index.names]
-                
+
                 return data_annual
 
             if tier_table == 't2_hhv':
@@ -228,7 +237,6 @@ class tier_energy:
         
         self.t3_data_annual = tier_table_wa('t3')
 
-           
 #%%
     def filter_data(self, subpart_c_df, tier_column):
         """
@@ -361,13 +369,9 @@ class tier_energy:
         energy = pd.DataFrame()
         
         t2_data_combined = pd.concat(
-                [self.t2boiler_data_annual.reset_index(),
-                 self.t2hhv_data_annual.reset_index()],
-                ignore_index=True, sort=True
+                [self.t2boiler_data_annual, self.t2hhv_data_annual],
+                ignore_index=False, sort=True
                 )
-
-        t2_data_combined.set_index(['FACILITY_ID', 'REPORTING_YEAR',
-                                    'FUEL_TYPE', 'UNIT_NAME'], inplace=True)
         
         fuel_type_cats = ['FUEL_TYPE', 'FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND']
 
@@ -443,7 +447,7 @@ class tier_energy:
                     df_no_mmbtu.CO2_kgCO2_per_mmBtu.update(custom_efs[k])
         
                     df_no_mmbtu.reset_index(inplace=True)
-                
+
                 energy_update = df_no_mmbtu[tier_column].divide(
                         df_no_mmbtu.CO2_kgCO2_per_mmBtu
                         )*1000
@@ -483,8 +487,8 @@ class tier_energy:
         # Calculated annual hhv (mass or volumne per mmbtu) by fuel. 
         # Note that reporting for these measurements began in 2014.
         hhv_average = self.t2hhv_data_annual.reset_index().groupby(
-                ['FUEL_TYPE']
-                ).hhv_wa.mean()
+                    ['FUEL_TYPE']
+                    ).high_heat_value_wa.mean()
         
         # Calculate energy value of combusted fuels
         t3_mmbtu = pd.DataFrame(self.t3_data_annual.fuel_combusted.values,
@@ -547,14 +551,6 @@ class tier_energy:
                 df_by_ef = df_by_ef.set_index(ft).join(
                         self.std_efs['CO2_kgCO2_per_mmBtu']
                         )
-    
-#                df_by_ef = pd.merge(df_by_ef,
-#                    self.std_efs.reset_index()[['FUEL_TYPE',
-#                                                'CO2_kgCO2_per_mmBtu']],
-#                    right_on='FUEL_TYPE', left_on=ft, how='left'
-#                    )
-#                
-#                print('len after merge',len(df_by_ef))
     
                 df_by_ef['energy_mmbtu'] = df_by_ef[tier_column].divide(
                         df_by_ef['CO2_kgCO2_per_mmBtu']

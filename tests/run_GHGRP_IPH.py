@@ -11,7 +11,7 @@ from GHGRP_AA_IPH import subpartAA
 
 
 
-ghgrp = GHGRP((2010, 2017))
+ghgrp = GHGRP((2010, 2017), calc_uncertainty=False)
 
 ghgrp_data = {}
 

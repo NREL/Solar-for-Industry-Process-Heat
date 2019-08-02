@@ -11,7 +11,6 @@ import os
 import find_fips
 import ghg_tiers_IPH
 import Get_GHGRP_data_IPH
-        
 
 # %%
 class GHGRP:
@@ -64,7 +63,7 @@ class GHGRP:
     
     mfips_file = 'found_fips.csv'
 
-    def __init__(self, years):
+    def __init__(self, years, calc_uncertainty):
         
         if type(years) == tuple:
             
@@ -73,6 +72,8 @@ class GHGRP:
         else:
             
             self.years = [years]
+            
+        self.calc_uncertainty = calc_uncertainty
     
     def format_emissions(self, GHGs):
         """
