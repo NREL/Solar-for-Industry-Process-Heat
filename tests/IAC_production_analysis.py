@@ -174,10 +174,18 @@ class IAC:
                 (self.iac_data.NAICS.between(310000, 399999))
                 ]
 
+        # Match NAICS to QPC NAICS codes
+        qpc_naics = pd.read_csv(
+            '../calculation_data/qpc_weekly_hours.csv', usecols=['NAICS']
+            )
+
+
+
 test = IAC()
 
 test.iac_data.head()
-    def run_prodhours_ols(self, group):
+
+    def run_prodhours_ols(group):
         """
         Run ordinary least squares (OLS) regression for the relationship
         between number of employees and production hours by industry codes
@@ -194,35 +202,59 @@ test.iac_data.head()
         #
         # ols_fit = LinearRegression().fit(ols_data.iloc[:, 1:], ols_data[0])
 
-        ols_fit = ols('PRODHOURS ~ C(Emp_size)', data=ols_data).fit()
+        ols_final = pd.DataFrame(
+            np.nan, columns=['n1_49', 'n50_99', 'n100_249', 'n250_499',
+                             'n500_999', 'n1000'],
+            index=[ols_data.NAICS.unique()[0]]
+            )
 
-        ols_fit.summary()
+        # Skip NAICS without observations from each emploument class
+        if len(ols_data.)
+
+            ols_fit = ols('PRODHOURS ~ C(Emp_size)', data=ols_data).fit()
+
+        else:
+
+            return ols_final
 
         # Get p values of regression coefficients; can get those below 0.05
         if any(ols_fit.pvalues[1:] < 0.05):
 
-            ols_res = pd.Series(
+            ols_res = pd.DataFrame(
                 np.multiply(ols_fit.pvalues<0.05, ols_fit.params)
                 )
 
-            ols_res = ols_res[ols_res>0]
+            ols_res = ols_res[ols_res>0].T
 
-            ols_res.update(np.add(ols_res[1:], ols_res[0]))
+            # ols_res.update(np.add(ols_res[1:], ols_res[0]))
 
             ols_res.rename(
-                index={'Intercept': 'n1_49', 'C(Emp_size)[T.n50_99]': 'n50_99',
+                columns={'Intercept': 'n1_49', 'C(Emp_size)[T.n50_99]': 'n50_99',
                        'C(Emp_size)[T.n100_249]': 'n100_249',
                        'C(Emp_size)[T.n250_499]': 'n250_499',
                        'C(Emp_size)[T.n500-999]': 'n500_999',
-                       'C(Emp_size)[T.n1000]': 'n1000'}, inplace=True
+                       'C(Emp_size)[T.n1000]': 'n1000'},
+                index={0:ols_data.NAICS.unique()[0]}, inplace=True
                 )
 
-            return ols_res
+            ols_final.update(ols_res)
 
-        else:
 
-            return pd.Series(['No relationship'], index=['n/a'])
+        # Not all NAICS have records with all employment size classes.
+        # Mask the instances where there aren't entries.
+        emp_mask = np.ma.make_mask(pd.DataFrame(
+            ols_data.groupby('Emp_size').PRODHOURS.mean()
+            ).T)
 
+        ols_final = ols_final.multiply(emp_mask).fillna(0)
+
+        return ols_final
+
+iac_empsize = pd.concat(
+    [run_prodhours_ols(
+        test.iac_data[test.iac_data.NAICS == naics]
+        ) for naics in test.iac_data.NAICS.unique()], axis=0, ignore_index=False
+    )
 
 # https://stackoverflow.com/questions/50733014/linear-regression-with-dummy-categorical-variables
 

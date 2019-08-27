@@ -249,7 +249,7 @@ class QPC:
 
         annual.name = 'annual'
 
-        annual_avg = qpc_data.set_index('NAICS').join(annual, how='inner')
+        ann_avg = qpc_data.set_index('NAICS').join(annual, how='inner')
 
         ann_avg.index.name = 'NAICS'
 
@@ -308,3 +308,7 @@ qpc_seasonality = pd.concat(
         qpc_data[qpc_data.NAICS == naics]
         ) for naics in qpc_data.NAICS.unique()], axis=0, ignore_index=False
     )
+
+qpc_weekly_hours = calc_quarterly_avgs(qpc_data, qpc_seasonality)
+
+qpc_weekly_hours.to_csv('../results/qpc_weekly_hours.csv')
