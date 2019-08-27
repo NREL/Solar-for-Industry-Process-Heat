@@ -12,55 +12,80 @@ import requests
 import pandas as pd
 import os
 from scipy import stats
+import numpy as np
+#from sklearn.linear_model import LinearRegression
+from statsmodels.formula.api import ols
 
 class IAC:
     """
     Class for downloading, formatting, and analyzing IAC data.
+    Specify first year of data, otherwise will use data from 2002.
     """
 
-    def __init__(self):
+    def __init__(self, first_year=2002):
 
-        _url = 'https://iac.university/IAC_Database.zip'
+        self.iac_url = 'https://iac.university/IAC_Database.zip'
 
         req = requests.get(self.iac_url)
 
         zipfile = ZipFile(BytesIO(req.content))
 
-        self.iac = pd.read_excel(zipfile.open(zipfile.namelist()[0]),
+        self.iac_data = pd.read_excel(zipfile.open(zipfile.namelist()[0]),
                                  sheet_name=['ASSESS'])
 
-        self.iac = pd.DataFrame(self.iac['ASSESS'])
+        self.iac_data = pd.DataFrame(self.iac_data['ASSESS'])
 
         # Filter out annual production hours that are below 1000 and above
         # 8760
-        self.iac = self.iac[self.iac.PRODHOURS.between(1000, 8760)]
+        self.iac_data = self.iac_data[
+            self.iac_data.PRODHOURS.between(1000, 8760)
+            ]
 
-        self.sic_naics = os.path.join('./', '1987_SIC_to_2002_NAICS.csv')
+        self.iac_data = self.iac_data[
+            self.iac_data.FY.between(first_year, 2020)
+            ]
 
-    def format_iac(self):
-        """
-        Fill in missing NAICS codes by matching SIC codes.
-        """
+        # create employment size class bins
+        self.iac_data['Emp_size'] = pd.cut(self.iac_data.EMPLOYEES,
+            [1, 50, 100, 250, 500, 1000, 1000000] , right=True,
+            labels=['n1_49', 'n50_99', 'n100_249', 'n250_499', 'n500_999',
+                    'n1000'],
+            retbins=False, precision=3, include_lowest=True,
+                    duplicates='raise')
 
-        sic_to_naics = pd.read_csv(self.sic_naics)
+        # Drop na values
+        self.iac_data.dropna(subset=['Emp_size'], inplace=True)
 
-        sic_to_naics.rename(columns={'2002 NAICS': 'NAICS'}, inplace=True)
+        #Fill in missing NAICS codes by matching SIC codes.
+        self.sic_naics = pd.read_csv(
+            os.path.join('../calculation_data/', '1987_SIC_to_2002_NAICS.csv')
+            )
 
-        mapped_naics = pd.merge(self.iac[['SIC', 'ID']],
-                                sic_to_naics[['SIC', 'NAICS']],
+        self.sic_naics.rename(columns={'2002 NAICS': 'NAICS'}, inplace=True)
+
+        mapped_naics = pd.merge(self.iac_data[['SIC', 'ID']],
+                                self.sic_naics[['SIC', 'NAICS']],
                                 on=['SIC'], how='left')
 
         # Some SIC codes correspond to more than one NAICS.
         # First fill in missing NAICS for SICs with only one NAICS
-        sic_single = sic_to_naics.groupby(
+        sic_single = self.sic_naics.groupby(
             'SIC', as_index=False
             )['NAICS'].count()
 
         sic_single = sic_single[sic_single['NAICS'] == 1]
 
+        sic_single.rename(columns={'NAICS': 'NAICS_count'}, inplace=True)
+
         mapped_naics_single = pd.merge(mapped_naics, sic_single, on='SIC')
 
-        self.iac.NAICS.update(mapped_naics_single)
+        self.iac_data.set_index('SIC', inplace=True)
+
+        self.iac_data.NAICS.update(
+            mapped_naics_single.set_index('SIC').NAICS.drop_duplicates()
+            )
+
+        self.iac_data.reset_index(inplace=True)
 
         #Fill in other missing NAICS for SIC with 2-3 NAICS by aggregating
         # to 3-4 digit NAICS
@@ -99,7 +124,7 @@ class IAC:
 
         agg_naics = []
 
-        sicgrpd = sic_to_naics.groupby('SIC')
+        sicgrpd = self.sic_naics.groupby('SIC')
 
         for sic in sicgrpd.groups:
 
@@ -108,7 +133,7 @@ class IAC:
         agg_naics = pd.DataFrame(agg_naics, columns=['SIC', 'NAICS'])
 
         #Update missing NAICS based on aggregated values
-        agg_update = pd.DataFrame(self.iac[self.iac.NAICS.isnull()])
+        agg_update = pd.DataFrame(self.iac_data[self.iac_data.NAICS.isnull()])
 
         agg_update['iac_index'] = agg_update.index
 
@@ -124,40 +149,89 @@ class IAC:
 
         agg_update.index.name = 'index'
 
-        self.iac.update(agg_update.NAICS)
+        self.iac_data.update(agg_update.NAICS)
 
         iac_grpd_ = {}
 
-        for c in ['SIC', 'NAICS']:
+        # for c in ['SIC', 'NAICS']:
+        #
+        #     if c == 'NAICS':
+        #         r_l, r_u = 310000, 399999
+        #
+        #     if c == 'SIC':
+        #         r_l, r_u = 2011, 3999
+        #
+        #     iac_grpd[c] = self.iac_data[
+        #         (self.iac_data.PRODHOURS.notnull()) &
+        #         (self.iac_data[c].between(r_l, r_u))][
+        #             ['FY', c, 'EMPLOYEES', 'PRODLEVEL', 'PRODUNITS']
+        #             ].groupby(c)
 
-            if c == 'NAICS':
-                r_l, r_u = 310000, 399999
+        # Remove entries without production hours and non-manufacturing
+        # facilities.
+        self.iac_data = self.iac_data[
+                (self.iac_data.PRODHOURS.notnull()) &
+                (self.iac_data.NAICS.between(310000, 399999))
+                ]
 
-            if c == 'SIC':
-                r_l, r_u = 2011, 3999
+test = IAC()
 
-            iac_grpd[c] = self.iac[
-                (self.iac.PRODHOURS.notnull()) &
-                (self.iac[c].between(r_l, r_u))][
-                    ['FY', c, 'EMPLOYEES', 'PRODLEVEL', 'PRODUNITS']
-                    ].groupby(c)
-
-        # Summarize
-
-
-
-    def prodhours_ols(self, ind_code):
+test.iac_data.head()
+    def run_prodhours_ols(self, group):
         """
         Run ordinary least squares (OLS) regression for the relationship
         between number of employees and production hours by industry codes
         (i.e., ind_code, SIC or NAICS). Saves results as csv file.
         """
 
+        ols_data = group
+
+        # ols_data = pd.DataFrame(ols_data.sum(axis=1)).join(ols_data)
+        #
+        # ols_data.iloc[:, 1:] = ols_data.iloc[:, 1:].mask(~ols_data.isnull(), 1)
+        #
+        # ols_data.fillna(0, inplace=True)
+        #
+        # ols_fit = LinearRegression().fit(ols_data.iloc[:, 1:], ols_data[0])
+
+        ols_fit = ols('PRODHOURS ~ C(Emp_size)', data=ols_data).fit()
+
+        ols_fit.summary()
+
+        # Get p values of regression coefficients; can get those below 0.05
+        if any(ols_fit.pvalues[1:] < 0.05):
+
+            ols_res = pd.Series(
+                np.multiply(ols_fit.pvalues<0.05, ols_fit.params)
+                )
+
+            ols_res = ols_res[ols_res>0]
+
+            ols_res.update(np.add(ols_res[1:], ols_res[0]))
+
+            ols_res.rename(
+                index={'Intercept': 'n1_49', 'C(Emp_size)[T.n50_99]': 'n50_99',
+                       'C(Emp_size)[T.n100_249]': 'n100_249',
+                       'C(Emp_size)[T.n250_499]': 'n250_499',
+                       'C(Emp_size)[T.n500-999]': 'n500_999',
+                       'C(Emp_size)[T.n1000]': 'n1000'}, inplace=True
+                )
+
+            return ols_res
+
+        else:
+
+            return pd.Series(['No relationship'], index=['n/a'])
+
+
+# https://stackoverflow.com/questions/50733014/linear-regression-with-dummy-categorical-variables
+
+        LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=None)[source]
         # Only include facilities that report annual production hours between
         # 1000 and 8760 and facilities that report the number of employees.
-        ols_data = self.iac[
-            (self.iac.PRODHOURS.between(1000, 8760)) &
-            (self.iac.EMPLOYEES.notnull())
+        ols_data = self.iac_data[
+            (self.iac_data.PRODHOURS.between(1000, 8760)) &
+            (self.iac_data.EMPLOYEES.notnull())
             ][['FY', ind_code, 'EMPLOYEES', 'PRODHOURS', 'PRODLEVEL',
                'PRODUNITS', 'ID']]
 
