@@ -309,6 +309,14 @@ class results_figures:
         
         relative=True returns the a curve as the portion of energy use.
         
+        exampes:
+        category_ids={'all':'all'} returns temp-load curve for all
+        manufacturing industries.
+        
+        category_ids={'naics':[311, 312, 331]}
+        
+        category_ids={}
+        
         """
         
         sns.set(context='talk', style='whitegrid')
@@ -469,7 +477,7 @@ class results_figures:
                     data['Cuml_TBtu'].update(
                             data.Cuml_TBtu.divide(
                                     data.MMBtu_Temp.sum()/10**6
-                                    )
+                                    )*100
                             )
                 
                 data.drop('MMBtu_Temp', axis=1, inplace=True)
@@ -513,8 +521,6 @@ class results_figures:
             else:
                 
                 plot_data['Cuml_TBtu'] = plot_data.MMBtu_Temp.cumsum()/10**6
-            
-            filename = "temp_cuve_all.png"
             
             f, ax = plt.subplots(figsize=(8,8))
 
