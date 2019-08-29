@@ -15,6 +15,7 @@ from scipy import stats
 import numpy as np
 #from sklearn.linear_model import LinearRegression
 from statsmodels.formula.api import ols
+from scipy.stats import ttest_ind
 
 class IAC:
     """
@@ -179,11 +180,128 @@ class IAC:
             '../calculation_data/qpc_weekly_hours.csv', usecols=['NAICS']
             )
 
+        qpc_naics = qpc_naics[qpc_naics !='31-33'].dropna()
 
+        qpc_naics = qpc_naics.astype(int)
+
+        iac_naics = pd.DataFrame(self.iac_data.NAICS.unique())
+
+        iac_naics.columns = ['n6']
+
+        iac_naics = pd.concat(
+            [iac_naics.n6.apply(
+                lambda x: int(str(x)[0:n])
+                ) for n in range(6,3,-1)], axis=1
+                )
+
+        iac_naics.columns = ['n6', 'n5', 'n4']
+
+        iac_match = iac_naics.apply(
+            lambda x: x.isin(qpc_naics.NAICS),axis=0
+            ).multiply(iac_naics)
+
+        iac_match['iac_naics'] = iac_naics.n6
+
+        iac_match.set_index('iac_naics', inplace=True)
+
+        iac_match = pd.DataFrame(pd.concat(
+            [iac_match.where(
+                iac_match >0, np.nan\
+                ).loc[:, c].dropna() for c in iac_match.columns],
+            ignore_index=False, axis=0
+            ))
+
+        iac_match.columns = ['qpc_naics']
+
+        self.iac_data = pd.merge(
+            self.iac_data, iac_match, left_on='NAICS', rigt_index=True
+            )
+
+        # Create 3-digit NAICS field for aggregation
+        self.iac_data['naics3'] = self.iac_data.NAICS.apply(
+            lambda x: int(str(x)[0:3])
+            )
 
 test = IAC()
 
 test.iac_data.head()
+
+    def ttest_prodhours(iac_data, critval=0.05):
+        """
+        Run the T-test for the mean of one employment size class.
+
+        Per scipy documentation, this is a two-sided test for the null
+        hypothesis that 2 independent samples have identical average (expected)
+        values. This implementation assumes that the samples do not have the
+        same variance (Welch's t-test)
+        """
+
+        df = iac_data.set_index(['naics3', 'Emp_size'])
+
+        emp_means = pd.DataFrame(
+            df.PRODHOURS.mean(level=[0,1])
+            ).reset_index().pivot(
+                'naics3', 'Emp_size', 'PRODHOURS'
+                )
+
+        # emp_means = pd.DataFrame(
+        #     np.nan, index=df.index.get_level_values(0).unique().sort_values(),
+        #     columns=df.index.get_level_values(1).unique()
+        #     )
+
+        emp_means = pd.concat([df.PRODHOURS.mean(level=0), emp_means],
+                              axis=1)
+
+        emp_means.rename(columns={'PRODHOURS': 'all_mean'}, inplace=True)
+
+        emp_means = pd.concat([df.PRODHOURS.count(level=0), emp_means],
+                              axis=1)
+
+        emp_means.rename(columns={'PRODHOURS': 'obs_count'}, inplace=True)
+
+        for n in emp_means.index:
+
+            ttest_res_ind = [ttest_ind(
+                df.xs([n, emp]).PRODHOURS,
+                df.xs([n]).PRODHOURS, equal_var=False
+                )[1] for emp in emp_means.loc[n].dropna().index[2:]]
+
+            # This is thetwo-sided test for the null hypothesis that the
+            #expected value (mean) of a sample of independent observations is
+            # equal to the given population mean.
+            # ttest_res = [ttest_1samp(
+            #     df.xs([n, emp]).PRODHOURS,
+            #     emp_means.loc[n, 'all_mean']
+            #     )[1] for emp in emp_means.loc[n].dropna().index[2:]]
+
+            # Keep results only if result is below critical value
+            ttest_res_ind = pd.DataFrame(
+                np.multiply(emp_means.xs(n).dropna()[2:].values,
+                            (pd.Series(ttest_res_ind) < 0.05)).values,
+                index=emp_means.loc[n].dropna().index[2:], columns=[n]).T
+
+            emp_means.update(ttest_res_ind)
+
+        # Drop NAICS with obs < 50
+        emp_means = emp_means.where(emp_means.obs_count>50)
+
+        emp_means.dropna(inplace=True, thresh=1)
+
+        # Report means by employment size class relative to group mean
+        emp_means.iloc[:, 1:].update(
+            emp_means.iloc[:, 1:].divide(emp_means['all_mean'], axis=0)
+            )
+
+        # Replace instances where there was no statistical significance with
+        # 1, indicating the NAICS mean.
+        # NaN values remain, indicating that there were no observations
+        # for that size class and industry
+        emp_means.replace(0, 1, inplace=True)
+
+        # Use these results to multiply the QPC avg weekly op hours
+        return emp_means
+
+
 
     def run_prodhours_ols(group):
         """
@@ -205,17 +323,13 @@ test.iac_data.head()
         ols_final = pd.DataFrame(
             np.nan, columns=['n1_49', 'n50_99', 'n100_249', 'n250_499',
                              'n500_999', 'n1000'],
-            index=[ols_data.NAICS.unique()[0]]
+            index=[ols_data.qpc_naics.unique()[0]]
             )
 
-        # Skip NAICS without observations from each emploument class
-        if len(ols_data.)
+        # Skip NAICS without observations from each emploument class?
+        # if len(ols_data.)
 
-            ols_fit = ols('PRODHOURS ~ C(Emp_size)', data=ols_data).fit()
-
-        else:
-
-            return ols_final
+        ols_fit = ols('PRODHOURS ~ C(Emp_size)', data=ols_data).fit()
 
         # Get p values of regression coefficients; can get those below 0.05
         if any(ols_fit.pvalues[1:] < 0.05):
@@ -234,11 +348,10 @@ test.iac_data.head()
                        'C(Emp_size)[T.n250_499]': 'n250_499',
                        'C(Emp_size)[T.n500-999]': 'n500_999',
                        'C(Emp_size)[T.n1000]': 'n1000'},
-                index={0:ols_data.NAICS.unique()[0]}, inplace=True
+                index={0:ols_data.qpc_naics.unique()[0]}, inplace=True
                 )
 
             ols_final.update(ols_res)
-
 
         # Not all NAICS have records with all employment size classes.
         # Mask the instances where there aren't entries.
@@ -252,8 +365,9 @@ test.iac_data.head()
 
 iac_empsize = pd.concat(
     [run_prodhours_ols(
-        test.iac_data[test.iac_data.NAICS == naics]
-        ) for naics in test.iac_data.NAICS.unique()], axis=0, ignore_index=False
+        test.iac_data[test.iac_data.qpc_naics == naics]
+        ) for naics in test.iac_data.qpc_naics.dropna().unique()], axis=0,
+    ignore_index=False
     )
 
 # https://stackoverflow.com/questions/50733014/linear-regression-with-dummy-categorical-variables
