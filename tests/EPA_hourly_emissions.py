@@ -6,7 +6,7 @@ from io import BytesIO
 import urllib
 from bs4 import BeautifulSoup
 import dask.dataframe as dd
-from datetime import datetime as dt
+import datetime as dt
 
 class EPA_AMD:
 
@@ -39,7 +39,7 @@ class EPA_AMD:
         #Downloaded data saved as parquet files
         self.amd_files = ['epa_amd','epa_amd_final']
 
-    def dl_data(self, years=range(2012, 2019)):
+    def dl_data(self, years=range(2012, 2019), file_name):
         """
         Download and format hourly load data for specified range of years.
         """
@@ -102,7 +102,7 @@ class EPA_AMD:
                         hourly_data, ignore_index=True
                         )
 
-        all_the_data.to_parquet('../calculation_data/amd_data_2/',
+        all_the_data.to_parquet('../calculation_data/'+file_name,
                                 engine='pyarrow', compression='gzip')
 
         print('ftp download complete')
@@ -114,7 +114,9 @@ class EPA_AMD:
 
         #Read parquet files
         amd = pd.concat(
-            [pd.read_parquet(f, engine='pyarrow') for f in amd_files],
+            [pd.read_parquet(
+                '../calculation_data/'+f, engine='pyarrow'
+                ) for f in self.amd_files],
             axis=0, ignore_index=True
             )
 
@@ -126,11 +128,11 @@ class EPA_AMD:
 
         def format_amd_dt(dt_row):
 
-            date = dt.strptime(dt_row['OP_DATE'], '%d-%M-%Y').date()
+            date = dt.datetime.strptime(dt_row['OP_DATE'], '%d-%M-%Y').date()
 
-            time = dt.strptime(str(dt_row['OP_HOUR']), '%H').time()
+            time = dt.datetime.strptime(str(dt_row['OP_HOUR']), '%H').time()
 
-            tstamp = dt.combine(date, time)
+            tstamp = dt.datetime.combine(date, time)
 
             return tstamp
 
@@ -142,10 +144,25 @@ class EPA_AMD:
 
         # Merge in info on unit types
         amd_dd =amd_dd.merge(
-            self.am_facs.set_index['ORISPL_CODE'][
+            self.am_facs.set_index(['ORISPL_CODE'])[
                 ['Unit ID', 'Unit Type', 'Fuel Type (Primary)',
-                'Fuel Type (Secondary)']
+                'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
                 ].drop_duplicates(), on=['ORISPL_CODE'], how='left'
             )
 
-        #pd.to_datetime(all_the_data_final.loc[0, 'OP_DATE']+ ' ' + str(all_the_data_final.loc[0, 'OP_HOUR']), dayfirst=True, format="%d-%m-%Y %H")
+
+    def xwalk_NAICS_ORISPL(self, orispl_df):
+        """
+        Match ORISPL to its NAICS using GHGRP data.
+        """
+
+        xwalk_df = pd.read_excel(
+            "https://www.epa.gov/sites/production/files/2015-10/" +\
+            "oris-ghgrp_crosswalk_public_ry14_final.xls", skiprows=3
+            )
+
+        # Keep only relevant ORISPL
+        # merge with self.amd_facs
+
+        # Merge with GHGRP facilities
+        # pull in all fac_table_[y].csv in calcualtion_data/ghgrp_data/
