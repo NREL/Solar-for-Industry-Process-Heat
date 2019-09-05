@@ -32,9 +32,7 @@ class IAC:
         zipfile = ZipFile(BytesIO(req.content))
 
         self.iac_data = pd.read_excel(zipfile.open(zipfile.namelist()[0]),
-                                 sheet_name=['ASSESS'])
-
-        self.iac_data = pd.DataFrame(self.iac_data['ASSESS'])
+                                 sheet_name='ASSESS')
 
         # Filter out annual production hours that are below 1000 and above
         # 8760
@@ -214,7 +212,7 @@ class IAC:
         iac_match.columns = ['qpc_naics']
 
         self.iac_data = pd.merge(
-            self.iac_data, iac_match, left_on='NAICS', rigt_index=True
+            self.iac_data, iac_match, left_on='NAICS', right_index=True
             )
 
         # Create 3-digit NAICS field for aggregation
@@ -233,7 +231,12 @@ test.iac_data.head()
         Per scipy documentation, this is a two-sided test for the null
         hypothesis that 2 independent samples have identical average (expected)
         values. This implementation assumes that the samples do not have the
-        same variance (Welch's t-test)
+        same variance and sample size (Welch's t-test).
+
+        Choice of Welch's may be problemmatic given overlapping nature of
+        samples (e.g., all samples in a given employment class are also in
+        the samples used to calculate total mean). An alternative is to
+        run a one-sample t-test.
         """
 
         df = iac_data.set_index(['naics3', 'Emp_size'])
