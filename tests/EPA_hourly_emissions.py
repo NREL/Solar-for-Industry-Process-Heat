@@ -14,15 +14,6 @@ class EPA_AMD:
 
         self.ftp_url = "ftp://newftp.epa.gov/DMDnLoad/emissions/hourly/monthly/"
 
-        # Build list of state abbreviations
-        ssoup = BeautifulSoup(
-            requests.get("https://www.50states.com/abbreviations.htm").content,
-            'lxml'
-            )
-
-        self.states = \
-            [ssoup.find_all('td')[x].string.lower() for x in range(1,101,2)]
-
         self.months = ['01','02','03','04','05','06','07','08','09','10','11',
                        '12']
 
@@ -36,10 +27,23 @@ class EPA_AMD:
         self.am_facs.rename(columns={'Facility ID (ORISPL)': 'ORISPL_CODE'},
                             inplace=True)
 
+        # Build list of state abbreviations
+        ssoup = BeautifulSoup(
+            requests.get("https://www.50states.com/abbreviations.htm").content,
+            'lxml'
+            )
+
+        self.states = \
+            [ssoup.find_all('td')[x].string.lower() for x in range(1,101,2)]
+
+        fac_states = [x.lower() for x in self.am_facs.State.unique()]
+
+        self.states = list(set.intersection(self.states), set(fac_states))
+
         #Downloaded data saved as parquet files
         self.amd_files = ['epa_amd','epa_amd_final']
 
-    def dl_data(self, years=range(2012, 2019), file_name):
+    def dl_data(self, years=None, file_name=None):
         """
         Download and format hourly load data for specified range of years.
         """
@@ -166,3 +170,5 @@ class EPA_AMD:
 
         # Merge with GHGRP facilities
         # pull in all fac_table_[y].csv in calcualtion_data/ghgrp_data/
+
+        # Need to keep track of which ORISPL aren't matched
