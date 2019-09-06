@@ -7,6 +7,8 @@ import urllib
 from bs4 import BeautifulSoup
 import dask.dataframe as dd
 import datetime as dt
+import scipy.cluster as spc
+import matplotlib.pyplot as plt
 
 class EPA_AMD:
 
@@ -38,7 +40,7 @@ class EPA_AMD:
 
         fac_states = [x.lower() for x in self.am_facs.State.unique()]
 
-        self.states = list(set.intersection(self.states), set(fac_states))
+        self.states = list(set.intersection(set(self.states), set(fac_states)))
 
         #Downloaded data saved as parquet files
         self.amd_files = ['epa_amd','epa_amd_final']
@@ -165,10 +167,189 @@ class EPA_AMD:
             "oris-ghgrp_crosswalk_public_ry14_final.xls", skiprows=3
             )
 
-        # Keep only relevant ORISPL
-        # merge with self.amd_facs
+        naics_facs = pd.merge(
+            self.amd_facs, xwalk_df, left_on='ORISPL_CODE',
+            right_on='ORIS CODE', how='left'
+            )
+
+        # Import ghgrp facilities and their NAICS Codes
+        ghgrp_facs = pd.DataFrame()
+
+        for y in range(2010, 2019):
+
+            file = '../calculation_data/ghgrp_data/fac_table_{!s}.csv'
+
+            try:
+                fac_y = pd.read_csv(
+                    file.format(str(y)),
+                    )
+
+                ghgrp_facs = ghgrp_facs.append(fac_y, ignore_index=True)
+
+            except:
+
+                continue
+
+        naics_facs = pd.merge(
+            naics_facs, ghgrp_facs[['FACILITY_ID', 'PRIMARY_NAICS_CODE']],
+            left_on='GHGRP Facility ID', right_on='FACILITY_ID',
+            how='left'
+            )
+
+
+
 
         # Merge with GHGRP facilities
         # pull in all fac_table_[y].csv in calcualtion_data/ghgrp_data/
 
         # Need to keep track of which ORISPL aren't matched
+
+    @staticmethod
+    def run_cluster_analysis(amd_dd, kn=range(1,30)):
+        """
+        Run to identify day types by unit
+        """
+
+        # pivot data so hours, weekday/weekend, holiday, and month, are columns
+        # and date is row.
+
+        def describe_date(fac_date):
+            """
+
+            """
+
+            pd_
+
+        for g in amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID']).groups:
+
+            data = amd_dd.groupby(
+                ['ORISPL_CODE', 'UNIT_ID']
+                ).get_group(g).join(
+                    amd_dd.groupby(
+                        ['ORISPL_CODE', 'UNIT_ID']
+                        ).get_group(g).apply()
+
+            )
+
+
+
+        def id_clusters(data):
+            """
+            K-means clustering hourly load by day.
+            kn is the number of clusters to calculate, represented as a range
+            """
+
+            # Whiten observations (normalize by dividing each column by its standard
+            # deviation across all obervations to give unit variance.
+            # See scipy.cluster.vq.whiten documentation).
+            # Need to whitend based on large differences in mean and variance
+            # across energy use by NAICS codes.
+            data_whitened = spc.vq.whiten(data)
+
+            # Run K-means clustering for the number of clusters specified in K
+            KM_load = [spc.vq.kmeans(data_whitened, k, iter=25) for k in kn]
+
+            KM_results_dict = {}
+
+            KM_results_dict['data_white'] = data_whitened
+
+            KM_results_dict['KM_results'] = KM_load
+
+            KM_results_dict['centroids'] = [cent for (cent, var) in KM_energy]
+
+            # Calculate average within-cluster sum of squares
+            KM_results_dict['avgWithinSS'] = [var for (cent, var) in KM_energy]
+
+            # Plot elbow curve to examine within-cluster sum of squares
+            # Displays curve and asks for input on number of clusters to use
+            fig = plt.figure()
+
+            ax = fig.add_subplot(111)
+
+            ax.plot(kn, avgWithinSS, 'b*-')
+
+            #ax.plot(K[kIdx], avgWithinSS[kIdx], marker='o', markersize=12,
+            #    markeredgewidth=2, markeredgecolor='r', markerfacecolor='None')
+            plt.grid(True)
+
+            plt.xlabel('Number of clusters')
+
+            plt.ylabel('Average within-cluster sum of squares')
+
+            plt.title('Elbow for KMeans clustering')
+
+            plt.show(block=False)
+
+            # User input for selecting number of clusters.
+            # plt.show(block=False) or plt.pause(0.1)
+            chosen_k = input("Input selected number of clusters: ")
+
+            return chosen_k,
+
+        def format_cluster_results(
+                    KM_results, cla_input, ctyfips, naics_agg, n
+                    ):
+            """
+            Format cluster analysis results for n=k clusters, adding cluster ids
+            and socio-economic data by county.
+            """
+
+            # Calcualte cluster ids and distance (distortion) between the observation
+            # and its nearest code for a chosen number of clusters.
+            cluster_id, distance = spc.vq.vq(
+                KM_results[naics_agg]['data_white'],
+                KM_results[naics_agg]['centroids'][chosen_k - 1]
+                )
+
+            cols = ['cluster']
+
+            if naics_agg in [11, 21, 23, '31-33']:
+
+                # Combine cluster ids and energy data
+                cluster_id.resize((cluster_id.shape[0], 1))
+
+                # Name columns based on selected N-digit NAICS codes
+                cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
+
+                print("cluster_id shape: ", cluster_id.shape, "\n",
+                    'cla_array shape: ', cla_input[naics_agg]['cla_array'].shape
+                    )
+
+                id_energy = \
+                    pd.DataFrame(
+                        np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
+                               columns=cols
+                               )
+
+                id_energy.set_index(ctyfips[naics_agg], inplace=True)
+
+            if 'eu' in naics_agg:
+                cluster_id.resize((cluster_id.shape[0], 1))
+
+                for v in cla_input['Enduse']:
+                    cols.append(v)
+
+                id_energy = \
+                    pd.DataFrame(
+                        np.hstack((cluster_id, cla_input['cla_array'])),
+                                   columns=cols
+                        )
+
+                id_energy.set_index(ctyfips, inplace=True)
+
+            else:
+            # Combine cluster ids and energy data
+            cluster_id.resize((cluster_id.shape[0], 1))
+
+                # Name columns based on selected N-digit NAICS codes
+            cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
+
+            id_energy = \
+                pd.DataFrame(
+                    np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
+                           columns=cols
+                           )
+
+            id_energy.set_index(ctyfips[naics_agg], inplace=True)
+
+            id_energy.loc[:, 'TotalEnergy'] = id_energy[cols[1:]].sum(axis=1)
