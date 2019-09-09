@@ -9,6 +9,7 @@ import dask.dataframe as dd
 import datetime as dt
 import scipy.cluster as spc
 import matplotlib.pyplot as plt
+from pandas.tseries.holiday import USFederalHolidayCalendar
 
 class EPA_AMD:
 
@@ -134,7 +135,7 @@ class EPA_AMD:
 
         def format_amd_dt(dt_row):
 
-            date = dt.datetime.strptime(dt_row['OP_DATE'], '%d-%M-%Y').date()
+            date = dt.datetime.strptime(dt_row['OP_DATE'], '%m-%d-%Y').date()
 
             time = dt.datetime.strptime(str(dt_row['OP_HOUR']), '%H').time()
 
@@ -143,9 +144,9 @@ class EPA_AMD:
             return tstamp
 
 
-        amd_dd.assign(
+        amd_dd = amd_dd.assign(
             timestamp=amd_dd.apply(lambda x: format_amd_dt(x), axis=1,
-                                   meta=('timestamp', 'datetime64'))
+                                   meta=('timestamp', 'datetime64[ns]'))
             )
 
         # Merge in info on unit types
@@ -155,6 +156,8 @@ class EPA_AMD:
                 'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
                 ].drop_duplicates(), on=['ORISPL_CODE'], how='left'
             )
+
+        amd_dd.OP_DATE.update(amd_dd.timestamp.apply(lambda x: x.date))
 
 
     def xwalk_NAICS_ORISPL(self, orispl_df):
@@ -213,12 +216,31 @@ class EPA_AMD:
         # pivot data so hours, weekday/weekend, holiday, and month, are columns
         # and date is row.
 
-        def describe_date(fac_date):
+        def describe_date(fac_data):
             """
 
             """
 
-            pd_
+            fac_data['weekday'] = fac_data.index.map(
+                lambda x: x.weekday() > 4
+                )
+
+            fac_data['month'] = fac_data.index.map(
+                lambda x: x.month
+                )
+
+            holidays = USFederalHolidayCalendar().holidays()
+
+            fac_data['holiday'] = fac_data.index.map(
+                lambda x: x in holidays
+                )
+
+            fac_data.replace({True:1, False:0}, inplace=True)
+
+            fac_data.fillna(0, inplace=True)
+
+            return fac_data
+
 
         for g in amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID']).groups:
 
@@ -228,10 +250,18 @@ class EPA_AMD:
                     amd_dd.groupby(
                         ['ORISPL_CODE', 'UNIT_ID']
                         ).get_group(g).apply()
+                        )
 
-            )
+            data['TS_DATE'] = data.timestamp.apply(
+                lambda x: x.date()
+                )
 
+            data = data.pivot(
+                index='TS_DATE', columns='OP_HOUR',
+                values='SLOAD (1000lb/hr)'
+                )
 
+            data = describe_date(data)
 
         def id_clusters(data):
             """
@@ -255,10 +285,10 @@ class EPA_AMD:
 
             KM_results_dict['KM_results'] = KM_load
 
-            KM_results_dict['centroids'] = [cent for (cent, var) in KM_energy]
+            KM_results_dict['centroids'] = [cent for (cent, var) in KM_load]
 
             # Calculate average within-cluster sum of squares
-            KM_results_dict['avgWithinSS'] = [var for (cent, var) in KM_energy]
+            KM_results_dict['avgWithinSS'] = [var for (cent, var) in KM_load]
 
             # Plot elbow curve to examine within-cluster sum of squares
             # Displays curve and asks for input on number of clusters to use
@@ -266,7 +296,7 @@ class EPA_AMD:
 
             ax = fig.add_subplot(111)
 
-            ax.plot(kn, avgWithinSS, 'b*-')
+            ax.plot(kn, KM_results_dict['avgWithinSS'], 'b*-')
 
             #ax.plot(K[kIdx], avgWithinSS[kIdx], marker='o', markersize=12,
             #    markeredgewidth=2, markeredgecolor='r', markerfacecolor='None')
@@ -287,7 +317,7 @@ class EPA_AMD:
             return chosen_k,
 
         def format_cluster_results(
-                    KM_results, cla_input, ctyfips, naics_agg, n
+                    KM_results_dict, cla_input, ctyfips, naics_agg, n
                     ):
             """
             Format cluster analysis results for n=k clusters, adding cluster ids
@@ -297,56 +327,55 @@ class EPA_AMD:
             # Calcualte cluster ids and distance (distortion) between the observation
             # and its nearest code for a chosen number of clusters.
             cluster_id, distance = spc.vq.vq(
-                KM_results[naics_agg]['data_white'],
-                KM_results[naics_agg]['centroids'][chosen_k - 1]
+                KM_results['data_white'],
+                KM_results['centroids'][chosen_k - 1]
                 )
 
             cols = ['cluster']
 
-            if naics_agg in [11, 21, 23, '31-33']:
+            # if naics_agg in [11, 21, 23, '31-33']:
+            #
+            #     # Combine cluster ids and energy data
+            #     cluster_id.resize((cluster_id.shape[0], 1))
+            #
+            #     # Name columns based on selected N-digit NAICS codes
+            #     cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
+            #
+            #     print("cluster_id shape: ", cluster_id.shape, "\n",
+            #         'cla_array shape: ', cla_input[naics_agg]['cla_array'].shape
+            #         )
+            #
+            #     id_energy = \
+            #         pd.DataFrame(
+            #             np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
+            #                    columns=cols
+            #                    )
+            #
+            #     id_energy.set_index(ctyfips[naics_agg], inplace=True)
+            #
+            # if 'eu' in naics_agg:
+            #     cluster_id.resize((cluster_id.shape[0], 1))
+            #
+            #     for v in cla_input['Enduse']:
+            #         cols.append(v)
+            #
+            #     id_energy = \
+            #         pd.DataFrame(
+            #             np.hstack((cluster_id, cla_input['cla_array'])),
+            #                        columns=cols
+            #             )
+            #
+            #     id_energy.set_index(ctyfips, inplace=True)
 
-                # Combine cluster ids and energy data
-                cluster_id.resize((cluster_id.shape[0], 1))
 
-                # Name columns based on selected N-digit NAICS codes
-                cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
-
-                print("cluster_id shape: ", cluster_id.shape, "\n",
-                    'cla_array shape: ', cla_input[naics_agg]['cla_array'].shape
-                    )
-
-                id_energy = \
-                    pd.DataFrame(
-                        np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
-                               columns=cols
-                               )
-
-                id_energy.set_index(ctyfips[naics_agg], inplace=True)
-
-            if 'eu' in naics_agg:
-                cluster_id.resize((cluster_id.shape[0], 1))
-
-                for v in cla_input['Enduse']:
-                    cols.append(v)
-
-                id_energy = \
-                    pd.DataFrame(
-                        np.hstack((cluster_id, cla_input['cla_array'])),
-                                   columns=cols
-                        )
-
-                id_energy.set_index(ctyfips, inplace=True)
-
-            else:
             # Combine cluster ids and energy data
             cluster_id.resize((cluster_id.shape[0], 1))
 
-                # Name columns based on selected N-digit NAICS codes
-            cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
+            # Name columns based on selected N-digit NAICS codes
 
             id_energy = \
                 pd.DataFrame(
-                    np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
+                    np.hstack((cluster_id, data)),
                            columns=cols
                            )
 
