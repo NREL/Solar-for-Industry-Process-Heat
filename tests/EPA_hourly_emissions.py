@@ -27,8 +27,18 @@ class EPA_AMD:
 
         self.am_facs.columns = [x.strip() for x in self.am_facs.columns]
 
-        self.am_facs.rename(columns={'Facility ID (ORISPL)': 'ORISPL_CODE'},
+        self.am_facs.rename(columns={'Facility ID (ORISPL)': 'ORISPL_CODE',
+                                     'Unit ID': 'UNITID'},
                             inplace=True)
+
+        # Fill in missing max heat rate data
+        self.am_facs.set_index(['ORISPL_CODE', 'UNITID'], inplace=True)
+
+        self.am_facs.update(
+            self.am_facs['Max Hourly HI Rate (MMBtu/hr)'].fillna(method='bfill')
+            )
+
+        self.am_facs.reset_index(inplace=True)
 
         # Build list of state abbreviations
         ssoup = BeautifulSoup(
@@ -114,9 +124,38 @@ class EPA_AMD:
 
         print('ftp download complete')
 
-    def format_amd(data):
+    @classmethod
+    def describe_date(amd_data):
+        """
+        Add columns for weekday, month, and holiday. Based on existing timestamp
+        column in amd_data dataframe.
         """
 
+        fac_data['weekday'] = fac_data.timestamp.map(
+            lambda x: x.weekday() > 4
+            )
+
+        fac_data['month'] = fac_data.timestamp.map(
+            lambda x: x.month
+            )
+
+        holidays = USFederalHolidayCalendar().holidays()
+
+        fac_data['holiday'] = fac_data.timestamp.map(
+            lambda x: x in holidays
+            )
+
+        fac_data.replace({True:1, False:0}, inplace=True)
+
+        fac_data.fillna(0, inplace=True)
+
+        return fac_data
+
+
+    def format_amd(self, data):
+        """
+        Read AMD parquet files and format date and time, and add
+        facility information.
         """
 
         #Read parquet files
@@ -133,6 +172,27 @@ class EPA_AMD:
             npartitions=len(amd.ORISPL_CODE.unique()), sort=True, name='amd'
             )
 
+        # Merge in info on unit types
+        am_facs_dd_merge = self.am_facs.drop_duplicates(
+            ['ORISPL_CODE', 'UNITID']
+            )[
+                ['ORISPL_CODE','UNITID', 'Unit Type', 'Fuel Type (Primary)',
+                'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
+            ].set_index(['ORISPL_CODE'])
+
+        amd_dd = amd_dd.merge(
+            am_facs_dd_merge, how='left', on=['ORISPL_CODE', 'UNITID']
+            )
+
+        # Fill in missing max heat rates (dropped during drop_duplicates)
+
+        # amd_dd =amd_dd.merge(
+        #     self.am_facs.set_index(['ORISPL_CODE'])[
+        #         ['Unit ID', 'Unit Type', 'Fuel Type (Primary)',
+        #         'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
+        #         ].drop_duplicates(), how='left', on=['ORISPL_CODE', 'Unit ID']
+        #     )
+
         def format_amd_dt(dt_row):
 
             date = dt.datetime.strptime(dt_row['OP_DATE'], '%m-%d-%Y').date()
@@ -143,69 +203,110 @@ class EPA_AMD:
 
             return tstamp
 
-
         amd_dd = amd_dd.assign(
             timestamp=amd_dd.apply(lambda x: format_amd_dt(x), axis=1,
                                    meta=('timestamp', 'datetime64[ns]'))
             )
 
-        # Merge in info on unit types
-        amd_dd =amd_dd.merge(
-            self.am_facs.set_index(['ORISPL_CODE'])[
-                ['Unit ID', 'Unit Type', 'Fuel Type (Primary)',
-                'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
-                ].drop_duplicates(), on=['ORISPL_CODE'], how='left'
+        amd_dd = amd_dd.assign(OP_DATE=amd.timestamp.apply(
+            lambda x: x.date()
+            ))
+
+        # amd_dd.OP_DATE = amd_dd.timestamp.apply(
+        #     lambda x: x.date(), meta={'OP_DATE': 'datetime64[ns]'}
+        #     )
+
+        amd_dd = amd_dd.rename(
+            columns={'GLOAD':'GLOAD_MW', 'GLOAD (MW)': 'GLOAD_MW',
+                     'SLOAD': 'SLOAD_1000lb_hr',
+                     'SLOAD (1000lb/hr)': 'SLOAD_1000lb_hr',
+                     'HEAT_INPUT': 'HEAT_INPUT_MMBtu',
+                     'HEAT_INPUT (mmBtu)': 'HEAT_INPUT_MMBtu'}
             )
 
-        amd_dd.OP_DATE.update(amd_dd.timestamp.apply(lambda x: x.date))
+        amd_dd = amd_dd.astype(
+            {'OP_HOUR': 'float32', 'OP_TIME':'float32','GLOAD_MW': 'float32',
+             'SLOAD_1000lb_hr':'float32', 'HEAT_INPUT_MMBtu': 'float32',
+             'FAC_ID': 'float32', 'UNIT_ID': 'float32',
+             'Max Hourly HI Rate (MMBtu/hr)': 'float32'}
+             )
 
-
-    def xwalk_NAICS_ORISPL(self, orispl_df):
-        """
-        Match ORISPL to its NAICS using GHGRP data.
-        """
-
+        # Match ORISPL to its NAICS using GHGRP data.
         xwalk_df = pd.read_excel(
             "https://www.epa.gov/sites/production/files/2015-10/" +\
             "oris-ghgrp_crosswalk_public_ry14_final.xls", skiprows=3
             )
 
+        xwalk_df = xwalk_df[['GHGRP Facility ID', 'FACILITY NAME', 'ORIS CODE']]
+
+        xwalk_df.replace({'No Match':np.nan}, inplace=True)
+
+        xwalk_df['ORIS CODE'] = xwalk_df['ORIS CODE'].astype('float32')
+
         naics_facs = pd.merge(
-            self.amd_facs, xwalk_df, left_on='ORISPL_CODE',
+            self.am_facs, xwalk_df, left_on='ORISPL_CODE',
             right_on='ORIS CODE', how='left'
             )
 
+        # Manual matching for facs missing ORIS. Dictionary of ORIS: GHGRP FAC
+        missing_oris = pd.read_csv('../calculation_data/ORIS_GHGRP_manual.csv')
+
+        naics_facs.set_index('ORISPL_CODE', inplace=True)
+
+        naics_facs.update(missing_oris.set_index('ORISPL_CODE'))
+
+        naics_facs.reset_index(inplace=True)
+
         # Import ghgrp facilities and their NAICS Codes
-        ghgrp_facs = pd.DataFrame()
+        ghgrp_facs = pd.read_parquet(
+            '../results/ghgrp_energy_20190801-2337.parquet', engine='pyarrow'
+            )[['FACILITY_ID', 'PRIMARY_NAICS_CODE']].drop_duplicates()
+        # ghgrp_facs = pd.DataFrame()
+        #
+        # for y in range(2010, 2019):
+        #
+        #     file = '../calculation_data/ghgrp_data/fac_table_{!s}.csv'
+        #
+        #     try:
+        #         fac_y = pd.read_csv(
+        #             file.format(str(y)),
+        #             usecols=['FACILITY_ID', 'PRIMARY_NAICS_CODE']
+        #             )
+        #
+        #         ghgrp_facs = ghgrp_facs.append(fac_y, ignore_index=True)
+        #
+        #     except:
+        #
+        #         continue
 
-        for y in range(2010, 2019):
-
-            file = '../calculation_data/ghgrp_data/fac_table_{!s}.csv'
-
-            try:
-                fac_y = pd.read_csv(
-                    file.format(str(y)),
-                    )
-
-                ghgrp_facs = ghgrp_facs.append(fac_y, ignore_index=True)
-
-            except:
-
-                continue
 
         naics_facs = pd.merge(
-            naics_facs, ghgrp_facs[['FACILITY_ID', 'PRIMARY_NAICS_CODE']],
-            left_on='GHGRP Facility ID', right_on='FACILITY_ID',
-            how='left'
+            naics_facs, ghgrp_facs, left_on='GHGRP Facility ID',
+            right_on='FACILITY_ID', how='left'
             )
 
+        naics_facs.set_index('ORISPL_CODE', inplace=True)
+
+        naics_facs.update(missing_oris.set_index('ORISPL_CODE'))
+
+        amd_dd = amd_dd.merge(
+            naics_facs.drop_duplicates(subset=['ORISPL_CODE', 'Unit ID']).set_index(['ORISPL_CODE', 'Unit ID']),
+            on)
 
 
+    def calc_rep_loadshapes(self, amd_dd):
+        """
+        Calculate representative hourly loadshapes by facility and unit type.
+        Represents hourly mean load ...
+        """
+        # Calculate hourly heat input as fraction of ourly max input rate
+        amd_dd.assign(
+            heat_input_fraction=\
+                df['HEAT_INPUT_MMBtu']/df['Max Hourly HI Rate (MMBtu/hr)''],
+            meta={'heat_input_fraction':'float32'}
+            )
 
-        # Merge with GHGRP facilities
-        # pull in all fac_table_[y].csv in calcualtion_data/ghgrp_data/
-
-        # Need to keep track of which ORISPL aren't matched
+        amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID', ''])
 
     @staticmethod
     def run_cluster_analysis(amd_dd, kn=range(1,30)):
@@ -215,31 +316,6 @@ class EPA_AMD:
 
         # pivot data so hours, weekday/weekend, holiday, and month, are columns
         # and date is row.
-
-        def describe_date(fac_data):
-            """
-
-            """
-
-            fac_data['weekday'] = fac_data.index.map(
-                lambda x: x.weekday() > 4
-                )
-
-            fac_data['month'] = fac_data.index.map(
-                lambda x: x.month
-                )
-
-            holidays = USFederalHolidayCalendar().holidays()
-
-            fac_data['holiday'] = fac_data.index.map(
-                lambda x: x in holidays
-                )
-
-            fac_data.replace({True:1, False:0}, inplace=True)
-
-            fac_data.fillna(0, inplace=True)
-
-            return fac_data
 
 
         for g in amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID']).groups:
@@ -333,52 +409,20 @@ class EPA_AMD:
 
             cols = ['cluster']
 
-            # if naics_agg in [11, 21, 23, '31-33']:
-            #
-            #     # Combine cluster ids and energy data
-            #     cluster_id.resize((cluster_id.shape[0], 1))
-            #
-            #     # Name columns based on selected N-digit NAICS codes
-            #     cla_input[naics_agg]['naics'].apply(lambda x: cols.append(str(x)))
-            #
-            #     print("cluster_id shape: ", cluster_id.shape, "\n",
-            #         'cla_array shape: ', cla_input[naics_agg]['cla_array'].shape
-            #         )
-            #
-            #     id_energy = \
-            #         pd.DataFrame(
-            #             np.hstack((cluster_id, cla_input[naics_agg]['cla_array'])),
-            #                    columns=cols
-            #                    )
-            #
-            #     id_energy.set_index(ctyfips[naics_agg], inplace=True)
-            #
-            # if 'eu' in naics_agg:
-            #     cluster_id.resize((cluster_id.shape[0], 1))
-            #
-            #     for v in cla_input['Enduse']:
-            #         cols.append(v)
-            #
-            #     id_energy = \
-            #         pd.DataFrame(
-            #             np.hstack((cluster_id, cla_input['cla_array'])),
-            #                        columns=cols
-            #             )
-            #
-            #     id_energy.set_index(ctyfips, inplace=True)
-
+            for col in data.columns:
+                cols.append(col)
 
             # Combine cluster ids and energy data
             cluster_id.resize((cluster_id.shape[0], 1))
 
             # Name columns based on selected N-digit NAICS codes
 
-            id_energy = \
+            id_load_clusters = \
                 pd.DataFrame(
                     np.hstack((cluster_id, data)),
                            columns=cols
                            )
 
-            id_energy.set_index(ctyfips[naics_agg], inplace=True)
+            id_load_clusters.set_index(ctyfips[naics_agg], inplace=True)
 
             id_energy.loc[:, 'TotalEnergy'] = id_energy[cols[1:]].sum(axis=1)
