@@ -54,7 +54,8 @@ class EPA_AMD:
         self.states = list(set.intersection(set(self.states), set(fac_states)))
 
         #Downloaded data saved as parquet files
-        self.amd_files = ['epa_amd','epa_amd_final']
+        self.amd_files = ['epa_amd_2012-2014','epa_amd_2015-2017',
+                          'epa_amd_2018-2019']
 
     def dl_data(self, years=None, file_name=None):
         """
@@ -162,8 +163,18 @@ class EPA_AMD:
         amd = pd.concat(
             [pd.read_parquet(
                 '../calculation_data/'+f, engine='pyarrow'
-                ) for f in self.amd_files],
+                ) for f in amd_files],
             axis=0, ignore_index=True
+            )
+
+        amd_dd = dd.from_pandas(
+            pd.concat(
+                [pd.read_parquet(
+                    '../calculation_data/'+f, engine='pyarrow'
+                    ) for f in amd_files],
+                axis=0, ignore_index=True
+                ).set_index('ORISPL_CODE'),
+            npartitions=len(amd.ORISPL_CODE.unique()), sort=True, name='amd'
             )
 
         #Create dask dataframe with ORISPL_CODE as index
@@ -203,14 +214,6 @@ class EPA_AMD:
 
             return tstamp
 
-        amd_dd = amd_dd.assign(
-            timestamp=amd_dd.apply(lambda x: format_amd_dt(x), axis=1,
-                                   meta=('timestamp', 'datetime64[ns]'))
-            )
-
-        amd_dd = amd_dd.assign(OP_DATE=amd.timestamp.apply(
-            lambda x: x.date()
-            ))
 
         # amd_dd.OP_DATE = amd_dd.timestamp.apply(
         #     lambda x: x.date(), meta={'OP_DATE': 'datetime64[ns]'}
@@ -223,13 +226,6 @@ class EPA_AMD:
                      'HEAT_INPUT': 'HEAT_INPUT_MMBtu',
                      'HEAT_INPUT (mmBtu)': 'HEAT_INPUT_MMBtu'}
             )
-
-        amd_dd = amd_dd.astype(
-            {'OP_HOUR': 'float32', 'OP_TIME':'float32','GLOAD_MW': 'float32',
-             'SLOAD_1000lb_hr':'float32', 'HEAT_INPUT_MMBtu': 'float32',
-             'FAC_ID': 'float32', 'UNIT_ID': 'float32',
-             'Max Hourly HI Rate (MMBtu/hr)': 'float32'}
-             )
 
         # Match ORISPL to its NAICS using GHGRP data.
         xwalk_df = pd.read_excel(
@@ -279,7 +275,6 @@ class EPA_AMD:
         #
         #         continue
 
-
         naics_facs = pd.merge(
             naics_facs, ghgrp_facs, left_on='GHGRP Facility ID',
             right_on='FACILITY_ID', how='left'
@@ -289,10 +284,31 @@ class EPA_AMD:
 
         naics_facs.update(missing_oris.set_index('ORISPL_CODE'))
 
-        amd_dd = amd_dd.merge(
-            naics_facs.drop_duplicates(subset=['ORISPL_CODE', 'Unit ID']).set_index(['ORISPL_CODE', 'Unit ID']),
-            on)
+        naics_facs.reset_index(inplace=True)
 
+        amd_dd = amd_dd.merge(
+            naics_facs.drop_duplicates(
+                subset=['ORISPL_CODE', 'UNITID']
+                ).set_index('ORISPL_CODE')[['UNITID', 'PRIMARY_NAICS_CODE']],
+            on=['ORISPL_CODE', 'UNITID']
+            )
+
+        amd_dd = amd_dd.assign(
+            timestamp=amd_dd.apply(lambda x: format_amd_dt(x), axis=1,
+                                   meta=('timestamp', 'datetime64[ns]'))
+            )
+
+        amd_dd = amd_dd.assign(OP_DATE=amd.timestamp.apply(
+            lambda x: x.date()
+            ))
+
+        amd_dd = amd_dd.astype(
+            {'OP_HOUR': 'float32', 'OP_TIME':'float32','GLOAD_MW': 'float32',
+             'SLOAD_1000lb_hr':'float32', 'HEAT_INPUT_MMBtu': 'float32',
+             'FAC_ID': 'float32', 'UNIT_ID': 'float32'}
+             )
+
+# blah = amd_dd.groupby([amd_dd.index, amd_dd.UNITID, amd_dd.OP_HOUR]).heat_input_fraction.mean().compute()
 
     def calc_rep_loadshapes(self, amd_dd):
         """
@@ -300,13 +316,12 @@ class EPA_AMD:
         Represents hourly mean load ...
         """
         # Calculate hourly heat input as fraction of ourly max input rate
-        amd_dd.assign(
+        amd_dd = amd_dd.assign(
             heat_input_fraction=\
-                df['HEAT_INPUT_MMBtu']/df['Max Hourly HI Rate (MMBtu/hr)''],
-            meta={'heat_input_fraction':'float32'}
+                amd_dd['HEAT_INPUT_MMBtu']/amd_dd['Max Hourly HI Rate (MMBtu/hr)']
             )
 
-        amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID', ''])
+        amd_dd.groupby('UNITID', ''])
 
     @staticmethod
     def run_cluster_analysis(amd_dd, kn=range(1,30)):
