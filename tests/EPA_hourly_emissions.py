@@ -1,6 +1,7 @@
 
 import requests
 import pandas as pd
+import numpy as np
 from zipfile import ZipFile
 from io import BytesIO
 import urllib
@@ -54,8 +55,12 @@ class EPA_AMD:
         self.states = list(set.intersection(set(self.states), set(fac_states)))
 
         #Downloaded data saved as parquet files
-        self.amd_files = ['epa_amd_2012-2014','epa_amd_2015-2017',
-                          'epa_amd_2018-2019']
+        self.amd_files = \
+            ['../calculation_data/'+f for f in ['epa_amd_2012-2014',
+                                               'epa_amd_2015-2017',
+                                               'epa_amd_2018-2019']]
+        # #(partitioned by ORISPL_CODE)
+        # self.amd_files = '../calculation_data/epa_amd_data'
 
     def dl_data(self, years=None, file_name=None):
         """
@@ -125,32 +130,8 @@ class EPA_AMD:
 
         print('ftp download complete')
 
-    @classmethod
-    def describe_date(amd_data):
-        """
-        Add columns for weekday, month, and holiday. Based on existing timestamp
-        column in amd_data dataframe.
-        """
+    @staticmethod
 
-        fac_data['weekday'] = fac_data.timestamp.map(
-            lambda x: x.weekday() > 4
-            )
-
-        fac_data['month'] = fac_data.timestamp.map(
-            lambda x: x.month
-            )
-
-        holidays = USFederalHolidayCalendar().holidays()
-
-        fac_data['holiday'] = fac_data.timestamp.map(
-            lambda x: x in holidays
-            )
-
-        fac_data.replace({True:1, False:0}, inplace=True)
-
-        fac_data.fillna(0, inplace=True)
-
-        return fac_data
 
 
     def format_amd(self, data):
@@ -159,28 +140,61 @@ class EPA_AMD:
         facility information.
         """
 
-        #Read parquet files
-        amd = pd.concat(
-            [pd.read_parquet(
-                '../calculation_data/'+f, engine='pyarrow'
-                ) for f in amd_files],
-            axis=0, ignore_index=True
-            )
+        def describe_date(amd_data):
+            """
+            Add columns for weekday, month, and holiday. Based on existing timestamp
+            column in amd_data dataframe.
+            """
 
+            holidays = USFederalHolidayCalendar().holidays()
+
+            if type(amd_data) ==  dd.DataFrame:
+
+                amd_data = amd_data.assign(weekday=amd_data.timestamp.map(
+                    lambda x: x.weekday() > 4, meta=('weekday', 'bool')
+                    ))
+
+                amd_data = amd_data.assign(month=amd_data.timestamp.map(
+                    lambda x: x.month, meta=('month', 'int')
+                    ))
+
+                amd_data = amd_data.assign(holiday=amd_data.timestamp.apply(
+                    lambda x: x.date() in holidays, meta=('holiday', 'bool')
+                    ))
+
+            if type(amd_data) == pd.DataFrame:
+
+                amd_data['weekday'] = amd_data.timestamp.map(
+                    lambda x: x.weekday() > 4
+                    )
+
+                amd_data['month'] = amd_data.timestamp.map(
+                    lambda x: x.month
+                    )
+
+                amd_data['holiday'] = amd_data.timestamp.apply(
+                    lambda x: x in holidays
+                    )
+
+            return amd_data
+
+        #Read parquet files into dask dataframe
+        # Unable to use partitioned parquet because index is read
+        # as an object, which precludes merging operations.
+        # amd_dd = dd.read_parquet(amd_files, engine='pyarrow')
+        #
+        # # method for renaming index of amd_dd
+        # def p_rename(df, name):
+        #     df.index.name = name
+        #     return df
+        #
+        # amd_dd.map_partitions(p_rename, 'ORISPL_CODE')
         amd_dd = dd.from_pandas(
             pd.concat(
-                [pd.read_parquet(
-                    '../calculation_data/'+f, engine='pyarrow'
-                    ) for f in amd_files],
+                [pd.read_parquet(f, engine='pyarrow') for f in amd_files],
                 axis=0, ignore_index=True
-                ).set_index('ORISPL_CODE'),
-            npartitions=len(amd.ORISPL_CODE.unique()), sort=True, name='amd'
-            )
-
-        #Create dask dataframe with ORISPL_CODE as index
-        amd_dd = dd.from_pandas(
-            amd.set_index('ORISPL_CODE'),
-            npartitions=len(amd.ORISPL_CODE.unique()), sort=True, name='amd'
+                ).set_index('ORISPL_CODE'), npartitions=311, sort=True,
+            name='amd'
             )
 
         # Merge in info on unit types
@@ -195,15 +209,6 @@ class EPA_AMD:
             am_facs_dd_merge, how='left', on=['ORISPL_CODE', 'UNITID']
             )
 
-        # Fill in missing max heat rates (dropped during drop_duplicates)
-
-        # amd_dd =amd_dd.merge(
-        #     self.am_facs.set_index(['ORISPL_CODE'])[
-        #         ['Unit ID', 'Unit Type', 'Fuel Type (Primary)',
-        #         'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
-        #         ].drop_duplicates(), how='left', on=['ORISPL_CODE', 'Unit ID']
-        #     )
-
         def format_amd_dt(dt_row):
 
             date = dt.datetime.strptime(dt_row['OP_DATE'], '%m-%d-%Y').date()
@@ -214,11 +219,6 @@ class EPA_AMD:
 
             return tstamp
 
-
-        # amd_dd.OP_DATE = amd_dd.timestamp.apply(
-        #     lambda x: x.date(), meta={'OP_DATE': 'datetime64[ns]'}
-        #     )
-
         amd_dd = amd_dd.rename(
             columns={'GLOAD':'GLOAD_MW', 'GLOAD (MW)': 'GLOAD_MW',
                      'SLOAD': 'SLOAD_1000lb_hr',
@@ -226,6 +226,7 @@ class EPA_AMD:
                      'HEAT_INPUT': 'HEAT_INPUT_MMBtu',
                      'HEAT_INPUT (mmBtu)': 'HEAT_INPUT_MMBtu'}
             )
+
 
         # Match ORISPL to its NAICS using GHGRP data.
         xwalk_df = pd.read_excel(
@@ -257,23 +258,6 @@ class EPA_AMD:
         ghgrp_facs = pd.read_parquet(
             '../results/ghgrp_energy_20190801-2337.parquet', engine='pyarrow'
             )[['FACILITY_ID', 'PRIMARY_NAICS_CODE']].drop_duplicates()
-        # ghgrp_facs = pd.DataFrame()
-        #
-        # for y in range(2010, 2019):
-        #
-        #     file = '../calculation_data/ghgrp_data/fac_table_{!s}.csv'
-        #
-        #     try:
-        #         fac_y = pd.read_csv(
-        #             file.format(str(y)),
-        #             usecols=['FACILITY_ID', 'PRIMARY_NAICS_CODE']
-        #             )
-        #
-        #         ghgrp_facs = ghgrp_facs.append(fac_y, ignore_index=True)
-        #
-        #     except:
-        #
-        #         continue
 
         naics_facs = pd.merge(
             naics_facs, ghgrp_facs, left_on='GHGRP Facility ID',
@@ -298,8 +282,8 @@ class EPA_AMD:
                                    meta=('timestamp', 'datetime64[ns]'))
             )
 
-        amd_dd = amd_dd.assign(OP_DATE=amd.timestamp.apply(
-            lambda x: x.date()
+        amd_dd = amd_dd.assign(OP_DATE=amd_dd.timestamp.apply(
+            lambda x: x.date(), meta=('OP_DATE', 'datetime64[ns]')
             ))
 
         amd_dd = amd_dd.astype(
@@ -308,20 +292,41 @@ class EPA_AMD:
              'FAC_ID': 'float32', 'UNIT_ID': 'float32'}
              )
 
-# blah = amd_dd.groupby([amd_dd.index, amd_dd.UNITID, amd_dd.OP_HOUR]).heat_input_fraction.mean().compute()
+        amd_dd = describe_date(amd_dd)
+
+        amd_dd = amd_dd.assign(
+            heat_input_fraction=\
+                amd_dd['HEAT_INPUT_MMBtu']/amd_dd['Max Hourly HI Rate (MMBtu/hr)']
+            )
+
+        amd_dd = amd_dd.assign(year=amd_dd.OP_DATE.apply(lambda x: x.year))
+
+        return amd_dd
 
     def calc_rep_loadshapes(self, amd_dd):
         """
         Calculate representative hourly loadshapes by facility and unit type.
         Represents hourly mean load ...
         """
+        load_summary = pd.DataFrame()
         # Calculate hourly heat input as fraction of ourly max input rate
-        amd_dd = amd_dd.assign(
-            heat_input_fraction=\
-                amd_dd['HEAT_INPUT_MMBtu']/amd_dd['Max Hourly HI Rate (MMBtu/hr)']
-            )
 
-        amd_dd.groupby('UNITID', ''])
+        # replace all 0 values with NaN
+        amd_dd = amd_dd.replace(
+            {'GLOAD_MW':0, 'SLOAD_1000lb_hr':0, 'HEAT_INPUT_MMBtu':0,
+             'heat_input_fraction':0}, np.nan
+             )
+
+        amd_dd = amd_dd.compute()
+
+        load_summary = amd_dd.groupby(
+            ['ORISPL_CODE', 'UNITID', 'month', 'holiday', 'weekday', 'OP_HOUR']
+            ).agg(
+                {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                 'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
+                 )
+
+        return load_summary
 
     @staticmethod
     def run_cluster_analysis(amd_dd, kn=range(1,30)):
