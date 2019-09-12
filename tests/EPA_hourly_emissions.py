@@ -130,10 +130,6 @@ class EPA_AMD:
 
         print('ftp download complete')
 
-    @staticmethod
-
-
-
     def format_amd(self, data):
         """
         Read AMD parquet files and format date and time, and add
@@ -142,19 +138,19 @@ class EPA_AMD:
 
         def describe_date(amd_data):
             """
-            Add columns for weekday, month, and holiday. Based on existing timestamp
-            column in amd_data dataframe.
+            Add columns for weekday, month, and holiday. Based on existing
+            timestamp column in amd_data dataframe.
             """
 
             holidays = USFederalHolidayCalendar().holidays()
 
             if type(amd_data) ==  dd.DataFrame:
 
-                amd_data = amd_data.assign(weekday=amd_data.timestamp.map(
+                amd_data = amd_data.assign(weekday=amd_data.timestamp.apply(
                     lambda x: x.weekday() > 4, meta=('weekday', 'bool')
                     ))
 
-                amd_data = amd_data.assign(month=amd_data.timestamp.map(
+                amd_data = amd_data.assign(month=amd_data.timestamp.apply(
                     lambda x: x.month, meta=('month', 'int')
                     ))
 
@@ -164,16 +160,16 @@ class EPA_AMD:
 
             if type(amd_data) == pd.DataFrame:
 
-                amd_data['weekday'] = amd_data.timestamp.map(
+                amd_data['weekday'] = amd_data.timestamp.apply(
                     lambda x: x.weekday() > 4
                     )
 
-                amd_data['month'] = amd_data.timestamp.map(
+                amd_data['month'] = amd_data.timestamp.apply(
                     lambda x: x.month
                     )
 
                 amd_data['holiday'] = amd_data.timestamp.apply(
-                    lambda x: x in holidays
+                    lambda x: x.date() in holidays
                     )
 
             return amd_data
