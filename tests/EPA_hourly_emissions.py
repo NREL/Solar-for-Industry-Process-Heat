@@ -11,6 +11,7 @@ import datetime as dt
 import scipy.cluster as spc
 import matplotlib.pyplot as plt
 from pandas.tseries.holiday import USFederalHolidayCalendar
+import re
 
 class EPA_AMD:
 
@@ -40,6 +41,40 @@ class EPA_AMD:
             )
 
         self.am_facs.reset_index(inplace=True)
+
+        def unit_str_cleaner(am_facs):
+            """
+            Removes start date from unit type.
+            """
+
+            def search_starts(unit_type):
+
+                try:
+
+                    unit_start = re.search('(\(.+)', unit_type).groups()[0]
+
+                    unit_type = unit_type.split(' '+unit_start)[0]
+
+                except:
+
+                    unit_start=np.nan
+
+                return np.array([unit_type, unit_start])
+
+            units_corrected = pd.DataFrame(
+                np.vstack([x for x in am_facs['Unit Type'].apply(
+                    lambda x: search_starts(x)
+                    )]), columns=['Unit Type', 'Unit Start Date']
+                )
+
+            am_facs['Unit Start Date'] = np.nan
+
+            am_facs.update(units_corrected)
+
+            return am_facs
+
+        # Remove starting dates from Unit type
+        self.am_facs = unit_str_cleaner(self.am_facs)
 
         # Build list of state abbreviations
         ssoup = BeautifulSoup(
@@ -297,32 +332,83 @@ class EPA_AMD:
 
         amd_dd = amd_dd.assign(year=amd_dd.OP_DATE.apply(lambda x: x.year))
 
-        return amd_dd
-
-    def calc_rep_loadshapes(self, amd_dd):
-        """
-        Calculate representative hourly loadshapes by facility and unit type.
-        Represents hourly mean load ...
-        """
-        load_summary = pd.DataFrame()
-        # Calculate hourly heat input as fraction of ourly max input rate
-
-        # replace all 0 values with NaN
         amd_dd = amd_dd.replace(
             {'GLOAD_MW':0, 'SLOAD_1000lb_hr':0, 'HEAT_INPUT_MMBtu':0,
              'heat_input_fraction':0}, np.nan
              )
 
+        # Do those dask tasks
         amd_dd = amd_dd.compute()
 
-        load_summary = amd_dd.groupby(
-            ['ORISPL_CODE', 'UNITID', 'month', 'holiday', 'weekday', 'OP_HOUR']
-            ).agg(
-                {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-                 'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
-                 )
+        # Calcualte hourly load as a fraction of daily heat input
+        amd_dd.set_index(['UNITID', 'OP_DATE', 'timestamp'], append=True,
+                         inplace=True)
+
+        amd_dd['HI_daily_fraction'] = \
+            amd_dd[['HEAT_INPUT_MMBtu']].sort_index().divide(
+                amd_dd[['HEAT_INPUT_MMBtu']].resample(
+                    'D', level='timestamp'
+                    ).sum(), level=2
+            )
+
+        amd_dd.reset_index(inplace=True)
+
+        return amd_dd
+
+    def calc_rep_loadshapes(self, amd_dd, by_naics=False):
+        """
+        Calculate representative hourly loadshapes by facility and unit type.
+        Represents hourly mean load ...
+        """
+
+
+        if by_naics:
+
+            load_summary = amd_dd.groupby(
+                ['PRIMARY_NAICS_CODE', 'Unit Type', 'month','holiday','weekday',
+                  'OP_HOUR']
+                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                        'HEAT_INPUT_MMBtu': 'mean'})
+
+        else:
+
+            load_summary = amd_dd.groupby(
+                ['ORISPL_CODE', 'UNITID','month','holiday','weekday','OP_HOUR']
+                ).agg(
+                    {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                     'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
+                     )
+
+        for col in ['GLOAD_MW','SLOAD_1000lb_hr', 'HEAT_INPUT_MMBtu']:
+            new_name = col.split('_')[0]+'_hourly_fraction'
+
+            load_summary[new_name] = \
+                load_summary[col].divide(
+                    load_summary[col].sum(level=[0,1,2,3,4])
+                    )
 
         return load_summary
+
+    @staticmethod
+    def make_load_shape_plots(load_summary, naics, unit_type, load_type):
+
+        plot_data = load_summary.xs(
+            [naics, unit_type], level=['PRIMARY_NAICS_CODE', 'Unit Type']
+            )[[load_type]].reset_index()
+
+        plot_data['holiday-weekday'] = plot_data[['holiday', 'weekday']].apply(
+            lambda x: tuple(x), axis=1
+            )
+
+        grid = sns.FacetGrid(
+            plot_data[[load_type, 'OP_HOUR', 'month', 'holiday-weekday']],
+            col='month', hue='holiday-weekday', col_wrap=3, height=1.75)
+
+        grid.set(ylim=(0,1))
+
+        grid.savefig('test.png')
+
+
 
     @staticmethod
     def run_cluster_analysis(amd_dd, kn=range(1,30)):
