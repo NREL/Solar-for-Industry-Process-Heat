@@ -402,11 +402,30 @@ class EPA_AMD:
 
         grid = sns.FacetGrid(
             plot_data[[load_type, 'OP_HOUR', 'month', 'holiday-weekday']],
-            col='month', hue='holiday-weekday', col_wrap=3, height=1.75)
+            col='month', hue='holiday-weekday', col_wrap=3, height=1.75,
+            aspect=1.5, despine=True
+            )
 
-        grid.set(ylim=(0,1))
+        grid = (grid.map(plt.plot, 'OP_HOUR', load_type)
+                .add_legend())
 
-        grid.savefig('test.png')
+        grid.set_axis_labels('Hour', 'Daily Fraction')
+
+        grid.set(ylim=(0,0.075))
+
+        plt.subplots_adjust(top=0.9)
+
+        grid.fig.suptitle(
+            load_type.split('_')[0]+': '+str(int(naics))+', '+unit_type
+            )
+
+        grid.savefig(
+            '../Results analysis/load_shape_'+str(int(naics))+unit_type+'.png'
+            )
+
+        plt.close()
+
+
 
 
 

@@ -305,7 +305,6 @@ test.iac_data.head()
         return emp_means
 
 
-
     def run_prodhours_ols(group):
         """
         Run ordinary least squares (OLS) regression for the relationship
