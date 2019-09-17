@@ -6,8 +6,8 @@ Created on Wed Mar  6 14:26:54 2019
 """
 
 import datetime as dt
-from GHGRP_energy_IPH import GHGRP
-from GHGRP_AA_IPH import subpartAA
+from calc_GHGRP_energy_IPH import GHGRP
+from calc_GHGRP_AA_IPH import subpartAA
 
 
 
@@ -16,9 +16,9 @@ ghgrp = GHGRP((2010, 2017), calc_uncertainty=False)
 ghgrp_data = {}
 
 for k in ghgrp.table_dict.keys():
-    
+
     ghgrp_data[k] = ghgrp.import_data(k)
-    
+
 energy_subC = ghgrp.calc_energy_subC(ghgrp_data['subpartC'],
                                      ghgrp_data['subpartV_fac'])
 
@@ -35,15 +35,7 @@ energy_ghgrp = ghgrp.energy_merge(energy_subC, energy_subD, energy_subAA,
 time = dt.datetime.today().strftime("%Y%m%d-%H%M")
 
 # Save results
-
-
 energy_ghgrp.to_parquet(
         "../Results analysis/ghgrp_energy_" + time + ".parquet",
         engine='pyarrow', compression='gzip'
         )
-
-
-
-
-
-

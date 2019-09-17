@@ -82,11 +82,11 @@ class schedule:
 
         if n_shifts < 1:
 
-            end_time_1 = start_time_1-1+np.around(daily_op_hours)
+            end_time_1 = start_time_1+np.around(daily_op_hours)
 
         else:
 
-            end_time_1 =  start_time_1-1+np.around(self.shift_length,0)
+            end_time_1 =  start_time_1+np.around(self.shift_length,0)
 
         if n_shifts <= 1:
 
@@ -96,17 +96,17 @@ class schedule:
 
         else:
 
-            start_time_2 = end_time_1+1
+            start_time_2 = end_time_1
 
             if n_shifts < 2:
 
-                end_time_2 = start_time_2-1+np.around(
+                end_time_2 = start_time_2+np.around(
                     daily_op_hours-self.shift_length, 0
                     )
 
             else:
 
-                end_time_2 = start_time_2-1+np.around(self.shift_length, 0)
+                end_time_2 = start_time_2+np.around(self.shift_length, 0)
 
         if n_shifts <= 2:
 
@@ -116,11 +116,11 @@ class schedule:
 
         else:
 
-            end_time_3 = start_time_1-1
+            end_time_3 = start_time_1
 
             if np.around(daily_op_hours-self.shift_length,0) > start_time_1:
 
-                start_time_3 = start_time_2+1
+                start_time_3 = start_time_2
 
             else:
 

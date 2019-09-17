@@ -97,7 +97,7 @@ class EPA_AMD:
         # #(partitioned by ORISPL_CODE)
         # self.amd_files = '../calculation_data/epa_amd_data'
 
-    def dl_data(self, years=None, file_name=None):
+    def dl_data(self, years=None, file_name=None, output=None):
         """
         Download and format hourly load data for specified range of years.
         """
@@ -160,8 +160,17 @@ class EPA_AMD:
                         hourly_data, ignore_index=True
                         )
 
-        all_the_data.to_parquet('../calculation_data/'+file_name,
-                                engine='pyarrow', compression='gzip')
+        print(all_the_data.columns)
+
+        if output=='parquet':
+
+            all_the_data.to_parquet('../calculation_data/'+file_name,
+                                    engine='pyarrow', compression='gzip')
+
+        if output=='csv':
+
+            all_the_data.to_csv('../calculation_data/'+file_name,
+                                compression='gzip')
 
         print('ftp download complete')
 
@@ -355,6 +364,46 @@ class EPA_AMD:
 
         return amd_dd
 
+    def match_cpc_naics(amd_dd, qpc_data):
+
+        amd_naics = pd.DataFrame(
+            amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
+            columns='PRIMARY_NACIS_CODE'
+            )
+
+        qpc_naics = qpc_data.NAICS.astype(str).values
+
+        def make_match(naics, qpc_naics):
+
+            n = 6
+
+            matched = str(naics) in qpc_naics
+
+            while matched == False:
+
+                n = n-1
+
+                try:
+
+                    naics = str(naics)[0:n]
+
+                    matched = naics in qpc_naics
+
+                except IndexError:
+
+                    return np.nan
+
+            return int(naics)
+
+        amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
+            lambda x: make_match(x, qpc_naics)
+            )
+
+        amd_dd = pd.merge(amd_dd, amd_naics, how='left',
+                          on='PRIMARY_NACIS_CODE')
+
+        return amd_dd
+
     def calc_rep_loadshapes(self, amd_dd, by_naics=False):
         """
         Calculate representative hourly loadshapes by facility and unit type.
@@ -425,8 +474,67 @@ class EPA_AMD:
 
         plt.close()
 
+# # Summarize spread of data
+#     fac_summary_unit = amd_data.groupby(
+#       ['PRIMARY_NAICS_CODE', 'ORISPL_CODE', 'Unit Type', 'year']
+#       ).HEAT_INPUT_MMBtu.sum()
+#
+#     fac_summary = amd_data.groupby(
+#       ['PRIMARY_NAICS_CODE', 'ORISPL_CODE', 'year']
+#       ).HEAT_INPUT_MMBtu.sum()
+#
+#     # ID NAICS and unit types with more than one facility
+#     mult_fac_units = amd_data.groupby(
+#       ['PRIMARY_NAICS_CODE', 'Unit Type', 'year']
+#       ).ORISPL_CODE.apply(lambda x: np.size(x.unique()))
+#
+#     # ID NAICS with more than facility
+#     mult_facs = mult_fac_units.sum(level=[0,2])
+#
+#
+#     def make_boxplot(df, figname):
+#
+#       fig, ax = plt.subplots(figsize=(12, 8))
+#
+#       sns.boxplot(y='HEAT_INPUT_MMBtu', x='PRIMARY_NAICS_CODE', hue='year',
+#                   orient='v', data=df.reset_index(),
+#                   fliersize=1.25)
+#
+#       plt.savefig(figname+'.png')
+#
+#       plt.close()
+# make_boxplot(pd.merge(
+    # fac_summary_unit, mult_fac_units[mult_fac_units>1],
+    #  on=['PRIMARY_NAICS_CODE', 'Unit Type', 'year'], how='inner'
+    #  ), 'mult_units')
+ # make_boxplot(pd.merge(
+    # fac_summary, mult_facs[mult_facs>1], on=['PRIMARY_NAICS_CODE', 'year'],
+    # how='inner'
+    # ), 'mult_facs')
 
+# fac_count = amd_data.groupby(
+#    ['PRIMARY_NAICS_CODE', 'year'],
+#    as_index=False).apply(lambda x: np.size(x.unique()))
+# fac_count.rename(columns={0:'count'}, inplace=True)
+plot_data = fac_count[fac_count.year==2012].sort_values(by='count',
+    ascending=False
+    ).reset_index(drop=True)
+plot_data['PRIMARY_NAICS_CODE'] = plot_data.PRIMARY_NAICS_CODE.astype(str)
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.barplot(x='PRIMARY_NAICS_CODE', y='count', data=plot_data, color='grey')
+plt.xticks(rotation=90)
+plt.savefig('amd_fac_count_2012.png', bbox_inches='tight', frameon=False)
 
+unit_count = amd_data.groupby(
+   ['Unit Type', 'year'],
+   as_index=False)['UNITID'].apply(lambda x: np.size(x.unique())).reset_index()
+unit_count.rename(columns={0:'count'}, inplace=True)
+plot_data = unit_count[unit_count.year==2012].sort_values(by='count',
+    ascending=False
+    ).reset_index(drop=True)
+fig, ax = plt.subplots(figsize=(8, 12))
+sns.barplot(y='Unit Type', x='count', data=plot_data, color='grey')
+plt.savefig('amd_unit_count_2012.png', bbox_inches='tight', frameon=False)
 
 
     @staticmethod
