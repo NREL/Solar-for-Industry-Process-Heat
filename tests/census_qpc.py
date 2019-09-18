@@ -5,7 +5,7 @@ from statsmodels.tsa.stattools import adfuller
 from scipy.signal import detrend
 from statsmodels.formula.api import ols
 import os
-import urrllib
+import urllib
 
 class QPC:
 
@@ -173,7 +173,7 @@ class QPC:
             qpc_data = qpc_data[qpc_data.Weekly_op_hours != 'D']
 
             #Interpolate for single value == 'S'
-            qpc_data.replace('S', np.nan, inplace=True)
+            qpc_data.replace({'S':np.nan,'Z':np.nan}, inplace=True)
 
             qpc_data.Weekly_op_hours.update(
                 qpc_data.Weekly_op_hours.interpolate()
@@ -183,14 +183,16 @@ class QPC:
                 qpc_data['Hours_Standard Error'].interpolate()
                 )
 
+            self.qpc_data.fillna(0, inplace=True)
+
             qpc_data['Weekly_op_hours'] = \
                 qpc_data.Weekly_op_hours.astype(np.float32)
 
             return qpc_data
 
-        if 'qpc_data.csv' in os.listdir('../calculation_data'):
+        if 'qpc_data_allraw.csv' in os.listdir('../calculation_data'):
 
-            self.qpc_data = pd.read_csv('../calculation_data/qpc_data.csv')
+            self.qpc_data = pd.read_csv('../calculation_data/qpc_data_allraw.csv')
 
         else:
 
@@ -199,10 +201,10 @@ class QPC:
                 axis=0, ignore_index=True
                 )
 
-            self.qpc_data.to_csv('../calculation_data/qpc_data.csv',
+            self.qpc_data.to_csv('../calculation_data/qpc_data_allraw.csv',
                                  index=False)
 
-    def test_seasonality(qpc_data_naics):
+    def test_seasonality(self, qpc_data_naics):
         """
         Test for seasonality between quarters by NAICS using OLS.
 
@@ -264,12 +266,44 @@ class QPC:
 
         return ols_final
 
-    def calc_quarterly_avgs(qpc_data, qpc_seasonality):
+    def calc_hours_CI(self, selected_qpc_data, CI=95):
+
+        #t distribution values for CI probabilities
+        ci_dict = {90:1.65, 95:1.96, 99:2.58}
+
+        qpc_data_ci = pd.DataFrame(self.qpc_data.set_index(
+            ['NAICS', 'Year', 'Q']
+            )['Hours_Standard Error']).astype(float32)*ci_dict[CI]
+
+        selected_qpc_data.set_index(['NAICS', 'Year', 'Q'], inplace=True)
+
+        selected_qpc_data['Weekly_op_hours_high'] = \
+            selected_qpc_data.Weekly_op_hours.add(
+                qpc_data_ci['Hours_Standard Error']
+                )
+
+        selected_qpc_data['Weekly_op_hours_low'] = \
+            selected_qpc_data.Weekly_op_hours.subtract(
+                qpc_data_ci['Hours_Standard Error']
+                )
+
+        selected_qpc_data = selected_qpc_data.where(
+            selected_qpc_data.Weekly_op_hours_low>0
+            ).fillna(0)
+
+        selected_qpc_data.reset_index(inplace=True)
+
+        return selected_qpc_data
+
+    def calc_quarterly_avgs(self, qpc_data, qpc_seasonality):
         """
         Calculate average weekly operating hours by NAICS from census QPC data.
         Accounts for quarterly seasonality results: NAICS without seasonality
         are average across all quarters in date range.
         """
+
+        qpc_data = self.calc_hours_CI(qpc_data)
+
         annual = qpc_seasonality.reset_index().melt(
             id_vars='NAICS', var_name='Q'
             )
@@ -288,8 +322,10 @@ class QPC:
             how='inner'
             )
 
-        ann_average = pd.DataFrame(
-            ann_average.set_index('NAICS').Weekly_op_hours.mean(level=0)
+        ann_avg = pd.DataFrame(
+            ann_avg.set_index('NAICS')[
+            ['Weekly_op_hours', 'Weekly_op_hours_low', 'Weekly_op_hours_high']
+            ].mean(level=0)
             )
 
             # qpc_data.set_index('NAICS').join(annual, how='inner')
@@ -298,13 +334,15 @@ class QPC:
 
         # ann_avg = ann_avg.reset_index().groupby('NAICS').Weekly_op_hours.mean()
 
-        ann_avg = pd.DataFrame(np.repeat(ann_avg, 4))
+        ann_avg = ann_avg.reindex(index=np.repeat(ann_avg.index, 4))
 
         ann_avg['Q'] = np.tile(['q1', 'q2', 'q3', 'q4'],
                                int(len(ann_avg)/4))
 
-        ann_avg = ann_avg.reset_index().pivot(
-            'NAICS', 'Q', 'Weekly_op_hours'
+        ann_avg = ann_avg.reset_index().pivot_table(
+            index='NAICS', values=['Weekly_op_hours', 'Weekly_op_hours_low',
+                                   'Weekly_op_hours_high'], aggfunc='mean',
+            columns='Q'
             )
 
         seasonal = qpc_seasonality.dropna(thresh=1).reset_index().melt(
@@ -317,11 +355,9 @@ class QPC:
 
         # seasonal.index.name = 'NAICS'
 
-        seasonal.set_index(['NAICS', 'Q'], append=True, inplace=True)
-
-        seasonal = pd.merge(
-            seasonal, qpc_data, on=['NAICS', 'Q'], how='inner'
-            )
+        # seasonal = pd.merge(
+        #     seasonal, qpc_data, on=['NAICS', 'Q'], how='inner'
+        #     )
 
         seasonal = pd.merge(
             seasonal[seasonal.seasonality==True], qpc_data, on=['NAICS', 'Q'],
@@ -332,7 +368,9 @@ class QPC:
         #     ['NAICS', 'seasonality']
         #     ).Weekly_op_hours.mean()
 
-        seasonal_avg = seasonal.groupby(['NAICS', 'Q']).Weekly_op_hours.mean()
+        seasonal_avg = seasonal.groupby(['NAICS', 'Q'])[
+            ['Weekly_op_hours', 'Weekly_op_hours_low', 'Weekly_op_hours_high']
+            ].mean()
 
         # seasonal_avg = seasonal_avg.reindex(index=seasonal.groupby(
         #     ['NAICS', 'seasonality', 'Q']
@@ -340,8 +378,10 @@ class QPC:
 
         # seasonal_avg.reset_index('seasonality', drop=True, inplace=True)
 
-        seasonal_avg = seasonal_avg.reset_index().pivot(
-            'NAICS', 'Q', 'Weekly_op_hours'
+        seasonal_avg = seasonal_avg.reset_index().pivot_table(
+            index='NAICS', values=['Weekly_op_hours', 'Weekly_op_hours_low',
+                                   'Weekly_op_hours_high'], aggfunc='mean',
+            columns='Q'
             )
 
         # all_avg = pd.concat([seasonal_avg, ann_avg], axis=0, sort=True)
@@ -354,13 +394,17 @@ class QPC:
 # qpc_data = pd.concat(
 #     [get_qpc_data(y) for y in range(2010, 2019)], axis=0, ignore_index=True
 #     )
-
-qpc_seasonality = pd.concat(
-    [test_seasonality(
-        qpc_data[qpc_data.NAICS == naics]
-        ) for naics in qpc_data.NAICS.unique()], axis=0, ignore_index=False
-    )
-
-qpc_weekly_hours = calc_quarterly_avgs(qpc_data, qpc_seasonality)
-
-qpc_weekly_hours.to_csv('../results/qpc_weekly_hours.csv')
+# qpc = QPC()
+#
+#
+# qpc_seasonality = pd.concat(
+#     [qpc.test_seasonality(
+#         qpc.qpc_data[qpc.qpc_data.NAICS == naics]
+#         ) for naics in qpc.qpc_data.NAICS.unique()], axis=0, ignore_index=False
+#     )
+#
+# qpc_weekly_hours = qpc.calc_quarterly_avgs(
+#     qpc.qpc_data[qpc.qpc_data.Year ==2014], qpc_seasonality
+#     )
+#
+# qpc_weekly_hours.to_csv('../calculation_data/qpc_weekly_hours_2014.csv')
