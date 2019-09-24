@@ -174,7 +174,7 @@ class EPA_AMD:
 
         print('ftp download complete')
 
-    def format_amd(self, data):
+    def format_amd(self):
         """
         Read AMD parquet files and format date and time, and add
         facility information.
@@ -190,10 +190,6 @@ class EPA_AMD:
 
             if type(amd_data) ==  dd.DataFrame:
 
-                amd_data = amd_data.assign(weekday=amd_data.timestamp.apply(
-                    lambda x: x.weekday() > 4, meta=('weekday', 'bool')
-                    ))
-
                 amd_data = amd_data.assign(month=amd_data.timestamp.apply(
                     lambda x: x.month, meta=('month', 'int')
                     ))
@@ -203,10 +199,6 @@ class EPA_AMD:
                     ))
 
             if type(amd_data) == pd.DataFrame:
-
-                amd_data['weekday'] = amd_data.timestamp.apply(
-                    lambda x: x.weekday() > 4
-                    )
 
                 amd_data['month'] = amd_data.timestamp.apply(
                     lambda x: x.month
@@ -231,7 +223,7 @@ class EPA_AMD:
         # amd_dd.map_partitions(p_rename, 'ORISPL_CODE')
         amd_dd = dd.from_pandas(
             pd.concat(
-                [pd.read_parquet(f, engine='pyarrow') for f in amd_files],
+                [pd.read_parquet(f, engine='pyarrow') for f in self.amd_files],
                 axis=0, ignore_index=True
                 ).set_index('ORISPL_CODE'), npartitions=311, sort=True,
             name='amd'
@@ -242,7 +234,8 @@ class EPA_AMD:
             ['ORISPL_CODE', 'UNITID']
             )[
                 ['ORISPL_CODE','UNITID', 'Unit Type', 'Fuel Type (Primary)',
-                'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)']
+                 'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)',
+                 'CHP_COGEN']
             ].set_index(['ORISPL_CODE'])
 
         amd_dd = amd_dd.merge(
@@ -266,7 +259,6 @@ class EPA_AMD:
                      'HEAT_INPUT': 'HEAT_INPUT_MMBtu',
                      'HEAT_INPUT (mmBtu)': 'HEAT_INPUT_MMBtu'}
             )
-
 
         # Match ORISPL to its NAICS using GHGRP data.
         xwalk_df = pd.read_excel(
@@ -350,86 +342,115 @@ class EPA_AMD:
         amd_dd = amd_dd.compute()
 
         # Calcualte hourly load as a fraction of daily heat input
-        amd_dd.set_index(['UNITID', 'OP_DATE', 'timestamp'], append=True,
-                         inplace=True)
-
-        amd_dd['HI_daily_fraction'] = \
-            amd_dd[['HEAT_INPUT_MMBtu']].sort_index().divide(
-                amd_dd[['HEAT_INPUT_MMBtu']].resample(
-                    'D', level='timestamp'
-                    ).sum(), level=2
-            )
+        # amd_dd.set_index(['UNITID', 'OP_DATE', 'timestamp'], append=True,
+        #                  inplace=True)
+        #
+        # amd_dd['HI_daily_fraction'] = \
+        #     amd_dd[['HEAT_INPUT_MMBtu']].sort_index().divide(
+        #         amd_dd[['HEAT_INPUT_MMBtu']].resample(
+        #             'D', level='timestamp'
+        #             ).sum(), level=2
+        #     )
+        #
+        # amd_dd.reset_index(['ORISPL_CODE', 'UNIT_ID', 'OP_DATE'],inplace=True)
 
         amd_dd.reset_index(inplace=True)
 
-        return amd_dd
+        amd_dd.set_index('timestamp', inplace=True)
 
-    def match_cpc_naics(amd_dd, qpc_data):
+        amd_dd['dayofweek'] = amd_dd.index.dayofweek
 
-        amd_naics = pd.DataFrame(
-            amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
-            columns='PRIMARY_NACIS_CODE'
+        def fix_dayweek(dayofweek):
+
+            if dayofweek <5:
+
+                dayofweek = 'weekday'
+
+            elif dayofweek == 5:
+
+                dayofweek = 'saturday'
+
+            else:
+
+                dayofweek = 'sunday'
+
+            return dayofweek
+
+
+        amd_dd['dayofweek'] = amd_dd.dayofweek.apply(lambda x: fix_dayweek(x))
+
+        amd_dd.reset_index(inplace=True)
+
+        amd_dd['final_unit_type'] = amd_dd.CHP_COGEN.map(
+            {False: 'conv_boiler', True: 'chp_cogen'}
             )
 
-        qpc_naics = qpc_data.NAICS.astype(str).values
-
-        def make_match(naics, qpc_naics):
-
-            n = 6
-
-            matched = str(naics) in qpc_naics
-
-            while matched == False:
-
-                n = n-1
-
-                try:
-
-                    naics = str(naics)[0:n]
-
-                    matched = naics in qpc_naics
-
-                except IndexError:
-
-                    return np.nan
-
-            return int(naics)
-
-        amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
-            lambda x: make_match(x, qpc_naics)
+        amd_dd['final_unit_type'].update(
+            amd_dd['Unit Type'].map({'Process Heater': 'process_heater'})
             )
-
-        amd_dd = pd.merge(amd_dd, amd_naics, how='left',
-                          on='PRIMARY_NACIS_CODE')
 
         return amd_dd
 
-    def calc_rep_loadshapes(self, amd_dd, by_naics=False):
+
+    def calc_rep_loadshapes(self, amd_dd, by='qpc_naics'):
         """
         Calculate representative hourly loadshapes by facility and unit type.
         Represents hourly mean load ...
         """
 
+        # Drop facilities with odd data {10298: hourly load > capacity,
+        # 54207: hourly load > capacity,55470:hourly load > capacity,
+        # 10867:hourly load > capacity, 10474:hourly load > capacity,
+        # 880074: hourly load == capacity, 880101: hourly load == capacity}.
 
-        if by_naics:
+        drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
 
-            load_summary = amd_dd.groupby(
-                ['PRIMARY_NAICS_CODE', 'Unit Type', 'month','holiday','weekday',
+        amd_filtered = amd_dd[amd_dd.ORISPL_CODE not in drop_facs]
+
+        if by == 'naics':
+
+            load_summary = amd_filtered.groupby(
+                ['PRIMARY_NAICS_CODE', 'Unit Type', 'month','holiday','dayofweek',
                   'OP_HOUR']
                  ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
                         'HEAT_INPUT_MMBtu': 'mean'})
 
+        elif by == 'qpc_naics':
+
+            load_summary = amd_filtered.groupby(
+                ['qpc_naics', 'final_unit_type','holiday','dayofweek',
+                  'OP_HOUR']
+                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                        'HEAT_INPUT_MMBtu': 'mean'})
+
+            # Make aggregate load curve
+            agg_curve = amd_filtered.groupby(
+                ['final_unit_type','holiday','dayofweek', 'OP_HOUR'],
+                as_index=False
+                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                        'HEAT_INPUT_MMBtu': 'mean'})
+
+            agg_curve['qpc_naics'] = '31-33'
+
+            load_summary = load_summary.append(
+                agg_curve.set_index(
+                    ['qpc_naics','final_unit_type','holiday','dayofweek',
+                    'OP_HOUR']
+                    )
+                )
+
         else:
 
-            load_summary = amd_dd.groupby(
-                ['ORISPL_CODE', 'UNITID','month','holiday','weekday','OP_HOUR']
+            load_summary = amd_filtered.groupby(
+                ['ORISPL_CODE', 'UNITID','month','holiday','dayofweek','OP_HOUR']
                 ).agg(
                     {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
                      'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
                      )
 
         for col in ['GLOAD_MW','SLOAD_1000lb_hr', 'HEAT_INPUT_MMBtu']:
-            new_name = col.split('_')[0]+'_hourly_fraction'
+
+            new_name = col.split('_')[0]+'_hourly_fraction_year'
 
             load_summary[new_name] = \
                 load_summary[col].divide(
@@ -442,10 +463,10 @@ class EPA_AMD:
     def make_load_shape_plots(load_summary, naics, unit_type, load_type):
 
         plot_data = load_summary.xs(
-            [naics, unit_type], level=['PRIMARY_NAICS_CODE', 'Unit Type']
+            [naics, unit_type], level=['qpc_naics', 'final_unit_type']
             )[[load_type]].reset_index()
 
-        plot_data['holiday-weekday'] = plot_data[['holiday', 'weekday']].apply(
+        plot_data['holiday-weekday'] = plot_data[['holiday', 'dayofweek']].apply(
             lambda x: tuple(x), axis=1
             )
 
@@ -469,10 +490,16 @@ class EPA_AMD:
             )
 
         grid.savefig(
-            '../Results analysis/load_shape_'+str(int(naics))+unit_type+'.png'
+            '../Results analysis/load_shape_revised_steam'+str(int(naics))+unit_type+'.png'
             )
 
         plt.close()
+
+for naics in load_summary.index.get_level_values('qpc_naics').unique():
+
+    for unit in load_summary.xs(naics, level='qpc_naics').index.get_level_values('final_unit_type').unique():
+
+        make_load_shape_plots(load_summary, naics, unit, 'SLOAD_hourly_fraction')
 
 # # Summarize spread of data
 #     fac_summary_unit = amd_data.groupby(

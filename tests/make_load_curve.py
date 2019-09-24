@@ -34,10 +34,10 @@ class load_curve:
 
         self.swh['month'] = self.swh.index.month
 
-        self.swh = self.swh.reset_index().pivot_table(values='weekly_hours'
+        self.swh = self.swh.reset_index().pivot_table(values='weekly_hours',
             index=['NAICS', 'quarter', 'month'], columns='category',
             aggfunc='mean'
-            )
+            ).reset_index()
 
         self.swh = pd.merge(self.swh,
             pd.DataFrame(np.vstack((
@@ -61,6 +61,57 @@ class load_curve:
 
         self.emp_size_adj.fillna(1, inplace=True)
 
+        @staticmethod
+        def match_qpc_naics(amd_dd, qpc_data):
+            """
+            Match NAICS used in EPA AMD data to NAICS used in QPC survey.
+            """
+            amd_naics = pd.DataFrame(
+                amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
+                columns=['PRIMARY_NAICS_CODE']
+                )
+
+            qpc_naics = qpc_data.NAICS.astype(str).values
+
+            def make_match(naics, qpc_naics):
+
+                n = 6
+
+                matched = str(naics) in qpc_naics
+
+                while (matched == False) & (n>0):
+
+                    n = n-1
+
+                    naics = str(naics)[0:n]
+
+                    matched = naics in qpc_naics
+
+                try:
+
+                    naics = int(naics)
+
+                except ValueError:
+
+                    naics = np.nan
+
+                return naics
+
+            amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
+                lambda x: make_match(x, qpc_naics)
+                )
+
+            amd_dd = pd.merge(amd_dd.reset_index(), amd_naics, how='left',
+                              on='PRIMARY_NAICS_CODE')
+
+            return amd_dd
+
+        # Import EPA AMD heat load data.
+        self.amd_data = pd.read_parquet(
+            '../calculation_data/epa_amd_data_formatted_20190923',
+            engine='pyarrow'
+            )
+
 
         # Expand weekly hours by quarter to weekly hours by month
         # First format as time series to use pandas TS funcationality.
@@ -79,9 +130,27 @@ class load_curve:
 
         load_8760['dayofweek'] = load_8760.index.dayofweek
 
+        def rename_dayofweek(dayofweek):
+
+            if dayofweek <5:
+                name='weekday'
+
+            elif dayofweek == 5:
+
+                name='saturday'
+
+            else:
+
+
         load_8760['hour'] = load_8760.index.hour
 
         load_8760['date'] = load_8760.index.date
+
+        # Calculate total number of days by
+        # Used to scale EPA AMD load shapes
+        day_count = load_8760.drop_duplicates('date').groupby(
+            ['holiday', 'dayofweek']
+            ).date.count()
 
         # Match input naics to closest NAICS from QPC
         qpc_naics = self.swh.NAICS.unique().astype(str)
