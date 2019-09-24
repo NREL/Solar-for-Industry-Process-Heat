@@ -27,10 +27,14 @@ def classification(amd_data):
 
 
   # Calculate fixed and max loads of boiler during weekday, saturday, and sunday
-  fixed_load = []
+  fixed_load = pd.concat(
+        [class_agg.heat_input_fraction.xs(
+            n, level='ORISPL_CODE'
+            ).min(level=2) for n in facs_oneshift], axis=0, ignore_index=False
+    )
 
-  fixed_load.append([
-    class_agg.xs(n, level='ORISPL_CODE').min() for n in facs_oneshift
-    ])
-
-  max
+    max_load = pd.concat(
+          [class_agg.heat_input_fraction.xs(
+              n, level='ORISPL_CODE'
+              ).max(level=2) for n in facs_oneshift], axis=0, ignore_index=False
+      )
