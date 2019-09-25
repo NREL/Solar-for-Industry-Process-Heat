@@ -62,7 +62,6 @@ class load_curve:
 
         self.emp_size_adj.fillna(1, inplace=True)
 
-        @staticmethod
         def match_qpc_naics(amd_dd, qpc_data):
             """
             Match NAICS used in EPA AMD data to NAICS used in QPC survey.
@@ -113,8 +112,9 @@ class load_curve:
             engine='pyarrow'
             )
 
-        self.class_ls = classify_load_shape.classification(self.amd_data)
+        self.amd_data = match_qpc_naics(self.amd_data, self.swh)
 
+        self.class_ls = classify_load_shape.classification(self.amd_data)
 
     def calc_load_shape(self, naics, emp_size):
         """
@@ -159,15 +159,21 @@ class load_curve:
 
         swh_emp_size.reset_index(inplace=True, drop=True)
 
-        # Scale weekly hours based on employment size class
-        swh_emp_size.update(
-            swh_emp_size[
-                ['Weekly_op_hours', 'Weekly_op_hours_low',
-                 'Weekly_op_hours_high']
-                ].multiply(
-                    self.emp_size_adj.loc[int(str(naics)[0:3]), emp_size]
-                    )
-            )
+        try:
+
+            # Scale weekly hours based on employment size class
+            swh_emp_size.update(
+                swh_emp_size[
+                    ['Weekly_op_hours', 'Weekly_op_hours_low',
+                     'Weekly_op_hours_high']
+                    ].multiply(
+                        self.emp_size_adj.loc[int(str(naics)[0:3]), emp_size]
+                        )
+                )
+
+        except KeyError:
+
+            pass
 
         op_schedule = pd.DataFrame()
 

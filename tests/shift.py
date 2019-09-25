@@ -11,26 +11,30 @@ class schedule:
 
         self.op_hours = weekly_op_hours
 
+        if self.op_hours >168:
+
+            self.op_hours = 168
+
     def calc_sunday_hours(self):
         """
         Calculate sunday operating hours based on weekly operating hours
         and shift length.
         """
-        if self.op_hours < self.shift_length*6*2:
+        if self.op_hours < self.shift_length*6*2: # 96 for 8-hr shift
 
             sunday_hours = 0
 
-        elif self.op_hours <= self.shift_length*7*2:
+        elif self.op_hours <= self.shift_length*7*2: # 112 for 8-hr shift
 
             sunday_hours = self.op_hours-self.shift_length*6*2
 
-        elif self.op_hours <= self.shift_length*(6*3+2):
+        elif self.op_hours <= self.shift_length*(6*3+2): # 160 for 8-hr shift
 
-            sunday_hours = self.shift_length*3
+            sunday_hours = self.shift_length*2
 
         elif self.op_hours <= 168:
 
-            sunday_hours = self.shift_length - 144
+            sunday_hours = self.op_hours - 144
 
         else:
 
@@ -44,15 +48,15 @@ class schedule:
         weekly operating hours, and shift length.
         """
 
-        if self.op_hours <= (self.shift_length*2*5):
+        if self.op_hours <= (self.shift_length*2*5): # 80 for 8-hr shift
 
             saturday_hours = 0
 
-        elif self.op_hours <= (self.shift_length*2*6):
+        elif self.op_hours <= (self.shift_length*2*6): # 96 for 8-hr shift
 
             saturday_hours = self.op_hours-self.shift_length*5*2
 
-        elif self.op_hours <= self.shift_length*(5*3+2*2):
+        elif self.op_hours <= self.shift_length*(5*3+2*2): # 152 for 8-hr shift
 
             saturday_hours = self.shift_length*2
 
@@ -68,7 +72,13 @@ class schedule:
         Sunday operating hours.
         """
 
-        weekday_hours = (self.op_hours-saturday_hours-sunday_hours)/5
+        if saturday_hours == 24:
+
+            weekday_hours = 24
+
+        else:
+
+            weekday_hours = (self.op_hours-saturday_hours-sunday_hours)/5
 
         return weekday_hours
 
@@ -328,7 +338,7 @@ class schedule:
                 daily_op_hours=shift_info['sunday_hours']
                 )
             }
-
+#(3131, 'n250_499')
         def apply_shift_times(week_sched, shift_times, shift_info):
 
             try:
