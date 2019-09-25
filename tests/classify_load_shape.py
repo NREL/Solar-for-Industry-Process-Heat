@@ -1,17 +1,27 @@
 
+import pandas as pd
+import numpy as np
+import re
 
-def classification(amd_data):
+class classification:
 
     """
-    Compares
+
     """
+
+    def __init__(self, amd_data):
     #Aggregate AMD data by qpc naics, ORISPL_CODE, holiday, weekday, and hour
-    class_agg = amd_data.groupby(
-        ['qpc_naics', 'ORISPL_CODE', 'holiday', 'dayofweek', 'OP_HOUR']
-        ).agg({'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'})
+        self.class_agg = amd_data.groupby(
+            ['qpc_naics', 'ORISPL_CODE', 'holiday', 'dayofweek', 'OP_HOUR']
+            ).agg({'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'})
 
+        self.load_params = pd.read_csv(
+                    '../calculation_data/heat_loadshape_parameters.csv',
+                    index_col=['schedule_type', 'dayofweek']
+                    )
 
-    def calc_load_params(class_agg, shift_test , cutoff=0.86):
+    # This has been run and results saved as heat_loadshape_parameters.csv
+    def calc_load_params(self, shift_test , cutoff=0.86):
         """
         Caculate average fixed load (baseline/non-operating load) and
         max load (highest operating load) from EPA data for a shift schedule
@@ -40,8 +50,8 @@ def classification(amd_data):
 
             day_norm, shift_norm = shift_test.split('_')
 
-            shift_agg = class_agg['HEAT_INPUT_MMBtu'].divide(
-                class_agg['HEAT_INPUT_MMBtu'].xs([False, day_norm],
+            shift_agg = self.class_agg['HEAT_INPUT_MMBtu'].divide(
+                self.class_agg['HEAT_INPUT_MMBtu'].xs([False, day_norm],
                 level=['holiday', 'dayofweek'])
                 )
 
@@ -154,26 +164,94 @@ def classification(amd_data):
         return params_dict
 
 
-    def fill_schedule(op_schedule, NAICS, weekday_shifts, saturday_shifts,
-                      sunday_shifts):
+    def fill_schedule(self, op_schedule):
+        """
+        Takes operational schedule (op_schedule; True/False designation of
+        operation based on shift scheduling) and returns hourly fraction of
+        daily energy.
+        """
 
-        # import load params summary
-        load_params = pd.read_csv('heat_load_parameters.csv')
+        schedule_type = op_schedule.iloc[0, 3]
 
-        load_params = load_params.xs(NAICS, level='qpc_naics')
+        op_col = op_schedule.columns[2]
 
-        op_schedule.where(op_schedule == False).fillna(load_param.max_load)
-    # # Define a one-shift weekday work schedule by facili.
-    #
-    # shift_agg_single = class_agg['HEAT_INPUT_MMBtu'].divide(
-    #     class_agg['HEAT_INPUT_MMBtu'].xs([False, 'weekday'],
-    #     level=['holiday', 'dayofweek'])
-    #     )
-    #
-    # # Define a one-shift weekday work schedule by saturday:weekday < 0.86.
-    # # Get ORISPL codes of facilities that meet this criterion.
-    # facs_oneshift = shift_agg.xs(
-    #     ['saturday', 9], level=('dayofweek', 'OP_HOUR')
-    #     ).where(shift_agg.xs(
-    #         ['saturday', 9], level=('dayofweek', 'OP_HOUR')
-    #         )<0.86).dropna().index.get_level_values('ORISPL_CODE').values
+        op_schedule.set_index(['dayofweek', 'hour'], inplace=True)
+
+        op_schedule = op_schedule.join(
+            self.load_params.xs(schedule_type, level=0)
+            )
+
+        if schedule_type == 'continuous':
+
+            op_schedule['load'] = op_schedule.fixed_load.multiply(
+                op_schedule[op_col]
+                )
+
+        else:
+
+            op_schedule['load'] = op_schedule.max_load.multiply(
+                op_schedule[op_col]
+                )
+
+            op_schedule.load.replace(0, np.nan, inplace=True)
+
+            min_sched = op_schedule.reset_index('hour').dropna(
+                subset=['load']
+                ).apply(lambda x: x.hour-5, axis=1).min(level=0)
+
+            max_sched = op_schedule.reset_index('hour').dropna(
+                subset=['load']
+                ).apply(lambda x: x.hour+5, axis=1).max(level=0)
+
+            # fill in fixed load at 4 hours before and after shift
+            for i in min_sched.index:
+
+                 op_schedule.load.update(
+                    op_schedule.loc[
+                        (i, range(0, min_sched[i]+1)), 'load'
+                        ].fillna(
+                            op_schedule.loc[
+                                (i, range(0,min_sched[i]+1)), 'fixed_load'
+                                ]
+                            )
+                    )
+
+            for i in max_sched.index:
+
+                if max_sched[i] > 23:
+
+                    continue
+
+                else:
+
+                    op_schedule.load.update(
+                        op_schedule.loc[
+                            (i,range(max_sched[i],23+1)),'load'
+                            ].fillna(
+                                op_schedule.loc[(i,max_sched[i]), 'fixed_load']
+                                )
+                        )
+
+            if len(min_sched.index) < 7:
+
+                for day in set.difference(set(range(0,7)), min_sched.index):
+
+                    op_schedule.load.update(
+                        op_schedule.loc[(day, range(0, 24)), 'load'].fillna(
+                            op_schedule.loc[(day, range(0, 24)), 'fixed_load']
+                            )
+                        )
+
+            op_schedule.reset_index(inplace=True)
+
+            op_schedule.load.interpolate(method='cubic', limit_area='inside',
+                                    inplace=True)
+
+            op_schedule.set_index(['dayofweek', 'hour'], inplace=True)
+
+        # Calculate hourly load fraction of daily energy
+        op_schedule['fraction_daily_energy'] = op_schedule.load.divide(
+            op_schedule.load.sum(level=0)
+            )
+
+        return op_schedule[['fraction_daily_energy']]

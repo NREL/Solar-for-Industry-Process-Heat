@@ -4,12 +4,12 @@ import numpy as np
 
 class schedule:
 
-    def __init__(self, shift_length=8, weekly_op_hrs=40):
+    def __init__(self, shift_length=8, weekly_op_hours=40):
 
         # Do not change shift length
         self.shift_length = shift_length
 
-        self.op_hours = weekly_op_hrs
+        self.op_hours = weekly_op_hours
 
     def calc_sunday_hours(self):
         """
@@ -358,4 +358,36 @@ class schedule:
         #         ), axis=1
         #     )
 
-        return week_sched
+        print('weekday:', shift_info['daily_weekday_shifts'], '\n',
+              'saturday:' ,shift_info['saturday_shifts'],'\n',
+              'sunday:',shift_info['sunday_shifts'])
+
+        if (shift_info['daily_weekday_shifts']<1.5) & (shift_info['saturday_shifts']==0):
+
+            schedule_type = 'weekday_single'
+
+        elif (shift_info['daily_weekday_shifts']>=1.5) & (shift_info['saturday_shifts']==0):
+
+            schedule_type = 'weekday_double'
+
+        elif (0<shift_info['saturday_shifts']<1.5):
+
+            schedule_type = 'saturday_single'
+
+        elif (1.5<=shift_info['saturday_shifts']<2):
+
+            schedule_type = 'saturday_double'
+
+        elif (0<shift_info['sunday_shifts']<1.5):
+
+            schedule_type = 'sunday_single'
+
+        elif (1.5<=shift_info['sunday_shifts']<2):
+
+            schedule_type = 'sunday_double'
+
+        else:
+
+            schedule_type = 'continuous'
+
+        return week_sched, schedule_type
