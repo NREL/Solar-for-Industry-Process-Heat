@@ -162,6 +162,7 @@ class load_curve:
         try:
 
             # Scale weekly hours based on employment size class
+            # Not all 3-digit NAICS are represented, though.
             swh_emp_size.update(
                 swh_emp_size[
                     ['Weekly_op_hours', 'Weekly_op_hours_low',
