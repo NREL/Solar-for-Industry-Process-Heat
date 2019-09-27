@@ -368,9 +368,19 @@ class schedule:
         #         ), axis=1
         #     )
 
-        print('weekday:', shift_info['daily_weekday_shifts'], '\n',
-              'saturday:' ,shift_info['saturday_shifts'],'\n',
-              'sunday:',shift_info['sunday_shifts'])
+        # print('weekday:', shift_info['daily_weekday_shifts'], '\n',
+        #       'saturday:' ,shift_info['saturday_shifts'],'\n',
+        #       'sunday:',shift_info['sunday_shifts'])
+
+        daily_hours = pd.DataFrame(
+            np.append(np.repeat(
+                shift_info['daily_weekday_shifts']*self.shift_length, 5
+                ), (shift_info['saturday_shifts']*self.shift_length,
+             shift_info['sunday_shifts']*self.shift_length)),
+            index=range(0,7), columns=['daily_hours']
+            )
+
+        print(daily_hours)
 
         if (shift_info['daily_weekday_shifts']<1.5) & (shift_info['saturday_shifts']==0):
 
@@ -392,7 +402,7 @@ class schedule:
 
             schedule_type = 'sunday_single'
 
-        elif (1.5<=shift_info['sunday_shifts']<2):
+        elif (1.5<=shift_info['sunday_shifts']<2.5):
 
             schedule_type = 'sunday_double'
 
@@ -400,4 +410,4 @@ class schedule:
 
             schedule_type = 'continuous'
 
-        return week_sched, schedule_type
+        return week_sched, schedule_type, daily_hours

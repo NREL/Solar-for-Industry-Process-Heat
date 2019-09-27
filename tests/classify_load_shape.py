@@ -13,12 +13,13 @@ class classification:
     #Aggregate AMD data by qpc naics, ORISPL_CODE, holiday, weekday, and hour
         self.class_agg = amd_data.groupby(
             ['qpc_naics', 'ORISPL_CODE', 'holiday', 'dayofweek', 'OP_HOUR']
-            ).agg({'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'})
+            ).agg({'HEAT_INPUT_MMBtu': {'mean', 'sum'},
+                   'heat_input_fraction': 'mean'})
 
         self.load_params = pd.read_csv(
-                    '../calculation_data/heat_loadshape_parameters.csv',
-                    index_col=['schedule_type', 'dayofweek']
-                    )
+                '../calculation_data/heat_loadshape_parameters_20190926.csv',
+                index_col=['schedule_type', 'holiday','dayofweek']
+                )
 
     # This has been run and results saved as heat_loadshape_parameters.csv
     def calc_load_params(self, shift_test , cutoff=0.86):
@@ -50,8 +51,8 @@ class classification:
 
             day_norm, shift_norm = shift_test.split('_')
 
-            shift_agg = self.class_agg['HEAT_INPUT_MMBtu'].divide(
-                self.class_agg['HEAT_INPUT_MMBtu'].xs([False, day_norm],
+            shift_agg = self.class_agg['HEAT_INPUT_MMBtu']['mean'].divide(
+                self.class_agg['HEAT_INPUT_MMBtu']['mean'].xs([False, day_norm],
                 level=['holiday', 'dayofweek'])
                 )
 
@@ -111,8 +112,8 @@ class classification:
 
             day_norm = 'continuous'
 
-            shift_agg = class_agg['HEAT_INPUT_MMBtu'].divide(
-                class_agg['HEAT_INPUT_MMBtu'].xs([False, 'weekday'],
+            shift_agg = self.class_agg['HEAT_INPUT_MMBtu']['mean'].divide(
+                self.class_agg['HEAT_INPUT_MMBtu']['mean'].xs([False, 'weekday'],
                 level=['holiday', 'dayofweek'])
                 )
 
@@ -146,18 +147,57 @@ class classification:
 
         # Calculate fixed and max loads of boiler during weekday, saturday, and
         # sunday
-        fixed_load = pd.concat(
-            [class_agg.heat_input_fraction.xs(
-                n, level='ORISPL_CODE'
-                ).min(level=2) for n in facs_shift], axis=0, ignore_index=False
-            ).mean(level=0)
+        # Load is expressed as fraction of total energy use of relevant
+        # facilities
 
-        max_load = pd.concat(
-            [class_agg.heat_input_fraction.xs(
-                n, level='ORISPL_CODE'
-                ).max(level=2) for n in facs_shift], axis=0, ignore_index=False
-            ).mean(level=0)
+        def calc_min_max_load(facs_shift, min_or_max):
 
+            min_max_load = self.class_agg.reset_index()[
+                self.class_agg.reset_index().ORISPL_CODE.isin(facs_shift)
+                ].set_index(
+                    ['holiday', 'dayofweek', 'OP_HOUR']
+                    )['HEAT_INPUT_MMBtu']['sum'].sum(
+                        level=['holiday', 'dayofweek', 'OP_HOUR']
+                        )
+
+            min_max_load = min_max_load.divide(
+                min_max_load.sum(level=['holiday'])
+                )
+
+            if min_or_max == 'min':
+
+                min_max_load = pd.DataFrame(min_max_load.min(level=[0,1]))
+
+            else:
+
+                min_max_load = pd.DataFrame(min_max_load.max(level=[0,1]))
+
+            min_max_load.reset_index(inplace=True)
+
+            min_max_load['sum'].update(
+                min_max_load.where(min_max_load.dayofweek=='weekday')['sum']/5
+                )
+
+            min_max_load.set_index(['holiday', 'dayofweek'], inplace=True)
+
+            return min_max_load
+
+        fixed_load = calc_min_max_load(facs_shift, 'min')
+
+        max_load = calc_min_max_load(facs_shift, 'max')
+
+        # fixed_load = pd.concat(
+        #     [class_agg.heat_input_fraction.xs(
+        #         n, level='ORISPL_CODE'
+        #         ).min(level=2) for n in facs_shift], axis=0, ignore_index=False
+        #     ).mean(level=0)
+        #
+        # max_load = pd.concat(
+        #     [class_agg.heat_input_fraction.xs(
+        #         n, level='ORISPL_CODE'
+        #         ).max(level=2) for n in facs_shift], axis=0, ignore_index=False
+        #     ).mean(level=0)
+        #
         params_dict = {'fixed_load': fixed_load, 'max_load': max_load,
                        'fac_ORISPL': facs_shift}
 
@@ -168,7 +208,9 @@ class classification:
         """
         Takes operational schedule (op_schedule; True/False designation of
         operation based on shift scheduling) and returns hourly fraction of
-        daily energy.
+        annual energy.
+
+        Currently does not account for holiday schedules.
         """
 
         schedule_type = op_schedule.iloc[0, 3]
@@ -178,7 +220,7 @@ class classification:
         op_schedule.set_index(['dayofweek', 'hour'], inplace=True)
 
         op_schedule = op_schedule.join(
-            self.load_params.xs(schedule_type, level=0)
+            self.load_params.xs([schedule_type, False], level=[0,1])
             )
 
         if schedule_type == 'continuous':
@@ -249,9 +291,12 @@ class classification:
 
             op_schedule.set_index(['dayofweek', 'hour'], inplace=True)
 
-        # Calculate hourly load fraction of daily energy
-        op_schedule['fraction_daily_energy'] = op_schedule.load.divide(
-            op_schedule.load.sum(level=0)
-            )
+        # Load is equivalent to day of week fraction of annual energy use.
+        op_schedule['fraction_annual_energy'] = op_schedule.load
 
-        return op_schedule[['fraction_daily_energy']]
+        # # Calculate hourly load fraction of daily energy
+        # op_schedule['fraction_annual_energy'] = op_schedule.load.divide(
+        #     op_schedule.load.sum(level=0)
+        #     )
+
+        return op_schedule[['fraction_annual_energy']]

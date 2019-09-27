@@ -192,7 +192,9 @@ class QPC:
 
         if 'qpc_data_allraw.csv' in os.listdir('../calculation_data'):
 
-            self.qpc_data = pd.read_csv('../calculation_data/qpc_data_allraw.csv')
+            self.qpc_data = pd.read_csv(
+                '../calculation_data/qpc_data_allraw.csv'
+                )
 
         else:
 

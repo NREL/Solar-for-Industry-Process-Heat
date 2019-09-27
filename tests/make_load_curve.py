@@ -195,6 +195,14 @@ class load_curve:
                     )], axis=0, ignore_index=True)], axis=1
                 )
 
+            weeksched = pd.concat([weeksched,
+                pd.concat([swh_emp_size[col].apply(
+                    lambda x: shift.schedule(
+                        weekly_op_hours=x
+                        ).calc_weekly_schedule()[2]
+                    )], axis=0, ignore_index=True)], axis=1
+                )
+
             if col.split('_')[-1] == 'hours':
 
                 type_col = 'schedule_type_mean'
@@ -203,7 +211,7 @@ class load_curve:
 
                 type_col = 'schedule_type_'+col.split('_')[-1]
 
-            weeksched.columns = [col, type_col]
+            weeksched.columns = [col, type_col, 'daily_hours']
 
             months = pd.DataFrame(
                 [x+1 for x in weeksched.index], index=weeksched.index,
@@ -216,9 +224,14 @@ class load_curve:
 
                 unpacked = weeksched.loc[x][0].copy()
 
-                unpacked[type_col] = weeksched.loc[x][1]
+                unpacked[type_col] = weeksched.loc[x][type_col]
 
-                unpacked['month'] = weeksched.loc[x][2]
+                unpacked['month'] = weeksched.loc[x]['month']
+
+                unpacked = pd.merge(
+                    unpacked, weeksched.loc[x]['daily_hours'], right_index=True,
+                    left_on='dayofweek'
+                    )
 
                 unpacked.rename(columns={'operating': col}, inplace=True)
 
@@ -253,6 +266,8 @@ class load_curve:
         """
         Calculate hourly heat load based on operating schedule and
         annual energy use (in MMBtu) for 2014.
+        Returns hourly load for mean, high, and low weekly hours by quarter
+        (high and low are 95% confidence interval).
         """
 
         # Make dataframe for 2014 in hourly timesteps
@@ -283,14 +298,44 @@ class load_curve:
         load_8760['date'] = load_8760.index.date
 
         # Calculate total number of days by
-        # Used to scale EPA AMD load shapes
+        # Used to scale load shapes
         day_count = load_8760.drop_duplicates('date').groupby(
-            ['Q', 'dayofweek']
+            ['month', 'dayofweek']
             ).date.count()
 
+        op_schedule = op_schedule.reset_index().melt(
+            id_vars=['month', 'dayofweek', 'hour', 'NAICS', 'emp_size',
+                     'fraction_annual_energy', 'daily_hours'],
+            var_name='hours_type', value_name='schedule_type'
+            ).dropna()
 
-        load_8760 = pd.merge(load_8760, op_schedule,
+        op_schedule.hours_type.replace(
+            {'schedule_type_mean': 'mean', 'schedule_type_high': 'high',
+             'schedule_type_low': 'low'}, inplace=True
+            )
+
+        op_schedule.set_index(
+            ['hours_type', 'month', 'dayofweek', 'hour'], inplace=True
+            )
+
+        # Need to also sum daily hours by quarter and use fraction of annual
+        # fraction to split annual energy into quarterly energy.
+        op_schedule.fraction_annual_energy.update(
+            op_schedule.fraction_annual_energy.divide(day_count)
+            )
+
+        load_8760 = pd.merge(load_8760.reset_index(), op_schedule.reset_index(),
                              on=['month', 'dayofweek','hour'])
+
+        q_energy_fraction = load_8760.groupby(['hours_type', 'Q']).apply(
+            lambda x: x.drop_duplicates('date').daily_hours.sum()
+            )
+
+        q_energy_fraction.update(
+            q_energy_fraction.divide(q_energy_fraction.sum(level=0))
+            )
+
+        q_energy = q_energy_fraction.multiply(annual_energy_use)
 
         load_8760.sort_values(by=['date', 'hour'], inplace=True)
 
