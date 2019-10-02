@@ -878,7 +878,7 @@ class Manufacturing_energy:
 #                                                          compute=True)
 
         eu_energy_dd_final['fipstate'] = eu_energy_dd_final.COUNTY_FIPS.apply(
-            lambda x: int(str(x)[0:len(int(str(x)))-3]))
+            lambda x: int(str(x)[0:len(int(str(x)))-3])
             )
 
         if temps == True:
