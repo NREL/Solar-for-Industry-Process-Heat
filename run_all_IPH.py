@@ -14,10 +14,12 @@ import mecs_table5_2_formatting
 import datetime as dt
 import dask.dataframe as dd
 import os
+import datetime as dt
 
+today = dt.datetime.now().strftime('%Y%m%d-%H%M')
 
 energy_ghgrp = pd.read_parquet(
-        '../Results analysis/ghgrp_energy_20190614-1056.parquet',
+        '../results/ghgrp_energy_20190801-2337.parquet',
         engine='pyarrow'
         )
 #%%
@@ -54,10 +56,9 @@ mecs_intensities = tcmfg.calc_intensities(cbp.cbp_matching)
 # Calculates non-ghgrp combustion energy use and combines with
 # ghgrp energy use. Distinguishes between data sources with 'data_source'
 # column.
-# This is a dask dataframe.
 mfg_energy = tcmfg.combfuel_calc(cbp_corrected, mecs_intensities)
 
-mfg_energy.to_parquet('../results/mfg_energy_total.parquet.gzip', 
+mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
                       engine='pyarrow', compression='gzip')
 
 enduse_methods = mecs_table5_2_formatting.table5_2(2014)
@@ -70,16 +71,16 @@ mfg_energy_enduse = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                       temps=False)
 
 # Save as parquet
-os.mkdir('../results/mfg_eu_'+dt.datetime.now().strftime('%Y%m%d_%H%M'))
+os.mkdir('../results/mfg_eu_'+today)
 
 dd.to_parquet(
         mfg_energy_enduse,
-        '../results/mfg_eu_'+dt.datetime.now().strftime('%Y%m%d_%H%M'),
+        '../results/mfg_eu_'+today,
         write_index=True, engine='pyarrow', compression='gzip'
         )
 
 # Enduse breakdown with temperatures; Returns only process heating end uses
-# with defined temperatures. 
+# with defined temperatures.
 # This returns a Pandas dataframe
 mfg_energy_enduse_temps = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                             temps=True)
@@ -89,4 +90,3 @@ mfg_energy_enduse_temps.to_parquet(
         '../results/mfg_eu_temps_'+dt.datetime.now().strftime('%Y%m%d_%H%M')+\
         '.parquet.gzip', engine='pyarrow', compression='gzip'
         )
-

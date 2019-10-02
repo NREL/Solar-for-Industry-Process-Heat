@@ -12,8 +12,8 @@
 ,Processing,75,steam,31.3,23.88888889
 ,Processing,75,fuel,134.4,23.88888889
 20261,Pasturization,163,steam,73,72.77777778
-,Deoderization,38,steam,20,28.33333333
-,Packaging,38,fuel,12,28.33333333
+,Deoderization,38,steam,20,3.333333333
+,Packaging,38,fuel,12,3.333333333
 ,Pasturization,163,steam,1.5,72.77777778
 ,Cooking,212,steam,33,100
 ,Drying,180,fuel,3,82.22222222
@@ -287,9 +287,9 @@
 ,Boiler,250,steam,75.7,121.1111111
 ,Boiler,525,steam,180.2,273.8888889
 ,Boiler,370,steam,59.8,187.7777778
-28213,Reacting,525,steam,360.8,273.8888889
-,Separating,500,steam,240.7,260
-,Extruding,400,steam,176.6,204.4444444
+28213,Reacting,420,steam,360.8,215.5555556
+,Separating,490,steam,240.7,254.4444444
+,Extruding,295,steam,176.6,146.1111111
 ,Drying,120,steam,59.8,48.88888889
 ,Extruding,280,steam,176.6,137.7777778
 ,Drying,120,steam,59.8,48.88888889
@@ -302,14 +302,14 @@
 ,Stripping,212,steam,410.2,100
 ,Distilling,176,steam,58.6,80
 ,Drying,265,electric,75.7,129.4444444
-,Extruding,500,steam,175.8,260
+,Extruding,295,steam,175.8,146.1111111
 ,Drying,120,steam,59.8,48.88888889
 ,Boiler,370,fuel,1893.4,187.7777778
 ,Boiler,370,steam,358.5,187.7777778
 ,Boiler,295,steam,966.9,146.1111111
 28215,Separating,400,steam,962.4,204.4444444
 ,Separating,400,steam,180.4,204.4444444
-,Extruding,500,steam,175.8,260
+,Extruding,290,steam,175.8,143.3333333
 ,Drying,120,steam,59.8,48.88888889
 ,Boiler,420,fuel,1969.1,215.5555556
 ,Boiler,370,steam,59.8,187.7777778
@@ -415,12 +415,41 @@
 ,Distilling,180,steam,175,82.22222222
 ,Distilling,200,steam,1170,93.33333333
 2873,Reforming,1500,fuel,4900,815.5555556
-,Reforming,1500,steam,2397,815.5555556
+,Reforming,475,steam,2397,246.1111111
 ,Heating,425,fuel,175,218.3333333
 28744,Drying,195,fuel,499999.9,90.55555556
 28743,Drying,180,fuel,150,82.22222222
 ,Drying,180,fuel,350,82.22222222
 28742,Sintering,2300,fuel,8036,1260
+2911,Distilling,750,fuel,232,398.8888889
+,Distilling,422,steam,50,216.6666667
+,Distilling,780,fuel,61,415.5555556
+,Distilling,422,steam,61,216.6666667
+,Coking,422,steam,3.8,216.6666667
+,Coking,950,fuel,20.7,510
+,Cracking,900,fuel,142,482.2222222
+,Hydroforming,750,fuel,39.7,398.8888889
+,Hydroforming,422,steam,15.1,216.6666667
+,Processing,75,steam,86.3,23.88888889
+,Processing,75,fuel,26.7,23.88888889
+,Processing,422,steam,6.6,216.6666667
+,Processing,500,fuel,13.3,260
+,Vis-breaking,900,fuel,38.8,482.2222222
+,Hydrogen treatment,800,fuel,38.5,426.6666667
+,Hydrogen treatment,422,steam,9.9,216.6666667
+,Reforming,1000,fuel,218,537.7777778
+,Isomerization,400,steam,6.9,204.4444444
+,Alkylation,70,steam,11,21.11111111
+,Alkylation,70,fuel,102.9,21.11111111
+,Gas recovery,380,steam,27.7,193.3333333
+,Hydrogen treatment,800,fuel,13.3,426.6666667
+,Hydrogen treatment,422,steam,1.5,216.6666667
+2951,Drying,350,fuel,135,176.6666667
+,Storing,325,steam,15,162.7777778
+,Storing,325,steam,5,162.7777778
+3011,Milling,170,steam,348,76.66666667
+,Molding and curing,300,steam,1500,148.8888889
+,Molding and curing,300,steam,1000,148.8888889
 30691,Molding,250,fuel,651.5,121.1111111
 ,Other,300,fuel,651.5,148.8888889
 ,Casting,300,fuel,651.5,148.8888889
@@ -530,3 +559,14 @@
 37141,Melting,2900,fuel,1500,1593.333333
 ,Heating,1000,fuel,255,537.7777778
 ,Drying,180,fuel,1000,82.22222222
+38611,Dissolving,105,steam,3.9,40.55555556
+,Dissolving,105,water,0.7,40.55555556
+,Emulsion,180,water,64,82.22222222
+,Ripining,150,water,64,65.55555556
+,After ripining,113,water,8.4,45
+,Remelting,108,water,70.4,42.22222222
+,Dissolving,155,water,1459,68.33333333
+,Casting,175,steam,360.8,79.44444444
+,Drying,180,fuel,25,82.22222222
+38612,Molding,300,fuel,839.5,148.8888889
+,Drying,250,fuel,1398.6,121.1111111
