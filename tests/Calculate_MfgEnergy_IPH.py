@@ -100,18 +100,6 @@ class Manufacturing_energy:
                         lambda x: int(str(x)[0:n_level]))
 
 
-#            nctest = \
-#                [DF.loc[DF_index.index,
-#                        [naics_column, 'REPORTING_YEAR']].dropna().apply(
-#                            lambda x: int(str(x)[
-#                                    0:len(str(x))- i
-#                                    ])
-#                        ) for i in range(0,4)]
-#
-#            nctest = pd.concat(nctest, axis = 1)
-#
-#            nctest.columns = ['N6', 'N5', 'N4', 'N3']
-
             #Match GHGRP NAICS to highest-level MECS NAICS. Will match to
             #"dummy" "-09" NAICS where available. This is messy, but
             #functional.
@@ -147,30 +135,6 @@ class Manufacturing_energy:
 
                 ncmatch.NAICS_MATCH.update(ncmatch[column].dropna())
 
-#            for dataframe in ncmatch.keys():
-#
-#                ncmatch[dataframe]['NAICS_MATCH'] = ncmatch[dataframe].apply(
-#                        lambda x: int(list(x.dropna())[0]), axis=1
-#                        )
-#
-#                DF['MECS_NAICS'].update(ncmatch[dataframe].NAICS_MATCH)
-#
-#                ncmatch_y = pd.concat(
-#                    [pd.merge(nctest[dataframe], MECS_NAICS,
-#                              left_on=nctest[dataframe][column],
-#                              right_on = MECS_NAICS.MECS_NAICS,
-#                              how = 'left').iloc[:,4]
-#                        for column in nctest[dataframe].columns], axis =1
-#                    )
-#
-#                ncmatch_y.index = nctest[dataframe].index
-#
-#                ncmatch_y['NAICS_MATCH'] = ncmatch_y.apply(
-#                    lambda x: int(list(x.dropna())[0]), axis = 1
-#                    )
-#
-#                ncmatch = ncmatch.append(ncmatch_y, ignore_index=False)
-
             #Update GHGRP dataframe with matched MECS NAICS.
             DF['MECS_NAICS'] = 0
 
@@ -190,7 +154,6 @@ class Manufacturing_energy:
                     )
 
         #Match GHGRP-reported 6-digit NAICS code with MECS NAICS
-
         self.energy_ghgrp_y = \
             pd.merge(self.energy_ghgrp_y,
                      ghgrp_matching[['FACILITY_ID',
@@ -201,14 +164,24 @@ class Manufacturing_energy:
                 self.energy_ghgrp_y, 'PRIMARY_NAICS_CODE'
                 )
 
+        print(self.energy_ghgrp_y.columns)
+
         # Filter out facilities that use PRIMARY_NAICS_CODE == 486210 and
         # NAICS_USED == 0
         self.energy_ghgrp_y = self.energy_ghgrp_y[
-                (self.energy_ghgrp_y[self.naics_column] != 486210)
-                ].copy(deep=True)
+                (self.energy_ghgrp_y[self.naics_column] != 486210) &\
+                (self.energy_ghgrp_y.MECS_NAICS !=0)
+                ]
 
+        if self.naics_column == 'PRIMARY_NAICS_CODE_12':
 
-#        return self.energy_ghgrp_y
+            self.energy_ghgrp_y.drop('PRIMARY_NAICS_CODE', inplace=True,
+                                     axis=1)
+
+            self.energy_ghgrp_y.rename(
+                columns={'PRIMARY_NAICS_CODE_12': 'PRIMARY_NAICS_CODE'},
+                inplace=True
+                )
 
 
     def GHGRP_Totals_byMECS(self):
