@@ -188,7 +188,7 @@ class process_temps:
         """
         Map temperature to end use disggregation.
         """
-                
+
         def agg_temps():
             """
             Create temperature aggregations by 3- to 5-digit NAICS codes
@@ -352,6 +352,8 @@ class process_temps:
             print('Bootstrapping temperatures')
 
             other_temps = agg_temps()
+
+            other_temps.to_csv(os.path.join('../', self.datadir+'agg_temps.csv')
 
         tn_match_fraction = pd.concat(
                 [self.temps[['NAICS12', 'Heat_type', 'Temp_C', 'Fraction']],
