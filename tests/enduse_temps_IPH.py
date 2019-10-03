@@ -353,7 +353,9 @@ class process_temps:
 
             other_temps = agg_temps()
 
-            other_temps.to_csv(os.path.join('../', self.datadir+'agg_temps.csv')
+            other_temps.to_csv(
+                os.path.join('../', self.datadir+'agg_temps.csv')
+                )
 
         tn_match_fraction = pd.concat(
                 [self.temps[['NAICS12', 'Heat_type', 'Temp_C', 'Fraction']],
