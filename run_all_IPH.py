@@ -14,7 +14,6 @@ import mecs_table5_2_formatting
 import datetime as dt
 import dask.dataframe as dd
 import os
-import datetime as dt
 
 today = dt.datetime.now().strftime('%Y%m%d-%H%M')
 
