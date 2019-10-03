@@ -476,7 +476,7 @@ class Manufacturing_energy:
                 ).MMBtu_TOTAL.sum()
 
         #Drop non-manufacturing industries (MECS_NAICS == 0)
-        energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y !=0]
+        energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y.MECS_NAICS !=0]
 
         energy_ghgrp_y['data_source'] = 'ghgrp'
 
@@ -507,7 +507,6 @@ class Manufacturing_energy:
                         }
 
                 return missing_dict[fips_cat]
-
 
         energy_ghgrp_y['fipscty'] = energy_ghgrp_y.COUNTY_FIPS.apply(
                 lambda x: match_countyfips(x, fips_dict, 'fipscty')
@@ -848,11 +847,11 @@ class Manufacturing_energy:
             eu_energy_dd_final[eu_energy_dd_final.MMBtu !=0]
 
         eu_energy_dd_final = eu_energy_dd_final.set_index('MECS_NAICS')
-#                                                          compute=True)
 
-        eu_energy_dd_final['fipstate'] = eu_energy_dd_final.COUNTY_FIPS.apply(
-            lambda x: int(str(x)[0:len(int(str(x)))-3])
-            )
+        #
+        # eu_energy_dd_final['fipstate'] = eu_energy_dd_final.COUNTY_FIPS.apply(
+        #     lambda x: int(str(x)[0:len(int(str(x)))-3])
+        #     )
 
         if temps == True:
 
