@@ -12,8 +12,6 @@
 ,Processing,75,steam,31.3,23.88888889
 ,Processing,75,fuel,134.4,23.88888889
 20261,Pasturization,163,steam,73,72.77777778
-,Deoderization,38,steam,20,3.333333333
-,Packaging,38,fuel,12,3.333333333
 ,Pasturization,163,steam,1.5,72.77777778
 ,Cooking,212,steam,33,100
 ,Drying,180,fuel,3,82.22222222
@@ -398,7 +396,7 @@
 ,Heating,200,steam,450,93.33333333
 ,Heating,280,steam,140,137.7777778
 ,Distilling,200,steam,750,93.33333333
-,Boiler,,fuel,14360,-17.77777778
+,Boiler,450,fuel,14360,232.2222222
 ,Boiler,230,steam,2650,110
 ,Boiler,300,steam,140,148.8888889
 ,Boiler,320,steam,835,160
@@ -407,7 +405,7 @@
 28691,Heating,1600,fuel,8650,871.1111111
 ,Heating,140,steam,253,60
 ,Separating,275,steam,675,135
-,Boiler,,fuel,1415,-17.77777778
+,Boiler,450,fuel,1415,232.2222222
 ,Boiler,300,steam,1183,148.8888889
 ,Heating,350,steam,508,176.6666667
 28692,Heating,250,steam,400,121.1111111

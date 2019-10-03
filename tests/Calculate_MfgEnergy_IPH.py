@@ -705,15 +705,26 @@ class Manufacturing_energy:
             Fix data types and missing FIPS codes.
             """
 
-            for col in ['COUNTY_FIPS', 'naics']:
-                df[col] = df[col].astype(int)
+            df['COUNTY_FIPS'] = df.COUNTY_FIPS.astype(int)
 
-            df['fipstate'] = \
-                df.COUNTY_FIPS.apply(
-                    lambda x: int(str(x)[0:len(str(int(x)))-3])
-                    )
+            df['naics'] = df.naics.astype(int)
 
-            df.drop(['fipscty'], axis=1, inplace=True)
+            def fips_fix(fipstate):
+
+                try:
+
+                    new_fipstate = \
+                        int(str(fipstate)[0:len(str(int(fipstate)))-3])
+
+                except ValueError:
+
+                    new_fipstate = fipstate
+
+                return new_fipstate
+
+            df['fipstate'] = df.COUNTY_FIPS.apply(lambda x: fips_fix(x))
+
+            df = df.drop(['fipscty'], axis=1)
 
             if 'Temp_C' in df.columns:
 
