@@ -236,7 +236,7 @@ class County_matching:
                 ghgrp_matching[(ghgrp_matching.pn_in_cbp == False) &
                                (ghgrp_matching.sn_in_cbp == False)][[
                                        'PRIMARY_NAICS_CODE',
-                                       'SECONDARY_NAICS_CODE', 'cOUNTY_FIPS'
+                                       'SECONDARY_NAICS_CODE', 'COUNTY_FIPS'
                                        'COUNTY', 'FACILITY_NAME','FACILITY_ID'
                                        ]]
                 )
