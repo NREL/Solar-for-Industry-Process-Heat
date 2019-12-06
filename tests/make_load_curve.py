@@ -118,7 +118,7 @@ class load_curve:
 
     def calc_load_shape(self, naics, emp_size):
         """
-        Calculate hourly load shape (represented as a faction of daily
+        Calculate hourly load shape (represented as a fraction of daily
         energy use) by month and day of week (Monday==0) based on
         NAICS code and employment size class.
         """

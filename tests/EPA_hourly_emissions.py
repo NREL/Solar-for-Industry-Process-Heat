@@ -391,6 +391,109 @@ class EPA_AMD:
 
         return amd_dd
 
+    def calc_load_factor(self, amd_dd):
+        """
+        Calculate annual load factor (MMBtu/(peak MMBtu)*operating hours each
+        facility
+        """
+        # Drop facilities with odd data {10298: hourly load > capacity,
+        # 54207: hourly load > capacity,55470:hourly load > capacity,
+        # 10867:hourly load > capacity, 10474:hourly load > capacity,
+        # 880074: hourly load == capacity, 880101: hourly load == capacity}.
+        #
+        drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
+        #
+        # amd_filtered = amd_dd[amd_dd.ORISPL_CODE not in drop_facs]
+
+        avg_load = amd_dd.groupby(
+            ['ORISPL_CODE','PRIMARY_NAICS_CODE', 'Unit Type','year','month']
+             ).HEAT_INPUT_MMBtu.sum()
+
+        peak_load = amd_dd.groupby(
+            ['ORISPL_CODE','PRIMARY_NAICS_CODE', 'Unit Type', 'UNIT_ID','year',
+             'month']
+             ).HEAT_INPUT_MMBtu.max()
+
+        # Create annual counts of hours
+        # Using total hours/year results in load factors > 1 in some instances.
+        hour_count = pd.DataFrame.from_records(
+            np.array([np.tile(np.sort(amd_dd.year.unique()), 12),
+                     np.repeat(range(1,13), len(amd_dd.year.unique()))]).T,
+            columns=['year', 'month']
+            )
+
+        hour_count.sort_values(by=['year', 'month'], inplace=True)
+
+        hour_count['hours'] = np.nan
+
+        hour_count.set_index(['year', 'month'], inplace=True)
+
+        for y in hour_count.index.get_level_values('year').unique():
+
+            hours = pd.date_range(start=str(y)+'-01-01', end=str(y+1)+'-01-01',
+                                  freq='H')[0:-1]
+
+            hours = hours.groupby(hours.month)
+
+            hours = pd.DataFrame(
+                [(k, len(hours[k])) for k in hours.keys()],
+                columns=['month', 'hours']
+                )
+
+            hours['year'] = y
+
+            hours.set_index(['year', 'month'], inplace=True)
+
+            hour_count.hours.update(hours.hours)
+
+        peak_monthly = pd.merge(
+            peak_load.reset_index(), hour_count.reset_index(),
+            on=['year', 'month']
+            )
+
+        peak_monthly.HEAT_INPUT_MMBtu.update(
+            peak_monthly.HEAT_INPUT_MMBtu.multiply(
+                peak_monthly.hours
+                )
+            )
+
+        # Sum by NAICS to get industry average peak load by month
+        peak_monthly = peak_monthly.groupby(
+            ['PRIMARY_NAICS_CODE', 'month']
+            ).HEAT_INPUT_MMBtu.sum()
+
+        load_factor = avg_load.sum(
+            level=['PRIMARY_NAICS_CODE', 'month']
+            ).divide(peak_monthly)
+
+        # load_factor = avg_load.divide(
+        #     peak_load.multiply(hour_count.hours, level='year')
+        #     )
+
+        return load_factor
+
+    def calc_load_shape_revised(amd_dd, peak_load):
+        """
+        Revised method for estimating daytype load shapes by industry.
+        """
+
+        hourly_load_shape = pd.merge(
+            amd_dd, peak_load,
+            on=['ORISPL_CODE','PRIMARY_NAICS_CODE','Unit Type','UNIT_ID',
+                'year','month'], how='left', suffixes=('_obs', '_peak')
+             )
+
+        hourly_load_shape.HEAT_INPUT_MMBtu_obs.update(
+            hourly_load_shape.HEAT_INPUT_MMBtu_obs.divide(
+                hourly_load_shape.HEAT_INPUT_MMBtu_peak
+                )
+            )
+
+        hourly_load_shape = hourly_load_shape.groupby(
+            ['PRIMARY_NAICS_CODE', 'month', 'dayofweek', 'OP_HOUR']
+            ).HEAT_INPUT_MMBtu_obs.mean()
+
+        return hourly_load_shape
 
     def calc_rep_loadshapes(self, amd_dd, by='qpc_naics'):
         """
