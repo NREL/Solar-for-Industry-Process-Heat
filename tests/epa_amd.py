@@ -75,8 +75,8 @@ class amd_data:
 
         def describe_date(amd_data):
             """
-            Add columns for weekday, month, and holiday. Based on existing timestamp
-            column in amd_data dataframe.
+            Add columns for weekday, month, and holiday. Based on existing
+            timestamp column in amd_data dataframe.
             """
 
             holidays = USFederalHolidayCalendar().holidays()
@@ -182,9 +182,11 @@ class amd_data:
              'heat_input_fraction':0}, np.nan
              )
 
-        load_summary = amd.groupby(['month', 'holiday', 'weekday', 'OP_HOUR']).agg(
-            {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-             'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
+        load_summary = amd.groupby(
+            ['month', 'holiday', 'weekday', 'OP_HOUR']
+            ).agg(
+                {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+                 'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
             )
 
         return load_summary

@@ -236,7 +236,7 @@ class EPA_AMD:
                 ['ORISPL_CODE','UNITID', 'Unit Type', 'Fuel Type (Primary)',
                  'Fuel Type (Secondary)', 'Max Hourly HI Rate (MMBtu/hr)',
                  'CHP_COGEN']
-            ].set_index(['ORISPL_CODE'])
+                 ].set_index(['ORISPL_CODE'])
 
         amd_dd = amd_dd.merge(
             am_facs_dd_merge, how='left', on=['ORISPL_CODE', 'UNITID']
@@ -393,20 +393,22 @@ class EPA_AMD:
 
     def calc_load_factor(self, amd_dd):
         """
-        Calculate annual load factor (MMBtu/(peak MMBtu)*operating hours each
-        facility
+        Calculate average monthly load factor
+        (MMBtu/(peak MMBtu)*operating hours and monthly peak load by NAICS.
+
         """
         # Drop facilities with odd data {10298: hourly load > capacity,
         # 54207: hourly load > capacity,55470:hourly load > capacity,
         # 10867:hourly load > capacity, 10474:hourly load > capacity,
         # 880074: hourly load == capacity, 880101: hourly load == capacity}.
         #
-        drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
+        # drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
         #
         # amd_filtered = amd_dd[amd_dd.ORISPL_CODE not in drop_facs]
 
         avg_load = amd_dd.groupby(
-            ['ORISPL_CODE','PRIMARY_NAICS_CODE', 'Unit Type','year','month']
+            ['ORISPL_CODE','PRIMARY_NAICS_CODE', 'Unit Type','UNIT_ID', 'year',
+            'month']
              ).HEAT_INPUT_MMBtu.sum()
 
         peak_load = amd_dd.groupby(
@@ -466,16 +468,25 @@ class EPA_AMD:
             level=['PRIMARY_NAICS_CODE', 'month']
             ).divide(peak_monthly)
 
+        # Express peak load
+
         # load_factor = avg_load.divide(
         #     peak_load.multiply(hour_count.hours, level='year')
         #     )
 
         return load_factor
 
-    def calc_load_shape_revised(amd_dd, peak_load):
+
+    def calc_load_shape_revised(amd_dd):
         """
         Revised method for estimating daytype load shapes by industry.
+        Also returns coefficient of variation.
         """
+
+        peak_load = amd_dd.groupby(
+            ['ORISPL_CODE','PRIMARY_NAICS_CODE','Unit Type','UNIT_ID',
+             'year','month'], as_index=False
+             ).HEAT_INPUT_MMBtu.max()
 
         hourly_load_shape = pd.merge(
             amd_dd, peak_load,
@@ -489,9 +500,32 @@ class EPA_AMD:
                 )
             )
 
+        # Drop entries with NaN NAICS codes
+        hourly_load_shape = hourly_load_shape.dropna(
+            subset=['PRIMARY_NAICS_CODE']
+            )
+
+        std_dev_hourly_load = hourly_load_shape.groupby(
+            ['PRIMARY_NAICS_CODE', 'month', 'dayofweek', 'OP_HOUR']
+            ).HEAT_INPUT_MMBtu_obs.std()
+
         hourly_load_shape = hourly_load_shape.groupby(
             ['PRIMARY_NAICS_CODE', 'month', 'dayofweek', 'OP_HOUR']
             ).HEAT_INPUT_MMBtu_obs.mean()
+
+        # Calculate the coefficient of variation (defined as the ratio of
+        # standard devation to mean)
+        coeff_var = std_dev_hourly_load.divide(hourly_load_shape)
+
+        hourly_load_shape = pd.concat(
+            [hourly_load_shape, hourly_load_shape.add(
+                hourly_load_shape.multiply(coeff_var)
+                ), hourly_load_shape.subtract(
+                    hourly_load_shape.multiply(coeff_var)
+                    )],
+            axis=1)
+
+        hourly_load_shape.columns = ['mean', 'high', 'low']
 
         return hourly_load_shape
 

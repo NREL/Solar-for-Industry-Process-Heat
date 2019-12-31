@@ -1,5 +1,7 @@
 # Industry Energy Modeling
 ## NEMS
+## SEDS
+[Stochastic Energy Deployment System](https://www.nrel.gov/analysis/seds/)
 ## TIMES
 ### [IEA-ETSAP](https://iea-etsap.org/index.php/documentation)
 ## MARKAL
