@@ -476,7 +476,7 @@ class EPA_AMD:
 
         return load_factor
 
-
+    @staticmethod
     def calc_load_shape_revised(amd_dd):
         """
         Revised method for estimating daytype load shapes by industry.
@@ -529,72 +529,72 @@ class EPA_AMD:
 
         return hourly_load_shape
 
-    def calc_rep_loadshapes(self, amd_dd, by='qpc_naics'):
-        """
-        Calculate representative hourly loadshapes by facility and unit type.
-        Represents hourly mean load ...
-        """
-
-        # Drop facilities with odd data {10298: hourly load > capacity,
-        # 54207: hourly load > capacity,55470:hourly load > capacity,
-        # 10867:hourly load > capacity, 10474:hourly load > capacity,
-        # 880074: hourly load == capacity, 880101: hourly load == capacity}.
-
-        drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
-
-        amd_filtered = amd_dd[amd_dd.ORISPL_CODE not in drop_facs]
-
-        if by == 'naics':
-
-            load_summary = amd_filtered.groupby(
-                ['PRIMARY_NAICS_CODE', 'Unit Type', 'month','holiday','dayofweek',
-                  'OP_HOUR']
-                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-                        'HEAT_INPUT_MMBtu': 'mean'})
-
-        elif by == 'qpc_naics':
-
-            load_summary = amd_filtered.groupby(
-                ['qpc_naics', 'final_unit_type','holiday','dayofweek',
-                  'OP_HOUR']
-                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-                        'HEAT_INPUT_MMBtu': 'mean'})
-
-            # Make aggregate load curve
-            agg_curve = amd_filtered.groupby(
-                ['final_unit_type','holiday','dayofweek', 'OP_HOUR'],
-                as_index=False
-                 ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-                        'HEAT_INPUT_MMBtu': 'mean'})
-
-            agg_curve['qpc_naics'] = '31-33'
-
-            load_summary = load_summary.append(
-                agg_curve.set_index(
-                    ['qpc_naics','final_unit_type','holiday','dayofweek',
-                    'OP_HOUR']
-                    )
-                )
-
-        else:
-
-            load_summary = amd_filtered.groupby(
-                ['ORISPL_CODE', 'UNITID','month','holiday','dayofweek','OP_HOUR']
-                ).agg(
-                    {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
-                     'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
-                     )
-
-        for col in ['GLOAD_MW','SLOAD_1000lb_hr', 'HEAT_INPUT_MMBtu']:
-
-            new_name = col.split('_')[0]+'_hourly_fraction_year'
-
-            load_summary[new_name] = \
-                load_summary[col].divide(
-                    load_summary[col].sum(level=[0,1,2,3,4])
-                    )
-
-        return load_summary
+    # def calc_rep_loadshapes(self, amd_dd, by='qpc_naics'):
+    #     """
+    #     Calculate representative hourly loadshapes by facility and unit type.
+    #     Represents hourly mean load ...
+    #     """
+    #
+    #     # Drop facilities with odd data {10298: hourly load > capacity,
+    #     # 54207: hourly load > capacity,55470:hourly load > capacity,
+    #     # 10867:hourly load > capacity, 10474:hourly load > capacity,
+    #     # 880074: hourly load == capacity, 880101: hourly load == capacity}.
+    #
+    #     drop_facs = [10298, 54207, 55470, 10687, 10474, 880074, 88101]
+    #
+    #     amd_filtered = amd_dd[amd_dd.ORISPL_CODE not in drop_facs]
+    #
+    #     if by == 'naics':
+    #
+    #         load_summary = amd_filtered.groupby(
+    #             ['PRIMARY_NAICS_CODE', 'Unit Type', 'month','holiday','dayofweek',
+    #               'OP_HOUR']
+    #              ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+    #                     'HEAT_INPUT_MMBtu': 'mean'})
+    #
+    #     elif by == 'qpc_naics':
+    #
+    #         load_summary = amd_filtered.groupby(
+    #             ['qpc_naics', 'final_unit_type','holiday','dayofweek',
+    #               'OP_HOUR']
+    #              ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+    #                     'HEAT_INPUT_MMBtu': 'mean'})
+    #
+    #         # Make aggregate load curve
+    #         agg_curve = amd_filtered.groupby(
+    #             ['final_unit_type','holiday','dayofweek', 'OP_HOUR'],
+    #             as_index=False
+    #              ).agg({'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+    #                     'HEAT_INPUT_MMBtu': 'mean'})
+    #
+    #         agg_curve['qpc_naics'] = '31-33'
+    #
+    #         load_summary = load_summary.append(
+    #             agg_curve.set_index(
+    #                 ['qpc_naics','final_unit_type','holiday','dayofweek',
+    #                 'OP_HOUR']
+    #                 )
+    #             )
+    #
+    #     else:
+    #
+    #         load_summary = amd_filtered.groupby(
+    #             ['ORISPL_CODE', 'UNITID','month','holiday','dayofweek','OP_HOUR']
+    #             ).agg(
+    #                 {'GLOAD_MW': 'mean', 'SLOAD_1000lb_hr': 'mean',
+    #                  'HEAT_INPUT_MMBtu': 'mean', 'heat_input_fraction':'mean'}
+    #                  )
+    #
+    #     for col in ['GLOAD_MW','SLOAD_1000lb_hr', 'HEAT_INPUT_MMBtu']:
+    #
+    #         new_name = col.split('_')[0]+'_hourly_fraction_year'
+    #
+    #         load_summary[new_name] = \
+    #             load_summary[col].divide(
+    #                 load_summary[col].sum(level=[0,1,2,3,4])
+    #                 )
+    #
+    #     return load_summary
 
     @staticmethod
     def make_load_shape_plots(load_summary, naics, unit_type, load_type):
@@ -632,11 +632,11 @@ class EPA_AMD:
 
         plt.close()
 
-for naics in load_summary.index.get_level_values('qpc_naics').unique():
-
-    for unit in load_summary.xs(naics, level='qpc_naics').index.get_level_values('final_unit_type').unique():
-
-        make_load_shape_plots(load_summary, naics, unit, 'SLOAD_hourly_fraction')
+# for naics in load_summary.index.get_level_values('qpc_naics').unique():
+#
+#     for unit in load_summary.xs(naics, level='qpc_naics').index.get_level_values('final_unit_type').unique():
+#
+#         make_load_shape_plots(load_summary, naics, unit, 'SLOAD_hourly_fraction')
 
 # # Summarize spread of data
 #     fac_summary_unit = amd_data.groupby(
@@ -680,142 +680,142 @@ for naics in load_summary.index.get_level_values('qpc_naics').unique():
 #    ['PRIMARY_NAICS_CODE', 'year'],
 #    as_index=False).apply(lambda x: np.size(x.unique()))
 # fac_count.rename(columns={0:'count'}, inplace=True)
-plot_data = fac_count[fac_count.year==2012].sort_values(by='count',
-    ascending=False
-    ).reset_index(drop=True)
-plot_data['PRIMARY_NAICS_CODE'] = plot_data.PRIMARY_NAICS_CODE.astype(str)
-fig, ax = plt.subplots(figsize=(12, 8))
-sns.barplot(x='PRIMARY_NAICS_CODE', y='count', data=plot_data, color='grey')
-plt.xticks(rotation=90)
-plt.savefig('amd_fac_count_2012.png', bbox_inches='tight', frameon=False)
-
-unit_count = amd_data.groupby(
-   ['Unit Type', 'year'],
-   as_index=False)['UNITID'].apply(lambda x: np.size(x.unique())).reset_index()
-unit_count.rename(columns={0:'count'}, inplace=True)
-plot_data = unit_count[unit_count.year==2012].sort_values(by='count',
-    ascending=False
-    ).reset_index(drop=True)
-fig, ax = plt.subplots(figsize=(8, 12))
-sns.barplot(y='Unit Type', x='count', data=plot_data, color='grey')
-plt.savefig('amd_unit_count_2012.png', bbox_inches='tight', frameon=False)
-
-
-    @staticmethod
-    def run_cluster_analysis(amd_dd, kn=range(1,30)):
-        """
-        Run to identify day types by unit
-        """
-
-        # pivot data so hours, weekday/weekend, holiday, and month, are columns
-        # and date is row.
-
-
-        for g in amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID']).groups:
-
-            data = amd_dd.groupby(
-                ['ORISPL_CODE', 'UNIT_ID']
-                ).get_group(g).join(
-                    amd_dd.groupby(
-                        ['ORISPL_CODE', 'UNIT_ID']
-                        ).get_group(g).apply()
-                        )
-
-            data['TS_DATE'] = data.timestamp.apply(
-                lambda x: x.date()
-                )
-
-            data = data.pivot(
-                index='TS_DATE', columns='OP_HOUR',
-                values='SLOAD (1000lb/hr)'
-                )
-
-            data = describe_date(data)
-
-        def id_clusters(data):
-            """
-            K-means clustering hourly load by day.
-            kn is the number of clusters to calculate, represented as a range
-            """
-
-            # Whiten observations (normalize by dividing each column by its standard
-            # deviation across all obervations to give unit variance.
-            # See scipy.cluster.vq.whiten documentation).
-            # Need to whitend based on large differences in mean and variance
-            # across energy use by NAICS codes.
-            data_whitened = spc.vq.whiten(data)
-
-            # Run K-means clustering for the number of clusters specified in K
-            KM_load = [spc.vq.kmeans(data_whitened, k, iter=25) for k in kn]
-
-            KM_results_dict = {}
-
-            KM_results_dict['data_white'] = data_whitened
-
-            KM_results_dict['KM_results'] = KM_load
-
-            KM_results_dict['centroids'] = [cent for (cent, var) in KM_load]
-
-            # Calculate average within-cluster sum of squares
-            KM_results_dict['avgWithinSS'] = [var for (cent, var) in KM_load]
-
-            # Plot elbow curve to examine within-cluster sum of squares
-            # Displays curve and asks for input on number of clusters to use
-            fig = plt.figure()
-
-            ax = fig.add_subplot(111)
-
-            ax.plot(kn, KM_results_dict['avgWithinSS'], 'b*-')
-
-            #ax.plot(K[kIdx], avgWithinSS[kIdx], marker='o', markersize=12,
-            #    markeredgewidth=2, markeredgecolor='r', markerfacecolor='None')
-            plt.grid(True)
-
-            plt.xlabel('Number of clusters')
-
-            plt.ylabel('Average within-cluster sum of squares')
-
-            plt.title('Elbow for KMeans clustering')
-
-            plt.show(block=False)
-
-            # User input for selecting number of clusters.
-            # plt.show(block=False) or plt.pause(0.1)
-            chosen_k = input("Input selected number of clusters: ")
-
-            return chosen_k,
-
-        def format_cluster_results(
-                    KM_results_dict, cla_input, ctyfips, naics_agg, n
-                    ):
-            """
-            Format cluster analysis results for n=k clusters, adding cluster ids
-            and socio-economic data by county.
-            """
-
-            # Calcualte cluster ids and distance (distortion) between the observation
-            # and its nearest code for a chosen number of clusters.
-            cluster_id, distance = spc.vq.vq(
-                KM_results['data_white'],
-                KM_results['centroids'][chosen_k - 1]
-                )
-
-            cols = ['cluster']
-
-            for col in data.columns:
-                cols.append(col)
-
-            # Combine cluster ids and energy data
-            cluster_id.resize((cluster_id.shape[0], 1))
-
-            # Name columns based on selected N-digit NAICS codes
-
-            id_load_clusters = \
-                pd.DataFrame(
-                    np.hstack((cluster_id, data)),
-                           columns=cols
-                           )
-
-            id_load_clusters.set_index(ctyfips[naics_agg], inplace=True)
-
-            id_energy.loc[:, 'TotalEnergy'] = id_energy[cols[1:]].sum(axis=1)
+# plot_data = fac_count[fac_count.year==2012].sort_values(by='count',
+#     ascending=False
+#     ).reset_index(drop=True)
+# plot_data['PRIMARY_NAICS_CODE'] = plot_data.PRIMARY_NAICS_CODE.astype(str)
+# fig, ax = plt.subplots(figsize=(12, 8))
+# sns.barplot(x='PRIMARY_NAICS_CODE', y='count', data=plot_data, color='grey')
+# plt.xticks(rotation=90)
+# plt.savefig('amd_fac_count_2012.png', bbox_inches='tight', frameon=False)
+#
+# unit_count = amd_data.groupby(
+#    ['Unit Type', 'year'],
+#    as_index=False)['UNITID'].apply(lambda x: np.size(x.unique())).reset_index()
+# unit_count.rename(columns={0:'count'}, inplace=True)
+# plot_data = unit_count[unit_count.year==2012].sort_values(by='count',
+#     ascending=False
+#     ).reset_index(drop=True)
+# fig, ax = plt.subplots(figsize=(8, 12))
+# sns.barplot(y='Unit Type', x='count', data=plot_data, color='grey')
+# plt.savefig('amd_unit_count_2012.png', bbox_inches='tight', frameon=False)
+#
+#
+#     @staticmethod
+#     def run_cluster_analysis(amd_dd, kn=range(1,30)):
+#         """
+#         Run to identify day types by unit
+#         """
+#
+#         # pivot data so hours, weekday/weekend, holiday, and month, are columns
+#         # and date is row.
+#
+#
+#         for g in amd_dd.groupby(['ORISPL_CODE', 'UNIT_ID']).groups:
+#
+#             data = amd_dd.groupby(
+#                 ['ORISPL_CODE', 'UNIT_ID']
+#                 ).get_group(g).join(
+#                     amd_dd.groupby(
+#                         ['ORISPL_CODE', 'UNIT_ID']
+#                         ).get_group(g).apply()
+#                         )
+#
+#             data['TS_DATE'] = data.timestamp.apply(
+#                 lambda x: x.date()
+#                 )
+#
+#             data = data.pivot(
+#                 index='TS_DATE', columns='OP_HOUR',
+#                 values='SLOAD (1000lb/hr)'
+#                 )
+#
+#             data = describe_date(data)
+#
+#         def id_clusters(data):
+#             """
+#             K-means clustering hourly load by day.
+#             kn is the number of clusters to calculate, represented as a range
+#             """
+#
+#             # Whiten observations (normalize by dividing each column by its standard
+#             # deviation across all obervations to give unit variance.
+#             # See scipy.cluster.vq.whiten documentation).
+#             # Need to whitend based on large differences in mean and variance
+#             # across energy use by NAICS codes.
+#             data_whitened = spc.vq.whiten(data)
+#
+#             # Run K-means clustering for the number of clusters specified in K
+#             KM_load = [spc.vq.kmeans(data_whitened, k, iter=25) for k in kn]
+#
+#             KM_results_dict = {}
+#
+#             KM_results_dict['data_white'] = data_whitened
+#
+#             KM_results_dict['KM_results'] = KM_load
+#
+#             KM_results_dict['centroids'] = [cent for (cent, var) in KM_load]
+#
+#             # Calculate average within-cluster sum of squares
+#             KM_results_dict['avgWithinSS'] = [var for (cent, var) in KM_load]
+#
+#             # Plot elbow curve to examine within-cluster sum of squares
+#             # Displays curve and asks for input on number of clusters to use
+#             fig = plt.figure()
+#
+#             ax = fig.add_subplot(111)
+#
+#             ax.plot(kn, KM_results_dict['avgWithinSS'], 'b*-')
+#
+#             #ax.plot(K[kIdx], avgWithinSS[kIdx], marker='o', markersize=12,
+#             #    markeredgewidth=2, markeredgecolor='r', markerfacecolor='None')
+#             plt.grid(True)
+#
+#             plt.xlabel('Number of clusters')
+#
+#             plt.ylabel('Average within-cluster sum of squares')
+#
+#             plt.title('Elbow for KMeans clustering')
+#
+#             plt.show(block=False)
+#
+#             # User input for selecting number of clusters.
+#             # plt.show(block=False) or plt.pause(0.1)
+#             chosen_k = input("Input selected number of clusters: ")
+#
+#             return chosen_k,
+#
+#         def format_cluster_results(
+#                     KM_results_dict, cla_input, ctyfips, naics_agg, n
+#                     ):
+#             """
+#             Format cluster analysis results for n=k clusters, adding cluster ids
+#             and socio-economic data by county.
+#             """
+#
+#             # Calcualte cluster ids and distance (distortion) between the observation
+#             # and its nearest code for a chosen number of clusters.
+#             cluster_id, distance = spc.vq.vq(
+#                 KM_results['data_white'],
+#                 KM_results['centroids'][chosen_k - 1]
+#                 )
+#
+#             cols = ['cluster']
+#
+#             for col in data.columns:
+#                 cols.append(col)
+#
+#             # Combine cluster ids and energy data
+#             cluster_id.resize((cluster_id.shape[0], 1))
+#
+#             # Name columns based on selected N-digit NAICS codes
+#
+#             id_load_clusters = \
+#                 pd.DataFrame(
+#                     np.hstack((cluster_id, data)),
+#                            columns=cols
+#                            )
+#
+#             id_load_clusters.set_index(ctyfips[naics_agg], inplace=True)
+#
+#             id_energy.loc[:, 'TotalEnergy'] = id_energy[cols[1:]].sum(axis=1)

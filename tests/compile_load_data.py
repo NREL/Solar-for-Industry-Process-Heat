@@ -19,11 +19,13 @@ class LoadData:
         # NAICS are 2007; need to be updated to 2012.
         self.usepa_loadfactors = 'epa_amd_load_factor.csv'
 
+        self.epri_load_shapes = 'epri_load_shapes.csv'
+
         def import_data(self):
 
             """
-            Import load factor data. Requires adjusting from 1997 SIC to
-            2002 NAICS to 2007 NAICS to 2012 NAICS.
+            Import load factor and load shape data. Requires adjusting from
+            1997 SIC to 2002 NAICS to 2007 NAICS to 2012 NAICS.
             """
 
             def create_sic_naics_dfs(file_dir, file):
@@ -59,11 +61,22 @@ class LoadData:
                 usecols=['PRIMARY_NAICS_CODE', 'month', 'HEAT_INPUT_MMBtu']
                 )
 
-            # Import load factors from EPRI report.
+            # Import load factors and load shapes from EPRI report.
             epri_lf = pd.read_csv(
                 os.path.join('../', self.datadir+self.epri_loadfactors),
+                )
+
+            epri_ls = pd.read_csv(
+                os.path.join('../', self.datadir+self.epri_load_shapes),
                 index_col='SIC'
                 )
+
+            # Melt EPRI load shape data
+            epri_ls = epri_ls.melt(
+                id_vars=['hours', 'SIC'], var_name='daytype', value_name='load'
+                )
+
+            epri_ls.set_index('SIC', inplace=True)
 
             # Need to match EPRI's two and three-digit SIC, which have
             # no direct matches in SIC-NAICS crosswalk file.
@@ -77,30 +90,41 @@ class LoadData:
 
             sic_2['SIC'] = sic_2.SIC.apply(lambda x: int(str(x)[0:2]))
 
-            epri_lf = pd.concat(
-                [epri_lf.join(
-                    df, how='inner', on='SIC'
-                    ) for df in [ndict['sic_N02'], sic_3.set_index('SIC'),
-                                 sic_2.set_index('SIC')]],
-                axis=0
-                )
-
-            # epri_lf = epri_lf.join(ndict['sic_N02'], how='left')
-
             ndict['N02_N07'].index.name = '2002 NAICS'
-
-            epri_lf = epri_lf.set_index('2002 NAICS').join(
-                    ndict['N02_N07']
-                    ).reset_index()
 
             ndict['N07_N12'].columns = ['NAICS12']
 
-            epri_lf = epri_lf.set_index('2007 NAICS Code').join(
-                    ndict['N07_N12']
-                    ).reset_index()
+            def format_epri_SIC(epri_df, ndict):
+                """
+                Translate SIC codes used by EPRI to 2012 NAICS.
+                """
+
+                epri_df = pd.concat(
+                    [epri_df.join(
+                        df, how='inner', on='SIC'
+                        ) for df in [ndict['sic_N02'], sic_3.set_index('SIC'),
+                                     sic_2.set_index('SIC')]],
+                    axis=0
+                    )
+
+                # epri_df = epri_df.join(ndict['sic_N02'], how='left')
+
+                epri_df = epri_df.set_index('2002 NAICS').join(
+                        ndict['N02_N07']
+                        ).reset_index()
+
+                epri_df = epri_df.set_index('2007 NAICS Code').join(
+                        ndict['N07_N12']
+                        ).reset_index()
+
+                return epri_df
+
+            epri_lf = format_epri_SIC(epri_lf, ndict)
+
+            epri_ls = format_epri_SIC(epri_ls, ndict)
 
             usepa_lf = usepa_lf.join(ndict['N07_N12']).reset_index()
 
-            return epri_lf, usepa_lf
+            return epri_lf, usepa_lf, epri_ls
 
-        self.epri_lf, self.usepa_lf = import_data(self)
+        self.epri_lf, self.usepa_lf, self.epri_ls = import_data(self)

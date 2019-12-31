@@ -340,3 +340,24 @@ class load_curve:
         load_8760.sort_values(by=['date', 'hour'], inplace=True)
 
         load_8760.index = dtindex
+
+    def calc_8760_load(self, annual_mmbtu, op_schedule):
+        """
+        Calculate hourly heat load data based on operating schedule, etc.
+        """
+
+        emp_size = op_schedule['emp_size'].unique()
+
+        naics = op_schedule['NAICS'].unique()
+
+        large_sizes = ['n250_499', 'n500_999', 'n1000', 'ghgrp']
+
+        if emp_size in large_sizes:
+
+            lf = epa_lf
+
+
+
+        if naics not in epa_lf:
+
+          lf = epri_lf
