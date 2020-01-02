@@ -42,3 +42,18 @@ the combustion unit types in EPA data. EPRI data represent electrical loads
 and electrical heating units are much less common for most industries than
 combustion heating units. Therefore, the EPRI data may not adequately reflect
 process heating operations.  
+
+# Misc. Thoughts
+* EPRI load shapes are averages across many facilities that may have different
+operating schedules. For instance, an industry load curve may indicate the
+operation of a second shift but at a lower load than the first shift. This may
+represent the effect of averaging the load of facilities with and without
+second shifts.
+* Are fixed loads a key differentiator between electrical and heat loads? I.e.,
+what are boiler and process heating loads when a facility is not operating?
+## Assumptions
+* Assume during nonoperating hours **boilers** are run at 25% of peak load to avoid
+on/off cycling problems (e.g., [this](https://www.babcock.com/resources/learning-center/boiler-cycling-considerations) and [this discussion of turndown](http://cleaverbrooks.com/reference-center/boiler-basics/number-of-boilers.html))
+* Assume during nonoperating hours **process heating equipment** is run
+at 20% of peak load. There is likely more variation in turndown ratio for
+process heating equipment than boilers (e.g., [this](https://content.greenheck.com/public/DAMProd/Original/10001/481038PVFHPVG_iom.pdf))

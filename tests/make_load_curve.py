@@ -345,6 +345,13 @@ class load_curve:
         """
         Calculate hourly heat load data based on operating schedule, etc.
         """
+        # How is QPC NAICS matched?
+
+        # Need to determine shifts by day type in op_schedule
+        # if n_shifts < 3, use epri load shape info from hours 0 - 14:00
+
+        # For interpolating
+
 
         emp_size = op_schedule['emp_size'].unique()
 
@@ -356,8 +363,6 @@ class load_curve:
 
             lf = epa_lf
 
+            if naics not in epa_lf:
 
-
-        if naics not in epa_lf:
-
-          lf = epri_lf
+              lf = epri_lf
