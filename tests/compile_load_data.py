@@ -1,6 +1,7 @@
 
 import pandas as pd
 import os
+import itertools as itools
 
 class LoadData:
 
@@ -67,13 +68,12 @@ class LoadData:
                 )
 
             epri_ls = pd.read_csv(
-                os.path.join('../', self.datadir+self.epri_load_shapes),
-                index_col='SIC'
+                os.path.join('../', self.datadir+self.epri_load_shapes)
                 )
 
             # Melt EPRI load shape data
             epri_ls = epri_ls.melt(
-                id_vars=['hours', 'SIC'], var_name='daytype', value_name='load'
+                id_vars=['hour', 'SIC'], var_name='daytype', value_name='load'
                 )
 
             epri_ls.set_index('SIC', inplace=True)
@@ -128,3 +128,82 @@ class LoadData:
             return epri_lf, usepa_lf, epri_ls
 
         self.epri_lf, self.usepa_lf, self.epri_ls = import_data(self)
+
+        def select_data_source(self, naics, emp_size):
+            """
+            Choose load characteristics from eith EPA or EPRI data based
+            on NAICS code and employment size class.
+            """
+
+            large_sizes = ['n50_99','n100_249','n250_499','n500_999','n1000',
+                           'ghgrp']
+
+            type_epa = [p for p in itertools.product(
+                self.usepa_lf.NAICS12.unique(), large_sizes
+                )]
+
+            # Select EPA load factors for large facilities and if NAICS is in
+            # EPA data.
+            if (naics, emp_size) in type_epa:
+
+                lf = self.usepa_lf.set_index(['NAICS12']).xs(naics)[
+                    ['month', 'HEAT_INPUT_MMBtu']
+                    ]
+
+                lf.reset_index(drop=True, inplace=True)
+
+                # Check if there are 12 months of data. If not, fill with
+                # average.
+
+                if len(lf) < 12:
+
+                    lf = pd.concat([lf, pd.Series(np.array(range(1,13)))],
+                                   axis=1)
+
+                    lf.month.update(lf[0])
+
+                    lf.fillna(lf.HEAT_INPUT_MMBtu.mean(), inplace=True)
+
+                    lf.drop([0], axis=1, inplace=True)
+
+                lf.columns = ['month', 'load_factor']
+
+            else:
+
+                try:
+
+                    lf = ld.epri_lf.set_index(
+                        'NAICS12'
+                        ).xs(naics)['load_factor'].mean()
+
+                # If NAICS is not in EPRI data, match at a higher aggregation.
+                # Selected load factor is average of the higher aggregation
+                # NAICS.
+                except KeyError:
+
+                    ld.epri_lf['naics_match'] = ld.epri_lf.NAICS12.values
+
+                    while naics not in ld.epri_lf.naics_match.unique():
+
+                        naics = str(naics)
+
+                        naics = int(naics[0:len(naics)-1])
+
+                        ld.epri_lf.naics_match.update(
+                            ld.epri_lf.naics_match.apply(
+                                lambda x: int(str(x)[0:len(str(x))-1])
+                                )
+                            )
+
+                    lf = ld.epri_lf.set_index(
+                        'naics_match'
+                        ).xs(naics)['load_factor'].mean()
+
+                lf = pd.concat(
+                    [pd.Series(np.array(range(1,13), ndmin=1)),
+                     pd.Series(np.repeat(lf, 12))], axis=1
+                    )
+
+                lf.columns = ['month','load_factor']
+
+            return lf
