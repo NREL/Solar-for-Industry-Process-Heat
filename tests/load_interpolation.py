@@ -1,103 +1,78 @@
 
 def interpolate_load(operating_schedule, peak_load, turndown):
     """
-
+    Identifies the starting and ending hours of operation for a specific
+    daytype. Also identifies the midpoint between the ending and beginning
+    of operation. Linearly interpolates between ending and starting hours.
     """
 
     min_load = peak_load / turndown
 
-    def find_start_end(operating_schedule):
-        """
-        Identifies the starting and ending hours of operation for a specific
-        daytype. Also identifies the midpoint between the ending and beginning
-        of operation.
-        """
+    operating_schedule.set_index(['dayofweek', 'hour'], inplace=True)
 
-        operating_schedule = operating_schedule.reset_index(drop=True)
+    days = operating_schedule.index.get_level_values(0).unique()
+
+    for n in days:
 
         try:
-            start = operating_schedule.operating.where(
-                operating_schedule.operating == True
+            start = operating_schedule.xs(n, level=0).operating.where(
+                operating_schedule.xs(n, level=0).operating == True
                 ).dropna().index[0]
 
         except IndexError:
 
-            return np.repeat(np.nan,3)
+            start, end, mid = np.repeat(np.nan,3)
 
         else:
 
-            end = operating_schedule.operating.where(
-                operating_schedule.operating == True
+            end = operating_schedule.xs(n, level=0).operating.where(
+                operating_schedule.xs(n, level=0).operating == True
                 ).dropna().index[-1]
 
-            mid = int(round((23 - end + start)/2, 0))
+            try:
 
-            if 0 < end < 17:
+                end_0 = operating_schedule.xs(days[n-1], level=0).operating.where(
+                    operating_schedule.xs(days[n-1], level=0).operating == True
+                    ).dropna().index[-1]
 
-                mid = end + mid
+            except IndexError:
 
-            if (end >= 17) & (mid !=0):
-
-                mid = end + mid - 24
+                mid = int(round((start-0)/2, 0))
 
             else:
 
-                mid = np.nan
+                mid = int(round((start+(24-end_0))/2, 0))
 
-        return start, end, mid
+        if np.isnan(start):
 
-    # Cacluate start, end, and midpoint for each daytype (weekday, Saturday,
-    # Sunday)
+            data_points = operating_schedule.xs(n).reset_index()
 
-    data_points = pd.concat(
-        [pd.DataFrame(find_start_end(
-            operating_schedule[operating_schedule.dayofweek == n]
-            )).T for n in range(0,7)], axis=0, ignore_index=True
-        )
+            data_points['operating'] = 'mid'
 
-    data_points = pd.concat([data_points, pd.Series(range(0,7))], axis=1)
+            data_points['dayofweek'] = n
 
-    data_points.columns = ['start', 'end', 'mid', 'dayofweek']
-
-    data_points = data_points.melt(id_vars='dayofweek', var_name='load',
-                                   value_name='hour')
-
-    data_points.dropna(inplace=True)
-
-    data_points.replace({'start': peak_load, 'end':peak_load, 'mid':min_load},
-                        inplace=True)
-
-    operating_schedule = \
-        operating_schedule.set_index(['dayofweek', 'hour']).join(
-            data_points.set_index(['dayofweek', 'hour'])
-            )
-
-    # Fill between start and end of operations
-    operating_schedule.update(
-        operating_schedule[operating_schedule.operating==True].fillna(
-            method='ffill'
-            )
-        )
-
-    # Fill in days with no operating hours
-    for n in range(0, 7):
-
-        if not any(operating_schedule.loc[(n,), 'operating']):
-
-            operating_schedule.loc[(n,), 'load'] = min_load
+            data_points.set_index(['dayofweek', 'hour'], inplace=True)
 
         else:
 
-            continue
+            data_points = pd.DataFrame(
+                [[n, start, 'start'],[n, mid, 'mid'],[n, end, 'end']],
+                columns=['dayofweek', 'hour', 'operating']
+                )
 
+            data_points.set_index(['dayofweek', 'hour'], inplace=True)
 
+        operating_schedule.update(data_points)
 
+    operating_schedule.replace(
+        {'start': peak_load, 'end':peak_load, 'mid':min_load, True: peak_load,
+         False: np.nan}, inplace=True
+        )
 
+    # Use simple linear interpolation to fill NaNs.
+    operating_schedule.update(operating_schedule.interpolate())
 
+    # Need to fill NaNs at beginning of week
+    operating_schedule.fillna(method='bfill', inplace=True)
 
-
-    operating_schedule['load'] = np.nan
-
-    operating_schedule
-
-    # Must fix very beginning and ending of week.
+    return operating_schedule
