@@ -1,7 +1,8 @@
 
 import pandas as pd
+import numpy as np
 import os
-import itertools as itools
+import itertools
 
 class LoadData:
 
@@ -22,7 +23,7 @@ class LoadData:
 
         self.epri_load_shapes = 'epri_load_shapes.csv'
 
-        self.usepa_load_shapes = ''
+        self.usepa_load_shapes = 'epa_amd_load_shapes.csv'
 
         def import_data(self):
 
@@ -57,11 +58,17 @@ class LoadData:
 
                 ndict[k[0:7]] = create_sic_naics_dfs(self.datadir, v)
 
-            # Import load factors derived from EPA data
+            # Import load factors and load shapes derived from EPA Air Markets
+            # Program data.
+            # EPA data use 2007 NAICS, not 2012 NAICS. Will need to remap
             usepa_lf = pd.read_csv(
                 os.path.join('../', self.datadir+self.usepa_loadfactors),
                 index_col='PRIMARY_NAICS_CODE',
                 usecols=['PRIMARY_NAICS_CODE', 'month', 'HEAT_INPUT_MMBtu']
+                )
+
+            usepa_ls = pd.read_csv(
+                os.path.join('../', self.datadir+self.usepa_load_shapes)
                 )
 
             # Import load factors and load shapes from EPRI report.
@@ -125,116 +132,178 @@ class LoadData:
 
             epri_ls = format_epri_SIC(epri_ls, ndict)
 
-            usepa_lf = usepa_lf.join(ndict['N07_N12']).reset_index()
+            # Remap 2007 NAICS to 2012 NAICS for EPA data.
+            # Resulting column named 'NAICS12'
+            usepa_lf = usepa_lf.join(ndict['N07_N12']).reset_index(drop=True)
 
-            return epri_lf, usepa_lf, epri_ls
+            usepa_ls = usepa_ls.set_index('PRIMARY_NAICS_CODE').join(
+                ndict['N07_N12']
+                ).reset_index(drop=True)
 
-        self.epri_lf, self.usepa_lf, self.epri_ls = import_data(self)
+            # Rename columns to match EPRI load shape data
+            usepa_ls.rename(
+                columns={'dayofweek':'daytype','OP_HOUR':'hour','mean':'load'},
+                inplace=True
+                )
 
-        @staticmethod
-        def match_naics(data, naics):
+            return epri_lf, usepa_lf, epri_ls, usepa_ls
 
-            return
+        self.epri_lf, self.usepa_lf, self.epri_ls, self.usepa_ls = \
+            import_data(self)
 
-        def select_load_factor(self, naics, emp_size):
-            """
-            Choose load characteristics from eith EPA or EPRI data based
-            on NAICS code and employment size class.
-            """
+    def select_min_max_loads(self, load_shape, min_or_max):
+        """
+        From selected EPRI or EPA load shape, return the peak load by
+        day type (weekday, Saturday, and Sunday). EPA data are also
+        defined by month.
+        """
 
-            large_sizes = ['n50_99','n100_249','n250_499','n500_999','n1000',
-                           'ghgrp']
+        # peak_loads = {}
 
-            type_epa = [p for p in itertools.product(
-                self.usepa_lf.NAICS12.unique(), large_sizes
-                )]
+        ls = load_shape.copy(deep=True)
 
-            # Select EPA load factors for large facilities and if NAICS is in
-            # EPA data.
-            if (naics, emp_size) in type_epa:
+        group_cols = ['month', 'daytype']
 
-                lf = self.usepa_lf.set_index(['NAICS12']).xs(naics)[
-                    ['month', 'HEAT_INPUT_MMBtu']
-                    ]
+        df_level = [0,1,2]
 
-                lf.reset_index(drop=True, inplace=True)
+        if min_or_max == 'max':
 
-                # Check if there are 12 months of data. If not, fill with
-                # average.
+            loads = ls.groupby(group_cols, as_index=False).load.max()
 
-                if len(lf) < 12:
+        else:
 
-                    lf = pd.concat([lf, pd.Series(np.array(range(1,13)))],
-                                   axis=1)
+            loads = ls.groupby(group_cols, as_index=False).load.min()
 
-                    lf.month.update(lf[0])
+        if 'month' not in ls.columns:
 
-                    lf.fillna(lf.HEAT_INPUT_MMBtu.mean(), inplace=True)
+            group_cols.remove('month')
 
-                    lf.drop([0], axis=1, inplace=True)
+            df_level = [0,1]
 
-                lf.columns = ['month', 'load_factor']
+        loads['hour'] = np.nan
 
-            else:
+        group_cols.append('load')
 
-                try:
+        ls.set_index(group_cols, inplace=True)
 
-                    lf = ld.epri_lf.set_index(
-                        'NAICS12'
-                        ).xs(naics)['load_factor'].mean()
+        for i in range(0, len(loads)):
 
-                # If NAICS is not in EPRI data, match at a higher aggregation.
-                # Selected load factor is average of the higher aggregation
-                # NAICS.
-                except KeyError:
+            lookup = loads.iloc[i].values[0:2]
 
-                    ld.epri_lf['naics_match'] = ld.epri_lf.NAICS12.values
+            loads.iloc[i, len(group_cols)] = \
+                ls.xs(lookup, level=df_level).hour[0]
 
-                    while naics not in ld.epri_lf.naics_match.unique():
+        loads['type'] = min_or_max
 
-                        naics = str(naics)
+        return loads
 
-                        naics = int(naics[0:len(naics)-1])
+    def select_load_data(self, naics, emp_size):
+        """
+        Choose load characteristics from eith EPA or EPRI data based
+        on NAICS code and employment size class.
+        """
 
-                        ld.epri_lf.naics_match.update(
-                            ld.epri_lf.naics_match.apply(
-                                lambda x: int(str(x)[0:len(str(x))-1])
-                                )
-                            )
+        # Preserve original NAICS
+        naics_og = naics
 
-                    # Map naics_match from epri_lf to epri_ls
-                    ld.epri_ls['naics_match'] =
+        large_sizes = ['n50_99','n100_249','n250_499','n500_999','n1000',
+                       'ghgrp']
 
-                    lf = ld.epri_lf.set_index(
-                        'naics_match'
-                        ).xs(naics)['load_factor'].mean()
+        type_epa = [p for p in itertools.product(
+            self.usepa_lf.NAICS12.unique(), large_sizes
+            )]
 
-                lf = pd.concat(
-                    [pd.Series(np.array(range(1,13), ndmin=1)),
-                     pd.Series(np.repeat(lf, 12))], axis=1
+        # Select EPA load factors for large facilities and if NAICS is in
+        # EPA data.
+        if (naics, emp_size) in type_epa:
+
+            lf = self.usepa_lf.set_index(['NAICS12']).xs(naics)[
+                ['month', 'HEAT_INPUT_MMBtu']
+                ]
+
+            lf.reset_index(drop=True, inplace=True)
+
+            # Check if there are 12 months of data. If not, fill with
+            # average.
+            if len(lf) < 12:
+
+                lf = pd.concat([lf, pd.Series(np.array(range(1,13)))],
+                               axis=1)
+
+                lf.month.update(lf[0])
+
+                lf.fillna(lf.HEAT_INPUT_MMBtu.mean(), inplace=True)
+
+                lf.drop([0], axis=1, inplace=True)
+
+            lf.columns = ['month', 'load_factor']
+
+            ls = self.usepa_ls[self.usepa_ls.NAICS12 == naics]
+
+        else:
+
+            try:
+                # Also drop manufacturing average (SIC == 33)
+                lf = self.epri_lf[self.epri_lf.SIC != 33].set_index(
+                    'NAICS12'
+                    ).xs(naics)['load_factor'].mean()
+
+                ls = self.epri_ls[self.epri_ls.NAICS12 == naics]
+
+            # If NAICS is not in EPRI data, match at a higher aggregation.
+            # Selected load factor is average of the higher aggregation
+            # NAICS.
+            except KeyError:
+
+                print('no intial NAICS match')
+
+                load_naics_matching = pd.concat(
+                    [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1
                     )
 
-                lf.columns = ['month','load_factor']
+                load_naics_matching.columns = ['NAICS12', 'naics_match']
 
-            return lf
+                while naics not in load_naics_matching.naics_match.unique():
 
-        def select_peak_loads(load_shape, naics):
-            """
-            From selected EPRI or EPA load shape, return the peak load by
-            day type (weekday, Saturday, and Sunday).
-            """
+                    naics = str(naics)
 
-            peak_loads = {}
+                    naics = int(naics[0:len(naics)-1])
 
-            naics_ls = load_shape[load_shape.NAICS12 == naics].groupby(
-                'daytype'
-                ).load.max()
+                    load_naics_matching.naics_match.update(
+                        load_naics_matching.naics_match.apply(
+                            lambda x: int(str(x)[0:len(str(x))-1])
+                            )
+                        )
 
+                # Map naics_match from epri_lf to epri_ls
+                ls = self.epri_ls.set_index('NAICS12').join(
+                    load_naics_matching.set_index('NAICS12')
+                    ).reset_index()
 
+                lf = self.epri_lf.set_index('NAICS12').join(
+                    load_naics_matching.set_index('NAICS12')
+                    ).reset_index()
 
+                # Also drop manufacturing average (SIC == 33)
+                lf = lf[(lf.naics_match == naics) & (lf.SIC != 33)]
 
+                lf = lf['load_factor'].mean()
 
+                ls = ls[ls.naics_match == naics]
 
+            ls = ls.groupby(
+                ['hour', 'daytype'], as_index=False
+                ).load.mean()
 
+            lf = pd.concat(
+                [pd.Series(np.array(range(1,13), ndmin=1)),
+                 pd.Series(np.repeat(lf, 12))], axis=1
+                )
 
-            return peak_load, min_load
+            lf.columns = ['month','load_factor']
+
+        peak_loads = self.select_min_max_loads(ls, 'max')
+
+        min_loads = self.select_min_max_loads(ls, 'min')
+
+        return lf, peak_loads, min_loads

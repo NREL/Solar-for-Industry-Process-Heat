@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import os
 import classify_load_shape
+import load_interpolation
+import compile_load_data
 
 
 class load_curve:
@@ -107,20 +109,24 @@ class load_curve:
             return amd_dd
 
         # Import EPA AMD heat load data.
-        self.amd_data = pd.read_parquet(
-            '../calculation_data/epa_amd_data_formatted_20190923',
-            engine='pyarrow'
-            )
+        # self.amd_data = pd.read_parquet(
+        #     '../calculation_data/epa_amd_data_formatted_20190923',
+        #     engine='pyarrow'
+        #     )
+        #
+        # self.amd_data = match_qpc_naics(self.amd_data, self.swh)
+        #
+        # self.class_ls = classify_load_shape.classification(self.amd_data)
 
-        self.amd_data = match_qpc_naics(self.amd_data, self.swh)
-
-        self.class_ls = classify_load_shape.classification(self.amd_data)
-
-    def calc_load_shape(self, naics, emp_size, energy='heat'):
+    def calc_load_shape(self, naics, emp_size, hours='qpc', energy='heat'):
         """
         Calculate hourly load shape (represented as a fraction of daily
         energy use) by month and day of week (Monday==0) based on
         NAICS code and employment size class.
+
+        The default value for hours is 'qpc', the values reported by the Census
+        Quarterly Survey of Plant Capacity Utilization. Otherwise, a list of
+        weekly average production hours by quarter should be specified.
         """
 
         # Match input naics to closest NAICS from QPC
@@ -175,6 +181,20 @@ class load_curve:
         except KeyError:
 
             pass
+
+        # Use default production hour values, unless specified otherwise.
+        if hours != 'qpc':
+            # capture standard error of high and low estimates for weekly hours
+            se = swh_emp_size[
+                ['Weekly_op_hours_high','Weekly_op_hours_low']
+                ].divide(swh_emp_size['Weekly_op_hours'], axis=0)
+
+            swh_emp_size.loc[:, 'Weekly_op_hours'] = np.repeat(hours, 3)
+
+            swh_emp_size.update(
+                se.multiply(swh_emp_size.Weekly_op_hours, axis=0)
+                )
+
 
         op_schedule = pd.DataFrame()
 

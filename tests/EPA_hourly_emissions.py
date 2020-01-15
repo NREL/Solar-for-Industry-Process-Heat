@@ -485,20 +485,23 @@ class EPA_AMD:
 
         peak_load = amd_dd.groupby(
             ['ORISPL_CODE','PRIMARY_NAICS_CODE','Unit Type','UNIT_ID',
-             'year','month'], as_index=False
+             'year','month']
              ).HEAT_INPUT_MMBtu.max()
 
         hourly_load_shape = pd.merge(
-            amd_dd, peak_load,
-            on=['ORISPL_CODE','PRIMARY_NAICS_CODE','Unit Type','UNIT_ID',
-                'year','month'], how='left', suffixes=('_obs', '_peak')
-             )
+            amd_dd.set_index(['ORISPL_CODE','PRIMARY_NAICS_CODE','Unit Type',
+                              'UNIT_ID','year','month']), peak_load,
+            left_index=True, right_index=True, how='left',
+            suffixes=('_obs', '_peak')
+            )
 
         hourly_load_shape.HEAT_INPUT_MMBtu_obs.update(
             hourly_load_shape.HEAT_INPUT_MMBtu_obs.divide(
                 hourly_load_shape.HEAT_INPUT_MMBtu_peak
                 )
             )
+
+        hourly_load_shape.reset_index(inplace=True)
 
         # Drop entries with NaN NAICS codes
         hourly_load_shape = hourly_load_shape.dropna(
