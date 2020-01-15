@@ -22,6 +22,8 @@ class LoadData:
 
         self.epri_load_shapes = 'epri_load_shapes.csv'
 
+        self.usepa_load_shapes = ''
+
         def import_data(self):
 
             """
@@ -129,7 +131,12 @@ class LoadData:
 
         self.epri_lf, self.usepa_lf, self.epri_ls = import_data(self)
 
-        def select_data_source(self, naics, emp_size):
+        @staticmethod
+        def match_naics(data, naics):
+
+            return
+
+        def select_load_factor(self, naics, emp_size):
             """
             Choose load characteristics from eith EPA or EPRI data based
             on NAICS code and employment size class.
@@ -195,6 +202,9 @@ class LoadData:
                                 )
                             )
 
+                    # Map naics_match from epri_lf to epri_ls
+                    ld.epri_ls['naics_match'] =
+
                     lf = ld.epri_lf.set_index(
                         'naics_match'
                         ).xs(naics)['load_factor'].mean()
@@ -207,3 +217,24 @@ class LoadData:
                 lf.columns = ['month','load_factor']
 
             return lf
+
+        def select_peak_loads(load_shape, naics):
+            """
+            From selected EPRI or EPA load shape, return the peak load by
+            day type (weekday, Saturday, and Sunday).
+            """
+
+            peak_loads = {}
+
+            naics_ls = load_shape[load_shape.NAICS12 == naics].groupby(
+                'daytype'
+                ).load.max()
+
+
+
+
+
+
+
+
+            return peak_load, min_load

@@ -116,7 +116,7 @@ class load_curve:
 
         self.class_ls = classify_load_shape.classification(self.amd_data)
 
-    def calc_load_shape(self, naics, emp_size):
+    def calc_load_shape(self, naics, emp_size, energy='heat'):
         """
         Calculate hourly load shape (represented as a fraction of daily
         energy use) by month and day of week (Monday==0) based on
