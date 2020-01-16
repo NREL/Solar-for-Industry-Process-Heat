@@ -167,13 +167,13 @@ class LoadData:
 
         group_cols = ['month', 'daytype']
 
-        df_level = [0,1,2]
+        df_level = [0,1]
 
         if 'month' not in ls.columns:
 
             group_cols.remove('month')
 
-            df_level = [0,1]
+            df_level = [0]
 
         if min_or_max == 'max':
 
@@ -182,6 +182,29 @@ class LoadData:
         else:
 
             loads = ls.groupby(group_cols, as_index=False).load.min()
+
+        # Check to make sure monthly load shape data has all 12 months.
+        # If not, fill with average by daytype.
+        if (len(df_level)==2) & (len(loads)<36):
+
+            new_index = pd.DataFrame(index=
+                [np.repeat(range(1,13),3),
+                 np.tile(['saturday', 'sunday', 'weekday'],12)]
+                )
+
+            loads.set_index(['month', 'daytype'], inplace=True)
+
+            loads = loads.reindex(index=new_index.index)
+
+            loads.index.names = ['month', 'daytype']
+
+            loads.reset_index('month', inplace=True)
+
+            loads.update(loads.load.mean(level=0))
+
+            loads.reset_index(inplace=True)
+
+            loads.set_index(['month', 'daytype'], inplace=True)
 
         loads['hour'] = np.nan
 
@@ -304,6 +327,8 @@ class LoadData:
                 )
 
             lf.columns = ['month','load_factor']
+
+        print('load shape columns', ls.columns)
 
         peak_min_loads = pd.concat(
             [self.select_min_peak_loads(ls, l) for l in ['min', 'max']],

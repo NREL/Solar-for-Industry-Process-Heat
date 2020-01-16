@@ -66,49 +66,49 @@ class load_curve:
 
         self.load_data = compile_load_data.LoadData()
 
-        def match_qpc_naics(amd_dd, qpc_data):
-            """
-            Match NAICS used in EPA AMD data to NAICS used in QPC survey.
-            """
-            amd_naics = pd.DataFrame(
-                amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
-                columns=['PRIMARY_NAICS_CODE']
-                )
-
-            qpc_naics = qpc_data.NAICS.astype(str).values
-
-            def make_match(naics, qpc_naics):
-
-                n = 6
-
-                matched = str(naics) in qpc_naics
-
-                while (matched == False) & (n>0):
-
-                    n = n-1
-
-                    naics = str(naics)[0:n]
-
-                    matched = naics in qpc_naics
-
-                try:
-
-                    naics = int(naics)
-
-                except ValueError:
-
-                    naics = np.nan
-
-                return naics
-
-            amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
-                lambda x: make_match(x, qpc_naics)
-                )
-
-            amd_dd = pd.merge(amd_dd.reset_index(), amd_naics, how='left',
-                              on='PRIMARY_NAICS_CODE')
-
-            return amd_dd
+        # def match_qpc_naics(amd_dd, qpc_data):
+        #     """
+        #     Match NAICS used in EPA AMD data to NAICS used in QPC survey.
+        #     """
+        #     amd_naics = pd.DataFrame(
+        #         amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
+        #         columns=['PRIMARY_NAICS_CODE']
+        #         )
+        #
+        #     qpc_naics = qpc_data.NAICS.astype(str).values
+        #
+        #     def make_match(naics, qpc_naics):
+        #
+        #         n = 6
+        #
+        #         matched = str(naics) in qpc_naics
+        #
+        #         while (matched == False) & (n>0):
+        #
+        #             n = n-1
+        #
+        #             naics = str(naics)[0:n]
+        #
+        #             matched = naics in qpc_naics
+        #
+        #         try:
+        #
+        #             naics = int(naics)
+        #
+        #         except ValueError:
+        #
+        #             naics = np.nan
+        #
+        #         return naics
+        #
+        #     amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
+        #         lambda x: make_match(x, qpc_naics)
+        #         )
+        #
+        #     amd_dd = pd.merge(amd_dd.reset_index(), amd_naics, how='left',
+        #                       on='PRIMARY_NAICS_CODE')
+        #
+        #     return amd_dd
 
         # Import EPA AMD heat load data.
         # self.amd_data = pd.read_parquet(
@@ -120,6 +120,32 @@ class load_curve:
         #
         # self.class_ls = classify_load_shape.classification(self.amd_data)
 
+
+    def match_qpc_naics(self, naics, qpc_naics):
+
+        n = 6
+
+        matched = str(naics) in qpc_naics
+
+        while (matched == False) & (n>0):
+
+            n = n-1
+
+            naics = str(naics)[0:n]
+
+            matched = naics in qpc_naics
+
+        try:
+
+            naics = int(naics)
+
+        except ValueError:
+
+            naics = np.nan
+
+        return int(naics)
+
+
     def calc_load_shape(self, naics, emp_size, hours='qpc', energy='heat'):
         """
         Calculate hourly load shape (represented as a fraction of daily
@@ -128,35 +154,17 @@ class load_curve:
 
         The default value for hours is 'qpc', the values reported by the Census
         Quarterly Survey of Plant Capacity Utilization. Otherwise, a list of
-        weekly average production hours by quarter should be specified.
+        weekly average production hours by quarter should be specified,
+        e.g., [40, 40, 42, 40].
         """
+
+        # Keep track of original NAICS code
+        naics_og = naics
 
         # Match input naics to closest NAICS from QPC
         qpc_naics = self.swh.NAICS.unique().astype(str)
 
-        def make_match(naics, qpc_naics):
-
-            n = 6
-
-            matched = str(naics) in qpc_naics
-
-            while matched == False:
-
-                n = n-1
-
-                try:
-
-                    naics = str(naics)[0:n]
-
-                    matched = naics in qpc_naics
-
-                except IndexError:
-
-                    return np.nan
-
-            return int(naics)
-
-        naics = make_match(naics, qpc_naics)
+        naics = self.match_qpc_naics(naics, qpc_naics)
 
         # If no matching NAICS use average for all manufacturing sector
         if np.isnan(naics):
@@ -168,7 +176,6 @@ class load_curve:
         swh_emp_size.reset_index(inplace=True, drop=True)
 
         try:
-
             # Scale weekly hours based on employment size class
             # Not all 3-digit NAICS are represented, though.
             swh_emp_size.update(
@@ -196,7 +203,6 @@ class load_curve:
             swh_emp_size.update(
                 se.multiply(swh_emp_size.Weekly_op_hours, axis=0)
                 )
-
 
         op_schedule = pd.DataFrame()
 
@@ -257,13 +263,13 @@ class load_curve:
 
                 unpacked.rename(columns={'operating': col}, inplace=True)
 
-                unpacked = unpacked.set_index(['dayofweek', 'hour']).join(
-                    self.class_ls.fill_schedule(unpacked)
-                    )
+                # unpacked = unpacked.set_index(['dayofweek', 'hour']).join(
+                #     self.class_ls.fill_schedule(unpacked)
+                #     )
+                #
+                # unpacked.drop(col, axis=1, inplace=True)
 
-                unpacked.drop(col, axis=1, inplace=True)
-
-                unpacked.reset_index(inplace=True)
+                unpacked.reset_index(inplace=True, drop=True)
 
                 unpacked.set_index(['month', 'dayofweek', 'hour'],
                                    inplace=True)
@@ -283,11 +289,14 @@ class load_curve:
 
         # Estimate peak and minimum loads based on NAICS and employment
         # size class
-        base_load_shape, min_peak_loads = self.load_data.
+        load_factor, min_peak_loads = \
+            self.load_data.select_load_data(naics_og, emp_size)
+
+        print(load_factor, min_peak_loads)
 
         # Create final load shape by interpolating between min and peak loads
         # using operating schedule.
-        op_schedule = interpolate_load(op_schedule, peak_load, turndown)
+        # op_schedule = interpolate_load(op_schedule, peak_load, turndown)
 
         return op_schedule
 
