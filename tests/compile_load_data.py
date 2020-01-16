@@ -214,10 +214,22 @@ class LoadData:
 
         for i in range(0, len(loads)):
 
-            lookup = loads.iloc[i].values[0:2]
+            if len(group_cols) == 2:
 
-            loads.iloc[i, len(group_cols)] = \
-                ls.xs(lookup, level=df_level).hour[0]
+                lookup = [x for x in loads.iloc[i].name]
+
+                lookup.append(loads.iloc[i][0])
+
+                df_level = [0,1,2]
+
+            else:
+
+                lookup = loads.iloc[i].values[0:2]
+
+            try:
+
+                loads.iloc[i, len(group_cols)-1] = \
+                    ls.xs(lookup, level=df_level).hour[0]
 
         loads['type'] = min_or_max
 
