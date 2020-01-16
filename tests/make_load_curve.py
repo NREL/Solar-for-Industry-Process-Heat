@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 import classify_load_shape
-import load_interpolation
+from load_interpolation import interpolate_load
 import compile_load_data
 
 
@@ -63,6 +63,8 @@ class load_curve:
             )
 
         self.emp_size_adj.fillna(1, inplace=True)
+
+        self.load_data = compile_load_data.LoadData()
 
         def match_qpc_naics(amd_dd, qpc_data):
             """
@@ -278,6 +280,14 @@ class load_curve:
         op_schedule['NAICS'] = naics
 
         op_schedule['emp_size'] = emp_size
+
+        # Estimate peak and minimum loads based on NAICS and employment
+        # size class
+        base_load_shape, min_peak_loads = self.load_data.
+
+        # Create final load shape by interpolating between min and peak loads
+        # using operating schedule.
+        op_schedule = interpolate_load(op_schedule, peak_load, turndown)
 
         return op_schedule
 

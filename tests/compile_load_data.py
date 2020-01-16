@@ -132,6 +132,9 @@ class LoadData:
 
             epri_ls = format_epri_SIC(epri_ls, ndict)
 
+            #Need to reformat EPRI ls to starting hour == 0.
+            epri_ls.hour.update(epri_ls.hour - 1)
+
             # Remap 2007 NAICS to 2012 NAICS for EPA data.
             # Resulting column named 'NAICS12'
             usepa_lf = usepa_lf.join(ndict['N07_N12']).reset_index(drop=True)
@@ -151,7 +154,7 @@ class LoadData:
         self.epri_lf, self.usepa_lf, self.epri_ls, self.usepa_ls = \
             import_data(self)
 
-    def select_min_max_loads(self, load_shape, min_or_max):
+    def select_min_peak_loads(self, load_shape, min_or_max):
         """
         From selected EPRI or EPA load shape, return the peak load by
         day type (weekday, Saturday, and Sunday). EPA data are also
@@ -166,6 +169,12 @@ class LoadData:
 
         df_level = [0,1,2]
 
+        if 'month' not in ls.columns:
+
+            group_cols.remove('month')
+
+            df_level = [0,1]
+
         if min_or_max == 'max':
 
             loads = ls.groupby(group_cols, as_index=False).load.max()
@@ -173,12 +182,6 @@ class LoadData:
         else:
 
             loads = ls.groupby(group_cols, as_index=False).load.min()
-
-        if 'month' not in ls.columns:
-
-            group_cols.remove('month')
-
-            df_level = [0,1]
 
         loads['hour'] = np.nan
 
@@ -302,8 +305,9 @@ class LoadData:
 
             lf.columns = ['month','load_factor']
 
-        peak_loads = self.select_min_max_loads(ls, 'max')
+        peak_min_loads = pd.concat(
+            [self.select_min_peak_loads(ls, l) for l in ['min', 'max']],
+            axis=0, ignore_index=True
+            )
 
-        min_loads = self.select_min_max_loads(ls, 'min')
-
-        return lf, peak_loads, min_loads
+        return lf, peak_min_loads
