@@ -200,11 +200,11 @@ class LoadData:
 
             loads.reset_index('month', inplace=True)
 
-            loads.update(loads.load.mean(level=0))
+            loads.update(loads.load.mean(level=0), overwrite=False)
 
             loads.reset_index(inplace=True)
 
-            loads.set_index(['month', 'daytype'], inplace=True)
+            loads.set_index(['month', 'daytype', 'load'], inplace=True)
 
         loads['hour'] = np.nan
 
@@ -212,26 +212,40 @@ class LoadData:
 
         ls.set_index(group_cols, inplace=True)
 
+        df_level = [0,1,2]
+
         for i in range(0, len(loads)):
 
-            if len(group_cols) == 2:
+            if len(group_cols) > 2:
 
                 lookup = [x for x in loads.iloc[i].name]
 
-                lookup.append(loads.iloc[i][0])
+                # lookup.append(loads.iloc[i][0])
 
-                df_level = [0,1,2]
+                try:
+
+                    loads.loc[[tuple(lookup)], 'hour'] = \
+                        ls.xs(lookup, level=df_level).hour[0]
+
+                # If the peak or min load is an average, it will throw a
+                # KeyError. Use the mean hour by daytype as an alternate value.
+                except KeyError:
+
+                    mean_hour = np.round(
+                        loads.hour.mean(level=1)[lookup[1]], 0
+                        )
+
+                    loads.loc[[tuple(lookup)], 'hour'] = mean_hour
 
             else:
 
                 lookup = loads.iloc[i].values[0:2]
 
-            try:
-
-                loads.iloc[i, len(group_cols)-1] = \
-                    ls.xs(lookup, level=df_level).hour[0]
+                df_level = [0,1]
 
         loads['type'] = min_or_max
+
+        loads.reset_index(inplace=True)
 
         return loads
 
@@ -339,8 +353,6 @@ class LoadData:
                 )
 
             lf.columns = ['month','load_factor']
-
-        print('load shape columns', ls.columns)
 
         peak_min_loads = pd.concat(
             [self.select_min_peak_loads(ls, l) for l in ['min', 'max']],
