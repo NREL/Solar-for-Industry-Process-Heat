@@ -1,4 +1,5 @@
-"/c/Users/cmcmilla/Solar-for-Industry-Process-Heat/Results analysis"
+*.pyc
+/c/Users/cmcmilla/Solar-for-Industry-Process-Heat/Results analysis
 /c/Users/cmcmilla/Solar-for-Industry-Process-Heat/results
 /c/Users/cmcmilla/Solar-for-Industry-Process-Heat/GHGRP_dl
 /c/Users/cmcmilla/Solar-for-Industry-Process-Heat/__pycache__
