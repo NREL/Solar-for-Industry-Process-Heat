@@ -1,0 +1,1109 @@
+﻿,State,Organization Name,Capacity (kW),Prime Mover,Fuel Class - Primary Fuel,FIPS County,NAICS_2012
+0,2,Golden Valley Electric Association,50000,Boiler/Steam Turbine,COAL - Coal,2068,339999
+1,2,Unisea,17500,Reciprocating Engine,OIL - Distillate Fuel Oil,2016,311710
+2,2,Arctic Slope Regional Corp. / Petro Star Inc. / Copper Valley Electric,5200,Combustion Turbine,OIL - Oil,2261,32411
+3,2,Alaska Village Electric Cooperative,705,Reciprocating Engine,OIL - Oil,2282,311710
+4,2,Westward Seafoods Inc.,6600,Reciprocating Engine,OIL - Distillate Fuel Oil,2016,311710
+5,2,Alyeska Seafoods Inc.,5900,Reciprocating Engine,OIL - Distillate Fuel Oil,2016,311710
+6,2,Andeavor,18400,Combustion Turbine,NG - Natural Gas,2180,32411
+7,2,"Agrium, Inc.",12500,Combustion Turbine,NG - Natural Gas,2122,32512
+8,1,Georgia-Pacific,101400,Boiler/Steam Turbine,WASTE - Black Liquor,1053,32213
+9,1,Industrial Facility,750,Backpressure Steam Turbine,WASTE - Waste,1103,335991
+10,1,Westervelt Renewable Energy,10000,Boiler/Steam Turbine,BIOMASS - Biomass,1065,322121
+11,1,Westervelt Renewable Energy,8200,Boiler/Steam Turbine,WOOD - Wood Waste,1065,321113
+12,1,Resolute Forest Products,30300,Boiler/Steam Turbine,WASTE - Black Liquor,1121,322299
+13,1,WestRock,29700,Boiler/Steam Turbine,BIOMASS - Biomass,1091,32213
+14,1,Boise White Paper,17300,Boiler/Steam Turbine,NG - Natural Gas,NaN,322121
+15,1,Calpine - Morgan Energy Center,809000,Combined Cycle,NG - Natural Gas,1103,32411
+16,1,Capital Power - Decatur Energy Center,805000,Combined Cycle,NG - Natural Gas,1103,325220
+17,1,WestRock,31500,Boiler/Steam Turbine,WASTE - Black Liquor,1091,32211
+18,1,LS Power,245000,Combined Cycle,NG - Natural Gas,1097,322121
+19,1,Alabama Power Co.,273870,Combined Cycle,NG - Natural Gas,1097,325998
+20,1,Alabama Power Co.,97000,Boiler/Steam Turbine,NG - Natural Gas,1085,325211
+21,1,American Midstream,40000,Combustion Turbine,NG - Natural Gas,1097,32411
+22,1,WestRock,112500,Boiler/Steam Turbine,WOOD - Wood Waste,1113,322121
+23,1,Alabama Byproducts Company (ABC),3800,Boiler/Steam Turbine,WASTE - Waste Gas,1073,324199
+24,1,"Boise, Inc.",18000,Boiler/Steam Turbine,NG - Natural Gas,NaN,322121
+25,1,General Electric,760,Backpressure Steam Turbine,WASTE - Steam,1085,325
+26,1,Scotch Lumber Company,2500,Boiler/Steam Turbine,WOOD - Wood,1025,321113
+27,1,International Paper Company,80000,Combined Cycle,NG - Natural Gas,1047,322121
+28,1,Naheola Cogeneration LP / Georgia Pacific,78300,Boiler/Steam Turbine,WASTE - Black Liquor,1023,322121
+29,1,Georgia Pacific,69000,Boiler/Steam Turbine,WASTE - Black Liquor,1099,322121
+30,1,Mobile Energy Services,43600,Boiler/Steam Turbine,NG - Natural Gas,1097,322121
+31,1,International Paper Company,72900,Boiler/Steam Turbine,WOOD - Wood Waste,1111,322121
+32,1,International Paper Company,85500,Boiler/Steam Turbine,WASTE - Black Liquor,1001,322121
+33,1,Georgia-Pacific,48000,Boiler/Steam Turbine,WASTE - Black Liquor,1099,322121
+34,1,Seminole Coal Resources,25000,Boiler/Steam Turbine,NG - Natural Gas,1073,325180
+35,1,Alabama Power Co / Goodyear Tire & Rubber Co,130000,Boiler/Steam Turbine,COAL - Coal,1055,325212
+36,1,M.C. Dixon Lumber Company Inc.,1960,Boiler/Steam Turbine,WOOD - Wood Waste,1005,321113
+37,5,Calpine / Evergreen Packaging,216000,Combined Cycle,NG - Natural Gas,5069,322121
+38,5,Quincy Soybean / Archer Daniels Midland Company,5200,Combustion Turbine,NG - Natural Gas,5107,311224
+39,5,Caddo River Forest Products,9500,Boiler/Steam Turbine,WOOD - Wood Waste,5109,321113
+40,5,Martin Resource Management / Cross Oil Refining & Marketing,3500,Reciprocating Engine,NG - Natural Gas,NaN,32411
+41,5,Riceland Foods Inc.,18000,Boiler/Steam Turbine,NG - Natural Gas,5001,311224
+42,5,West Fraser,7500,Boiler/Steam Turbine,WOOD - Wood,5053,321113
+43,5,Domtar Corporation,156500,Boiler/Steam Turbine,WASTE - Black Liquor,5081,322121
+44,5,Potlatch Corporation,15000,Boiler/Steam Turbine,WOOD - Wood Waste,5011,321113
+45,5,Georgia-Pacific Corporation / Koch Industries,92000,Boiler/Steam Turbine,WASTE - Black Liquor,5003,32211
+46,5,Clearwater Paper Corporation,20000,Boiler/Steam Turbine,WASTE - Black Liquor,5041,322121
+47,5,Evergreen Packaging,85000,Boiler/Steam Turbine,WASTE - Black Liquor,5069,322299
+48,4,Horizon Power Systems,70,Microturbine,NG - Natural Gas,0,339999
+49,4,Yuma Cogeneration Associates,56500,Combined Cycle,NG - Natural Gas,4027,313110
+50,6,California Ammonia Company,560,Reciprocating Engine,NG - Natural Gas,NaN,325130
+51,6,Pacific Ethanol,3500,Combustion Turbine,WASTE - Waste Gas,NaN,325199
+52,6,Sierra Nevada Brewing Co.,2000,Fuel Cell,NG - Natural Gas,6007,31212
+53,6,Bear Republic Brewing Company / Cambrian Innovation,95,Microturbine,BIOMASS - Digester Gas,6097,31212
+54,6,Golden Road Brewing,200,Microturbine,NG - Natural Gas,6037,31212
+55,6,Cakebread Cellars,130,Microturbine,NG - Natural Gas,6055,31213
+56,6,Brewery,95,Microturbine,NG - Natural Gas,6097,31212
+57,6,Pixley Biogas / GFP Ethanol,5000,Combustion Turbine,NG - Natural Gas,NaN,325193
+58,6,Vegetable Processing Plant,633,Reciprocating Engine,NG - Natural Gas,6083,311999
+59,6,Techni-Cast Corp.,2487,Reciprocating Engine,NG - Natural Gas,6037,331314
+61,6,Sierra Pacific Industries Inc.,30200,Boiler/Steam Turbine,WOOD - Wood Waste,6089,321113
+62,6,Capstone Turbine Corporation Breitburn,850,Microturbine,NG - Natural Gas,6037,339999
+63,6,Twisted Manzanita Brewery,30,Reciprocating Engine,NG - Natural Gas,6073,31212
+64,6,CA SGIP Site,5534,Reciprocating Engine,NG - Natural Gas,NaN,311514
+65,6,Pharmaceutical Manufacturer,2000,Microturbine,NG - Natural Gas,6067,325412
+66,6,CP-Kelco / Monsanto Life Sicences,26950,Combustion Turbine,NG - Natural Gas,6073,325180
+67,6,Southland Energy Great Western Malting Company,750,Reciprocating Engine,NG - Natural Gas,6001,311213
+68,6,Stockton Biomass,45000,Boiler/Steam Turbine,BIOMASS - Biomass,NaN,321113
+71,6,Chevron USA. Inc.,171600,Combined Cycle,NG - Natural Gas,6037,32411
+72,6,Elk Grove Milling,1000,Reciprocating Engine,NG - Natural Gas,6067,311119
+73,6,Frito Lay Inc. / International Power,2000,Combustion Turbine,NG - Natural Gas,6029,311919
+74,6,Misc. Manufacturing,330,Microturbine,NG - Natural Gas,6059,339999
+75,6,Shoreline Landfill and Mountainview,3040,Reciprocating Engine,BIOMASS - Biomass,6085,325
+76,6,Capstone California Oils,600,Microturbine,NG - Natural Gas,6013,311
+77,6,PackageOne,70,Microturbine,BIOMASS - Biomass,6067,339999
+78,6,Bonneville Pacific Corporation,3800,Reciprocating Engine,NG - Natural Gas,6073,335
+79,6,Dynamis Inc. / Algonquin Power Sanger,54500,Combined Cycle,NG - Natural Gas,6019,311119
+80,6,Cogenra Solar,241,Other,OTR - Other,6097,31213
+81,6,Chevron Energy Solutions,140,Reciprocating Engine,NG - Natural Gas,0,311
+82,6,Roche Pharmaceuticals,400,Fuel Cell,NG - Natural Gas,6081,325412
+83,6,Roseburg Forest Products,10000,Boiler/Steam Turbine,BIOMASS - Biomass,6093,321113
+84,6,Cogenra Solar Cogeneration System (may not meet FERC CHP definition),272,Other,OTR - Other,6097,31213
+85,6,Woodbridge Winery,170,Reciprocating Engine,BIOMASS - Biomass,6077,31213
+86,6,Nestle Purina,999,Reciprocating Engine,NG - Natural Gas,6029,31111
+87,6,Staples Distribution,300,Fuel Cell,NG - Natural Gas,6037,339999
+88,6,Calgren Renewable Fuels,5800,Combustion Turbine,NG - Natural Gas,NaN,325199
+89,6,Food Processing Facility,660,Reciprocating Engine,NG - Natural Gas,6059,312
+90,6,Nong Shim Foods Inc.,1600,Reciprocating Engine,NG - Natural Gas,6071,311824
+91,6,Food Processing,60,Microturbine,NG - Natural Gas,6037,311
+92,6,Food Processing,170,Reciprocating Engine,NG - Natural Gas,6037,311
+93,6,Food Processor,180,Microturbine,NG - Natural Gas,6037,311
+94,6,Del Monte Foods,715,Backpressure Steam Turbine,WASTE - Steam,6099,31142
+95,6,FDS Manufacturing,390,Microturbine,NG - Natural Gas,6037,339999
+96,6,Heinz Frozen Food,1000,Reciprocating Engine,NG - Natural Gas,6073,311
+97,6,Electronics Manufacturer,80,Microturbine,NG - Natural Gas,6085,335
+98,6,The J.M. Smucker Company,190,Microturbine,NG - Natural Gas,6007,311411
+99,6,AE Biofuels,4055,Backpressure Steam Turbine,WASTE - Waste Heat,6099,325193
+100,6,West Newport Oil Company,70,Microturbine,NG - Natural Gas,6059,32411
+101,6,Southern California Gas Company,1000,Reciprocating Engine,NG - Natural Gas,6037,335
+102,6,TST Inc.,620,Fuel Cell,NG - Natural Gas,6071,331314
+103,6,Industrial Facility,180,Microturbine,NG - Natural Gas,6037,325
+104,6,Manufacturing Facility,70,Reciprocating Engine,NG - Natural Gas,6073,331314
+105,6,Entrev Leasing,120,Microturbine,NG - Natural Gas,6059,331
+106,6,O'Brien California Cogen Ltd.,4500,Combustion Turbine,NG - Natural Gas,6037,311511
+107,6,Sierra Pine,4500,Combustion Turbine,NG - Natural Gas,6005,32213
+108,6,Qycell Corporation,270,Reciprocating Engine,NG - Natural Gas,6037,339999
+109,6,Sierra Pacific Industries Inc.,17000,Boiler/Steam Turbine,WOOD - Wood Waste,6061,321113
+110,6,Manufacturer - Long Beach,30,Microturbine,NG - Natural Gas,6037,339999
+111,6,Star Milling Company / Cogentech,600,Reciprocating Engine,NG - Natural Gas,6065,311119
+112,6,Roche Molecular Systems,385,Reciprocating Engine,NG - Natural Gas,6001,325
+113,6,Iris USA / Cogentech,1500,Reciprocating Engine,NG - Natural Gas,NaN,321113
+114,6,Northern Power Systems,1000,Reciprocating Engine,NG - Natural Gas,6055,312111
+115,6,Cytec Engineered Materials,500,Other,NG - Natural Gas,6059,325520
+116,6,Adams Specialty Oils / Cogentech,450,Reciprocating Engine,NG - Natural Gas,NaN,311225
+117,6,Nestle Waters North America,4000,Reciprocating Engine,NG - Natural Gas,6065,312112
+118,6,Langers Juice / Cogentech,900,Reciprocating Engine,NG - Natural Gas,6037,312111
+119,6,City of Nashua,240,Microturbine,NG - Natural Gas,6037,332813
+120,6,Medsep Corp,1000,Reciprocating Engine,NG - Natural Gas,6037,331314
+121,6,Wawona Frozen Foods,4400,Reciprocating Engine,NG - Natural Gas,0,311411
+122,6,Wilden Pump,1750,Reciprocating Engine,NG - Natural Gas,6071,339999
+123,6,Pharmaceutical Manufacturer,120,Microturbine,NG - Natural Gas,6059,325412
+124,6,Ready Pac Produce,3200,Boiler/Steam Turbine,OTR - Other,6037,311421
+125,6,Encorp Inc,1350,Reciprocating Engine,NG - Natural Gas,6077,311
+126,6,DTE Energy Technologies,1250,Reciprocating Engine,NG - Natural Gas,6037,325211
+127,6,Western Milling,1250,Reciprocating Engine,NG - Natural Gas,6029,311221
+128,6,Manufacturer - Pasadena,120,Microturbine,NG - Natural Gas,6037,339999
+129,6,Ghirardelli Chocolates,1320,Reciprocating Engine,NG - Natural Gas,6075,31133
+130,6,San Luis Obispo Oil Field / Plains Exploration & Production,1400,Combustion Turbine,WASTE - Waste Gas,6079,32411
+131,6,Kern Oil and Refining,5000,Combustion Turbine,NG - Natural Gas,6029,32411
+132,6,Valero Energy Corp.,51000,Combustion Turbine,WASTE - Waste Gas,6095,32411
+133,6,Kimberly Clark,13400,Combustion Turbine,NG - Natural Gas,6059,322121
+134,6,Miller Brewing Company,12500,Combustion Turbine,NG - Natural Gas,6037,31212
+135,6,Pacific Clay Products Inc.,1000,Reciprocating Engine,NG - Natural Gas,6065,327331
+136,6,Mission Plastics,1000,Reciprocating Engine,NG - Natural Gas,6037,325211
+137,6,Alon Israel Oil Company / Paramount Petroleum Corp.,7500,Combustion Turbine,NG - Natural Gas,6037,32411
+138,6,Aquamar,390,Reciprocating Engine,NG - Natural Gas,6071,311710
+139,6,BD Biosciences,300,Reciprocating Engine,NG - Natural Gas,6073,325412
+140,6,Calpine - Los Medanos Energy Center LLC,598000,Combined Cycle,NG - Natural Gas,6013,331110
+141,6,Coast Intelligen Inc.,300,Reciprocating Engine,NG - Natural Gas,6037,313
+142,6,Sierra Pacific Industries Inc.,27500,Boiler/Steam Turbine,WOOD - Wood Waste,6063,321113
+143,6,Organic Milling Co./Coast Intelligen,300,Reciprocating Engine,NG - Natural Gas,6037,311211
+144,6,Morning Star Company,2900,Backpressure Steam Turbine,WASTE - Steam,6011,311423
+145,6,Siemens Power Corporation,149400,Combined Cycle,NG - Natural Gas,6067,311
+146,6,Air Products & Chemicals Inc.,31900,Boiler/Steam Turbine,WASTE - Waste,6037,325120
+147,6,International Power Technology,1350,Reciprocating Engine,NG - Natural Gas,6005,327331
+148,6,McGraw Inc.,6100,Combustion Turbine,NG - Natural Gas,6059,325412
+149,6,Cotija Cheese,120,Reciprocating Engine,OTR - Other,6037,311514
+150,6,Royal Dutch / Shell,100000,Combined Cycle,NG - Natural Gas,6013,32411
+151,6,Quaker City Plating & Silver Smith Inc,30,Reciprocating Engine,NG - Natural Gas,6037,332813
+152,6,Collins Pine Company,12000,Boiler/Steam Turbine,WOOD - Wood Waste,6063,321113
+153,6,Train Johnson Power Development Inc.,120,Reciprocating Engine,NG - Natural Gas,6059,332813
+154,6,Train Johnson Power Development Inc.,200,Reciprocating Engine,NG - Natural Gas,6037,332813
+155,6,Chevron USA. Inc.,99000,Combustion Turbine,NG - Natural Gas,6013,32411
+156,6,Pacific Energy Corporation,300,Reciprocating Engine,NG - Natural Gas,6059,332813
+157,6,Metal Surfaces Inc.,350,Reciprocating Engine,NG - Natural Gas,6037,332813
+158,6,Microgas Corporation,65,Reciprocating Engine,NG - Natural Gas,6037,311
+159,6,"Crockett Cogeneration, LP",260000,Combined Cycle,NG - Natural Gas,NaN,311314
+160,6,Simplot Cogen,4067,Other Waste Heat to Power*,WASTE - Waste,6077,32532
+161,6,Train Johnson Power Development Inc.,60,Reciprocating Engine,NG - Natural Gas,6037,331
+162,6,BP West Product LLC Wilmington Calciner (ARCO) / Atlantic Richfield Company,34000,Boiler/Steam Turbine,WASTE - Petroleum Coke,6037,324199
+163,6,Train Johnson Power Development Inc.,400,Reciprocating Engine,NG - Natural Gas,6059,332813
+164,6,KES Kingsburg LP,36000,Combined Cycle,NG - Natural Gas,6019,311423
+165,6,Vanguard Energy Systems,1050,Reciprocating Engine,NG - Natural Gas,6037,31411
+166,6,Shell / Texaco Inc. / Equilon / Andeavor,83000,Combined Cycle,WASTE - Waste Gas,6037,32411
+167,6,JRW Associates Ltd Partnership,9100,Reciprocating Engine,NG - Natural Gas,6047,311999
+168,6,J.R. Wood Cogeneration,8500,Reciprocating Engine,NG - Natural Gas,6047,311411
+169,6,Carson Cogeneration/Western Energy Engineering,50400,Combined Cycle,NG - Natural Gas,6037,312113
+170,6,HF Enterprises,160,Reciprocating Engine,NG - Natural Gas,6001,331
+171,6,Helm Concentrates Inc.,891,Boiler/Steam Turbine,NG - Natural Gas,6019,311421
+172,6,"E.F. Oxnard, Inc.",49000,Combustion Turbine,NG - Natural Gas,NaN,311
+173,6,Thermal Energy Development LP,23000,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,6077,311
+174,6,Yuba City Cogeneration Project,49000,Combustion Turbine,NG - Natural Gas,6101,311423
+175,6,Shell Oil / Equilon,4800,Combustion Turbine,NG - Natural Gas,6029,32411
+176,6,Big Valley Lumber Company,31500,Boiler/Steam Turbine,WOOD - Wood,6089,321113
+177,6,"Pacific Clay Products Inc. / Ces Energy, Ltd",550,Reciprocating Engine,NG - Natural Gas,6065,327331
+178,6,"Pacific Clay Products Inc. / Ces Energy, Ltd",400,Reciprocating Engine,NG - Natural Gas,NaN,327331
+179,6,Omni Metal Finishing,60,Reciprocating Engine,NG - Natural Gas,6059,331511
+180,6,Procter & Gamble Co,68700,Combustion Turbine,NG - Natural Gas,NaN,322121
+181,6,The Pictsweet Co.,9000,Combustion Turbine,NG - Natural Gas,6083,311411
+182,6,ExxonMobil Corp,41800,Combined Cycle,NG - Natural Gas,6037,32411
+183,6,Greenleaf Unit One Associates LP,50000,Combined Cycle,NG - Natural Gas,6101,321113
+184,6,Greenleaf Unit Two Associates LP,49500,Combustion Turbine,NG - Natural Gas,6101,311423
+185,6,BP Amoco / Watson Cogen Co. / Mission Energy,405000,Combined Cycle,NG - Natural Gas,6037,32411
+186,6,Onsite Energy Inc.,230,Reciprocating Engine,NG - Natural Gas,6037,311812
+187,6,Sterling Energy Systems Inc.,744,Reciprocating Engine,NG - Natural Gas,6037,311513
+188,6,Ridgewood Power Management Corporation,100,Reciprocating Engine,NG - Natural Gas,6037,332813
+189,6,Calpine - Gilroy Energy Company,135000,Combined Cycle,NG - Natural Gas,6085,311423
+190,6,Sterling Energy Systems Inc.,1075,Reciprocating Engine,NG - Natural Gas,6069,333
+191,6,American Tool and Engineering Corporation,650,Reciprocating Engine,NG - Natural Gas,6037,332216
+192,6,Thompson Plating,52,Reciprocating Engine,NG - Natural Gas,6037,332813
+193,6,Simpson Paper Company / Ripon Cogeneration Incorporated,49500,Combustion Turbine,NG - Natural Gas,6077,322121
+194,6,Corona Cogen,47000,Combustion Turbine,NG - Natural Gas,6019,311513
+195,6,Train Johnson Power Development Inc.,100,Reciprocating Engine,NG - Natural Gas,6037,332813
+196,6,Train Johnson Power Development Inc.,60,Reciprocating Engine,NG - Natural Gas,6037,332813
+197,6,Eel River Power,28000,Boiler/Steam Turbine,WOOD - Wood Waste,6023,321113
+198,6,GWF Power Systems Company Inc,49300,Combustion Turbine,WASTE - Waste Heat,6037,339999
+199,6,ConocoPhillips,48000,Combustion Turbine,WASTE - Waste Gas,6037,32411
+200,6,Praxair Linde,28000,Combined Cycle,NG - Natural Gas,6037,32512
+201,6,Sobel N.V.,180,Reciprocating Engine,NG - Natural Gas,6037,311999
+202,6,Andeavor (Foster Wheeler Martinez / Phillips 66),103500,Combined Cycle,WASTE - Waste Gas,6013,32411
+203,6,Transamerican Plastics Corporation,342,Reciprocating Engine,NG - Natural Gas,6037,325211
+204,6,ConocoPhillips,51000,Combustion Turbine,WASTE - Waste Gas,6013,32411
+205,6,Phillips 66,49850,Boiler/Steam Turbine,WASTE - Petroleum Coke,6013,325180
+206,6,American Tool & Engineering Corporation,230,Reciprocating Engine,NG - Natural Gas,6073,339999
+207,6,Lajet Energy Company,1900,Reciprocating Engine,OIL - Oil,6073,325998
+208,6,Quaker City Plating & Silver Smith Inc,100,Reciprocating Engine,NG - Natural Gas,6037,332813
+209,6,Sierra Pacific Industries Inc.,20000,Boiler/Steam Turbine,WOOD - Wood Waste,6089,321113
+210,6,O'Brien Energy Systems Inc.,3200,Reciprocating Engine,NG - Natural Gas,6065,339999
+211,6,New-Indy Containerboard,25000,Combustion Turbine,NG - Natural Gas,NaN,322211
+212,6,Ripon Cogeneration,36000,Combustion Turbine,NG - Natural Gas,6037,322121
+213,6,Land O'Lakes Inc.,1500,Reciprocating Engine,NG - Natural Gas,6107,311512
+214,6,Auberry Energy Inc. /Yanke,7500,Boiler/Steam Turbine,WOOD - Wood,6019,321113
+215,6,Tricor Refining LLC,40000,Combustion Turbine,NG - Natural Gas,6029,32411
+216,6,Koch California Ltd,295,Reciprocating Engine,NG - Natural Gas,6079,339999
+217,6,New-Indy Containerboard (Kraft and Schwarz Partners),36000,Combustion Turbine,NG - Natural Gas,6037,32213
+218,6,General Dynamics,2400,Combustion Turbine,NG - Natural Gas,6073,336611
+219,6,California Cedar Products,840,Boiler/Steam Turbine,WOOD - Wood,NaN,321113
+220,6,Grass Valley Group,900,Reciprocating Engine,OIL - Oil,6057,335228
+221,6,Sierra Pacific Industries Inc.,7500,Boiler/Steam Turbine,WOOD - Wood Waste,6109,321113
+222,6,Solvay / Eco-Services Operations LLC,4000,Backpressure Steam Turbine,WASTE - Waste Heat,6013,325412
+223,6,Rhodia Inc. / Rhone Poulenc Chemical Company,5000,Boiler/Steam Turbine,NG - Natural Gas,6037,325180
+224,6,Satellite Center,9600,Combustion Turbine,NG - Natural Gas,6085,339999
+225,6,Spreckels Sugar Company,8900,Boiler/Steam Turbine,NG - Natural Gas,6025,311313
+226,8,Leprino Foods,480,Reciprocating Engine,BIOMASS - Digester Gas,8123,311513
+227,8,Williams Companies / Harvest Midstream,6200,Boiler/Steam Turbine,WASTE - Waste Heat,8067,32411
+229,8,Yuma Ethanol,2000,Backpressure Steam Turbine,WASTE - Waste Heat,8125,325193
+230,8,Sterling Ethanol LLC,1000,Backpressure Steam Turbine,WASTE - Waste Heat,8075,325193
+231,8,New Belgium Brewing Company,760,Reciprocating Engine,BIOMASS - Digester Gas,8069,31212
+232,8,National Energy Systems Inc.,9600,Combustion Turbine,NG - Natural Gas,8037,32742
+233,8,Suez Energy North America - Colorado Golden Energy Corporation,20000,Boiler/Steam Turbine,NG - Natural Gas,8059,31212
+234,8,Western Sugar,3000,Boiler/Steam Turbine,COAL - Coal,8087,311314
+235,9,Pfizer / FuelCell Energy,5600,Fuel Cell,NG - Natural Gas,9011,325412
+236,9,Amgraph Packaging,400,Fuel Cell,NG - Natural Gas,NaN,323111
+237,9,Pepperidge Farm,2900,Fuel Cell,NG - Natural Gas,9003,311812
+238,9,Carla's Pasta,300,Fuel Cell,NG - Natural Gas,9011,311824
+239,9,Algonquin Power Cogen Plant Reconfiguration Hamilton Sundstrand Windsor Locks Facility,71000,Combined Cycle,NG - Natural Gas,9003,322121
+240,9,Coca-Cola Bottling Company,800,Fuel Cell,NG - Natural Gas,9003,312111
+241,9,Sikorsky Aircraft,10700,Combustion Turbine,NG - Natural Gas,9001,336411
+242,9,ASML,2055,Reciprocating Engine,NG - Natural Gas,9001,339999
+243,9,Dunn Paper Inc.,2920,Combustion Turbine,NG - Natural Gas,9003,339999
+244,9,Pfizer Inc.,40000,Boiler/Steam Turbine,NG - Natural Gas,9011,325411
+245,9,Frito Lay,4500,Combustion Turbine,NG - Natural Gas,9015,311919
+246,9,Honest Buildings / Medtronic,2000,Reciprocating Engine,NG - Natural Gas,9009,339113
+247,9,Flanagan Industries,831,Combustion Turbine,NG - Natural Gas,9003,335
+248,9,Rand Whitney,14250,Combustion Turbine,NG - Natural Gas,9011,32213
+249,9,Honest Buildings / Medtronic,3000,Reciprocating Engine,NG - Natural Gas,9009,339119
+250,9,Kimberly Clark,35168,Combustion Turbine,NG - Natural Gas,9005,322121
+251,9,Kohler Mix Specialties,848,Reciprocating Engine,NG - Natural Gas,9003,31152
+252,9,Component Technologies,325,Reciprocating Engine,NG - Natural Gas,9003,332322
+253,9,Medtronic,4797,Combustion Turbine,NG - Natural Gas,9009,325414
+254,9,Latex International,1500,Combustion Turbine,NG - Natural Gas,0,326
+255,9,Nu Way Tobacco Company,375,Reciprocating Engine,NG - Natural Gas,9003,312230
+256,9,Taylor & Fenn,2800,Combustion Turbine,NG - Natural Gas,9003,331511
+257,9,Chromally,1066,Combustion Turbine,NG - Natural Gas,9003,335
+258,9,United Technologies,7520,Combustion Turbine,NG - Natural Gas,9007,336412
+259,9,Sargent Manufacturing,535,Reciprocating Engine,NG - Natural Gas,9009,332999
+260,9,Sheffield Pharmaceuticals,754,Reciprocating Engine,NG - Natural Gas,9011,325
+261,9,United Technologies,28260,Combustion Turbine,NG - Natural Gas,9003,333618
+262,9,Tallon Lumber,350,Reciprocating Engine,WOOD - Wood,9005,321113
+263,9,Bristol-Myers Squibb Company Inc,4700,Combustion Turbine,NG - Natural Gas,9009,325412
+264,9,Texas-Ohio Power Inc.,1850,Reciprocating Engine,NG - Natural Gas,9003,339999
+265,9,Yankee Gas,35,Reciprocating Engine,NG - Natural Gas,9009,332813
+266,9,UTC Aerospace Systems,500,Reciprocating Engine,OIL - Oil,9003,339999
+267,9,AES Thames Inc.,181000,Boiler/Steam Turbine,COAL - Coal,9011,322121
+268,9,Fermont Division - Dynamics Corporation,440,Reciprocating Engine,OIL - Oil,9001,339999
+269,9,Dresser Industries,825,Reciprocating Engine,NG - Natural Gas,9001,334512
+270,9,Swift & Sons Inc,130,Boiler/Steam Turbine,NG - Natural Gas,9003,332119
+271,9,Simkins Industries,3000,Boiler/Steam Turbine,NG - Natural Gas,9009,32213
+272,10,Dogfish Head,500,Reciprocating Engine,NG - Natural Gas,10005,31212
+273,10,Cummins Power Generation / Croda Manufacturing,2200,Combustion Turbine,BIOMASS - Landfill Gas,10003,325998
+274,10,Motiva Enterprises LLC / Star Enterprise,258000,Combined Cycle,WASTE - Waste Gas,10003,32411
+275,12,Haskell Company,8722,Reciprocating Engine,NG - Natural Gas,12105,322121
+276,12,PepsiCo Tropicana Products,1600,Reciprocating Engine,BIOMASS - Landfill Gas,12111,311411
+277,12,Rayonier Inc.,42000,Boiler/Steam Turbine,WOOD - Wood Waste,12089,322299
+278,12,Ineos New Planet Bioenergy,6000,Reciprocating Engine,BIOMASS - Biomass,12061,325199
+279,12,Georgia-Pacific,44010,Boiler/Steam Turbine,WASTE - Black Liquor,12123,32211
+280,12,United States Sugar Corporation,49000,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,12051,311314
+281,12,Okeelanta Power LP,128900,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,12099,311314
+282,12,WestRock,36500,Boiler/Steam Turbine,OTR - Other,12005,32213
+283,12,Calpine - Santa Rosa,250000,Combined Cycle,NG - Natural Gas,12113,325220
+284,12,Citrus World / Florida Growers,10700,Combustion Turbine,NG - Natural Gas,12105,311411
+285,12,Air Products & Chemicals Inc.,15600,Combustion Turbine,NG - Natural Gas,12113,325130
+286,12,Gulf Power,15000,Combustion Turbine,NG - Natural Gas,12113,325211
+287,12,Orange Cogeneration L.P.,110000,Combined Cycle,NG - Natural Gas,12105,311411
+288,12,Cogentrix/ Indiantown Cogeneration LP,330000,Boiler/Steam Turbine,COAL - Coal,12085,311411
+289,12,Mulberry Energy/Polk Power Partners,122000,Combined Cycle,NG - Natural Gas,12105,32512
+290,12,Ascend Performance Materials,86000,Boiler/Steam Turbine,NG - Natural Gas,12033,325130
+291,12,Orlando Cogen Ltd LP,122400,Combustion Turbine,NG - Natural Gas,12095,32512
+292,12,Georgia-Pacific Corporation,79800,Boiler/Steam Turbine,WASTE - Black Liquor,12107,32211
+293,12,Tropicana Products Inc.,45100,Combustion Turbine,BIOMASS - Landfill Gas,12081,311411
+294,12,Siemens Healthcare Diagnostics,810,Reciprocating Engine,OIL - Oil,12086,339113
+295,12,Mosaic Company / IMC Agrico Co,13281,Steam Rankine Cycle,WASTE - Waste Heat,12105,325998
+296,12,Mosaic Company,40000,Boiler/Steam Turbine,OTR - Other,12057,325312
+297,12,Florida Crushed Stone Company,125000,Boiler/Steam Turbine,COAL - Coal,12053,32732
+298,12,WestRock,80000,Boiler/Steam Turbine,COAL - Coal,12089,322121
+299,12,Mosaic Company / Cargill,77900,Steam Rankine Cycle,WASTE - Waste Heat,12031,325998
+300,12,Anheuser-Busch,8600,Combustion Turbine,NG - Natural Gas,NaN,31212
+301,12,Mosaic Company / Cargill Inc.,81900,Steam Rankine Cycle,WASTE - Waste,12105,325998
+302,12,Nitram Inc.,2000,Boiler/Steam Turbine,NG - Natural Gas,12057,325998
+303,12,Mosaic,88000,Steam Rankine Cycle,WASTE - Waste Heat,12105,325998
+304,12,Mosaic Co.,32000,Boiler/Steam Turbine,OTR - Other,12105,325312
+305,12,International Paper Co,82800,Boiler/Steam Turbine,WASTE - Black Liquor,12033,322121
+306,12,Potash Corp White Springs Agricultural Chemicals,21000,Boiler/Steam Turbine,OTR - Other,12077,325180
+307,12,Mosaic Company / Agrico Chemical Company,10000,Steam Rankine Cycle,WASTE - Waste,12105,32532
+308,12,Pasco Beverage Co,1500,Boiler/Steam Turbine,NG - Natural Gas,12101,312111
+309,12,WestRock,34000,Boiler/Steam Turbine,WASTE - Black Liquor,12005,32213
+310,13,Constellation / Albany Green Energy,50000,Boiler/Steam Turbine,WOOD - Wood Waste,13095,322121
+311,13,Weyerhaeuser Company,77100,Boiler/Steam Turbine,WASTE - Black Liquor,13193,32211
+312,13,Graphic Packaging,72900,Boiler/Steam Turbine,WASTE - Black Liquor,13021,322121
+313,13,Mas Energy LLC / Coca-Cola,6500,Reciprocating Engine,BIOMASS - Landfill Gas,13121,312111
+314,13,Pratt Industries,9300,Boiler/Steam Turbine,BIOMASS - Biomass,13247,322121
+315,13,United Development Group,20000,Boiler/Steam Turbine,WOOD - Wood Waste,13241,321113
+316,13,Ethicon / Johnson & Johnson,500,Microturbine,NG - Natural Gas,13137,325412
+317,13,SP Fiber Technologies,45625,Boiler/Steam Turbine,COAL - Coal,13175,322121
+318,13,Kamin LLC Wrens Plant,6000,Combustion Turbine,NG - Natural Gas,13163,327992
+319,13,Georgia-Pacific Corporation,81200,Boiler/Steam Turbine,WASTE - Black Liquor,13127,32211
+320,13,Weyerhaeuser Co,46500,Boiler/Steam Turbine,WASTE - Black Liquor,13051,322121
+321,13,International Paper Company,154000,Boiler/Steam Turbine,COAL - Coal,13051,322121
+322,13,Mid-Georgia Cogen L.P.,300000,Combined Cycle,NG - Natural Gas,13289,311919
+323,13,Spartan Mills,2000,Other,OTR - Other,13251,313
+324,13,Perdue Farms,288,Backpressure Steam Turbine,WASTE - Steam,13207,311615
+325,13,International Paper,70400,Boiler/Steam Turbine,BIOMASS - Biomass,13115,322121
+326,13,Georgia-Pacific Corporation,140000,Boiler/Steam Turbine,COAL - Coal,13103,322121
+327,13,Savannah Foods&Industrial Inc.,11700,Boiler/Steam Turbine,COAL - Coal,13051,311314
+328,13,Rayonier Inc.,69500,Boiler/Steam Turbine,WASTE - Black Liquor,13305,322299
+329,13,Domtar Gypsum,1600,Combustion Turbine,NG - Natural Gas,13051,32742
+330,13,Greensboro Lumber Company,7500,Boiler/Steam Turbine,WOOD - Wood,NaN,321113
+331,13,Miller Brewing Company,5500,Boiler/Steam Turbine,COAL - Coal,13095,31212
+332,13,Georgia-Pacific Corporation,101200,Boiler/Steam Turbine,WASTE - Black Liquor,13099,322121
+333,13,Interstate Paper Company,14500,Boiler/Steam Turbine,NG - Natural Gas,13179,32213
+334,13,International Paper Company,84700,Boiler/Steam Turbine,BIOMASS - Biomass,13245,322121
+335,13,Georgia-Pacific,15000,Boiler/Steam Turbine,WOOD - Wood,13185,322121
+336,15,Cogenra,60,Other,OTR - Other,15009,31212
+337,15,Island Energy,12200,Combustion Turbine,WASTE - Waste Gas,15003,32411
+338,15,AES Hawaii,180000,Boiler/Steam Turbine,COAL - Coal,15003,32411
+339,15,Kalaeloa Partners LP,220000,Combined Cycle,OIL - Residual Fuel Oil,15003,32411
+340,15,Andeavor,20000,Combustion Turbine,OIL - Oil,15003,32411
+341,19,Archer Daniels Midland Company,294500,Boiler/Steam Turbine,COAL - Coal,19113,311221
+342,19,Archer Daniels Midland Company,180000,Boiler/Steam Turbine,COAL - Coal,19045,311221
+343,19,Southwest Iowa Renewable Energy LLC / MidAmerica,14200,Boiler/Steam Turbine,COAL - Coal,19155,325199
+344,19,Kendrick Forest Products,50,Backpressure Steam Turbine,WASTE - Steam,19043,32111
+345,19,POET Biorefining,7520,Combustion Turbine,NG - Natural Gas,19143,325193
+346,19,Roquette America,50000,Combustion Turbine,NG - Natural Gas,19111,311
+347,19,Jacobs Energy Corporation,3500,Boiler/Steam Turbine,WOOD - Wood,19163,321
+348,19,Bertch Cabinet Manufacturing,279,Backpressure Steam Turbine,WASTE - Steam,19013,33711
+349,19,John Deere Corporation,14000,Boiler/Steam Turbine,NG - Natural Gas,19013,33312
+350,19,Archer Daniels Midland Company,7900,Boiler/Steam Turbine,COAL - Coal,19153,311221
+351,19,Oscar Mayer Foods Corporation,3880,Boiler/Steam Turbine,COAL - Coal,19163,311611
+352,19,Cargill Inc.,40000,Boiler/Steam Turbine,COAL - Coal,19179,311221
+353,16,Stimson Lumber,6500,Boiler/Steam Turbine,WOOD - Wood,16009,321113
+354,16,Glenns Ferry Cogeneration Partners Ltd.,10400,Combustion Turbine,NG - Natural Gas,16039,311423
+355,16,Amalgamated Sugar Company,10200,Boiler/Steam Turbine,COAL - Coal,16083,311314
+356,16,Potlatch Corporation,113800,Boiler/Steam Turbine,WASTE - Black Liquor,16069,322121
+357,16,Simplot Leasing Corp,15900,Steam Rankine Cycle,WASTE - Waste,16005,325998
+358,16,Tamarack Energy Partnership Yanke,6200,Boiler/Steam Turbine,WOOD - Wood Waste,NaN,321113
+359,16,Amalgamated Sugar Company,8200,Boiler/Steam Turbine,COAL - Coal,16027,311314
+360,16,Amalgamated Sugar Company,5500,Boiler/Steam Turbine,COAL - Coal,16067,311313
+361,17,Pacific Ethanol,8000,Boiler/Steam Turbine,NG - Natural Gas,17179,32411
+362,17,Manufacturing Plant,10,Reciprocating Engine,NG - Natural Gas,17031,339999
+363,17,CHS Inc.,3000,Backpressure Steam Turbine,WASTE - Waste,17141,325193
+364,17,US Steel / Gateway Energy and Coke,78000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,17119,331110
+365,17,C & F Packing,2250,Reciprocating Engine,NG - Natural Gas,17097,311611
+366,17,Adkins Energy LLC,5000,Combustion Turbine,NG - Natural Gas,17177,325193
+367,17,Illinois Tool Works,5750,Reciprocating Engine,NG - Natural Gas,17031,333514
+368,17,Trigen-Cinergy Solutions LLC,18000,Boiler/Steam Turbine,COAL - Coal,17041,325130
+369,17,Archer Daniels Midland Company,335000,Boiler/Steam Turbine,COAL - Coal,17115,311221
+370,17,Calpine - NRG (Morris) Cogen Llc / Diamond Generation Corp,179000,Combined Cycle,NG - Natural Gas,17063,32411
+371,17,AES Corporation / CILCO,54400,Combined Cycle,NG - Natural Gas,17143,333999
+372,17,Candy Company,3500,Reciprocating Engine,NG - Natural Gas,17031,31133
+373,17,Mondelez International,4750,Combustion Turbine,NG - Natural Gas,NaN,311821
+374,17,East Balt Bakery,775,Reciprocating Engine,NG - Natural Gas,17031,311812
+375,17,Dixon Marquette Cement Inc.,14100,Reciprocating Engine,NG - Natural Gas,17031,32731
+376,17,Wells Manufacturing Co,6000,Reciprocating Engine,NG - Natural Gas,17111,333611
+377,17,Ingredion Inc.,45000,Boiler/Steam Turbine,COAL - Coal,17031,311221
+378,17,A.E. Staley Manufacturing Company / Tate & Lyle,62000,Boiler/Steam Turbine,COAL - Coal,17115,311221
+379,17,Hostess Brands,1100,Reciprocating Engine,NG - Natural Gas,17031,311812
+380,17,Archer Daniels Midland Company,36000,Combustion Turbine,NG - Natural Gas,17143,311221
+381,17,Ingersoll Milling Machine Company,4850,Reciprocating Engine,NG - Natural Gas,NaN,332
+382,17,Ingersoll Cutting Tool Company,3000,Combustion Turbine,NG - Natural Gas,NaN,331
+383,17,Chicago White Metals,760,Reciprocating Engine,NG - Natural Gas,17043,333
+384,17,"M&M Mars, Inc.",3600,Combustion Turbine,NG - Natural Gas,17031,31133
+385,17,ExxonMobil Corp,22000,Combined Cycle,WASTE - Waste,17197,32411
+386,17,John Deere Harvester Works,7900,Boiler/Steam Turbine,COAL - Coal,17161,333618
+387,17,Klein Tools Inc.,1400,Reciprocating Engine,OIL - Oil,17031,332216
+388,17,Nalco Chemical Company,4700,Combined Cycle,NG - Natural Gas,0,325
+389,17,Donald E. Hansen,12,Reciprocating Engine,NG - Natural Gas,0,331110
+390,17,Celotex Corporation,5000,Boiler/Steam Turbine,COAL - Coal,17001,32213
+391,17,Solutia Inc.,6180,Boiler/Steam Turbine,COAL - Coal,17163,325180
+392,17,Pekin Paperboard Co,1500,Boiler/Steam Turbine,NG - Natural Gas,17179,322121
+393,17,WRB Refining / Phillips 66 / Cenovus,5000,Boiler/Steam Turbine,OIL - Oil,17119,32411
+394,18,PepsiCo,3600,Reciprocating Engine,NG - Natural Gas,18097,312111
+395,18,SABIC Innovative Plastics,86500,Boiler/Steam Turbine,NG - Natural Gas,18129,326113
+396,18,ArcelorMittal / Primary Energy,90000,Heat Recovery Steam Generator/Steam Turbine,WASTE - Steam,18089,331110
+397,18,General Motors,14000,Reciprocating Engine,BIOMASS - Landfill Gas,18003,336111
+398,18,2G Energy,1200,Reciprocating Engine,BIOMASS - Digester Gas,18039,311615
+399,18,Stripco Inc / NiSource Inc.,120,Microturbine,NG - Natural Gas,18141,331110
+400,18,ArcelorMittal / Primary Energy,50000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,18089,331110
+401,18,ArcelorMittal,135000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,18089,331110
+402,18,BP Amoco Chemicals Company,660600,Combined Cycle,NG - Natural Gas,18089,32411
+403,18,Cargill Inc.,16000,Boiler/Steam Turbine,NG - Natural Gas,18089,311221
+404,18,Rolls Royce Corp,13000,Combustion Turbine,NG - Natural Gas,18097,336111
+405,18,ArcelorMittal / SunCoke Energy / Primary Energy,95000,Other Waste Heat to Power*,WASTE - Waste Heat,18089,331110
+406,18,US Steel / Primary Energy,63000,Combined Cycle,NG - Natural Gas,18127,331110
+407,18,Lakeside Energy,161000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,18089,331110
+408,18,Tate & Lyle Ingredients Americas,7400,Boiler/Steam Turbine,COAL - Coal,18157,311221
+409,18,Caterpillar Tractor Company,3500,Reciprocating Engine,OIL - Oil,18157,333618
+410,18,Alcoa Generating Corporation,800200,Boiler/Steam Turbine,COAL - Coal,18055,331314
+411,18,ArcelorMittal,177720,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,18127,331110
+412,18,Central Soya Company Inc.,2000,Boiler/Steam Turbine,COAL - Coal,18001,311224
+413,20,Industrial Facility,44742,Combustion Turbine,NG - Natural Gas,20155,339999
+414,20,Pratt Energy,5200,Combustion Turbine,NG - Natural Gas,20151,325193
+415,20,Abengoa,21000,Boiler/Steam Turbine,BIOMASS - Biomass,20189,311213
+416,20,Bonanza Bioenergy / Conestoga,4000,Backpressure Steam Turbine,WASTE - Waste Heat,20055,325199
+417,20,Conestoga Energy Partners,4000,Boiler/Steam Turbine,NG - Natural Gas,20175,325193
+418,20,Prairie-Horizon Agri-Energy LLC,1700,Boiler/Steam Turbine,NG - Natural Gas,20147,325193
+419,20,East Kansas Agri Energy,1600,Boiler/Steam Turbine,NG - Natural Gas,20003,325193
+420,20,Pratt Industries,2100,Combustion Turbine,NG - Natural Gas,20173,322219
+421,20,Frontier Oil Corporation,40000,Combustion Turbine,NG - Natural Gas,20015,32411
+422,20,Heartland Cement,4000,Boiler/Steam Turbine,WASTE - Waste Heat,20125,32731
+423,20,Klein Tools Inc.,1500,Reciprocating Engine,OIL - Distillate Fuel Oil,20001,332216
+424,20,Vulcan Materials Company,33000,Combustion Turbine,NG - Natural Gas,20173,325180
+425,20,National Beef Packing Company,10000,Reciprocating Engine,NG - Natural Gas,20175,311611
+426,20,Cargill Inc.,2500,Boiler/Steam Turbine,NG - Natural Gas,20057,325998
+427,20,Sonoco Products,1460,Boiler/Steam Turbine,NG - Natural Gas,20155,32213
+428,20,Procter & Gamble Co,2000,Boiler/Steam Turbine,NG - Natural Gas,20209,325611
+429,21,Perdue Farms,999,Reciprocating Engine,BIOMASS - Digester Gas,21183,311224
+430,21,Cox Lumber,1000,Backpressure Steam Turbine,WASTE - Steam,21217,321113
+431,21,Cox Interior Inc.,5000,Boiler/Steam Turbine,WOOD - Wood Waste,21217,321113
+432,21,Domtar / Willamette Industries Inc. / Weyerhaeuser,88000,Boiler/Steam Turbine,WASTE - Black Liquor,21091,321113
+433,21,Air Products & Chemicals Inc.,23000,Combustion Turbine,NG - Natural Gas,21157,32512
+434,21,Michelin,5000,Boiler/Steam Turbine,COAL - Coal,21111,326211
+435,21,Young Manufacturing Company,320,Backpressure Steam Turbine,WASTE - Steam,21183,339999
+436,22,Graphic Packaging International,84200,Boiler/Steam Turbine,WASTE - Black Liquor,22073,322121
+437,22,CII Carbon,36400,Boiler/Steam Turbine,WASTE - Petroleum Coke,22087,325180
+438,22,Rain CII Carbon,15000,Other Waste Heat to Power*,WASTE - Waste,22019,325180
+439,22,Harris Group / DOE / ADA Carbon Solutions,20800,Boiler/Steam Turbine,WASTE - Waste Heat,22081,325998
+440,22,Evonik Industries,5000,Combustion Turbine,NG - Natural Gas,22095,325
+441,22,LyondellBasell/Waldron Engineering & Construction,30000,Combined Cycle,NG - Natural Gas,22019,325199
+442,22,International Paper Company,78800,Boiler/Steam Turbine,WASTE - Black Liquor,22069,32213
+443,22,Georgia-Pacific Corporation,127700,Boiler/Steam Turbine,WASTE - Black Liquor,22033,322121
+444,22,Enterprise Products LP,4500,Organic Rankine Cycle,WASTE - Waste Heat,22039,32411
+445,22,Dow Chemical Co,987000,Combined Cycle,NG - Natural Gas,22047,32511
+446,22,American Sugar Refining,14000,Boiler/Steam Turbine,NG - Natural Gas,22087,311314
+447,22,LS Power - Carville Energy Center,449000,Combined Cycle,NG - Natural Gas,NaN,325199
+448,22,Air Liquide America Corp.,80000,Combustion Turbine,NG - Natural Gas,22005,325000
+449,22,Dow Chemical / Union Carbide Corporation,323600,Combined Cycle,NG - Natural Gas,22089,325180
+450,22,PPG / Entergy Corp / Axiall,446600,Combined Cycle,NG - Natural Gas,22019,325180
+451,22,Occidental Chemical Corp,895000,Combined Cycle,NG - Natural Gas,22089,32511
+452,22,Calumet Lubricants Co,3520,Combustion Turbine,NG - Natural Gas,22019,325
+453,22,Air Liquide Large Industries U.S.,83900,Combustion Turbine,NG - Natural Gas,22005,333999
+454,22,PDV America / Citgo Petroleum Corp,67000,Combustion Turbine,OIL - Oil,22019,32411
+455,22,Praxair,2915,Backpressure Steam Turbine,WASTE - Steam,22019,325
+456,22,ExxonMobil Corp / Entergy Gulf States / Ethos Energy,450900,Combined Cycle,NG - Natural Gas,22033,32411
+457,22,Chevron USA. Inc. / Oronite Co LLC,23500,Combustion Turbine,NG - Natural Gas,22075,32411
+458,22,International Paper Company,91000,Boiler/Steam Turbine,BIOMASS - Biomass,22117,32213
+459,22,Sheppard Co.,7030,Combustion Turbine,NG - Natural Gas,22053,339999
+460,22,BASF Corporation,76900,Combustion Turbine,NG - Natural Gas,22005,32512
+461,22,Georgia Gulf Corporation / Axiall,306000,Combustion Turbine,NG - Natural Gas,22047,325211
+462,22,Formosa Plastics Corporation USA,105500,Boiler/Steam Turbine,NG - Natural Gas,22033,325211
+463,22,International Paper Company,136000,Boiler/Steam Turbine,WOOD - Wood Waste,22031,322121
+464,22,Bass Enterprises,375,Reciprocating Engine,NG - Natural Gas,22095,325
+465,22,Exxon Chemical Americas/Exxon Co. USA,85300,Combustion Turbine,NG - Natural Gas,22033,32411
+466,22,ConocoPhillips,19000,Boiler/Steam Turbine,WASTE - Waste Gas,22075,32411
+467,22,Chalmette Refinery LLC,5700,Other,OTR - Other,22087,32411
+468,22,Gulf Coast Engr Mgt/Boyce Machinery,490,Reciprocating Engine,NG - Natural Gas,22051,311511
+469,22,Placid Refining Company,7600,Combustion Turbine,NG - Natural Gas,22121,32411
+470,22,Entergy Nelson Industrial Steam Company,217000,Boiler/Steam Turbine,WASTE - Petroleum Coke,22019,325
+471,22,Momentive Specialty Chemicals,67300,Combustion Turbine,NG - Natural Gas,22005,325211
+472,22,Arcadian Corporation / PCS Nitrogen,21500,Boiler/Steam Turbine,NG - Natural Gas,22005,325311
+473,22,PPG Industries Inc.,3400,Boiler/Steam Turbine,NG - Natural Gas,22019,325180
+474,22,PPG Industries Inc.,357700,Combined Cycle,NG - Natural Gas,22019,325180
+475,22,"Union Underwear Co, Inc.",460,Combustion Turbine,NG - Natural Gas,NaN,313
+476,22,Agrielectric Power Partners Ltd,12000,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,22019,311211
+477,22,Jeanerette Sugar Co Inc,2500,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,NaN,311314
+478,22,M. A. Patout & Son Ltd,3000,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,22045,311314
+479,22,Dow Chemical Co,464500,Combined Cycle,NG - Natural Gas,22047,325211
+480,22,Louisiana Sugar Refining LLC,6700,Boiler/Steam Turbine,NG - Natural Gas,22093,311314
+481,22,Kaiser Aluminum & Chemical Corp / Noranda Alumina,79700,Boiler/Steam Turbine,NG - Natural Gas,22093,331313
+482,22,RhÔøΩne-Poulenc,4000,Boiler/Steam Turbine,NG - Natural Gas,22033,325180
+483,22,WestRock,66400,Boiler/Steam Turbine,NG - Natural Gas,22049,32213
+484,22,Boise Cascade Corporation,61500,Boiler/Steam Turbine,WASTE - Black Liquor,22011,322121
+485,22,PPG Industries Inc.,127000,Boiler/Steam Turbine,NG - Natural Gas,22019,325180
+486,22,Citgo Petroleum Corp,75000,Boiler/Steam Turbine,WASTE - Waste Gas,22019,32411
+487,22,Mosaic Company,33000,Steam Rankine Cycle,WASTE - Waste,22093,325998
+488,22,Hood Container of Louisiana,12500,Boiler/Steam Turbine,WASTE - Black Liquor,22087,32213
+489,22,Union Texas Petroleum Corporation,2000,Boiler/Steam Turbine,NG - Natural Gas,22001,32411
+490,22,American Sugar Refining,1200,Boiler/Steam Turbine,NG - Natural Gas,22007,311314
+491,22,PPG Industries Inc.,10000,Boiler/Steam Turbine,NG - Natural Gas,22019,325180
+492,22,St Mary Sugar Coop Inc.,1080,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,22045,311314
+496,25,Erving Paper Mills Inc.,6000,Boiler/Steam Turbine,NG - Natural Gas,25011,322121
+497,25,IPG Photonics,1250,Reciprocating Engine,NG - Natural Gas,NaN,334
+498,25,Waldron Engineering & Construction Inc.,2000,Combustion Turbine,NG - Natural Gas,25021,325199
+499,25,AstraZeneca,1200,Reciprocating Engine,NG - Natural Gas,25017,325412
+500,25,Hollingsworth and Vose,3800,Combustion Turbine,NG - Natural Gas,25017,322121
+501,25,Ken's Foods,1200,Reciprocating Engine,BIOMASS - Digester Gas,25017,311941
+502,25,J&G Foods Inc.,148,Reciprocating Engine,NG - Natural Gas,25027,311611
+503,25,Mass Bay Brewing Company,250,Reciprocating Engine,NG - Natural Gas,25025,31212
+504,25,Crane & Company STG,224,Reciprocating Engine,NG - Natural Gas,25003,322121
+505,25,Simonds International,1800,Reciprocating Engine,NG - Natural Gas,25027,333517
+506,25,Genzyme Corporation,1200,Combustion Turbine,NG - Natural Gas,25025,325412
+507,25,Seaman Paper Company,283,Boiler/Steam Turbine,WOOD - Wood,25027,322121
+508,25,Gillette Company,12200,Boiler/Steam Turbine,NG - Natural Gas,25025,332215
+509,25,Aircogen CHP Solutions,550,Reciprocating Engine,NG - Natural Gas,25017,339112
+510,25,Iggy's Bread of the World,47,Reciprocating Engine,BIOMASS - Biomass,25017,31181
+511,25,Industrial Facility,250,Reciprocating Engine,NG - Natural Gas,NaN,325412
+512,25,UAE Lowell Power/Lowell Cogeneration Company / L'Energia,85100,Combined Cycle,NG - Natural Gas,25017,311824
+513,25,Titleist Ball Plant II,2000,Reciprocating Engine,NG - Natural Gas,25005,33992
+514,25,Newark America,6300,Boiler/Steam Turbine,NG - Natural Gas,25027,32213
+515,25,Biogen,5700,Combustion Turbine,NG - Natural Gas,25017,325412
+516,25,Pfizer / Bio Pharma / Wyeth,10000,Combustion Turbine,NG - Natural Gas,25009,325
+517,25,Trigen Energy Corp,6000,Reciprocating Engine,NG - Natural Gas,25025,31133
+518,25,Boston Land Company,60,Reciprocating Engine,NG - Natural Gas,25017,313
+519,25,Malden Mills,8400,Combustion Turbine,NG - Natural Gas,25009,313
+520,25,Central Hudson Enterprises Corporation,4850,Combustion Turbine,NG - Natural Gas,25003,325412
+521,25,Cogentrix / Masspower,267000,Combined Cycle,NG - Natural Gas,25013,325211
+522,25,Northeast Energy Associates,336000,Combined Cycle,NG - Natural Gas,NaN,32512
+523,25,Crane Paper,426,Backpressure Steam Turbine,WASTE - Steam,25003,322121
+524,25,Baldwinville Products Inc.,1000,Boiler/Steam Turbine,OIL - Oil,25027,322121
+525,25,Cogentrix/ Altresco Pittsfield LP,173000,Combined Cycle,NG - Natural Gas,25003,335311
+526,25,Minerals Technologies,4800,Reciprocating Engine,NG - Natural Gas,25003,325998
+527,25,NEES Energy,500,Reciprocating Engine,NG - Natural Gas,25027,333515
+528,25,Lowell Cogeneration Company L.P.,30000,Combined Cycle,NG - Natural Gas,25017,31321
+529,25,Riverdale Mills Corporation,1200,Reciprocating Engine,NG - Natural Gas,25027,331110
+530,25,Solutia Inc.,5700,Boiler/Steam Turbine,COAL - Coal,25013,325211
+531,25,General Electric Company,53600,Combined Cycle,OIL - Residual Fuel Oil,25009,336412
+532,25,Eastman Gelatine Corp,6100,Boiler/Steam Turbine,NG - Natural Gas,25009,325998
+533,25,Atlantic Coast Paperboard,2000,Boiler/Steam Turbine,OIL - Oil,25009,32213
+534,25,Norton Company,5600,Boiler/Steam Turbine,COAL - Coal,25027,333
+535,24,American Yeast,400,Reciprocating Engine,BIOMASS - Digester Gas,24510,311999
+536,24,Amstar Corporation/ TASR Co,17500,Boiler/Steam Turbine,NG - Natural Gas,24510,311314
+537,24,AES Wr Limited Partnership,180000,Boiler/Steam Turbine,COAL - Coal,24001,32512
+538,24,Panda Brandywine LP,230000,Boiler/Steam Turbine,NG - Natural Gas,24033,325998
+539,24,Verso Paper,65000,Boiler/Steam Turbine,COAL - Coal,24001,322121
+540,23,Athens Energy / Maine Woods Pellet Company,9000,Organic Rankine Cycle,WOOD - Wood Waste,23025,321999
+542,23,Industrial Facility,670,Boiler/Steam Turbine,BIOMASS - Biomass,NaN,321113
+543,23,Turbosteam,425,Boiler/Steam Turbine,WOOD - Wood,NaN,32113
+544,23,Huhtamaki,575,Backpressure Steam Turbine,WASTE - Steam,23011,32221
+545,23,Calpine - Androscoggin Energy LLC,163500,Combustion Turbine,NG - Natural Gas,23007,322121
+546,23,Madison Paper Industries Inc,3000,Boiler/Steam Turbine,OIL - Residual Fuel Oil,23025,322121
+547,23,Aroostook & Bangor Reload Co,1000,Boiler/Steam Turbine,WOOD - Wood Waste,23019,321113
+548,23,Sappi / S.D. Warren/Scott Paper Company,115000,Boiler/Steam Turbine,WASTE - Black Liquor,23025,322121
+549,23,Verso Paper / Rumford Cogen Company,85000,Boiler/Steam Turbine,COAL - Coal,23017,322121
+550,23,Twin Rivers Paper Co.,20000,Boiler/Steam Turbine,WASTE - Black Liquor,23003,322121
+551,23,Lavalley Lumber LLC,1500,Boiler/Steam Turbine,WOOD - Wood Waste,23031,321113
+552,23,Sappi / S.D. Warren/Scott Paper Company,62500,Boiler/Steam Turbine,WOOD - Wood Waste,23005,322121
+553,23,Robbins Lumber Inc,1250,Boiler/Steam Turbine,WOOD - Wood Waste,23027,321113
+554,23,Verso Paper,80000,Boiler/Steam Turbine,WASTE - Black Liquor,23007,322121
+555,23,Domtar / Georgia-Pacific Corporation,44500,Boiler/Steam Turbine,WASTE - Black Liquor,23003,322121
+556,23,Verso Paper / Boise Cascade Corporation,12500,Boiler/Steam Turbine,NG - Natural Gas,23017,322121
+557,26,Cargill Inc.,4200,Boiler/Steam Turbine,NG - Natural Gas,26035,311942
+558,26,Andersons Albion Ethanol LLC,10100,Combustion Turbine,NG - Natural Gas,26025,325193
+559,26,Coldwater Board of Public Utilities,13000,Reciprocating Engine,NG - Natural Gas,26023,311421
+560,26,General Motors,1800,Backpressure Steam Turbine,WASTE - Steam,26045,336111
+561,26,Dearborn Industrial Gen Inc.,760000,Combined Cycle,NG - Natural Gas,26163,336111
+562,26,CRM Inc.,450,Reciprocating Engine,NG - Natural Gas,26055,332
+563,26,Lafarge Corp,47200,Other Waste Heat to Power*,WASTE - Waste,26007,327
+564,26,Dow Chemical USA.,7030,Combustion Turbine,NG - Natural Gas,26063,325998
+565,26,Cargill,6170,Combustion Turbine,NG - Natural Gas,26133,325
+566,26,Domtar Paper,1210,Combustion Turbine,NG - Natural Gas,26077,322121
+567,26,Michigan Power L.P.,128000,Combined Cycle,NG - Natural Gas,26105,325211
+568,26,United States Gypsum / Menasha Packaging Co LLC / Otsego Paper Inc.,10600,Combustion Turbine,NG - Natural Gas,26005,32213
+569,26,Beaver Michigan Associates L.P./Atlantic Power Corp.,38000,Boiler/Steam Turbine,WOOD - Wood,26165,321113
+570,26,Graphic Packaging Corp,11800,Boiler/Steam Turbine,NG - Natural Gas,26077,322121
+571,26,Voss Industries Aka Mmc Metals,1000,Reciprocating Engine,NG - Natural Gas,26163,332
+572,26,Voss Industries Aka Mmc Metals,1000,Reciprocating Engine,NG - Natural Gas,26163,331110
+573,26,ADA Cogeneration,29400,Combined Cycle,NG - Natural Gas,26081,325611
+574,26,Ajax Metal Processing Inc./Hale Enginee,500,Reciprocating Engine,NG - Natural Gas,26163,332
+575,26,Tondu Energy Filer City Power Plant,60000,Boiler/Steam Turbine,COAL - Coal,26101,322121
+576,26,EQT Infrastructure/Fortistar,1633000,Combined Cycle,NG - Natural Gas,26111,325199
+577,26,Michigan Sugar Company,1500,Boiler/Steam Turbine,COAL - Coal,26063,311313
+578,26,Pfizer,3200,Combustion Turbine,NG - Natural Gas,26161,325412
+579,26,Allied Finishing Inc.,800,Reciprocating Engine,NG - Natural Gas,26081,332
+580,26,Viking Energy of Lincoln,18000,Boiler/Steam Turbine,WOOD - Wood,26001,311
+581,26,Powertrain Warren GMC,4000,Combustion Turbine,NG - Natural Gas,26099,336111
+582,26,Marquette Fabricators Inc.,175,Boiler/Steam Turbine,WOOD - Wood,26081,321
+583,26,Parkdale Pharmaceutical Inc.,2800,Combustion Turbine,NG - Natural Gas,26125,325412
+584,26,All-Wood Inc.,150,Reciprocating Engine,BIOMASS - Biomass,26013,321113
+585,26,Dunn Paper / SECO Energy,15000,Combustion Turbine,NG - Natural Gas,26147,32213
+586,26,Verso Paper,28000,Boiler/Steam Turbine,BIOMASS - Biomass,26043,322121
+587,26,Verso,100000,Boiler/Steam Turbine,WASTE - Black Liquor,26041,322121
+588,26,Dow Corning Corporation,22400,Boiler/Steam Turbine,WOOD - Wood,26111,325199
+589,26,Herman Miller Inc.,500,Boiler/Steam Turbine,WOOD - Wood,26139,311999
+590,26,Domtar Industries Inc.,7000,Boiler/Steam Turbine,COAL - Coal,26147,322121
+591,26,General Foods Corporation,9000,Boiler/Steam Turbine,NG - Natural Gas,26025,31123
+592,26,Louisiana Pacific Co / Decorative Panels International,6200,Boiler/Steam Turbine,COAL - Coal,26007,321113
+593,26,Morton Salt Company,5000,Boiler/Steam Turbine,COAL - Coal,26101,325998
+594,26,Waldorf Corporation,2500,Boiler/Steam Turbine,NG - Natural Gas,26025,32213
+595,26,Michigan Sugar Company,1300,Boiler/Steam Turbine,NG - Natural Gas,26151,311313
+596,26,Neenah Paper,6200,Boiler/Steam Turbine,COAL - Coal,26003,322121
+597,26,WestRock,7000,Boiler/Steam Turbine,NG - Natural Gas,26005,32213
+598,27,Boise Cascade Corporation,58500,Boiler/Steam Turbine,WASTE - Black Liquor,27071,322121
+599,27,Koda Energy LLC,19700,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,27139,311213
+600,27,WestRock,12000,Boiler/Steam Turbine,NG - Natural Gas,27137,32213
+601,27,Central Minnesota Ethanol Cooperative,2000,Boiler/Steam Turbine,WOOD - Wood,27097,325193
+602,27,POET Biorefining,7024,Reciprocating Engine,OIL - Distillate Fuel Oil,27013,32512
+603,27,Sappi Fine Papers,55000,Boiler/Steam Turbine,WASTE - Black Liquor,27017,322121
+604,27,Center Point Energy,60,Microturbine,NG - Natural Gas,27037,339999
+605,27,"Cogentrix/ LSP Cottage Grove, LP",251000,Combined Cycle,NG - Natural Gas,NaN,32552
+606,27,CenterPoint Energy,1250,Combustion Turbine,NG - Natural Gas,27079,339999
+607,27,Ainsworth Lumber Co.,11000,Boiler/Steam Turbine,WOOD - Wood Waste,27007,322121
+608,27,American Crystal Sugar Co,7500,Boiler/Steam Turbine,COAL - Coal,27119,311313
+609,27,Archer Daniels Midland Company,6150,Boiler/Steam Turbine,COAL - Coal,27013,311224
+610,27,Verso,10600,Boiler/Steam Turbine,WOOD - Wood Waste,27137,32222
+611,27,Blandin Paper Company,28600,Boiler/Steam Turbine,WOOD - Wood Waste,27061,322121
+612,27,Xcel Energy - Sherburne County,100000,Boiler/Steam Turbine,COAL - Coal,27005,322121
+613,27,Southern Minnesota Beet Sugar Cooperative,7500,Boiler/Steam Turbine,COAL - Coal,27109,311314
+614,27,American Crystal Sugar Co,6500,Boiler/Steam Turbine,COAL - Coal,27119,311314
+615,27,American Crystal Sugar Co,5000,Boiler/Steam Turbine,COAL - Coal,27027,311313
+616,27,Brainerd Industrial Center,600,Boiler/Steam Turbine,COAL - Coal,27035,322121
+617,29,Missouri Joint Municipal Electric Utility Commission / POET Biorefining,15000,Combustion Turbine,NG - Natural Gas,29007,325193
+618,29,POET Biorefining / Northeast Missouri Grain LLC / City of Macon,10000,Combustion Turbine,NG - Natural Gas,29121,325193
+619,29,Smith Flooring Inc.,500,Boiler/Steam Turbine,WOOD - Wood,29091,321918
+620,29,La-Z-Boy Chair Company Inc.,750,Boiler/Steam Turbine,WOOD - Wood,29145,337112
+621,29,Anheuser-Busch,26100,Boiler/Steam Turbine,NG - Natural Gas,NaN,31212
+622,28,Georgia-Pacific,7200,Combustion Turbine,NG - Natural Gas,28129,321212
+624,28,Calgon Carbon,732,Backpressure Steam Turbine,WASTE - Steam,28045,335991
+625,28,Riverwood Products Inc.,300,Boiler/Steam Turbine,WOOD - Wood,28081,337112
+626,28,Mississippi Power,170500,Combustion Turbine,NG - Natural Gas,28059,32411
+627,28,"Ergon Refining, Inc.",4720,Combustion Turbine,NG - Natural Gas,NaN,32411
+628,28,Weyerhaeuser Company,122600,Boiler/Steam Turbine,WASTE - Black Liquor,28087,322
+629,28,Comet Agri Systems,5000,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,28151,311212
+630,28,Eupora Woodworking,700,Boiler/Steam Turbine,WOOD - Wood,28155,337112
+631,28,Georgia-Pacific Corporation,50000,Boiler/Steam Turbine,WASTE - Black Liquor,28111,32211
+632,28,CF Industries,20000,Combustion Turbine,NG - Natural Gas,28163,325311
+633,28,Chevron USA. Inc.,6000,Boiler/Steam Turbine,WASTE - Waste Heat,28059,32411
+634,28,Georgia-Pacific Corporation,60000,Boiler/Steam Turbine,WASTE - Black Liquor,28077,322121
+635,28,International Paper Company,50500,Boiler/Steam Turbine,BIOMASS - Biomass,NaN,322121
+636,30,F.H. Stoltze Land and Lumber,2800,Boiler/Steam Turbine,WOOD - Wood Waste,30029,321113
+637,30,ExxonMobil Corporation / Billings Generation Inc,55000,Boiler/Steam Turbine,WASTE - Petroleum Coke,30111,32411
+638,30,Young Electric Sign Company,200,Reciprocating Engine,NG - Natural Gas,30049,33995
+639,30,Sidney Sugars Factory,4000,Boiler/Steam Turbine,COAL - Coal,30083,311313
+640,37,Prestage AgEnergy,1760,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,37163,311119
+641,37,Wellons Energy Solutions,7200,Boiler/Steam Turbine,OIL - Oil,37157,31212
+642,37,Sierra Nevada Brewing,400,Microturbine,BIOMASS - Digester Gas,37089,31212
+643,37,Weyerhaeuser Company,38100,Boiler/Steam Turbine,WASTE - Black Liquor,37049,32211
+644,37,Kapstone Paper and Packaging Corporation,28100,Boiler/Steam Turbine,COAL - Coal,37083,322121
+645,37,Pfizer Pharmaceuticals,250,Boiler/Steam Turbine,BIOMASS - Biomass,37105,325413
+646,37,Wellons-Perdue Biomass Facility,495,Boiler/Steam Turbine,BIOMASS - Biomass,37091,311224
+647,37,Master WoodCraft Inc,231,Backpressure Steam Turbine,WASTE - Steam,NaN,33712
+648,37,Ingenco,4200,Reciprocating Engine,BIOMASS - Landfill Gas,37049,333
+649,37,Minges Bottling,300,Reciprocating Engine,OIL - Diesel,37147,312111
+650,37,The Cheesecake Factory,1600,Reciprocating Engine,OIL - Diesel,37047,311813
+651,37,Sara Lee Corporation,5300,Combined Cycle,OIL - Diesel,37065,311812
+652,37,Novartis International,2000,Reciprocating Engine,OIL - Diesel,37195,325412
+653,37,Smithfield Packing - Kinston Division,3600,Reciprocating Engine,OIL - Distillate Fuel Oil,37107,311611
+654,37,Smithfield Packaging,2600,Reciprocating Engine,OIL - Distillate Fuel Oil,37195,311611
+655,37,Smithfield Packing Co,28500,Reciprocating Engine,OIL - Distillate Fuel Oil,37017,311611
+656,37,Enerdyne Ii/Dte Biomass Energy Systems,4500,Combustion Turbine,BIOMASS - Digester Gas,37067,313310
+657,37,Perdue Farms,5000,Combined Cycle,NG - Natural Gas,37091,311211
+658,37,West Pharmaceutical Services,1200,Reciprocating Engine,OIL - Distillate Fuel Oil,37107,325411
+659,37,Archer Daniels Midland Company,52500,Combustion Turbine,NG - Natural Gas,37019,311
+660,37,DSM Pharmaceuticals,3500,Combustion Turbine,OIL - Distillate Fuel Oil,37147,325412
+661,37,Ingedion Inc.,8400,Boiler/Steam Turbine,WOOD - Wood Waste,37067,311221
+662,37,Mid-South Cogeneration Inc.,4500,Boiler/Steam Turbine,WOOD - Wood,37111,321
+663,37,FMC Lithium,5500,Boiler/Steam Turbine,COAL - Coal,37071,325180
+664,37,Craven County Wood Energy LP,47000,Boiler/Steam Turbine,WOOD - Wood Waste,37049,32512
+665,37,Panda Energy/Panda-Rosemary,180000,Combined Cycle,NG - Natural Gas,37083,31321
+666,37,Edgecombe Genco,115600,Boiler/Steam Turbine,COAL - Coal,37047,325411
+667,37,Cogentrix/ Roxboro Cogeneration Plant,52000,Boiler/Steam Turbine,COAL - Coal,NaN,31321
+668,37,Cogentrix/ Southport Cogeneration Plant,115000,Boiler/Steam Turbine,COAL - Coal,37019,325412
+669,37,Coastal Carolina Clean Power,27000,Boiler/Steam Turbine,COAL - Coal,37061,313310
+670,37,Cogentrix of North Carolina Inc.,35000,Boiler/Steam Turbine,COAL - Coal,37155,315190
+671,37,PCS Phosphate,51900,Boiler/Steam Turbine,OTR - Other,37013,325180
+672,37,Evergreen Packaging,52500,Boiler/Steam Turbine,COAL - Coal,37087,322121
+673,37,Domtar Paper Company,114000,Boiler/Steam Turbine,WOOD - Wood Waste,37187,322121
+674,37,International Paper Company / Riegel,48300,Boiler/Steam Turbine,BIOMASS - Biomass,37047,322121
+675,38,Great River Energy Spiritwood Station,99000,Boiler/Steam Turbine,COAL - Coal,38093,311213
+676,38,Great River Energy,6500,Boiler/Steam Turbine,COAL - Coal,38055,325193
+677,38,American Crystal Sugar Co.,13300,Boiler/Steam Turbine,COAL - Coal,38097,311314
+678,38,Archer Daniels Midland Company,10200,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,38073,311
+679,38,American Crystal Sugar Co.,6000,Boiler/Steam Turbine,COAL - Coal,38067,311314
+680,38,Andeavor,7500,Boiler/Steam Turbine,WASTE - Waste Gas,38059,32411
+681,31,Archer Daniels Midland Company,70000,Boiler/Steam Turbine,COAL - Coal,31141,325199
+682,31,Bridgeport Ethanol,2000,Backpressure Steam Turbine,WASTE - Waste Heat,31123,325199
+683,31,Western Sugar Co,1500,Boiler/Steam Turbine,NG - Natural Gas,31123,311314
+684,31,Archer Daniels Midland Company,7900,Boiler/Steam Turbine,COAL - Coal,31109,311224
+685,31,Original Equipment Corporation,30,Reciprocating Engine,NG - Natural Gas,31157,336
+686,33,LaValley-Middleton Building Supply/Wood Products,600,Boiler/Steam Turbine,WOOD - Wood Waste,NaN,321999
+687,33,Foss Manufacturing Co. of New Hampshire,8100,Combustion Turbine,OIL - Distillate Fuel Oil,33015,31323
+688,33,Velcro USA Inc,8600,Combustion Turbine,NG - Natural Gas,33011,313220
+689,33,TE Subcom Middleton Supply,600,Combustion Turbine,NG - Natural Gas,33015,335929
+690,34,Industrial Facility,10,Reciprocating Engine,NG - Natural Gas,NaN,339999
+691,34,Merck & Company Inc.,15950,Boiler/Steam Turbine,NG - Natural Gas,34039,325412
+692,34,Manufacturing Facility,720,Reciprocating Engine,NG - Natural Gas,34023,339999
+693,34,Kellogg Company,750,Fuel Cell,NG - Natural Gas,34001,311813
+694,34,Industrial Facility,440,Fuel Cell,NG - Natural Gas,34039,339999
+695,34,Astor Chocolate / BluePoint Energy,525,Reciprocating Engine,NG - Natural Gas,34029,31133
+696,34,Sonic Development Inc.,75,Reciprocating Engine,NG - Natural Gas,34027,335931
+697,34,Bristol-Myers Squibb,4000,Reciprocating Engine,NG - Natural Gas,34021,325412
+698,34,DSM Nutritional Products,9520,Combustion Turbine,NG - Natural Gas,34041,311514
+699,34,National Gypsum,3400,Combustion Turbine,NG - Natural Gas,34005,322121
+700,34,Capstone Viking Yacht,390,Microturbine,NG - Natural Gas,34005,339999
+701,34,Anheuser Busch,7650,Combined Cycle,NG - Natural Gas,34013,31212
+702,34,Carlyle Group / Janssen Pharmaceuticals,3000,Combustion Turbine,NG - Natural Gas,34035,325412
+704,34,Infineum USA,275,Backpressure Steam Turbine,WASTE - Waste,34039,32411
+705,34,Pharmaceutical Manufacturer,100,Reciprocating Engine,NG - Natural Gas,34023,325613
+706,34,Aarhus United USA / Northern Power Systems,385,Reciprocating Engine,BIOMASS - Biomass,34013,311225
+707,34,Homasote Company,3900,Boiler/Steam Turbine,NG - Natural Gas,NaN,321219
+708,34,Marina Energy,8400,Reciprocating Engine,NG - Natural Gas,34033,326199
+709,34,Hoechst Celanese Corporation,5000,Combustion Turbine,NG - Natural Gas,34035,325220
+710,34,East Coast Power,175000,Combustion Turbine,NG - Natural Gas,34039,32411
+711,34,East Coast Power,1012500,Combined Cycle,NG - Natural Gas,34039,32411
+712,34,Rex Lumber,300,Boiler/Steam Turbine,WOOD - Wood,34025,321113
+713,34,International Flavors & Fragrances,2155,Reciprocating Engine,NG - Natural Gas,34023,32562
+714,34,Alpha Industries,1403,Reciprocating Engine,NG - Natural Gas,34003,339999
+715,34,Bristol-Myers Squibb Company Inc,11000,Boiler/Steam Turbine,NG - Natural Gas,34023,325412
+716,34,Amerada Hess Company,600,Reciprocating Engine,NG - Natural Gas,34031,339999
+717,34,DSM,40500,Boiler/Steam Turbine,NG - Natural Gas,34041,325411
+718,34,Interbake Foods Inc.,1050,Reciprocating Engine,NG - Natural Gas,34039,311812
+719,34,Bristol-Myers Squibb Company Inc,3500,Combustion Turbine,NG - Natural Gas,34021,325412
+720,34,Transpahse Systems Inc.,700,Other,OTR - Other,34025,311
+721,34,Cogentrix/ Chambers Cogeneration LP,285000,Boiler/Steam Turbine,COAL - Coal,34033,325199
+722,34,Cogentrix/ Logan Generating Company,242300,Boiler/Steam Turbine,COAL - Coal,NaN,325998
+723,34,Energy Alternatives Inc.,555,Reciprocating Engine,NG - Natural Gas,34003,322211
+724,34,Covanta Ogden Martin Systems Inc.,44000,Boiler/Steam Turbine,WASTE - Municipal Solid Waste,34039,339999
+725,34,Pr Camden Cogen LP,148000,Combined Cycle,NG - Natural Gas,34007,32213
+726,34,Pedricktown Cogeneration Partners Lp,116000,Combined Cycle,NG - Natural Gas,NaN,325211
+727,34,Calpine - Parlin Inc,128000,Combined Cycle,NG - Natural Gas,34023,325992
+728,34,ExxonMobil Corp,50000,Combined Cycle,WASTE - Waste,34015,32411
+729,34,North Jersey Energy Associates,333000,Combined Cycle,NG - Natural Gas,NaN,325180
+730,34,Ingredion,650,Reciprocating Engine,NG - Natural Gas,34035,32552
+731,34,Van Leer Chocolate Corporation,1200,Reciprocating Engine,NG - Natural Gas,34017,31133
+732,34,Doyle Chemical,5400,Combined Cycle,NG - Natural Gas,34023,325211
+733,34,Reheis Chemcial Corporation,625,Reciprocating Engine,NG - Natural Gas,34039,325411
+734,34,"M&M Mars, Inc.",9500,Combined Cycle,NG - Natural Gas,NaN,31133
+735,34,Atlantic Power,25000,Combined Cycle,NG - Natural Gas,34039,325412
+736,34,M.I. Holdings Inc.,268,Reciprocating Engine,NG - Natural Gas,34017,325
+737,34,Sandy Mac Food Company,1000,Reciprocating Engine,NG - Natural Gas,34007,311613
+738,34,Henry Colt Enterprises Inc.,620,Reciprocating Engine,NG - Natural Gas,34015,311615
+739,34,Rudox Engine & Equipment Co.,200,Reciprocating Engine,OIL - Oil,34003,333618
+740,34,Concept Technology Inc.,60,Reciprocating Engine,NG - Natural Gas,34021,323117
+741,34,Unison Energy,648,Reciprocating Engine,OIL - Oil,34027,325611
+742,34,Viron Corporation,120,Reciprocating Engine,NG - Natural Gas,34031,325
+743,34,Automatic Switch Company,400,Reciprocating Engine,OIL - Oil,34027,332919
+744,34,Kimberly-Clark Corporation,3000,Boiler/Steam Turbine,NG - Natural Gas,34023,322121
+745,34,Fiber Mark Drbl Specialities,2000,Boiler/Steam Turbine,NG - Natural Gas,34019,322299
+746,34,Ashland-Aqualon,4500,Boiler/Steam Turbine,OIL - Distillate Fuel Oil,34023,325199
+747,32,Nevada Cogeneration Associates #2,85000,Combined Cycle,NG - Natural Gas,0,32742
+748,32,Nevada Cogeneration Associates #1,85000,Combined Cycle,NG - Natural Gas,0,322121
+749,32,Paragon Energy Holdings / MSD Capital L.P. Saguaro Power Company,105000,Combined Cycle,NG - Natural Gas,32003,325180
+750,36,Transcontinental Ultra Flex Inc.,250,Reciprocating Engine,NG - Natural Gas,36047,323113
+751,36,Ultra-Flex Packaging Corporation,625,Reciprocating Engine,NG - Natural Gas,36047,323999
+752,36,Cubit Power One Inc.,10200,Reciprocating Engine,NG - Natural Gas,36085,312113
+753,36,4C Foods Corporation,400,Reciprocating Engine,NG - Natural Gas,36047,311
+754,36,DO & CO,210,Reciprocating Engine,NG - Natural Gas,36081,311999
+755,36,Johnson Brothers Lumber / Buyea Road Landfill,1600,Reciprocating Engine,BIOMASS - Landfill Gas,36053,321113
+756,36,Owens Corning,200,Microturbine,NG - Natural Gas,36001,32615
+757,36,HARBEC Plastics,1270,Microturbine,NG - Natural Gas,36117,325211
+758,36,Van Blarcom Closures,1500,Reciprocating Engine,NG - Natural Gas,36047,339999
+759,36,VBCIndustries,1200,Reciprocating Engine,NG - Natural Gas,36047,326299
+760,36,Pepsi Cola Bottling Co.,1460,Reciprocating Engine,NG - Natural Gas,36081,312111
+761,36,Enviornmental Management Group / NYSERDA,400,Reciprocating Engine,BIOMASS - Digester Gas,36065,31212
+762,36,Twin Marquis Foods,200,Reciprocating Engine,NG - Natural Gas,36047,312999
+763,36,Hoskie Company,75,Reciprocating Engine,NG - Natural Gas,36047,31171
+764,36,Coca-Cola Bottling Company,800,Fuel Cell,NG - Natural Gas,36119,312111
+765,36,Lockheed Martin,668,Boiler/Steam Turbine,WOOD - Wood,36107,334999
+766,36,SABIC Innovative Plastics,1108,Boiler/Steam Turbine,NG - Natural Gas,36001,325211
+767,36,ACME Smoked Fish,1200,Reciprocating Engine,NG - Natural Gas,36047,311710
+768,36,CRM Inc.,846,Reciprocating Engine,NG - Natural Gas,36087,311812
+769,36,Power Pallet,450,Reciprocating Engine,BIOMASS - Biomass,36057,321
+770,36,Alpha Plastics,180,Microturbine,NG - Natural Gas,36047,326199
+771,36,Paradise Plastics,1000,Reciprocating Engine,NG - Natural Gas,36047,325211
+772,36,NYSERDA,343,Backpressure Steam Turbine,WASTE - Steam,36091,325180
+773,36,AES NJ Cogen Inc. / American DG,225,Reciprocating Engine,NG - Natural Gas,NaN,311511
+774,36,Al Cohen's Bakery,210,Reciprocating Engine,NG - Natural Gas,36029,311812
+775,36,Advanced Power Systems,60,Microturbine,NG - Natural Gas,36119,325211
+776,36,Unison Energy,101100,Boiler/Steam Turbine,COAL - Coal,36067,322299
+777,36,Louis Food Service,194,Reciprocating Engine,NG - Natural Gas,36047,311
+778,36,J&J Farms Creamery,375,Reciprocating Engine,NG - Natural Gas,36081,311511
+779,36,City Fresh Market,420,Reciprocating Engine,NG - Natural Gas,36005,311
+780,36,Superior Fiber Mills Inc.,250,Reciprocating Engine,NG - Natural Gas,36047,313110
+781,36,Wightman Lumber,96,Backpressure Steam Turbine,WASTE - Steam,36077,321113
+782,36,Vanbro Asphalt,1250,Reciprocating Engine,NG - Natural Gas,36085,327331
+783,36,Pfizer,23400,Combined Cycle,NG - Natural Gas,36087,325412
+784,36,Fitzpatrick & Weller,450,Backpressure Steam Turbine,WASTE - Steam,36009,321113
+785,36,WPS Beaver Falls / Kamine/Besicorp Beaver Falls LP,100000,Combined Cycle,NG - Natural Gas,36049,32213
+786,36,Private Brands,545,Reciprocating Engine,NG - Natural Gas,36047,311
+787,36,Indeck Energy Services Inc.,147000,Combined Cycle,NG - Natural Gas,36091,322121
+788,36,Pepsi Cola Company,1050,Reciprocating Engine,OIL - Oil,36119,312111
+789,36,Indeck Energy Services Inc.,90600,Combined Cycle,NG - Natural Gas,36009,339999
+790,36,Saranac Energy Company Inc.,240000,Combined Cycle,NG - Natural Gas,36019,322121
+791,36,Sithe Independence Power Partners Lp,1083000,Combined Cycle,NG - Natural Gas,NaN,331315
+792,36,Cogentrix/ Selkirk Cogen Partners L.P.,345000,Combined Cycle,NG - Natural Gas,36001,326299
+793,36,Chromium Plating & Polishing Corporation,525,Reciprocating Engine,NG - Natural Gas,36047,332813
+794,36,Epner Technology,200,Reciprocating Engine,NG - Natural Gas,36047,332813
+795,36,Golten's Marine Co. Inc.,100,Reciprocating Engine,NG - Natural Gas,36047,336611
+796,36,Carr Street Generating Station / East Syracuse Generating Co. LP,105000,Combined Cycle,NG - Natural Gas,36067,325412
+797,36,NRG Energy Inc.,56000,Combined Cycle,NG - Natural Gas,36043,332994
+798,36,Syracuse Power Company,5000,Reciprocating Engine,NG - Natural Gas,36067,312111
+799,36,Seneca Power Partners LP,64100,Combined Cycle,NG - Natural Gas,36037,311511
+800,36,Lockport Energy Associates L.P.,222200,Combined Cycle,NG - Natural Gas,36053,336390
+801,36,Buffalo Paperboard,1500,Boiler/Steam Turbine,NG - Natural Gas,36053,32213
+802,36,Power City Generating/Sithe Energies,79000,Combined Cycle,NG - Natural Gas,36089,331314
+803,36,Alliance Energy Group,64100,Combined Cycle,NG - Natural Gas,36065,332999
+804,36,Indeck Energy Services Inc.,56600,Combined Cycle,NG - Natural Gas,36121,325998
+805,36,Big Wheel Machinery Inc.,200,Reciprocating Engine,NG - Natural Gas,36009,333
+806,36,Alliant Energy  / EUA Cogenex Corporation,450,Reciprocating Engine,OIL - Oil,36103,32213
+807,36,Indeck Energy Services Inc.,57400,Combined Cycle,NG - Natural Gas,36075,322121
+808,36,Indeck Energy Services Inc.,55900,Combined Cycle,NG - Natural Gas,36029,325211
+809,36,Calpine -TBG Cogen / General Electric Company,57000,Combined Cycle,NG - Natural Gas,36059,336411
+810,36,"Pennsylvania Resource Systems, Inc.",7500,Boiler/Steam Turbine,WASTE - Municipal Solid Waste,NaN,334111
+811,36,General Mills Inc.,3800,Combustion Turbine,NG - Natural Gas,36029,311211
+812,36,Utility Systems Corporation /Cogenic,500,Reciprocating Engine,NG - Natural Gas,36081,311812
+813,36,Finch Pruyn & Company Inc.,27000,Boiler/Steam Turbine,WOOD - Wood,36113,322121
+814,36,Cogenic Energy Systems Inc.,456,Reciprocating Engine,NG - Natural Gas,36103,325
+815,36,Cogent Little Falls G.P.,4500,Combined Cycle,NG - Natural Gas,36043,322121
+816,36,U.S. Gypsum Company,5800,Combustion Turbine,NG - Natural Gas,36037,32742
+817,36,Rushford Kiln & Milling Limited,416,Reciprocating Engine,NG - Natural Gas,36003,321113
+818,36,Sun Chemical Corporation,75,Reciprocating Engine,NG - Natural Gas,36085,325199
+819,36,Harden Furniture Inc.,665,Boiler/Steam Turbine,WOOD - Wood,36075,337112
+820,36,Admiral Plastics,2350,Reciprocating Engine,NG - Natural Gas,36047,32616
+821,36,American Ref-Fuel Company / Covanta Niagara,50000,Boiler/Steam Turbine,WASTE - Municipal Solid Waste,36063,325211
+822,36,Magnolia Industries,1160,Reciprocating Engine,NG - Natural Gas,36047,326299
+823,36,Glenmore Plastics,500,Reciprocating Engine,NG - Natural Gas,36047,325211
+824,36,International Paper Company,41000,Boiler/Steam Turbine,NG - Natural Gas,36031,322121
+825,36,Cargill Salt Inc.,8000,Boiler/Steam Turbine,NG - Natural Gas,36097,325998
+826,39,Sofidel,15000,Combustion Turbine,NG - Natural Gas,39129,322121
+827,39,Cooper Tire,7500,Combustion Turbine,NG - Natural Gas,39063,326211
+828,39,Kraton Polymers,8000,Boiler/Steam Turbine,NG - Natural Gas,39167,325211
+829,39,DTE Marietta,8000,Combustion Turbine,NG - Natural Gas,39167,325211
+830,39,Morton Salt Company,2750,Boiler/Steam Turbine,COAL - Coal,39169,325199
+831,39,Enerfab,200,Reciprocating Engine,NG - Natural Gas,39061,332722
+832,39,Jay Plastics,3000,Reciprocating Engine,NG - Natural Gas,39139,326199
+833,39,Quasar,1000,Reciprocating Engine,BIOMASS - Digester Gas,39125,326122
+834,39,SunCoke Energy,46000,Other Waste Heat to Power*,WASTE - Waste Heat,39021,324199
+835,39,ArcelorMittal,68000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,39035,331110
+836,39,Haverhill Coke / SunCoke Energy,53000,Other Waste Heat to Power*,WASTE - Waste Heat,39145,324199
+837,39,Broshco Fabricated Products / Jay Industries Inc.,4550,Reciprocating Engine,NG - Natural Gas,39139,331
+838,39,Detroit-Edison Energy Services,28000,Combustion Turbine,NG - Natural Gas,39007,325130
+839,39,Greif Board Corporation,6850,Combustion Turbine,NG - Natural Gas,39151,32213
+840,39,Air Liquide America Corp - AE Operations,32000,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,39081,331110
+841,39,Sauder Woodworking Co.,7200,Boiler/Steam Turbine,WOOD - Wood Waste,39051,321113
+842,39,Energy Development Services,3300,Reciprocating Engine,NG - Natural Gas,39007,325
+843,39,Mill's Pride LP,1000,Boiler/Steam Turbine,WOOD - Wood Waste,39131,337112
+844,39,International Cogeneration Corporation,75,Reciprocating Engine,NG - Natural Gas,39061,336
+845,39,Resource Capital,700,Reciprocating Engine,NG - Natural Gas,39035,333
+846,39,Synthetic Products Company,650,Reciprocating Engine,NG - Natural Gas,39035,325
+847,39,Wausau Paper,7500,Boiler/Steam Turbine,COAL - Coal,39021,322291
+848,39,Sunoco Inc,6000,Other Waste Heat to Power*,WASTE - Petroleum Coke,39095,32411
+849,39,WestRock,15600,Boiler/Steam Turbine,NG - Natural Gas,39031,32213
+850,39,WCI Steel Warren Consolidated,20500,Boiler/Steam Turbine,NG - Natural Gas,39155,331110
+851,39,Glatfelter Research,92800,Boiler/Steam Turbine,COAL - Coal,39141,322121
+852,39,Procter & Gamble Co,12500,Boiler/Steam Turbine,COAL - Coal,39061,325611
+853,39,Diamond Crystal Salt Company,1100,Boiler/Steam Turbine,COAL - Coal,39153,325998
+854,40,Phillips 66,5000,Boiler/Steam Turbine,WASTE - Waste Gas,40071,32411
+855,40,AES Shady Point Inc.,320000,Boiler/Steam Turbine,COAL - Coal,40079,32512
+856,40,Covanta Tulsa Renewable Energy LLC,16800,Boiler/Steam Turbine,WASTE - Municipal Solid Waste,40143,32411
+857,40,Georgia-Pacific Corporation,114000,Boiler/Steam Turbine,COAL - Coal,40101,322121
+858,40,International Paper Company,55000,Boiler/Steam Turbine,WASTE - Black Liquor,40089,322121
+859,41,InEnTec (At Waste Mgmts),6400,Reciprocating Engine,BIOMASS - Digester Gas,41021,32512
+860,41,2G Energy / J.C. Biomethane,1550,Reciprocating Engine,BIOMASS - Digester Gas,41039,325199
+861,41,Integrated Biomass Resources,100,Reciprocating Engine,BIOMASS - Biomass,41063,321999
+862,41,Seneca Jones Timber Company,19800,Boiler/Steam Turbine,WOOD - Wood,41039,321912
+863,41,Evergreen Biopower LLC,10500,Boiler/Steam Turbine,WOOD - Wood Waste,41043,321113
+864,41,Georgia-Pacific,18800,Boiler/Steam Turbine,WASTE - Black Liquor,41041,32213
+865,41,Douglas County Forest Products,6000,Boiler/Steam Turbine,WOOD - Wood Waste,41019,321113
+866,41,Allegheny Technologies / ATI Wah Chang,14000,Reciprocating Engine,NG - Natural Gas,41043,331314
+867,41,International Grand Investment Corporation Cascade Pacific Pulp,93000,Combustion Turbine,NG - Natural Gas,41043,32211
+868,41,Iberdrola Renewables,606000,Combined Cycle,NG - Natural Gas,41035,32211
+869,41,Perennial Power,474000,Combined Cycle,NG - Natural Gas,41059,311423
+870,41,Georgia-Pacific Corporation,36000,Boiler/Steam Turbine,WOOD - Wood,NaN,322121
+871,41,Portland General Electric / Logan International,245000,Combined Cycle,NG - Natural Gas,41049,311411
+872,41,Collins,7500,Boiler/Steam Turbine,WOOD - Wood,41035,339999
+873,41,D R Johnson Lumber Company,7500,Boiler/Steam Turbine,WOOD - Wood Waste,41019,321113
+874,41,Snake River Sugar Company,14000,Boiler/Steam Turbine,COAL - Coal,41045,311313
+875,41,D R Johnson Lumber Company,7500,Boiler/Steam Turbine,WOOD - Wood Waste,41023,321113
+876,41,Biomass One LP,30000,Boiler/Steam Turbine,WOOD - Wood Waste,41029,321113
+877,41,Hampton Affiliates,9000,Boiler/Steam Turbine,WOOD - Wood,41071,321113
+878,41,International Paper Company,40000,Boiler/Steam Turbine,WASTE - Black Liquor,41039,322219
+879,41,Roseburg Forest Products Co,40000,Boiler/Steam Turbine,WOOD - Wood Waste,41019,321113
+880,42,Asphalt Plant,65,Microturbine,NG - Natural Gas,42129,32412
+881,42,Procter & Gamble Co,119600,Boiler/Steam Turbine,NG - Natural Gas,42131,322121
+882,42,Phoenix Contact Services Inc,1000,Microturbine,NG - Natural Gas,42095,335999
+883,42,2G Energy / Environmental Management Group International (EMG),400,Reciprocating Engine,BIOMASS - Digester Gas,42107,31212
+885,42,Omnova Solutions,1400,Reciprocating Engine,NG - Natural Gas,42107,325
+886,42,Johnson & Johnson Pharmaceutical,3800,Reciprocating Engine,NG - Natural Gas,42091,325412
+887,42,Mount Joy Wire Co,1000,Microturbine,NG - Natural Gas,42071,331222
+888,42,Astra Foods,2000,Reciprocating Engine,NG - Natural Gas,42045,311611
+889,42,DART Container Corp of Pennsylvania,11400,Reciprocating Engine,BIOMASS - Landfill Gas,42071,32614
+890,42,Northumberland / Viking ADI,250,Boiler/Steam Turbine,BIOMASS - Digester Gas,42097,311421
+891,42,Industrial Park,325,Microturbine,NG - Natural Gas,42017,339999
+892,42,Graymont,3000,Heat Recovery Steam Generator/Steam Turbine,WASTE - Waste Heat,42027,32741
+893,42,WestRock,626,Backpressure Steam Turbine,WASTE - Steam,42089,32221
+894,42,Textile Manufacturer,6000,Reciprocating Engine,BIOMASS - Biomass,42099,31321
+895,42,Sunoco Inc.,778300,Combined Cycle,NG - Natural Gas,42045,32411
+896,42,USX Corporation,52500,Boiler/Steam Turbine,WASTE - Blast Furnace Gas,NaN,331110
+897,42,Merck & Company Inc.,70300,Boiler/Steam Turbine,NG - Natural Gas,42091,325412
+898,42,E.I. Du Pont De Nemours & Co.,150,Backpressure Steam Turbine,WASTE - Steam,42015,325998
+899,42,Buehler Lumber,462,Backpressure Steam Turbine,WASTE - Steam,42047,321113
+900,42,Cogentrix/ Northampton Generating Company LP,112000,Boiler/Steam Turbine,COAL - Coal,42077,32211
+901,42,Westfield Tanning,633,Backpressure Steam Turbine,WASTE - Steam,42117,31611
+902,42,P. H. Glatfelter Company,109500,Boiler/Steam Turbine,COAL - Coal,42133,322299
+903,42,Roberts Company of Media Inc,250,Reciprocating Engine,NG - Natural Gas,42045,32731
+904,42,Domtar Paper LLC /  Penntech Papers Inc.,60000,Boiler/Steam Turbine,WASTE - Black Liquor,42047,322121
+905,42,Erie Power LLC / North East Cogeneration Plant,81000,Combined Cycle,NG - Natural Gas,42049,311411
+906,42,Merck & Company Inc,2500,Boiler/Steam Turbine,COAL - Coal,42093,325199
+907,42,General Chemical Corporation,4500,Boiler/Steam Turbine,WASTE - Waste,42045,325
+908,42,Dow Chemical,1500,Boiler/Steam Turbine,OIL - Oil,42017,325412
+909,42,Sani-Dairy/CNG Energy,800,Reciprocating Engine,NG - Natural Gas,42021,311512
+910,42,Rohm & Haas,1500,Boiler/Steam Turbine,OIL - Oil,42091,32532
+911,42,Connelly Paper,700,Reciprocating Engine,NG - Natural Gas,42091,322121
+912,42,GlasxoSmithKline (GSK),2000,Reciprocating Engine,WASTE - Waste,42091,325412
+913,42,Talen Energy,52200,Combined Cycle,NG - Natural Gas,42133,33312
+914,42,Scott Paper Company / Kimberley Clark,67000,Boiler/Steam Turbine,WASTE - Petroleum Coke,42045,32213
+915,42,Knause Foods Corporation Inc.,800,Combustion Turbine,NG - Natural Gas,42001,311411
+916,42,General Electric Company,4476,Reciprocating Engine,OIL - Residual Fuel Oil,42085,33651
+917,42,General Electric Company,8200,Reciprocating Engine,OIL - Oil,42049,33651
+918,42,Amcast Industrial Corporation,100,Reciprocating Engine,OIL - Oil,42039,331511
+919,42,Lord Corporation,900,Reciprocating Engine,NG - Natural Gas,42039,332
+920,42,Lord Corporation,150,Reciprocating Engine,NG - Natural Gas,42049,326299
+921,42,Calumet-Penreco,210,Boiler/Steam Turbine,COAL - Coal,42019,32512
+922,42,Newman & Company,1800,Boiler/Steam Turbine,NG - Natural Gas,42091,339999
+923,42,USX Corporation,21000,Boiler/Steam Turbine,WASTE - Waste Gas,42003,331110
+924,42,Merck & Company Inc.,2500,Boiler/Steam Turbine,COAL - Coal,42021,325412
+925,42,Erie Coke Corp,2500,Boiler/Steam Turbine,WASTE - Waste Gas,42049,331110
+926,42,Peco Energy Partners / Exelon Generation,60000,Boiler/Steam Turbine,BIOMASS - Landfill Gas,42083,331110
+927,42,General Electric Company,28000,Boiler/Steam Turbine,COAL - Coal,42049,33651
+928,72,Olein Refinery Corporation,1200,Reciprocating Engine,OTR - Other,NaN,32411
+929,72,Genplant On-Site Energy / AstraZeneca,3000,Reciprocating Engine,NG - Natural Gas,NaN,325412
+930,72,Abbott Laboratories - Abbott Vascular,6000,Reciprocating Engine,NG - Natural Gas,NaN,325412
+931,72,Medical Equipment Manufacturing,800,Reciprocating Engine,OTR - Other,NaN,339112
+932,72,Matosantos Commercial Corp,2000,Reciprocating Engine,BIOMASS - Digester Gas,NaN,339999
+933,72,Manufacturing Plant,600,Microturbine,NG - Natural Gas,NaN,339999
+936,44,DG Energy Solutions / Quonset Point Cogeneration Facility,20020,Combustion Turbine,NG - Natural Gas,44009,325211
+937,44,Taco Inc.,300,Microturbine,NG - Natural Gas,44007,333
+938,44,"Pawtucket Power Associates, Inc.",69000,Combined Cycle,NG - Natural Gas,NaN,311224
+939,45,Shaw Industries,14100,Combustion Turbine,NG - Natural Gas,45079,31411
+940,45,Sonoco Products,56500,Boiler/Steam Turbine,COAL - Coal,45031,322121
+941,45,Domtar Paper,50000,Boiler/Steam Turbine,WASTE - Black Liquor,45069,32211
+942,45,Waste Management Inc. Palmetto Landfill,13400,Combustion Turbine,BIOMASS - Landfill Gas,45083,336111
+943,45,LS Power - Columbia Energy Center,630000,Combined Cycle,NG - Natural Gas,45063,325180
+944,45,Kapstone Paper and Packaging,99200,Boiler/Steam Turbine,WOOD - Wood,45019,32213
+945,45,Cherokee County Cogeneration Corporation,101200,Combined Cycle,NG - Natural Gas,45021,325
+946,45,E.I. Du Pont De Nemours & Company,24500,Boiler/Steam Turbine,COAL - Coal,45055,325211
+947,45,International Paper Company,103000,Boiler/Steam Turbine,BIOMASS - Biomass,45079,322121
+948,45,WestRock,74800,Boiler/Steam Turbine,COAL - Coal,45041,322121
+949,45,International Paper Company,89900,Boiler/Steam Turbine,BIOMASS - Biomass,45043,322121
+950,45,Resolute Forest Products,55000,Boiler/Steam Turbine,OIL - Oil,45091,322121
+951,46,POET Biorefining,5000,Boiler/Steam Turbine,WASTE - Waste Heat,46029,325199
+952,47,Tennessee Valley Authority - Johnsonville,87000,Boiler/Steam Turbine,COAL - Coal,47085,325
+953,47,Tate & Lyle,50000,Combustion Turbine,NG - Natural Gas,47105,311221
+954,47,General Mills / TVA,1600,Reciprocating Engine,BIOMASS - Digester Gas,47149,311514
+955,47,Packaging Corporation of America,72500,Boiler/Steam Turbine,WOOD - Wood Waste,47071,322121
+956,47,Domtar Paper,50000,Boiler/Steam Turbine,BIOMASS - Biomass,47163,322121
+957,47,PCS Nitrogen Fertilizer LP,10000,Boiler/Steam Turbine,WASTE - Waste Heat,47157,325998
+958,47,Eastman Chemical Company,194300,Boiler/Steam Turbine,COAL - Coal,47163,325211
+959,47,Resolute Forest Products,66000,Boiler/Steam Turbine,WASTE - Black Liquor,47107,322121
+960,47,E.I. Du Pont De Nemours & Co.,428,Backpressure Steam Turbine,WASTE - Steam,47157,325
+961,47,Armstrong Hardwood Flooring Company,2400,Boiler/Steam Turbine,WOOD - Wood Waste,47151,321918
+962,47,Cargill Inc.,15000,Boiler/Steam Turbine,COAL - Coal,47157,311221
+963,48,Formosa Plastics Corporation USA,978800,Boiler/Steam Turbine,NG - Natural Gas,48057,325211
+964,48,Eagle Ford Shale,4000,Microturbine,NG - Natural Gas,48311,32411
+965,48,Pasadena Commodities International,15400,Boiler/Steam Turbine,NG - Natural Gas,48201,325311
+967,48,Calpine - Deer Park Energy Center,1188000,Combined Cycle,NG - Natural Gas,48201,32411
+968,48,Calpine - Channel Energy Center,824000,Combined Cycle,NG - Natural Gas,48201,32411
+969,48,Air Liquide America Corp,316000,Combustion Turbine,NG - Natural Gas,48201,32512
+970,48,O'Hair Manufacturing,1310,Reciprocating Engine,NG - Natural Gas,NaN,321918
+971,48,Premcor Refining Group / Air Products And Chemicals Inc.,169100,Boiler/Steam Turbine,NG - Natural Gas,48245,32411
+972,48,Motiva,289100,Combined Cycle,NG - Natural Gas,48245,32411
+973,48,Marathon Petroleum Corporation,367900,Combined Cycle,NG - Natural Gas,NaN,32411
+974,48,Rio Grande Valley Sugar Growers,23500,Boiler/Steam Turbine,BIOMASS - Agricultural Biomass,48061,311314
+975,48,Calpine,224000,Combined Cycle,NG - Natural Gas,48039,325180
+976,48,Temple Inland,978,Backpressure Steam Turbine,WASTE - Waste,48403,321113
+977,48,Exxon Chemical Company,378000,Combined Cycle,NG - Natural Gas,48201,32411
+978,48,ExxonMobil Corp,600000,Combined Cycle,NG - Natural Gas,48199,32411
+979,48,Owl Energy Resources Inc / Oxy Vinyls,300000,Combined Cycle,NG - Natural Gas,48201,325998
+980,48,Port Arthur Steam Energy,5000,Heat Recovery Steam Generator/Steam Turbine,WASTE - Waste,48245,32411
+981,48,South Houston Green Power LP / Green Power 2 /  Cinergy,564000,Combined Cycle,NG - Natural Gas,NaN,32411
+982,48,Calpine - Baytown Energy Center,845000,Combined Cycle,NG - Natural Gas,48201,32411
+983,48,Calpine - Corpus Christi Energy Center,500000,Combined Cycle,NG - Natural Gas,48355,32411
+984,48,Energy Investors Fund,865000,Combined Cycle,NG - Natural Gas,48201,325
+985,48,INEOS Olefins & Polymers,20000,Combustion Turbine,NG - Natural Gas,48201,32411
+986,48,Eastex CoGeneration LP,467700,Combined Cycle,NG - Natural Gas,48183,325
+987,48,E.I. Du Pont De Nemours & Company,522300,Combined Cycle,NG - Natural Gas,48361,325
+988,48,BASF Corp,83200,Combustion Turbine,NG - Natural Gas,48245,325998
+989,48,Phillips 66,470000,Combustion Turbine,NG - Natural Gas,48039,32411
+990,48,Ascend Performance Materials,52100,Boiler/Steam Turbine,NG - Natural Gas,48039,325998
+991,48,LCY Elastomers / Enichem Americas Inc.,5300,Combustion Turbine,NG - Natural Gas,48201,325
+992,48,Calpine - Pasadena I & II,751000,Combined Cycle,NG - Natural Gas,48201,325
+993,48,BASF / Fina Petrochemicals LP,70900,Combustion Turbine,NG - Natural Gas,48245,32411
+994,48,Seadrift Cogeneration,156000,Combined Cycle,NG - Natural Gas,48057,32512
+995,48,Goodyear Tire & Rubber Company,34800,Boiler/Steam Turbine,NG - Natural Gas,48199,325212
+996,48,Borger Energy Associates LP,253800,Combined Cycle,NG - Natural Gas,48233,325199
+997,48,BASF Corp,86700,Combined Cycle,NG - Natural Gas,48039,325180
+998,48,Occidental Energy Ventures & Conoco Global Power,548000,Combined Cycle,NG - Natural Gas,48391,325199
+999,48,Sabine Cogeneration / Rockland Capital,106500,Combined Cycle,NG - Natural Gas,48245,326299
+1000,48,BP Amoco Chemicals Company,38800,Boiler/Steam Turbine,WASTE - Waste,48057,32411
+1001,48,Enterprise Products Company / Mont Belvieu Complex,25700,Combustion Turbine,NG - Natural Gas,0,32411
+1002,48,Dow Chemical USA,56000,Combined Cycle,NG - Natural Gas,NaN,325211
+1003,48,Optim Energy LLC,574500,Combined Cycle,NG - Natural Gas,48201,32411
+1004,48,Shell Oil Company,250000,Combined Cycle,NG - Natural Gas,48201,32411
+1005,48,Houston Lighting & Power,162000,Combustion Turbine,NG - Natural Gas,48201,325199
+1006,48,Dow Chemical USA. - Texas Division,424000,Combined Cycle,NG - Natural Gas,48039,325180
+1007,48,Air Liquide America,38000,Combustion Turbine,NG - Natural Gas,48245,32512
+1008,48,Huntsman Petrochemicals,71260,Combustion Turbine,NG - Natural Gas,48245,325180
+1009,48,Sentinel Peak Resources,19600,Combustion Turbine,NG - Natural Gas,48141,331410
+1010,48,Chevron,2000,Reciprocating Engine,NG - Natural Gas,48165,32411
+1011,48,S&L Cogeneration / Eastman Chemical Company,52000,Combined Cycle,NG - Natural Gas,NaN,32512
+1012,48,ExxonMobil Corp,152500,Boiler/Steam Turbine,NG - Natural Gas,48201,32411
+1013,48,Hoechst Celanese Corporation / Ticona Polymers,44200,Combined Cycle,NG - Natural Gas,48355,325220
+1014,48,LyondellBasell,45000,Combustion Turbine,NG - Natural Gas,48355,32411
+1015,48,Flint Hills,49000,Combustion Turbine,NG - Natural Gas,48355,32411
+1016,48,Occidental Petroleum,23400,Combustion Turbine,NG - Natural Gas,48501,32512
+1017,48,Alcon Laboratories Inc.,3500,Combustion Turbine,NG - Natural Gas,48439,331
+1018,48,Total S.A.,37130,Combined Cycle,NG - Natural Gas,48245,32411
+1019,48,Power Resources Inc.,230000,Combined Cycle,NG - Natural Gas,48227,32411
+1020,48,Dow Chemical USA. - Texas Division,678100,Combined Cycle,NG - Natural Gas,48039,325180
+1021,48,Kinder Morgan Production Company,5600,Combustion Turbine,NG - Natural Gas,48371,32411
+1022,48,Calpine,450000,Combined Cycle,NG - Natural Gas,NaN,325199
+1023,48,E.I. Du Pont De Nemours & Company / INVISTA S.a.r.l.,88000,Combustion Turbine,NG - Natural Gas,48309,325211
+1024,48,Alon,1500,Boiler/Steam Turbine,NG - Natural Gas,48227,32411
+1025,48,Sid Richardson Carbon & Gas Company,32000,Boiler/Steam Turbine,WASTE - Waste Gas,48233,325180
+1026,48,Bruce Foods Corporation,220,Reciprocating Engine,NG - Natural Gas,48141,311421
+1027,48,WestRock,57700,Boiler/Steam Turbine,WASTE - Black Liquor,48241,32213
+1028,48,INEOS USA,41000,Combustion Turbine,NG - Natural Gas,48039,32411
+1029,48,South Houston Green Power / BP-Amoco Oil Company,172000,Combined Cycle,NG - Natural Gas,NaN,32411
+1030,48,Petrobas,6000,Boiler/Steam Turbine,WASTE - Waste,48201,32411
+1031,48,Orion Engineered Carbons Inc.,20000,Boiler/Steam Turbine,WASTE - Waste,48233,325180
+1032,48,Valero Refining Company,69200,Boiler/Steam Turbine,WASTE - Petroleum Coke,48355,32411
+1033,48,Snider Industries Inc,5000,Boiler/Steam Turbine,WOOD - Wood Waste,48203,321113
+1034,48,Carbide/Graphite Group Inc,7600,Heat Recovery Steam Generator/Steam Turbine,WASTE - Waste Heat,48057,32411
+1035,48,Texas Petrochemicals Corp,35000,Boiler/Steam Turbine,NG - Natural Gas,48201,32411
+1036,48,International Paper Company,65000,Boiler/Steam Turbine,WASTE - Black Liquor,NaN,322121
+1037,48,Solvay,7500,Boiler/Steam Turbine,NG - Natural Gas,48201,325412
+1038,48,International Paper Company,48000,Boiler/Steam Turbine,WASTE - Black Liquor,48361,322219
+1039,48,WestRock,4000,Boiler/Steam Turbine,NG - Natural Gas,48113,32213
+1040,48,Liquid Energy,1520,Reciprocating Engine,NG - Natural Gas,48497,32411
+1041,48,Alcoa World Alumina LLC,63100,Boiler/Steam Turbine,NG - Natural Gas,48057,331313
+1042,48,Morton Salt Company,3990,Boiler/Steam Turbine,NG - Natural Gas,48467,325998
+1043,49,"U.S. Magnesium / Renco Metals, Inc.",69000,Combustion Turbine,NG - Natural Gas,NaN,332999
+1044,49,Kennecott Utah Copper,7600,Combustion Turbine,NG - Natural Gas,NaN,331410
+1045,49,Andeavor,22000,Combustion Turbine,NG - Natural Gas,49035,32411
+1046,49,Kennecott Utah Copper,32000,Backpressure Steam Turbine,WASTE - Waste Heat,NaN,331410
+1047,51,Monogram Snacks,400,Reciprocating Engine,BIOMASS - Digester Gas,51690,311612
+1048,51,Merck & Company Inc.,8500,Boiler/Steam Turbine,NG - Natural Gas,51165,325412
+1049,51,Celanese Acetate,28000,Boiler/Steam Turbine,NG - Natural Gas,51071,325220
+1050,51,ZF Energy Development LLC,14500,Combustion Turbine,NG - Natural Gas,51840,311514
+1051,51,WestRock,75000,Boiler/Steam Turbine,BIOMASS - Biomass,51580,322121
+1052,51,Dominion Southampton Power Station,51000,Boiler/Steam Turbine,BIOMASS - Biomass,51620,325194
+1053,51,Industrial Power Generating Corp,7680,Combustion Turbine,NG - Natural Gas,51730,331110
+1054,51,Industrial Power Generating Corp,10800,Reciprocating Engine,OIL - Distillate Fuel Oil,NaN,339999
+1055,51,International Paper Company,95000,Boiler/Steam Turbine,NG - Natural Gas,51620,322121
+1056,51,"Whthe Park Power, Inc.",3000,Boiler/Steam Turbine,WASTE - Waste,NaN,339999
+1057,51,Virginia Cogen Inc.,3000,Reciprocating Engine,NG - Natural Gas,51760,339999
+1058,51,Lynchburg Project,3000,Reciprocating Engine,WASTE - Waste,51083,339999
+1059,51,Kirk Lumber Company,300,Boiler/Steam Turbine,WOOD - Wood,51800,321113
+1060,51,LG&E Power Systems,63000,Boiler/Steam Turbine,COAL - Coal,51670,325220
+1061,51,WestRock,40700,Boiler/Steam Turbine,WASTE - Black Liquor,51670,32211
+1062,51,Cogentrix/ Richmond Cogeneration Plant,230000,Boiler/Steam Turbine,COAL - Coal,51760,32532
+1063,51,Rockfish Corporation,1500,Boiler/Steam Turbine,WASTE - Waste,51760,312230
+1064,51,Hopewell Cogeneration LP,399000,Combined Cycle,NG - Natural Gas,51670,325998
+1065,51,Cogentrix / James River Cogeneration Company,115000,Boiler/Steam Turbine,COAL - Coal,51670,325220
+1066,51,WestRock,46000,Boiler/Steam Turbine,WASTE - Black Liquor,51101,322121
+1067,51,Cargill Inc.,1600,Boiler/Steam Turbine,COAL - Coal,51550,311224
+1068,51,Philip Morris USA Engineering,13000,Boiler/Steam Turbine,COAL - Coal,51760,312230
+1069,51,Georgia-Pacific/GT Northern,7500,Boiler/Steam Turbine,WASTE - Black Liquor,51019,322121
+1070,51,Celanese,27200,Boiler/Steam Turbine,NG - Natural Gas,51071,325411
+1071,51,Bassett Furniture Industl Inc,1500,Boiler/Steam Turbine,WOOD - Wood Waste,51089,337112
+1072,51,Bassett Furniture Industl Inc,2500,Boiler/Steam Turbine,WOOD - Wood Waste,51089,337112
+1073,78,Captain Morgan,4600,Combustion Turbine,NG - Propane,NaN,31214
+1074,50,Pompanoosuc Mills,30,Backpressure Steam Turbine,WASTE - Steam,50027,33712
+1075,50,Omega Optical,461,Reciprocating Engine,OTR - Other,50025,333314
+1076,50,Northern Power Systems,280,Reciprocating Engine,NG - Propane,50023,31192
+1077,50,Brattleboro Kiln Dry Company,380,Reciprocating Engine,NG - Natural Gas,50025,321113
+1078,50,WestRock,1135,Backpressure Steam Turbine,WASTE - Steam,50011,322121
+1079,50,Bell Gates Lumber,75,Backpressure Steam Turbine,WASTE - Steam,50015,321113
+1080,53,Impact Bioenergy,4,Microturbine,BIOMASS - Digester Gas,53033,31212
+1081,53,Bio Pappel S.A.B. de C.V,20000,Boiler/Steam Turbine,WOOD - Wood,53009,321
+1082,53,The Gores Group,17200,Boiler/Steam Turbine,WOOD - Wood,53027,322110
+1083,53,Borgford Bioenergy,3500,Boiler/Steam Turbine,WOOD - Wood Waste,53065,321113
+1084,53,WestRock,55000,Boiler/Steam Turbine,WASTE - Black Liquor,53053,322121
+1085,53,Sierra Pacific - Skagit County,28000,Boiler/Steam Turbine,WOOD - Wood Waste,53057,321113
+1086,53,Hampton Timber Mill,7500,Boiler/Steam Turbine,WOOD - Wood Waste,53061,321113
+1087,53,Sierra Pacific Industries Inc,18000,Boiler/Steam Turbine,WOOD - Wood Waste,53027,321113
+1088,53,SDS Lumber Co,10000,Boiler/Steam Turbine,WOOD - Wood Waste,53039,321113
+1089,53,Phillips 66,270000,Combined Cycle,OIL - Distillate Fuel Oil,53073,32411
+1090,53,Shell,166800,Combined Cycle,NG - Natural Gas,53057,32411
+1091,53,Puget Sound Energy,125500,Combined Cycle,NG - Natural Gas,53073,321113
+1092,53,Port Townsend Paper Company,11500,Boiler/Steam Turbine,WASTE - Black Liquor,53031,322121
+1093,53,Weyerhaeuser Company,59400,Boiler/Steam Turbine,WOOD - Wood,53015,321113
+1094,53,Longview Fibre Company,45000,Boiler/Steam Turbine,WASTE - Black Liquor,53015,322121
+1095,55,Menominee Tribal Enterprises (MTE),190,Backpressure Steam Turbine,WOOD - Wood Waste,55078,321113
+1096,55,Domtar Paper Company,55000,Boiler/Steam Turbine,WOOD - Wood Waste,55073,322121
+1097,55,SC Johnson Company / Kestrel Hawk Landfill,6400,Combustion Turbine,BIOMASS - Landfill Gas,55101,325613
+1098,55,WPS Power Development / Combined Locks Energy Center,50000,Combustion Turbine,NG - Natural Gas,55087,322121
+1099,55,Verso,7600,Boiler/Steam Turbine,NG - Natural Gas,55097,322121
+1100,55,Depere Energy LLC/Polsky Energy/Skygen,192300,Combustion Turbine,NG - Natural Gas,55083,322121
+1101,55,Webster Industries,550,Backpressure Steam Turbine,WASTE - Steam,55063,321113
+1102,55,Verso Paper,20800,Boiler/Steam Turbine,NG - Natural Gas,55141,322121
+1103,55,Georgia-Pacific/Nekoosa Papers,35100,Boiler/Steam Turbine,NG - Natural Gas,55141,322121
+1104,55,NewPage,72300,Boiler/Steam Turbine,WASTE - Black Liquor,55141,322121
+1105,55,Nagel Lumber Company Inc.,675,Boiler/Steam Turbine,WOOD - Wood,55125,321113
+1106,55,P. H. Glatfelter Company,3100,Boiler/Steam Turbine,NG - Natural Gas,55139,322121
+1107,55,NewPage,61600,Boiler/Steam Turbine,COAL - Coal,55141,322121
+1108,55,Georgia Pacific,90000,Boiler/Steam Turbine,COAL - Coal,55009,322121
+1109,55,Flambeau Paper Company,5700,Boiler/Steam Turbine,WOOD - Wood Waste,55099,322121
+1110,55,Badger Paper Mills Inc.,2000,Boiler/Steam Turbine,NG - Natural Gas,55075,322121
+1111,55,Georgia-Pacific/GT Northern,14700,Boiler/Steam Turbine,COAL - Coal,55069,322121
+1112,55,Expera Specialty Solutions,44600,Boiler/Steam Turbine,COAL - Coal,55087,322121
+1113,55,Wausau-Mosinee Paper Corporation,20000,Boiler/Steam Turbine,WASTE - Black Liquor,55073,322121
+1114,55,Wausau Paper,21300,Boiler/Steam Turbine,COAL - Coal,55085,322121
+1115,55,Wisconsin Paperboard Company,4000,Boiler/Steam Turbine,NG - Natural Gas,55079,32213
+1116,55,"Appleton Coated Papers, Inc.",800,Boiler/Steam Turbine,NG - Natural Gas,NaN,322121
+1117,54,Industrial Facility,800,Microturbine,NG - Natural Gas,54033,339999
+1118,54,"PPG Industries, Inc.",115500,Boiler/Steam Turbine,COAL - Coal,NaN,325180
+1119,56,Sinclair Oil Corp,6300,Boiler/Steam Turbine,NG - Natural Gas,56007,32411
+1120,56,Devon Energy Inc. / Amoco Production Company,5000,Combustion Turbine,NG - Natural Gas,NaN,32411
+1121,56,Tata Chemical Soda Ash Partners,30000,Boiler/Steam Turbine,COAL - Coal,56037,325998
