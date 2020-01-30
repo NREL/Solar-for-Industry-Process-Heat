@@ -175,7 +175,7 @@ class schedule:
 
         else:
 
-            end_time_1 =  start_time_1+np.around(self.shift_length,0)
+            end_time_1 =  start_time_1+np.around(self.shift_length,0)-1
 
         if n_shifts <= 1:
 
@@ -195,7 +195,7 @@ class schedule:
 
             else:
 
-                end_time_2 = start_time_2+np.around(self.shift_length, 0)
+                end_time_2 = start_time_2+np.around(self.shift_length, 0)-1
 
         if n_shifts <= 2:
 
@@ -317,11 +317,6 @@ class schedule:
             columns=['dayofweek', 'hour']
             )
 
-        # week_sched['weekday'] = True
-        #
-        # week_sched.loc[week_sched[week_sched.dayofweek>4].index, 'weekday'] = \
-        #     False
-
         shift_info = self.calc_shift_number_hours()
 
         shift_times = {
@@ -379,8 +374,6 @@ class schedule:
              shift_info['sunday_shifts']*self.shift_length)),
             index=range(0,7), columns=['daily_hours']
             )
-
-        print(daily_hours)
 
         if (shift_info['daily_weekday_shifts']<1.5) & (shift_info['saturday_shifts']==0):
 
