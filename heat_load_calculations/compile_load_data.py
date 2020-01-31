@@ -8,7 +8,7 @@ class LoadData:
 
     def __init__(self):
 
-        self.datadir = 'calculation_data/'
+        self.datadir = './calculation_data/'
 
         self.nfiles = {'sic_N02_file': '1987_SIC_to_2002_NAICS.csv',
                        'N02_N07_file': '2002_to_2007_NAICS.csv',
@@ -35,7 +35,7 @@ class LoadData:
             def create_sic_naics_dfs(file_dir, file):
 
                 sic_naics = pd.read_csv(
-                        os.path.join('../', file_dir + file)
+                        os.path.join(file_dir + file)
                         )
 
                 sic_naics = sic_naics.iloc[:, [0, 2]]
@@ -47,7 +47,7 @@ class LoadData:
             def create_dict(file_dir, file):
 
                 dict_out = dict(pd.read_csv(
-                        os.path.join('../', file_dir + file)
+                        os.path.join(file_dir + file)
                         ).iloc[:, [0, 2]].values)
 
                 return dict_out
@@ -62,22 +62,22 @@ class LoadData:
             # Program data.
             # EPA data use 2007 NAICS, not 2012 NAICS. Will need to remap
             usepa_lf = pd.read_csv(
-                os.path.join('../', self.datadir+self.usepa_loadfactors),
+                os.path.join(self.datadir+self.usepa_loadfactors),
                 index_col='PRIMARY_NAICS_CODE',
                 usecols=['PRIMARY_NAICS_CODE', 'month', 'HEAT_INPUT_MMBtu']
                 )
 
             usepa_ls = pd.read_csv(
-                os.path.join('../', self.datadir+self.usepa_load_shapes)
+                os.path.join(self.datadir+self.usepa_load_shapes)
                 )
 
             # Import load factors and load shapes from EPRI report.
             epri_lf = pd.read_csv(
-                os.path.join('../', self.datadir+self.epri_loadfactors),
+                os.path.join(self.datadir+self.epri_loadfactors),
                 )
 
             epri_ls = pd.read_csv(
-                os.path.join('../', self.datadir+self.epri_load_shapes)
+                os.path.join(self.datadir+self.epri_load_shapes)
                 )
 
             # Melt EPRI load shape data
@@ -156,12 +156,9 @@ class LoadData:
 
     def select_min_peak_loads(self, load_shape, min_or_max):
         """
-        From selected EPRI or EPA load shape, return the peak load by
-        day type (weekday, Saturday, and Sunday). EPA data are also
-        defined by month.
+        From selected EPRI or EPA load shape, return the peak load by day type
+        (weekday, Saturday, and Sunday). EPA data are also defined by month.
         """
-
-        # peak_loads = {}
 
         ls = load_shape.copy(deep=True)
 
@@ -212,36 +209,67 @@ class LoadData:
 
         ls.set_index(group_cols, inplace=True)
 
-        df_level = [0,1,2]
+        if loads.index.names != group_cols:
+
+            loads.set_index(group_cols, inplace=True)
+
+        try:
+
+            df_level = [x for x in range(0, len(loads.index.levels))]
+
+        except AttributeError:
+
+            df_level = None
 
         for i in range(0, len(loads)):
 
-            if len(group_cols) > 2:
+            # if len(group_cols) > 2:
 
-                lookup = [x for x in loads.iloc[i].name]
+            lookup = [x for x in loads.iloc[i].name]
 
-                # lookup.append(loads.iloc[i][0])
+            # lookup.append(loads.iloc[i][0])
 
-                try:
+            try:
 
-                    loads.loc[[tuple(lookup)], 'hour'] = \
-                        ls.xs(lookup, level=df_level).hour[0]
+                loads.loc[[tuple(lookup)], 'hour'] = \
+                    ls.xs(lookup, level=df_level).hour[0]
 
-                # If the peak or min load is an average, it will throw a
-                # KeyError. Use the mean hour by daytype as an alternate value.
-                except KeyError:
+            # If the peak or min load is an average, it will throw a
+            # KeyError. Use the mean hour by daytype as an alternate value.
+            except KeyError:
 
-                    mean_hour = np.round(
-                        loads.hour.mean(level=1)[lookup[1]], 0
-                        )
+                mean_hour = np.round(
+                    loads.hour.mean(level=1)[lookup[1]], 0
+                    )
 
-                    loads.loc[[tuple(lookup)], 'hour'] = mean_hour
+                loads.loc[[tuple(lookup)], 'hour'] = mean_hour
 
-            else:
-
-                lookup = loads.iloc[i].values[0:2]
-
-                df_level = [0,1]
+            # else:
+            #
+            #     print('i:', i)
+            #
+            #     print('loads:', loads)
+            #
+            #     lookup = loads.iloc[i].values[0:2]
+            #
+            #     print('lookup 249', lookup)
+            #
+            #     print(ls.head())
+            #
+            #     try:
+            #
+            #         loads.loc[[tuple(lookup)], 'hour'] = \
+            #             ls.xs(lookup, level=df_level).hour[0]
+            #
+            #     # If the peak or min load is an average, it will throw a
+            #     # KeyError. Use the mean hour by daytype as an alternate value.
+            #     except KeyError:
+            #
+            #         mean_hour = np.round(
+            #             loads.hour.mean(level=1)[lookup[1]], 0
+            #             )
+            #
+            #         loads.loc[[tuple(lookup)], 'hour'] = mean_hour
 
         loads['type'] = min_or_max
 
@@ -319,17 +347,32 @@ class LoadData:
 
                 load_naics_matching.columns = ['NAICS12', 'naics_match']
 
+                if len(str(naics)) < 6:
+
+                    n = 6 - len(str(naics))
+
+                else:
+                    n = 1
+
                 while naics not in load_naics_matching.naics_match.unique():
-
-                    naics = str(naics)
-
-                    naics = int(naics[0:len(naics)-1])
 
                     load_naics_matching.naics_match.update(
                         load_naics_matching.naics_match.apply(
-                            lambda x: int(str(x)[0:len(str(x))-1])
+                            lambda x: int(str(x)[0:len(str(x))-n])
                             )
                         )
+
+                    if naics in load_naics_matching.naics_match.unique():
+
+                        break
+
+                    else:
+
+                        naics = str(naics)
+
+                        naics = int(naics[0:len(naics)-1])
+
+                        n = 1
 
                 # Map naics_match from epri_lf to epri_ls
                 ls = self.epri_ls.set_index('NAICS12').join(

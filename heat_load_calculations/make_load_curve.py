@@ -12,13 +12,14 @@ class load_curve:
 
     def __init__(self, base_year=2014):
 
+        data_dir = './calculation_data/'
+
         self.base_year = base_year
         # Input avg weekly hours by quarter, tested for seasonality.
         # Then convert to weekly hours by month.
         # Set 2014 as base year.
         self.swh = pd.read_csv(
-            '../calculation_data/qpc_weekly_hours_2014.csv', header=[0,1],
-            index_col=0
+            data_dir+'qpc_weekly_hours_2014.csv', header=[0,1], index_col=0
             )
 
         self.swh.columns.set_levels(['Q1', 'Q2', 'Q3', 'Q4'], level=1,
@@ -59,67 +60,12 @@ class load_curve:
 
         # Input employment size class adjustments
         self.emp_size_adj = pd.read_csv(
-            '../calculation_data/iac_emp_size_scale.csv', index_col='naics3'
+            data_dir+'iac_emp_size_scale.csv', index_col='naics3'
             )
 
         self.emp_size_adj.fillna(1, inplace=True)
 
         self.load_data = compile_load_data.LoadData()
-
-        # def match_qpc_naics(amd_dd, qpc_data):
-        #     """
-        #     Match NAICS used in EPA AMD data to NAICS used in QPC survey.
-        #     """
-        #     amd_naics = pd.DataFrame(
-        #         amd_dd.PRIMARY_NAICS_CODE.dropna().unique().astype(int),
-        #         columns=['PRIMARY_NAICS_CODE']
-        #         )
-        #
-        #     qpc_naics = qpc_data.NAICS.astype(str).values
-        #
-        #     def make_match(naics, qpc_naics):
-        #
-        #         n = 6
-        #
-        #         matched = str(naics) in qpc_naics
-        #
-        #         while (matched == False) & (n>0):
-        #
-        #             n = n-1
-        #
-        #             naics = str(naics)[0:n]
-        #
-        #             matched = naics in qpc_naics
-        #
-        #         try:
-        #
-        #             naics = int(naics)
-        #
-        #         except ValueError:
-        #
-        #             naics = np.nan
-        #
-        #         return naics
-        #
-        #     amd_naics['qpc_naics'] = amd_naics.PRIMARY_NAICS_CODE.apply(
-        #         lambda x: make_match(x, qpc_naics)
-        #         )
-        #
-        #     amd_dd = pd.merge(amd_dd.reset_index(), amd_naics, how='left',
-        #                       on='PRIMARY_NAICS_CODE')
-        #
-        #     return amd_dd
-
-        # Import EPA AMD heat load data.
-        # self.amd_data = pd.read_parquet(
-        #     '../calculation_data/epa_amd_data_formatted_20190923',
-        #     engine='pyarrow'
-        #     )
-        #
-        # self.amd_data = match_qpc_naics(self.amd_data, self.swh)
-        #
-        # self.class_ls = classify_load_shape.classification(self.amd_data)
-
 
     def match_qpc_naics(self, naics, qpc_naics):
 
@@ -263,25 +209,12 @@ class load_curve:
 
                 unpacked.rename(columns={'operating': col}, inplace=True)
 
-                # unpacked = unpacked.set_index(['dayofweek', 'hour']).join(
-                #     self.class_ls.fill_schedule(unpacked)
-                #     )
-                #
-                # unpacked.drop(col, axis=1, inplace=True)
-
                 unpacked.reset_index(inplace=True, drop=True)
 
                 unpacked.set_index(['month', 'dayofweek', 'hour'],
                                    inplace=True)
 
                 op_schedule = op_schedule.append(unpacked)
-
-            # weeksched = pd.concat(
-            #     [weeksched.loc[x] for x in weeksched.index], axis=0,
-            #     ignore_index=True
-            #     )
-            #
-            # weeksched.rename(columns={'operating': col}, inplace=True)
 
         op_schedule['NAICS'] = naics
 
@@ -292,28 +225,53 @@ class load_curve:
         op_hours = ['Weekly_op_hours', 'Weekly_op_hours_low',
                     'Weekly_op_hours_high']
 
-        # Perform only once per quarter.
-        for m in range(1, 12, 3):
-
         load_shape = pd.DataFrame(index=op_schedule.index,columns=op_hours)
+
 
         # Estimate peak and minimum loads based on NAICS and employment
         # size class
         load_factor, min_peak_loads = \
             self.load_data.select_load_data(naics_og, emp_size)
 
-        # Need to treat the minimum of EPA-based load shapes differently than
-        # EPRI-based. This is because EPA data is for heat demand and EPRI
-        # data is for electricity demand.
-        if 'epa' != min_peak_loads.source.unique()[0]:
+        # Perform only once per quarter.
+        for m in range(1, 12, 3):
+
+            for hours_type in op_hours:
+
+                sched = op_schedule[hours_type].dropna()
+
+                for day in [0, 5, 6]:
 
 
 
-        print(load_factor, min_peak_loads)
 
-        # Create final load shape by interpolating between min and peak loads
-        # using operating schedule.
-        # op_schedule = interpolate_load(op_schedule, peak_load, turndown)
+
+
+
+                # Need to treat the minimum of EPA-based load shapes differently than
+                # EPRI-based. This is because EPA data are for heat demand and EPRI
+                # data are for electricity demand.
+                if 'epa' != min_peak_loads.source.unique()[0]:
+
+                    #
+                    turndown =
+
+                    # Create final load shape by interpolating between min and peak loads
+                    # using operating schedule.
+                    # Interpolates for a single day type.
+                    op_schedule = interpolate_load(op_schedule, peak_load,
+                                                   turndown=turndown)
+
+
+
+
+        return op_schedule, load_factor, load_shape, min_peak_loads
+
+        # Final step is to multiply by monthly load factor
+        load_shape = load_shape[load_shape.columns].multiply(
+            load_factor.load_factor.set_index('month', inplace=True), axis=0,
+            level=0
+            )
 
         return op_schedule
 
@@ -336,18 +294,6 @@ class load_curve:
         load_8760['dayofweek'] = load_8760.index.dayofweek
 
         load_8760['Q'] = load_8760.index.quarter
-
-        # def rename_dayofweek(dayofweek):
-        #
-        #     if dayofweek <5:
-        #
-        #         name='weekday'
-        #
-        #     elif dayofweek == 5:
-        #
-        #         name='saturday'
-        #
-        #     else:
 
         load_8760['hour'] = load_8760.index.hour
 
@@ -402,12 +348,10 @@ class load_curve:
         Calculate hourly heat load data based on operating schedule, etc.
         """
         # How is QPC NAICS matched?
-
         # Need to determine shifts by day type in op_schedule
         # if n_shifts < 3, use epri load shape info from hours 0 - 14:00
 
         # For interpolating
-
 
         emp_size = op_schedule['emp_size'].unique()
 

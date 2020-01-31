@@ -101,3 +101,37 @@
 ,Indirect Uses-Boiler Fuel,0.95
 ,  CHP and/or Cogeneration Process,0.95
 ,  Conventional Boiler Use,0
+327310,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,1
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,1
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,0
+,  CHP and/or Cogeneration Process,0
+,  Conventional Boiler Use,0
+327410,Direct Uses-Total Nonprocess,0
+,  Conventional Electricity Generation,0
+,  Facility HVAC,0
+,  Facility Lighting,0
+,  Onsite Transportation,0
+,  Other Facility Support,0
+,  Other Nonprocess Use,0
+,Direct Uses-Total Process,1
+,  Electro-Chemical Processes,0
+,  Machine Drive,0
+,  Other Process Use,0
+,  Process Cooling and Refrigeration,0
+,  Process Heating,1
+,End Use Not Reported,0
+,Indirect Uses-Boiler Fuel,0
+,  CHP and/or Cogeneration Process,0
+,  Conventional Boiler Use,0
