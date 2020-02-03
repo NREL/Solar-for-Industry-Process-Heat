@@ -19,18 +19,17 @@ specifying the load factor by industry and min and max of daily load shape
 ## Steps
 1. Test for seasonality in Census QPC data; use annual average where seasonality
 does not exist.
- * Use estimate standard errors to report high and low values for operating
+* Use estimate standard errors to report high and low values for operating
 hours.
 2. Test for differences in IAC annual operating hours between employment size
 classes by industry; results reported as operating hours relative to
 industry mean.
 3. Calculate monthly heat load factor by industry for boilers from EPA Air
 Markets Program data.
- * Calculate the coefficient of variation by hour by day type.
+* Calculate the coefficient of variation by hour by day type.
 4. Allocate annual energy use to month using Census QPC data on avg weekly
 operating hours.
-5. Calculate monthly peak load using EPA data (for large facilities of relevant
-  NAICS codes) or EPRI data. NAICS codes are mapped to QPC NAICS.
+5. Calculate monthly peak load using EPA data (mapped to QPC NAICS)
 
 # Gaps
 1. **NAICS and facility size diversity.** EPA Air Markets Program data cover only
