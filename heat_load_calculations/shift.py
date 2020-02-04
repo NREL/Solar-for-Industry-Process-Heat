@@ -20,13 +20,13 @@ class schedule:
         Calculate sunday operating hours based on weekly operating hours
         and shift length.
         """
-        if self.op_hours < self.shift_length*6*2: # 96 for 8-hr shift
+        if self.op_hours < (self.shift_length*5*2+8): # 96 for 8-hr shift
 
             sunday_hours = 0
 
         elif self.op_hours <= self.shift_length*7*2: # 112 for 8-hr shift
 
-            sunday_hours = self.op_hours-self.shift_length*6*2
+            sunday_hours = self.op_hours-(self.shift_length*5*2+8)
 
         elif self.op_hours <= self.shift_length*(6*3+2): # 160 for 8-hr shift
 
