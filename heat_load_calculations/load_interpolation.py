@@ -1,4 +1,7 @@
 
+import numpy as np
+import pandas as pd
+
 def interpolate_load(operating_schedule, peak_load, turndown):
     """
     Identifies the starting and ending hours of operation for a specific
@@ -8,15 +11,15 @@ def interpolate_load(operating_schedule, peak_load, turndown):
 
     min_load = peak_load / turndown
 
-    operating_schedule.set_index(['dayofweek', 'hour'], inplace=True)
+    # operating_schedule.set_index(['dayofweek', 'hour'], inplace=True)
 
     days = operating_schedule.index.get_level_values(0).unique()
 
     for n in days:
 
         try:
-            start = operating_schedule.xs(n, level=0).operating.where(
-                operating_schedule.xs(n, level=0).operating == True
+            start = operating_schedule.xs(n, level=0).where(
+                operating_schedule.xs(n, level=0) == True
                 ).dropna().index[0]
 
         except IndexError:
@@ -25,29 +28,33 @@ def interpolate_load(operating_schedule, peak_load, turndown):
 
         else:
 
-            end = operating_schedule.xs(n, level=0).operating.where(
-                operating_schedule.xs(n, level=0).operating == True
+            end = operating_schedule.xs(n, level=0).where(
+                operating_schedule.xs(n, level=0) == True
                 ).dropna().index[-1]
 
-            try:
+            mid = int(round(start/2, 0))
 
-                end_0 = operating_schedule.xs(days[n-1], level=0).operating.where(
-                    operating_schedule.xs(days[n-1], level=0).operating == True
-                    ).dropna().index[-1]
+            if n > 0:
 
-            except IndexError:
+                try:
 
-                mid = int(round((start-0)/2, 0))
+                    end_0 = operating_schedule.xs(days[n-1], level=0).where(
+                        operating_schedule.xs(days[n-1], level=0) == True
+                        ).dropna().index[-1]
 
-            else:
+                except IndexError:
 
-                mid = int(round((start+(24-end_0))/2, 0))
+                    pass
+
+                else:
+
+                    mid = int(round((start+(24-end_0))/2, 0))
 
         if np.isnan(start):
 
             data_points = operating_schedule.xs(n).reset_index()
 
-            data_points['operating'] = 'mid'
+            data_points[operating_schedule.name] = 'mid'
 
             data_points['dayofweek'] = n
 
@@ -57,12 +64,12 @@ def interpolate_load(operating_schedule, peak_load, turndown):
 
             data_points = pd.DataFrame(
                 [[n, start, 'start'],[n, mid, 'mid'],[n, end, 'end']],
-                columns=['dayofweek', 'hour', 'operating']
+                columns=['dayofweek', 'hour', operating_schedule.name]
                 )
 
             data_points.set_index(['dayofweek', 'hour'], inplace=True)
 
-        operating_schedule.update(data_points)
+        operating_schedule.update(data_points[operating_schedule.name])
 
     operating_schedule.replace(
         {'start': peak_load, 'end':peak_load, 'mid':min_load, True: peak_load,

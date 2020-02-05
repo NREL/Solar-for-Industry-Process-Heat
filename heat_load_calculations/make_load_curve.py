@@ -92,7 +92,8 @@ class load_curve:
         return int(naics)
 
 
-    def calc_load_shape(self, naics, emp_size, hours='qpc', energy='heat'):
+    def calc_load_shape(self, naics, emp_size, enduse_turndown={'boiler': 4},
+                        hours='qpc', energy='heat'):
         """
         Calculate hourly load shape (represented as a fraction of daily
         energy use) by month and day of week (Monday==0) based on
@@ -102,6 +103,9 @@ class load_curve:
         Quarterly Survey of Plant Capacity Utilization. Otherwise, a list of
         weekly average production hours by quarter should be specified,
         e.g., [40, 40, 42, 40].
+
+        Enduse_turndown: dictionary with defualt values for boiler of 4 and
+        process_heat of 5.
         """
 
         # Keep track of original NAICS code
@@ -233,34 +237,50 @@ class load_curve:
         load_factor, min_peak_loads = \
             self.load_data.select_load_data(naics_og, emp_size)
 
+        turndown = [enduse_turndown[k] for k in enduse_turndown.keys()][0]
+
+        return op_schedule, load_factor, load_shape, min_peak_loads
+
         # Perform only once per quarter.
         for m in range(1, 12, 3):
 
             for hours_type in op_hours:
 
-                sched = op_schedule[hours_type].dropna()
+                sched = op_schedule[hours_type].xs(m, level='month').dropna()
 
-                for day in [0, 5, 6]:
+                for day in range(0, 7):
 
+                    if day in range(0, 6):
 
+                        daytype = 'weekday'
 
+                    elif day == 5:
 
+                        daytype = 'saturday'
 
+                    else:
 
+                        daytype = 'sunday'
 
                 # Need to treat the minimum of EPA-based load shapes differently than
                 # EPRI-based. This is because EPA data are for heat demand and EPRI
                 # data are for electricity demand.
                 if 'epa' != min_peak_loads.source.unique()[0]:
 
-                    #
-                    turndown =
+                    peak_load = \
+                        min_peak_loads[min_peak_loads.type=='max'].load.max()
 
                     # Create final load shape by interpolating between min and peak loads
                     # using operating schedule.
                     # Interpolates for a single day type.
+                    # For EPRI data, only peak load is used (min load is
+                    # estimated using turndown assumption)
                     op_schedule = interpolate_load(op_schedule, peak_load,
                                                    turndown=turndown)
+
+                else:
+
+                    op_schedule =
 
 
 
