@@ -91,7 +91,6 @@ class load_curve:
 
         return int(naics)
 
-
     def calc_load_shape(self, naics, emp_size, enduse_turndown={'boiler': 4},
                         hours='qpc', energy='heat'):
         """
@@ -234,8 +233,7 @@ class load_curve:
             columns=op_hours
             )
 
-        # Estimate peak and minimum loads based on NAICS and employment
-        # size class
+        # Load factors here are not ultimately used in hourly load calculations.
         load_factor, min_peak_loads = \
             self.load_data.select_load_data(naics_og, emp_size)
 
@@ -245,20 +243,6 @@ class load_curve:
             for m in range(1, 12, 3):
 
                 sched = op_schedule[hours_type].xs(m, level='month').dropna()
-
-                # for day in range(0, 7):
-                #
-                #     if day in range(0, 6):
-                #
-                #         daytype = 'weekday'
-                #
-                #     elif day == 5:
-                #
-                #         daytype = 'saturday'
-                #
-                #     else:
-                #
-                #         daytype = 'sunday'
 
                 # Need to treat the minimum of EPA-based load shapes differently than
                 # EPRI-based. This is because EPA data are for heat demand and EPRI
@@ -288,35 +272,23 @@ class load_curve:
                     # Interpolates for a single day type.
                     # For EPRI data, only peak load is used (min load is
                     # estimated using turndown assumption)
-                    sched = load_interpolation.interpolate_load(sched, peak_load,
-                                                   min_load)
+                    sched = interpolate_load(sched, peak_load, min_load)
 
                     load_shape.loc[[x for x in range(m, m+3)], hours_type] = \
                         np.tile(sched, 3)
 
-        return op_schedule, load_factor, load_shape, min_peak_loads
-                else:
+                # For EPA load data:
+                # else:
+                #
+                #     op_schedule =
 
-                    op_schedule =
-
-
-
-
-        return op_schedule, load_factor, load_shape, min_peak_loads
-
-        # Final step is to multiply by monthly load factor
-        load_shape = load_shape[load_shape.columns].multiply(
-            load_factor.load_factor.set_index('month', inplace=True), axis=0,
-            level=0
-            )
-
-        return op_schedule
+        return load_shape
 
     @staticmethod
-    def calc_annual_load(op_schedule, annual_energy_use):
+    def calc_annual_load(annual_energy_use, load_shape):
         """
         Calculate hourly heat load based on operating schedule and
-        annual energy use (in MMBtu) for 2014.
+        annual energy use (in MMBtu/year) for 2014.
         Returns hourly load for mean, high, and low weekly hours by quarter
         (high and low are 95% confidence interval).
         """
@@ -336,70 +308,86 @@ class load_curve:
 
         load_8760['date'] = load_8760.index.date
 
+        op_hours = ['Weekly_op_hours','Weekly_op_hours_low',
+                    'Weekly_op_hours_high']
+
+        # month_hour_count = load_8760.groupby('month').hour.count()
+
+        # Merge load shape with 8760 dataframe
+        load_8760 = pd.merge(load_8760.reset_index(), load_shape.reset_index(),
+                             on=['month', 'dayofweek', 'hour'], how='left')
+
+        # Calculate monthly load factor for each set of operating hours (
+        # average, low, and high).
+        # Like EPRI data, load factor is defined as ratio of average load to
+        # peak load
+        monthly_load_factor = load_8760.groupby('month').apply(
+            lambda x: x[op_hours].mean()/x[op_hours].max()
+            )
+
+        # Determine monthly peak demand using monthly load factor and
+        # number of hours by month.
+        # Units are in power, not energy
+        monthly_peak_demand = \
+            monthly_load_factor**-1*(annual_energy_use / 8760)
+
+        for m in load_8760.groupby('month').groups:
+
+            monthly_energy = load_8760.groupby(
+                'month'
+                ).get_group(m)[op_hours].multiply(
+                    monthly_peak_demand.xs(m)[op_hours]
+                    )
+
+            load_8760.update(monthly_energy)
+
+
+        load_8760.set_index('index', inplace=True)
+
+        return load_8760
+
+
+
         # Calculate total number of days by
         # Used to scale load shapes
-        day_count = load_8760.drop_duplicates('date').groupby(
-            ['month', 'dayofweek']
-            ).date.count()
-
-        op_schedule = op_schedule.reset_index().melt(
-            id_vars=['month', 'dayofweek', 'hour', 'NAICS', 'emp_size',
-                     'fraction_annual_energy', 'daily_hours'],
-            var_name='hours_type', value_name='schedule_type'
-            ).dropna()
-
-        op_schedule.hours_type.replace(
-            {'schedule_type_mean': 'mean', 'schedule_type_high': 'high',
-             'schedule_type_low': 'low'}, inplace=True
-            )
-
-        op_schedule.set_index(
-            ['hours_type', 'month', 'dayofweek', 'hour'], inplace=True
-            )
-
-        # Need to also sum daily hours by quarter and use fraction of annual
-        # fraction to split annual energy into quarterly energy.
-        op_schedule.fraction_annual_energy.update(
-            op_schedule.fraction_annual_energy.divide(day_count)
-            )
-
-        load_8760 = pd.merge(load_8760.reset_index(), op_schedule.reset_index(),
-                             on=['month', 'dayofweek','hour'])
-
-        q_energy_fraction = load_8760.groupby(['hours_type', 'Q']).apply(
-            lambda x: x.drop_duplicates('date').daily_hours.sum()
-            )
-
-        q_energy_fraction.update(
-            q_energy_fraction.divide(q_energy_fraction.sum(level=0))
-            )
-
-        q_energy = q_energy_fraction.multiply(annual_energy_use)
-
-        load_8760.sort_values(by=['date', 'hour'], inplace=True)
-
-        load_8760.index = dtindex
-
-    def calc_8760_load(self, annual_mmbtu, op_schedule):
-        """
-        Calculate hourly heat load data based on operating schedule, etc.
-        """
-        # How is QPC NAICS matched?
-        # Need to determine shifts by day type in op_schedule
-        # if n_shifts < 3, use epri load shape info from hours 0 - 14:00
-
-        # For interpolating
-
-        emp_size = op_schedule['emp_size'].unique()
-
-        naics = op_schedule['NAICS'].unique()
-
-        large_sizes = ['n250_499', 'n500_999', 'n1000', 'ghgrp']
-
-        if emp_size in large_sizes:
-
-            lf = epa_lf
-
-            if naics not in epa_lf:
-
-              lf = epri_lf
+        # day_count = load_8760.drop_duplicates('date').groupby(
+        #     ['month', 'dayofweek']
+        #     ).date.count()
+        #
+        # op_schedule = op_schedule.reset_index().melt(
+        #     id_vars=['month', 'dayofweek', 'hour', 'NAICS', 'emp_size',
+        #              'fraction_annual_energy', 'daily_hours'],
+        #     var_name='hours_type', value_name='schedule_type'
+        #     ).dropna()
+        #
+        # op_schedule.hours_type.replace(
+        #     {'schedule_type_mean': 'mean', 'schedule_type_high': 'high',
+        #      'schedule_type_low': 'low'}, inplace=True
+        #     )
+        #
+        # op_schedule.set_index(
+        #     ['hours_type', 'month', 'dayofweek', 'hour'], inplace=True
+        #     )
+        #
+        # # Need to also sum daily hours by quarter and use fraction of annual
+        # # fraction to split annual energy into quarterly energy.
+        # op_schedule.fraction_annual_energy.update(
+        #     op_schedule.fraction_annual_energy.divide(day_count)
+        #     )
+        #
+        # load_8760 = pd.merge(load_8760.reset_index(), op_schedule.reset_index(),
+        #                      on=['month', 'dayofweek','hour'])
+        #
+        # q_energy_fraction = load_8760.groupby(['hours_type', 'Q']).apply(
+        #     lambda x: x.drop_duplicates('date').daily_hours.sum()
+        #     )
+        #
+        # q_energy_fraction.update(
+        #     q_energy_fraction.divide(q_energy_fraction.sum(level=0))
+        #     )
+        #
+        # q_energy = q_energy_fraction.multiply(annual_energy_use)
+        #
+        # load_8760.sort_values(by=['date', 'hour'], inplace=True)
+        #
+        # load_8760.index = dtindex
