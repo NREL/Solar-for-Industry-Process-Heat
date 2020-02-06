@@ -246,8 +246,6 @@ class load_curve:
 
                 sched = op_schedule[hours_type].xs(m, level='month').dropna()
 
-                print(hours_type, m, sched.head())
-
                 # for day in range(0, 7):
                 #
                 #     if day in range(0, 6):
