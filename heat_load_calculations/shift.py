@@ -217,6 +217,7 @@ class schedule:
 
         # Get rid of tuple nans
         for k in shift_times.keys():
+
             if shift_times[k] == (np.nan, np.nan):
                 shift_times[k] = np.nan
 
@@ -390,6 +391,11 @@ class schedule:
 
             day_start, day_end = self.calc_operating(n, shift_times)
 
+            # Days without shifts turn True into 1. Skip these days.
+            if np.isnan(day_start):
+
+                continue
+
             operating_hours = \
                 week_sched.xs(n, level=0).loc[day_start:day_end].fillna(True)
 
@@ -408,6 +414,9 @@ class schedule:
         week_sched.reset_index(inplace=True)
 
         week_sched.operating.fillna(False, inplace=True)
+
+        #
+        # week_sched
 #(3131, 'n250_499')
         # def apply_shift_times(week_sched, shift_times, shift_info):
         #
