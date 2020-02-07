@@ -41,7 +41,7 @@ class process_temps:
             def create_sic_naics_dfs(file_dir, file):
 
                 sic_naics = pd.read_csv(
-                        os.path.join('../', file_dir + file)
+                        os.path.join('./', file_dir + file)
                         )
 
                 sic_naics = sic_naics.iloc[:, [0, 2]]
@@ -54,7 +54,7 @@ class process_temps:
             def create_dict(file_dir, file):
 
                 dict_out = dict(pd.read_csv(
-                        os.path.join('../', file_dir + file)
+                        os.path.join('./', file_dir + file)
                         ).iloc[:, [0, 2]].values)
 
                 return dict_out
@@ -83,7 +83,7 @@ class process_temps:
                 ndict[k[0:7]] = create_sic_naics_dfs(self.datadir, v)
 
             temps = pd.read_csv(
-                    os.path.join('../', self.datadir + self.temp_file)
+                    os.path.join('./', self.datadir + self.temp_file)
                     )
 
             temps.SIC.fillna(method='ffill', inplace=True)
@@ -341,10 +341,10 @@ class process_temps:
                 self.temps.drop_duplicates(subset='NAICS12'), eu_naics
                 )
 
-        if 'agg_temps.csv' in os.listdir(os.path.join('../', self.datadir)):
+        if 'agg_temps.csv' in os.listdir(os.path.join('./', self.datadir)):
 
             other_temps = pd.read_csv(
-                    os.path.join('../', self.datadir+'agg_temps.csv')
+                    os.path.join('./', self.datadir+'agg_temps.csv')
                     )
 
         else:
@@ -354,7 +354,7 @@ class process_temps:
             other_temps = agg_temps()
 
             other_temps.to_csv(
-                os.path.join('../', self.datadir+'agg_temps.csv')
+                os.path.join('./', self.datadir+'agg_temps.csv')
                 )
 
         tn_match_fraction = pd.concat(
