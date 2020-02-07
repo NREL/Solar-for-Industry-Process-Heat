@@ -95,6 +95,8 @@ class process_temps:
             # Remove boiler entries, which describe boiler inputs and outputs
             temps = pd.DataFrame(temps[temps.Unit_Process != 'Boiler'])
 
+            temps['og_HT'] = temps['Heat_type']
+
             temps['adj_HT'] = temps.Heat_type.apply(lambda x: adj_heat_type(x))
 
             temps.replace({'from_boiler': 'boiler'}, inplace=True)
@@ -124,6 +126,26 @@ class process_temps:
             temps = temps.set_index('2007 NAICS Code').join(
                     ndict['N07_N12']
                     ).reset_index()
+
+            # Create a separate file for calculating energy fraction by
+            # hot water and steam
+            temps_hw_s = temps[
+                (temps.og_HT != 'fuel') &
+                (temps.NAICS12.between(300000,400000))].groupby(
+                    ['NAICS12', 'og_HT', 'Temp_C']
+                    ).E_Btu.sum()
+
+            e_total_hw_s = temps[
+                (temps.og_HT != 'fuel') &
+                (temps.NAICS12.between(300000,400000))
+                ].groupby(['NAICS12']).E_Btu.sum()
+
+            temps_hw_s = temps_hw_s.divide(e_total_hw_s)
+
+            temps_hw_s.name='%_Btu'
+
+            temps_hw_s.to_csv('hw_steam_fraction_NAICS.csv', index=True,
+                              header=True)
 
             # Multiple entries for each SIC/NAICS; take simple mean.
             temps = temps.groupby(
