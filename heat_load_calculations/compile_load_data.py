@@ -8,7 +8,7 @@ class LoadData:
 
     def __init__(self):
 
-        self.datadir = './calculation_data/'
+        self.datadir = '../calculation_data/'
 
         self.nfiles = {'sic_N02_file': '1987_SIC_to_2002_NAICS.csv',
                        'N02_N07_file': '2002_to_2007_NAICS.csv',
@@ -286,8 +286,7 @@ class LoadData:
         # Preserve original NAICS
         naics_og = naics
 
-        large_sizes = ['n50_99','n100_249','n250_499','n500_999','n1000',
-                       'ghgrp']
+        large_sizes = ['n100_249','n250_499','n500_999','n1000','ghgrp']
 
         type_epa = [p for p in itertools.product(
             self.usepa_lf.NAICS12.unique(), large_sizes

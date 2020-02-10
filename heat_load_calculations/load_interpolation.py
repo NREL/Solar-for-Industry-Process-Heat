@@ -17,8 +17,6 @@ def interpolate_load(operating_schedule, peak_load, min_load):
 
     for n in days:
 
-        print(n)
-
         try:
             start = opsched.xs(n, level=0).where(
                 opsched.xs(n, level=0) == True
@@ -138,10 +136,42 @@ def interpolate_load(operating_schedule, peak_load, min_load):
 
         opsched.update(data_points[opsched.name])
 
-    opsched.replace(
-        {'start': peak_load, 'end':peak_load, 'startup':min_load,
-         'shutdown': min_load, True: peak_load, False: np.nan}, inplace=True
-        )
+    # Replace start, end, startup, and shutdown with peak and minimum
+    # load values.
+    if type(min_load) == pd.core.frame.DataFrame:
+
+        print('type:\n', type(opsched), opsched.name)
+
+        peak_updates = \
+            opsched[(opsched == 'start') | (opsched == 'end') |
+                    (opsched == True)].reset_index('hour').join(
+                        peak_load.set_index('dayofweek').load
+                        ).set_index('hour', append=True)
+
+        peak_updates.iloc[:, 0] = peak_updates.iloc[:, 1]
+
+        opsched.update(peak_updates.load)
+
+        min_updates = \
+            opsched[(opsched == 'startup') |
+                    (opsched == 'shutdown')].reset_index('hour').join(
+                        min_load.set_index('dayofweek').load
+                        ).set_index('hour', append=True)
+
+        min_updates.iloc[:, 0] = min_updates.iloc[:, 1]
+
+        opsched.update(min_updates.load)
+
+        opsched.replace({False:np.nan}, inplace=True)
+
+        print('opsched:\n', opsched)
+
+    else:
+
+        opsched.replace(
+            {'start': peak_load, 'end':peak_load, 'startup':min_load,
+             'shutdown': min_load, True: peak_load, False: np.nan}, inplace=True
+            )
 
     # Use simple linear interpolation to fill NaNs.
     opsched.update(opsched.interpolate(limit_area='inside'))
@@ -150,17 +180,21 @@ def interpolate_load(operating_schedule, peak_load, min_load):
     opsched.fillna(method='bfill', inplace=True)
 
     # Also need to fill any remaining times for Sunday
+    min_load_sunday = opsched.xs(6, level=0).dropna().min()
+
+    print('min_load_sunday:\n', min_load_sunday)
+
     if (23-opsched.xs(6, level=0).dropna().index[-1] > 3):
 
         sun_shutdown = range(opsched.xs(6, level=0).dropna().index[-1]+3, 24)
 
-        opsched.loc[(6, [x for x in sun_shutdown])] = min_load
+        opsched.loc[(6, [x for x in sun_shutdown])] = min_load_sunday
 
     else:
 
         sun_shutdown = 23
 
-        opsched.loc[(6, sun_shutdown)] = min_load
+        opsched.loc[(6, sun_shutdown)] = min_load_sunday
 
     # sun_shutdown = np.round(
     #     (23-opsched.xs(6, level=0).dropna().index[-1])/2 + \
@@ -168,5 +202,7 @@ def interpolate_load(operating_schedule, peak_load, min_load):
     #     )
 
     opsched = opsched.interpolate()
+
+    print('opsched final:\n', opsched)
 
     return opsched

@@ -1,12 +1,13 @@
+import pytest
 import make_load_curve
 
 def test_make_load_curve():
 
     annual_mmbtu = 100
 
-    naics_og = 311111
+    naics_og = 331110
 
-    emp_size = 'n50_99'
+    emp_size = 'n250_499'
 
     hours = 'qpc'
 
@@ -21,6 +22,8 @@ def test_make_load_curve():
         naics_og, emp_size, enduse_turndown={'boiler': 4}, hours=hours,
         energy=energy
         )
+
+    print('load shape:\n', load_shape)
 
     load_8760 = lc.calc_annual_load(annual_mmbtu, load_shape)
 

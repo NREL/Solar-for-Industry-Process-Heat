@@ -3,7 +3,6 @@ import shift
 import pandas as pd
 import numpy as np
 import os
-import classify_load_shape
 from load_interpolation import interpolate_load
 import compile_load_data
 
@@ -12,7 +11,7 @@ class load_curve:
 
     def __init__(self, base_year=2014):
 
-        data_dir = './calculation_data/'
+        data_dir = '../calculation_data/'
 
         self.base_year = base_year
         # Input avg weekly hours by quarter, tested for seasonality.
@@ -237,50 +236,100 @@ class load_curve:
         load_factor, min_peak_loads = \
             self.load_data.select_load_data(naics_og, emp_size)
 
-        # Perform only once per quarter.
         for hours_type in op_hours:
 
-            for m in range(1, 12, 3):
+            schedule_type = op_schedule.dropna(subset=[hours_type]).iloc[0, 6]
 
-                sched = op_schedule[hours_type].xs(m, level='month').dropna()
+            # Treat industries differently that match EPA NAICS, and assumed
+            # size and operating hours.
+            if ('epa' == min_peak_loads.source.unique()[0]) & \
+                (schedule_type in ['sunday_double', 'continuous']) & \
+                (energy == 'heat'):
 
-                # Need to treat the minimum of EPA-based load shapes differently than
-                # EPRI-based. This is because EPA data are for heat demand and EPRI
-                # data are for electricity demand.
-                if 'epa' != min_peak_loads.source.unique()[0]:
+                epa_mpl = min_peak_loads.copy()
 
-                    peak_load = min_peak_loads[
-                        (min_peak_loads.type=='max') &
-                        (min_peak_loads.daytype=='weekday')
-                        ].load.max()
+                epa_mpl['dayofweek'] = epa_mpl.daytype.map(
+                    {'weekday':0, 'saturday': 5, 'sunday': 6}
+                    )
 
-                    if energy == 'heat':
+                # Fill in other dayofweek (1 - 4)
+                other_weekday = pd.concat(
+                    [epa_mpl[epa_mpl.dayofweek==0] for n in range(1,5)],
+                    axis=0, ignore_index=True
+                    )
 
-                        min_load = peak_load / [
-                            enduse_turndown[k] for k in enduse_turndown.keys()
-                            ][0]
+                # Fill in days of week
+                other_weekday['dayofweek'] = \
+                    np.hstack([np.repeat(n, 24) for n in range(1, 5)])
 
-                    else:
+                epa_mpl = epa_mpl.append(other_weekday)
 
-                        min_load = min_peak_loads[
-                            (min_peak_loads.type=='min') &
+                epa_pl = epa_mpl[epa_mpl.type=='max'].sort_values(
+                    ['month', 'dayofweek']
+                    )
+
+                epa_ml = epa_mpl[epa_mpl.type=='min'].sort_values(
+                    ['month', 'dayofweek']
+                    )
+                #
+                # epa_mpl = epa_mpl.set_index(['month', 'dayofweek', 'hour'],
+                #                             inplace=True).sort_index()
+
+                for m in range(1, 13):
+
+                    sched = \
+                        op_schedule[hours_type].xs(m, level='month').dropna()
+
+                    peak_load = epa_pl[epa_pl.month==m]
+
+                    min_load = epa_ml[epa_ml.month==m]
+
+                    sched = interpolate_load(sched, peak_load, min_load)
+
+                    load_shape.loc[m, hours_type] = sched
+
+            else:
+
+                # Perform only once per quarter.
+                for m in range(1, 12, 3):
+
+                    sched = \
+                        op_schedule[hours_type].xs(m, level='month').dropna()
+
+                    # Need to treat the minimum of EPA-based load shapes
+                    # differently than EPRI-based. This is because EPA data
+                    # are for heat demand and EPRI data are for electricity
+                    # demand.
+                    if 'epa' != min_peak_loads.source.unique()[0]:
+
+                        peak_load = min_peak_loads[
+                            (min_peak_loads.type=='max') &
                             (min_peak_loads.daytype=='weekday')
                             ].load.max()
 
-                    # Create final load shape by interpolating between min and peak loads
-                    # using operating schedule.
-                    # Interpolates for a single day type.
-                    # For EPRI data, only peak load is used (min load is
-                    # estimated using turndown assumption)
-                    sched = interpolate_load(sched, peak_load, min_load)
+                        if energy == 'heat':
 
-                    load_shape.loc[[x for x in range(m, m+3)], hours_type] = \
-                        np.tile(sched, 3)
+                            min_load = peak_load / [
+                                enduse_turndown[k] for k in enduse_turndown.keys()
+                                ][0]
 
-                # For EPA load data:
-                # else:
-                #
-                #     op_schedule =
+                        else:
+
+                            min_load = min_peak_loads[
+                                (min_peak_loads.type=='min') &
+                                (min_peak_loads.daytype=='weekday')
+                                ].load.max()
+
+                        # Create final load shape by interpolating between min and
+                        # peak loads using operating schedule.
+                        # Interpolates for a single day type.
+                        # For EPRI data, only peak load is used (min load is
+                        # estimated using turndown assumption)
+                        sched = interpolate_load(sched, peak_load, min_load)
+
+                        load_shape.loc[
+                            [x for x in range(m, m+3)], hours_type
+                            ] = np.tile(sched, 3)
 
         return load_shape
 
