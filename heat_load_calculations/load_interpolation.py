@@ -140,8 +140,6 @@ def interpolate_load(operating_schedule, peak_load, min_load):
     # load values.
     if type(min_load) == pd.core.frame.DataFrame:
 
-        print('type:\n', type(opsched), opsched.name)
-
         peak_updates = \
             opsched[(opsched == 'start') | (opsched == 'end') |
                     (opsched == True)].reset_index('hour').join(
@@ -164,7 +162,6 @@ def interpolate_load(operating_schedule, peak_load, min_load):
 
         opsched.replace({False:np.nan}, inplace=True)
 
-        print('opsched:\n', opsched)
 
     else:
 
@@ -181,8 +178,6 @@ def interpolate_load(operating_schedule, peak_load, min_load):
 
     # Also need to fill any remaining times for Sunday
     min_load_sunday = opsched.xs(6, level=0).dropna().min()
-
-    print('min_load_sunday:\n', min_load_sunday)
 
     if (23-opsched.xs(6, level=0).dropna().index[-1] > 3):
 
@@ -202,7 +197,5 @@ def interpolate_load(operating_schedule, peak_load, min_load):
     #     )
 
     opsched = opsched.interpolate()
-
-    print('opsched final:\n', opsched)
 
     return opsched

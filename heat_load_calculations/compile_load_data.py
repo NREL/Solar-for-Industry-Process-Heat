@@ -277,7 +277,7 @@ class LoadData:
 
         return loads
 
-    def select_load_data(self, naics, emp_size):
+    def select_load_data(self, naics, emp_size, schedule_type):
         """
         Choose load characteristics from eith EPA or EPRI data based
         on NAICS code and employment size class.
@@ -288,15 +288,17 @@ class LoadData:
 
         large_sizes = ['n100_249','n250_499','n500_999','n1000','ghgrp']
 
+        schedule_types = ['sunday_double', 'continuous']
+
         type_epa = [p for p in itertools.product(
-            self.usepa_lf.NAICS12.unique(), large_sizes
+            self.usepa_lf.NAICS12.unique(), large_sizes, schedule_types
             )]
 
         source = 'epri'
 
         # Select EPA load factors for large facilities and if NAICS is in
         # EPA data.
-        if (naics, emp_size) in type_epa:
+        if (naics, emp_size, schedule_type) in type_epa:
 
             source = 'epa'
 
