@@ -37,23 +37,23 @@ def get_GHGRP_records(reporting_year, table, rows=None):
     V_GHG_EMITTER_FACILITIES.
     Optional argument to specify number of table rows.
     """
-    
+
     s = ""
-    
+
 #    max_retries = 25
-    
+
     if table[0:14] == 'V_GHG_EMITTER_':
 
-        table_url = ('https://iaspub.epa.gov/enviro/efservice/', table,
+        table_url = ('https://enviro.epa.gov/enviro/efservice/', table,
                      '/YEAR/', str(reporting_year))
-        
+
         table_url = s.join(table_url)
 
     else:
-        
-        table_url = ('https://iaspub.epa.gov/enviro/efservice/', table,
+
+        table_url = ('https://enviro.epa.gov/enviro/efservice/', table,
                      '/REPORTING_YEAR/', str(reporting_year))
-        
+
         table_url = s.join(table_url)
 
 
@@ -74,23 +74,23 @@ def get_GHGRP_records(reporting_year, table, rows=None):
         try:
 
             r = requests.get(table_url + '/count/')
-            
+
         except requests.exceptions.RequestException as e:
-            
+
             print(e, table_url)
 
             sys.exit(1)
-            
+
         else:
-            
+
             nrecords = int(et.fromstring(r.content)[0].text)
 
         if nrecords > 10000:
-            
+
 #            session = requests.Session()
-#    
+#
 #            adapter = requests.adapters.HTTPAdapter(max_retries = max_retries)
-#    
+#
 #            session.mount('https://', adapter)
 
             rrange = range(0, nrecords, 10000)
@@ -102,18 +102,18 @@ def get_GHGRP_records(reporting_year, table, rows=None):
                         str(rrange[n]) + ':' + str(rrange[n + 1]))
 
                 except requests.exceptions.RequestException as e:
-                    
+
                     print(e, table_url)
-                    
+
                     sys.exit(1)
 #                    r_records.raise_for_status()
-                    
+
                 else:
-                    
+
                     records_root = et.fromstring(r_records.content)
 
                     r_df = xml_to_df(records_root, table, ghgrp.columns)
-    
+
                     ghgrp = ghgrp.append(r_df)
 
             records_last = \
@@ -133,32 +133,32 @@ def get_GHGRP_records(reporting_year, table, rows=None):
                     requests.get(table_url + '/rows/0:' + str(nrecords))
 
             except requests.exceptions.RequestException as e:
-                    
+
                 print(e, table_url)
-                    
+
                 sys.exit(1)
 
             else:
-                
+
                 records_root = et.fromstring(r_records.content)
 
                 r_df = xml_to_df(records_root, table, ghgrp.columns)
 
                 ghgrp = ghgrp.append(r_df)
-    
+
     else:
 
         try:
             r_records = requests.get(table_url + '/rows/0:' + str(rows))
 
         except requests.exceptions.RequestException as e:
-                    
+
             print(e, table_url)
-                    
+
             sys.exit(1)
 
         else:
-            
+
             records_root = et.fromstring(r_records.content)
 
             r_df = xml_to_df(records_root, table, ghgrp.columns)
