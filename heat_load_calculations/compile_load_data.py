@@ -296,6 +296,69 @@ class LoadData:
 
         source = 'epri'
 
+        def match_epri_data(naics, data_type):
+
+            if data_type == 'ls':
+
+                load_naics_matching = pd.concat(
+                    [self.epri_ls.NAICS12, self.epri_ls.NAICS12], axis=1
+                    )
+
+            if data_type == 'lf':
+
+                load_naics_matching = pd.concat(
+                    [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1
+                    )
+
+            load_naics_matching.columns = ['NAICS12', 'naics_match']
+
+            if len(str(naics)) < 6:
+
+                n = 6 - len(str(naics))
+
+            else:
+                n = 1
+
+            while naics not in load_naics_matching.naics_match.unique():
+
+                load_naics_matching.naics_match.update(
+                    load_naics_matching.naics_match.apply(
+                        lambda x: int(str(x)[0:len(str(x))-n])
+                        )
+                    )
+
+                if naics in load_naics_matching.naics_match.unique():
+
+                    break
+
+                else:
+
+                    naics = str(naics)
+
+                    naics = int(naics[0:len(naics)-1])
+
+                    n = 1
+
+            if data_type == 'ls':
+
+                df = self.epri_lf.set_index('NAICS12').join(
+                    load_naics_matching.set_index('NAICS12')
+                    ).reset_index()
+
+                df = df[(df.naics_match == naics) & (df.SIC != 33)]
+
+                df = df['load_factor'].mean()
+
+            if data_type == 'ls':
+
+                df = self.epri_ls.set_index('NAICS12').join(
+                    load_naics_matching.set_index('NAICS12')
+                    ).reset_index()
+
+                df = df[df.naics_match == naics]
+
+            return df
+
         # Select EPA load factors for large facilities and if NAICS is in
         # EPA data.
         if (naics, emp_size, schedule_type) in type_epa:
@@ -333,63 +396,78 @@ class LoadData:
                     'NAICS12'
                     ).xs(naics)['load_factor'].mean()
 
-                ls = self.epri_ls[self.epri_ls.NAICS12 == naics]
-
             # If NAICS is not in EPRI data, match at a higher aggregation.
             # Selected load factor is average of the higher aggregation
             # NAICS.
             except KeyError:
 
-                print('no intial NAICS match')
+                print('no intial NAICS match for load factor')
 
-                load_naics_matching = pd.concat(
-                    [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1
-                    )
+                lf = match_epri_data(naics, data_type='lf')
 
-                load_naics_matching.columns = ['NAICS12', 'naics_match']
 
-                if len(str(naics)) < 6:
+            try:
 
-                    n = 6 - len(str(naics))
+                ls = self.epri_ls.set_index('NAICS12').xs(naics).reset_index()
 
-                else:
-                    n = 1
 
-                while naics not in load_naics_matching.naics_match.unique():
+            except KeyError:
 
-                    load_naics_matching.naics_match.update(
-                        load_naics_matching.naics_match.apply(
-                            lambda x: int(str(x)[0:len(str(x))-n])
-                            )
-                        )
+                print('no intial NAICS match for load shape')
 
-                    if naics in load_naics_matching.naics_match.unique():
+                ls = match_epri_data(naics, data_type='ls')
 
-                        break
 
-                    else:
-
-                        naics = str(naics)
-
-                        naics = int(naics[0:len(naics)-1])
-
-                        n = 1
-
-                # Map naics_match from epri_lf to epri_ls
-                ls = self.epri_ls.set_index('NAICS12').join(
-                    load_naics_matching.set_index('NAICS12')
-                    ).reset_index()
-
-                lf = self.epri_lf.set_index('NAICS12').join(
-                    load_naics_matching.set_index('NAICS12')
-                    ).reset_index()
-
-                # Also drop manufacturing average (SIC == 33)
-                lf = lf[(lf.naics_match == naics) & (lf.SIC != 33)]
-
-                lf = lf['load_factor'].mean()
-
-                ls = ls[ls.naics_match == naics]
+                # load_naics_matching = pd.concat(
+                #     [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1
+                #     )
+                #
+                # load_naics_matching.columns = ['NAICS12', 'naics_match']
+                #
+                # if len(str(naics)) < 6:
+                #
+                #     n = 6 - len(str(naics))
+                #
+                # else:
+                #     n = 1
+                #
+                # while naics not in load_naics_matching.naics_match.unique():
+                #
+                #     load_naics_matching.naics_match.update(
+                #         load_naics_matching.naics_match.apply(
+                #             lambda x: int(str(x)[0:len(str(x))-n])
+                #             )
+                #         )
+                #
+                #     if naics in load_naics_matching.naics_match.unique():
+                #
+                #         break
+                #
+                #     else:
+                #
+                #         naics = str(naics)
+                #
+                #         naics = int(naics[0:len(naics)-1])
+                #
+                #         n = 1
+                #
+                # print(load_naics_matching)
+                #
+                # # Map naics_match from epri_lf to epri_ls
+                # ls = self.epri_ls.set_index('NAICS12').join(
+                #     load_naics_matching.set_index('NAICS12')
+                #     ).reset_index()
+                #
+                # lf = self.epri_lf.set_index('NAICS12').join(
+                #     load_naics_matching.set_index('NAICS12')
+                #     ).reset_index()
+                #
+                # # Also drop manufacturing average (SIC == 33)
+                # lf = lf[(lf.naics_match == naics) & (lf.SIC != 33)]
+                #
+                # lf = lf['load_factor'].mean()
+                #
+                # ls = ls[ls.naics_match == naics]
 
             ls = ls.groupby(
                 ['hour', 'daytype'], as_index=False
