@@ -244,33 +244,6 @@ class LoadData:
 
                 loads.loc[[tuple(lookup)], 'hour'] = mean_hour
 
-            # else:
-            #
-            #     print('i:', i)
-            #
-            #     print('loads:', loads)
-            #
-            #     lookup = loads.iloc[i].values[0:2]
-            #
-            #     print('lookup 249', lookup)
-            #
-            #     print(ls.head())
-            #
-            #     try:
-            #
-            #         loads.loc[[tuple(lookup)], 'hour'] = \
-            #             ls.xs(lookup, level=df_level).hour[0]
-            #
-            #     # If the peak or min load is an average, it will throw a
-            #     # KeyError. Use the mean hour by daytype as an alternate value.
-            #     except KeyError:
-            #
-            #         mean_hour = np.round(
-            #             loads.hour.mean(level=1)[lookup[1]], 0
-            #             )
-            #
-            #         loads.loc[[tuple(lookup)], 'hour'] = mean_hour
-
         loads['type'] = min_or_max
 
         loads.reset_index(inplace=True)
@@ -317,6 +290,7 @@ class LoadData:
                 n = 6 - len(str(naics))
 
             else:
+
                 n = 1
 
             while naics not in load_naics_matching.naics_match.unique():
@@ -339,7 +313,7 @@ class LoadData:
 
                     n = 1
 
-            if data_type == 'ls':
+            if data_type == 'lf':
 
                 df = self.epri_lf.set_index('NAICS12').join(
                     load_naics_matching.set_index('NAICS12')

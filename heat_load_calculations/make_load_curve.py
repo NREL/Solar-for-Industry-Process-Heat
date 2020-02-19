@@ -88,7 +88,7 @@ class load_curve:
 
             naics = np.nan
 
-        return int(naics)
+        return naics
 
     def calc_load_shape(self, naics, emp_size, enduse_turndown={'boiler': 4},
                         hours='qpc', energy='heat'):
@@ -112,14 +112,21 @@ class load_curve:
         # Match input naics to closest NAICS from QPC
         qpc_naics = self.swh.NAICS.unique().astype(str)
 
-        naics = self.match_qpc_naics(naics, qpc_naics)
+        naics_qpc_hours = self.match_qpc_naics(naics, qpc_naics)
 
         # If no matching NAICS use average for all manufacturing sector
-        if np.isnan(naics):
+        if np.isnan(naics_qpc_hours):
 
-            naics == '31-33'
+            swh_emp_size = pd.DataFrame(
+                self.swh[~self.swh.NAICS.isin([51111,51112,51113,51114,51119])]
+                ).groupby(['month', 'quarter']).mean()
 
-        swh_emp_size = pd.DataFrame(self.swh[self.swh.NAICS == naics])
+            swh_emp_size.drop('NAICS', axis=1, inplace=True)
+
+        else:
+
+            swh_emp_size = \
+                pd.DataFrame(self.swh[self.swh.NAICS == naics_qpc_hours])
 
         swh_emp_size.reset_index(inplace=True, drop=True)
 
