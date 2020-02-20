@@ -5,20 +5,11 @@ import make_load_curve
 import pandas as pd
 
 
-
-
-
 if __name__ == "__main__":
 
     __spec__ = None
 
-    # Import county heat deamdn
-
-    ff_dict = {'place': 'res_forecasts',
-               'county subdivision': 'res_forecasts_csubdiv',
-               'tract': 'res_forecasts_tract'}
-
-    rf = res_forecast(geo='tract')
+    lc = make_load_curve.load_curve()
 
     # Tract projections are made at the total household level and are not
     # disaggregated by hh type. This can be changed in the future, but
@@ -53,29 +44,25 @@ if __name__ == "__main__":
 
         states_geos = tuple(states_geos[['df', 'state', rf.geo]].values)
 
-    if ff_dict[rf.geo] not in os.listdir(os.getcwd()):
+    calc_load_shape(self, naics, emp_size, enduse_turndown={'boiler': 4},
+                    hours='qpc', energy='heat'):
 
-        test = input('Forecast results not found.\n'
-                     'Proceed with forecasting? (Y/N): ')
+    res_forecasts = pd.DataFrame()
 
-        if test.lower() == 'y':
+    with multiprocessing.Pool() as pool:
 
-            res_forecasts = pd.DataFrame()
+        results = pool.starmap(rf.run_forecast_parallel, states_geos)
 
-            with multiprocessing.Pool() as pool:
+        for ar in results:
 
-                results = pool.starmap(rf.run_forecast_parallel, states_geos)
+            res_forecasts = res_forecasts.append(
+                    pd.Series(ar), ignore_index=True
+                    )
 
-                for ar in results:
+    print('complete')
 
-                    res_forecasts = res_forecasts.append(
-                            pd.Series(ar), ignore_index=True
-                            )
-
-            print('complete')
-
-            res_forecasts.to_csv(ff_dict[rf.geo], compression='gzip',
-                                 index=False)
+    res_forecasts.to_csv(ff_dict[rf.geo], compression='gzip',
+                         index=False)
 
 
     if ('res_forecasts_tract' in os.listdir()):

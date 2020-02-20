@@ -1,0 +1,26 @@
+2020-02-19 22:53:43,959 - __main__ - INFO - Starting boiler shapes pool
+2020-02-19 22:54:24,694 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:13:31,602 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:13:31,603 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:17:01,870 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:17:01,871 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:19:47,038 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:19:47,039 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:30:02,780 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:30:02,781 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:31:09,753 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:31:09,754 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:32:08,633 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:32:08,634 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:32:21,011 - __main__ - INFO - Boiler pool done.
+2020-02-20 10:32:21,011 - __main__ - INFO - Starting process heat shapes pool
+2020-02-20 10:32:34,109 - __main__ - INFO - Process heat pool done.
+2020-02-20 10:32:34,110 - __main__ - INFO - Formatting boiler results
+2020-02-20 10:32:34,145 - __main__ - INFO - Formatting process heat results
+2020-02-20 10:35:38,563 - __main__ - INFO - naics_emp (array([311919, 'ghgrp'], dtype=object), array([311942, 'ghgrp'], dtype=object), array([311920, 'ghgrp'], dtype=object))
+2020-02-20 10:35:38,564 - __main__ - INFO - Starting boiler shapes pool
+2020-02-20 10:35:50,789 - __main__ - INFO - Boiler pool done.
+2020-02-20 10:35:50,790 - __main__ - INFO - Starting process heat shapes pool
+2020-02-20 10:36:04,144 - __main__ - INFO - Process heat pool done.
+2020-02-20 10:36:04,144 - __main__ - INFO - Formatting boiler results
+2020-02-20 10:36:04,222 - __main__ - INFO - Formatting process heat results
