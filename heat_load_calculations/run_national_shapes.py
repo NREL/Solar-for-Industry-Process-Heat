@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # set up logging
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
-    handler = logging.FileHandler('national_shapes.log', mode='r')
+    handler = logging.FileHandler('national_shapes.log', mode='w+')
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
