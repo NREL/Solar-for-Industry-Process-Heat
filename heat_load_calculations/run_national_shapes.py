@@ -70,7 +70,7 @@ if __name__ == "__main__":
         pool_ls['enduse'] = enduse
 
         pool_ls.to_csv('../results/all_load_shapes_'+enduse+'.gzip',
-                       compression='gzip')
+                       compression='gzip', index=False)
 
     logger.info('Formatting boiler results')
     results_formatting(boiler_ls, naics_emp, 'boiler')
