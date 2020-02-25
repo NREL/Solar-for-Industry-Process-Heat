@@ -5,13 +5,24 @@ import numpy as np
 import os
 from load_interpolation import interpolate_load
 import compile_load_data
-
+import logging
 
 class load_curve:
 
     def __init__(self, base_year=2014):
+        # set up logging
+        # self.logger = logging.getLogger(__name__)
+        # self.logger.setLevel(logging.DEBUG)
+        # self.handler = logging.FileHandler('shape_calcs.log', mode='w+')
+        # self.handler.setLevel(logging.DEBUG)
+        # formatter = logging.Formatter(
+        #     '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        #     )
+        # self.handler.setFormatter(formatter)
+        # self.logger.addHandler(self.handler)
+        # self.logger.info('Initializing class')
 
-        data_dir = '../calculation_data/'
+        data_dir = './calculation_data/'
 
         self.base_year = base_year
         # Input avg weekly hours by quarter, tested for seasonality.
@@ -105,7 +116,8 @@ class load_curve:
         Enduse_turndown: dictionary with defualt values for boiler of 4 and
         process_heat of 5.
         """
-
+        # self.logger.info('Calculating load shape for %s and %s', naics, emp_size)
+        print('NAICS: %s, employment size: %s', str(naics), emp_size)
         # Keep track of original NAICS code
         naics_og = naics
 
@@ -116,7 +128,7 @@ class load_curve:
 
         # If no matching NAICS use average for all manufacturing sector
         if np.isnan(naics_qpc_hours):
-
+            # logger.info('%s has no matching QPC naics', naics)
             swh_emp_size = pd.DataFrame(
                 self.swh[~self.swh.NAICS.isin([51111,51112,51113,51114,51119])]
                 ).groupby(['month', 'quarter']).mean()
@@ -168,14 +180,14 @@ class load_curve:
                 lambda x: shift.schedule(
                     weekly_op_hours=x
                     ).calc_weekly_schedule()[0]
-                )], axis=0, ignore_index=True)
+                )], axis=0, ignore_index=True, sort=True)
 
             weeksched = pd.concat([weeksched,
                 pd.concat([swh_emp_size[col].apply(
                     lambda x: shift.schedule(
                         weekly_op_hours=x
                         ).calc_weekly_schedule()[1]
-                    )], axis=0, ignore_index=True)], axis=1
+                    )], axis=0, ignore_index=True, sort=True)],axis=1,sort=True
                 )
 
             weeksched = pd.concat([weeksched,
@@ -183,7 +195,7 @@ class load_curve:
                     lambda x: shift.schedule(
                         weekly_op_hours=x
                         ).calc_weekly_schedule()[2]
-                    )], axis=0, ignore_index=True)], axis=1
+                    )], axis=0, ignore_index=True,sort=True)], axis=1,sort=True
                 )
 
             if col.split('_')[-1] == 'hours':
@@ -223,7 +235,7 @@ class load_curve:
                 unpacked.set_index(['month', 'dayofweek', 'hour'],
                                    inplace=True)
 
-                op_schedule = op_schedule.append(unpacked)
+                op_schedule = op_schedule.append(unpacked, sort=True)
 
         op_schedule['NAICS'] = naics
 
@@ -268,14 +280,14 @@ class load_curve:
                 # Fill in other dayofweek (1 - 4)
                 other_weekday = pd.concat(
                     [epa_mpl[epa_mpl.dayofweek==0] for n in range(1,5)],
-                    axis=0, ignore_index=True
+                    axis=0, ignore_index=True, sort=True
                     )
 
                 # Fill in days of week
                 other_weekday['dayofweek'] = \
                     np.hstack([np.repeat(n, 24) for n in range(1, 5)])
 
-                epa_mpl = epa_mpl.append(other_weekday)
+                epa_mpl = epa_mpl.append(other_weekday, sort=True)
 
                 epa_pl = epa_mpl[epa_mpl.type=='max'].sort_values(
                     ['month', 'dayofweek']
@@ -348,6 +360,9 @@ class load_curve:
         # Somewhere load shape values are returned as objects.
         load_shape = load_shape.astype('float32')
 
+        load_shape.reset_index(inplace=True)
+        # logger.info('Load shape calculated.')
+
         return load_shape
 
     @staticmethod
@@ -380,7 +395,7 @@ class load_curve:
         # month_hour_count = load_8760.groupby('month').hour.count()
 
         # Merge load shape with 8760 dataframe
-        load_8760 = pd.merge(load_8760.reset_index(), load_shape.reset_index(),
+        load_8760 = pd.merge(load_8760.reset_index(), load_shape,
                              on=['month', 'dayofweek', 'hour'], how='left')
 
         # Calculate the load factor for each set of operating hours (

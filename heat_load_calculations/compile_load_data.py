@@ -8,7 +8,7 @@ class LoadData:
 
     def __init__(self):
 
-        self.datadir = '../calculation_data/'
+        self.datadir = './calculation_data/'
 
         self.nfiles = {'sic_N02_file': '1987_SIC_to_2002_NAICS.csv',
                        'N02_N07_file': '2002_to_2007_NAICS.csv',
@@ -113,7 +113,7 @@ class LoadData:
                         df, how='inner', on='SIC'
                         ) for df in [ndict['sic_N02'], sic_3.set_index('SIC'),
                                      sic_2.set_index('SIC')]],
-                    axis=0
+                    axis=0, sort=True
                     )
 
                 # epri_df = epri_df.join(ndict['sic_N02'], how='left')
@@ -274,13 +274,15 @@ class LoadData:
             if data_type == 'ls':
 
                 load_naics_matching = pd.concat(
-                    [self.epri_ls.NAICS12, self.epri_ls.NAICS12], axis=1
+                    [self.epri_ls.NAICS12, self.epri_ls.NAICS12], axis=1,
+                    sort=True
                     )
 
             if data_type == 'lf':
 
                 load_naics_matching = pd.concat(
-                    [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1
+                    [self.epri_lf.NAICS12, self.epri_lf.NAICS12], axis=1,
+                    sort=True
                     )
 
             load_naics_matching.columns = ['NAICS12', 'naics_match']
@@ -350,7 +352,7 @@ class LoadData:
             if len(lf) < 12:
 
                 lf = pd.concat([lf, pd.Series(np.array(range(1,13)))],
-                               axis=1)
+                               axis=1, sort=True)
 
                 lf.month.update(lf[0])
 
@@ -449,14 +451,14 @@ class LoadData:
 
             lf = pd.concat(
                 [pd.Series(np.array(range(1,13), ndmin=1)),
-                 pd.Series(np.repeat(lf, 12))], axis=1
+                 pd.Series(np.repeat(lf, 12))], axis=1, sort=True
                 )
 
             lf.columns = ['month','load_factor']
 
         peak_min_loads = pd.concat(
             [self.select_min_peak_loads(ls, l) for l in ['min', 'max']],
-            axis=0, ignore_index=True
+            axis=0, ignore_index=True, sort=False
             )
 
         peak_min_loads['source'] = source

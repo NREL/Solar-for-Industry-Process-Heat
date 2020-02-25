@@ -5,162 +5,414 @@ import pandas as pd
 import logging
 import numpy as np
 
-import dask
+class national_peak_load:
+
+    def __init__(self, year):
+
+        self.year = year
+
+        self.county_energy = pd.read_parquet(
+            'c:/users/cmcmilla/solar-for-industry-process-heat/results/'+\
+            'mfg_eu_temps_20191031_2322.parquet.gzip'
+            )
+
+        # Import load shapes (defined by naics and employment size class)
+        self.boiler_ls = pd.read_csv(
+            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+            'all_load_shapes_boiler.gzip', compression='gzip',
+            index_col=['naics', 'Emp_Size']
+            )
+
+        self.ph_ls = pd.read_csv(
+            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+            'all_load_shapes_process_heat.gzip', compression='gzip',
+            index_col=['naics', 'Emp_Size']
+            )
+
+        # ['COUNTY_FIPS', 'Emp_Size', 'MECS_FT', 'MECS_Region', 'data_source',
+               # 'est_count', 'fipstate', 'naics', 'End_use', 'Temp_C', 'MMBtu'],
+
+        # Calculate county energy total by industry, size, end use, and temperaure
+        self.county_ind_size_temp_total = self.county_energy.groupby(
+            ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'Temp_C']
+            ).MMBtu.sum()
+
+        # Calculate fuel mix by county, industry, size, and end use
+        self.fuel_mix_enduse = self.county_energy.groupby(
+            ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'MECS_FT']
+            ).MMBtu.sum().divide(self.county_ind_size_temp_total.sum(level=[0,1,2,3]))
+
+        # Get all county, industry, naics, empsize, and temperature combinations
+        # ls_archetypes = county_energy[['naics', 'Emp_Size']].drop_duplicates().values
+
+        # def select_load_shape(naics, empsize, enduse):
+        #
+        #     if end_use in ['CHP and/or Cogeneration Process','Conventional Boiler Use']:
+        #
+        #         ls = boiler_ls
+        #
+        #     if end_use == 'Process_heat':
+        #
+        #         ls = ph_ls
+        #
+        #     ls = ls.xs([naics, empsize]).drop('enduse', axis=1)
+        #
+        #     return ls
+
+        # def select_annual_energy(naics, empsize, enduse):
+        #
+        #     energy = county_ind_size_temp_total.xs(
+        #         [naics, empsize, enduse], level=['naics', 'Emp_Size', 'End_use']
+        #         ).sum(level=0)
+        #
+        #     return energy
 
 
-# set up logging
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler('national_load.log', mode='w+')
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+        # Calculate max load by county. Need to first aggregate energy by county,
+        # naics, emp size, end use.
+        self.boiler_energy_county_naics_emp = self.county_energy[
+            (self.county_energy.End_use == 'CHP and/or Cogeneration Process') |
+            (self.county_energy.End_use == 'Conventional Boiler Use')
+            ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size']).MMBtu.sum()
+
+        self.ph_energy_county_naics_emp = self.county_energy[
+            self.county_energy.End_use == 'Process Heating'
+            ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size']).MMBtu.sum()
+
+        def make_blank_8760(year):
+
+            dtindex = \
+                pd.date_range(str(year)+'-01-01', str(year+1)+'-01-01', freq='H')[0:-1]
+
+            load_8760_blank = pd.DataFrame(index=dtindex)
+
+            load_8760_blank['month'] = load_8760_blank.index.month
+
+            load_8760_blank['dayofweek'] = load_8760_blank.index.dayofweek
+
+            load_8760_blank['Q'] = load_8760_blank.index.quarter
+
+            load_8760_blank['hour'] = load_8760_blank.index.hour
+
+            # load_8760_blank['date'] = load_8760_blank.index.date
+
+            return load_8760_blank
+
+        self.load_8760_blank = make_blank_8760(self.year)
+
+    def calculate_8760_load(self, county, enduse):
+        """
+        Select county
+        """
+
+        if enduse == 'boiler':
+
+            ph_or_boiler_energy_df = self.boiler_energy_county_naics_emp
+
+            ph_or_boiler_ls = self.boiler_ls
+
+        else:
+
+            ph_or_boiler_energy_df = self.ph_energy_county_naics_emp
+
+            ph_or_boiler_ls = self.ph_ls
+
+        try:
+
+            annual_energy = ph_or_boiler_energy_df.xs(county, level=0)
+
+        except KeyError:
+
+            return pd.DataFrame()
+
+        load_8760 = pd.DataFrame(annual_energy).join(ph_or_boiler_ls)
+
+        load_8760 = pd.merge(
+            self.load_8760_blank.reset_index(), load_8760.reset_index(),
+            on=['month', 'dayofweek', 'hour'], how='left'
+            ).set_index(['naics', 'Emp_Size'])
+
+        load_factor = load_8760[['Weekly_op_hours','Weekly_op_hours_low',
+                                 'Weekly_op_hours_high']].mean(level=[0,1])
+
+        # Determine peak demand using monthly load factor
+        # Units are in power, not energy
+        peak_demand = load_factor**-1
+
+        peak_demand = peak_demand.multiply(annual_energy, axis=0)/8760
+
+        load_8760.set_index('index', append=True, inplace=True)
+
+        load_8760.sort_index(inplace=True)
+
+        load_8760.update(
+            load_8760[['Weekly_op_hours','Weekly_op_hours_low',
+                       'Weekly_op_hours_high']].multiply(peak_demand)
+            )
+
+        load_8760.drop(['enduse', 'MMBtu'], axis=1, inplace=True)
+
+        return load_8760
+
+    @staticmethod
+    def find_peak_load(boiler_load_8760, ph_load_8760):
+
+        peak_load = boiler_load_8760[
+                ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
+                ].add(ph_load_8760[
+                    ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
+                    ])
+
+        peak_load = peak_load.sum(level=2)
+
+        peak_by_hrs_type= peak_load.max()
+
+        # Is there a need to identify times when peak is met?
+        # If so, do something like
+        # for op_hrs in ['Weekly_op_hours', 'Weekly_op_hours_low', 'Weekly_op_hours_high']:
+        #   peak_load.where(peak_load.Weekly_op_hours == peak_by_hrs_type[op_hrs])[op_hrs].dropna()
+
+        return peak_by_hrs_type
+
+    def calculate_county_peak(self, county):
+
+        print('County:', county)
+
+        boiler_load_8760 = self.calculate_8760_load(county, 'boiler')
+
+        ph_load_8760 =  self.calculate_8760_load(county, 'process heat')
+
+        peak_load = national_peak_load.find_peak_load(
+            boiler_load_8760, ph_load_8760
+            )
+
+        peak_load =  pd.DataFrame.from_records({county: peak_load})
+
+        return peak_load
+
+if __name__ == "__main__":
+
+    __spec__ = None
+
+    # set up logging
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    handler = logging.FileHandler('national_county_peaks.log', mode='w+')
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    npls = national_peak_load(2014)
+    logger.info('Peak load class instantiated.')
 
 
-lc = make_load_curve()
+    # Import county energy
+    # county_energy = pd.read_parquet(
+    #     'c:/users/cmcmilla/solar-for-industry-process-heat/results/'+\
+    #     'mfg_eu_temps_20191031_2322.parquet.gzip'
+    #     )
+    #
+    # # Import load shapes (defined by naics and employment size class)
+    # boiler_ls = pd.read_csv(
+    #     'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+    #     'all_load_shapes_boiler.gzip', compression='gzip',
+    #     index_col=['naics', 'Emp_Size']
+    #     )
+    #
+    # ph_ls = pd.read_csv(
+    #     'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+    #     'all_load_shapes_process_heat.gzip', compression='gzip',
+    #     index_col=['naics', 'Emp_Size']
+    #     )
+    #
+    # # ['COUNTY_FIPS', 'Emp_Size', 'MECS_FT', 'MECS_Region', 'data_source',
+    #        # 'est_count', 'fipstate', 'naics', 'End_use', 'Temp_C', 'MMBtu'],
+    #
+    # # Calculate county energy total by industry, size, end use, and temperaure
+    # county_ind_size_temp_total = county_energy.groupby(
+    #     ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'Temp_C']
+    #     ).MMBtu.sum()
+    #
+    # # Calculate fuel mix by county, industry, size, and end use
+    # fuel_mix_enduse = county_energy.groupby(
+    #     ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'MECS_FT']
+    #     ).MMBtu.sum().divide(county_ind_size_temp_total.sum(level=[0,1,2,3]))
 
-calc_annual_load(annual_energy, load_shape)
+    # Get all county, industry, naics, empsize, and temperature combinations
+    # ls_archetypes = county_energy[['naics', 'Emp_Size']].drop_duplicates().values
 
-# Import county energy
-county_energy = pd.read_parquet(
-    'c:/users/cmcmilla/solar-for-industry-process-heat/results/'+\
-    'mfg_eu_temps_20191031_2322.parquet.gzip'
-    )
+    # def select_load_shape(naics, empsize, enduse):
+    #
+    #     if end_use in ['CHP and/or Cogeneration Process','Conventional Boiler Use']:
+    #
+    #         ls = boiler_ls
+    #
+    #     if end_use == 'Process_heat':
+    #
+    #         ls = ph_ls
+    #
+    #     ls = ls.xs([naics, empsize]).drop('enduse', axis=1)
+    #
+    #     return ls
 
-# Import load shapes (defined by naics and employment size class)
-boiler_ls = pd.read_csv(
-    'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
-    'all_load_shapes_boiler.gzip', compression='gzip',
-    index_col=['naics', 'Emp_Size']
-    )
-
-ph_ls = pd.read_csv(
-    'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
-    'all_load_shapes_process_heat.gzip', compression='gzip',
-    index_col=['naics', 'Emp_Size']
-    )
-# ['COUNTY_FIPS', 'Emp_Size', 'MECS_FT', 'MECS_Region', 'data_source',
-       # 'est_count', 'fipstate', 'naics', 'End_use', 'Temp_C', 'MMBtu'],
-
-# Calculate county energy total by industry, size, end use, and temperaure
-county_ind_size_temp_total = county_energy.groupby(
-    ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'Temp_C']
-    ).MMBtu.sum()
-
-# Calculate fuel mix by county, industry, size, and end use
-fuel_mix_enduse = county_energy.groupby(
-    ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', 'MECS_FT']
-    ).MMBtu.sum().divide(county_ind_size_temp_total.sum(level=[0,1,2,3]))
-
-# Get all county, industry, naics, empsize, and temperature combinations
-ls_archetypes = county_energy[['naics', 'Emp_Size']].drop_duplicates().values
-
-def select_load_shape(naics, empsize, enduse):
-
-    if end_use in ['CHP and/or Cogeneration Process','Conventional Boiler Use']:
-
-        ls = boiler_ls
-
-    if end_use == 'Process_heat':
-
-        ls = ph_ls
-
-    ls = ls.xs([naics, empsize]).drop('enduse', axis=1)
-
-    return ls
-
-def select_annual_energy(naics, empsize, enduse):
-
-    energy = county_ind_size_temp_total.xs(
-        [naics, empsize, enduse], level=['naics', 'Emp_Size', 'End_use']
-        ).sum(level=0)
-
-    return energy
+    # def select_annual_energy(naics, empsize, enduse):
+    #
+    #     energy = county_ind_size_temp_total.xs(
+    #         [naics, empsize, enduse], level=['naics', 'Emp_Size', 'End_use']
+    #         ).sum(level=0)
+    #
+    #     return energy
 
 
+    # Calculate max load by county. Need to first aggregate energy by county,
+    # naics, emp size, end use.
+    # boiler_energy_county_naics_emp = county_energy[
+    #     (county_energy.End_use == 'CHP and/or Cogeneration Process') |
+    #     (county_energy.End_use == 'Conventional Boiler Use')
+    #     ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size']).MMBtu.sum()
+    #
+    # ph_energy_county_naics_emp = county_energy[
+    #     county_energy.End_use == 'Process Heating'
+    #     ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size']).MMBtu.sum()
+    #
+    # def make_blank_8760(year):
+    #
+    #     dtindex = \
+    #         pd.date_range(str(year)+'-01-01', str(year+1)+'-01-01', freq='H')[0:-1]
+    #
+    #     load_8760_blank = pd.DataFrame(index=dtindex)
+    #
+    #     load_8760_blank['month'] = load_8760_blank.index.month
+    #
+    #     load_8760_blank['dayofweek'] = load_8760_blank.index.dayofweek
+    #
+    #     load_8760_blank['Q'] = load_8760_blank.index.quarter
+    #
+    #     load_8760_blank['hour'] = load_8760_blank.index.hour
+    #
+    #     # load_8760_blank['date'] = load_8760_blank.index.date
+    #
+    #     return load_8760_blank
 
-for cc in ls_archetypes:
+    # KeyError: 8109
+    # def calculate_8760_load(county, ph_or_boiler_energy_df, ph_or_boiler_ls,
+    #                         load_8760_blank):
+    #     """
+    #     Select county
+    #     """
+    #
+    #     try:
+    #
+    #         annual_energy = ph_or_boiler_energy_df.xs(county, level=0)
+    #
+    #     except KeyError:
+    #
+    #         return pd.DataFrame()
+    #
+    #     load_8760 = pd.DataFrame(annual_energy).join(ph_or_boiler_ls)
+    #
+    #     load_8760 = pd.merge(
+    #         load_8760_blank.reset_index(), load_8760.reset_index(),
+    #         on=['month', 'dayofweek', 'hour'], how='left'
+    #         ).set_index(['naics', 'Emp_Size'])
+    #
+    #     load_factor = load_8760[['Weekly_op_hours','Weekly_op_hours_low',
+    #                              'Weekly_op_hours_high']].mean(level=[0,1])
+    #
+    #     # Determine peak demand using monthly load factor
+    #     # Units are in power, not energy
+    #     peak_demand = load_factor**-1
+    #
+    #     peak_demand = peak_demand.multiply(annual_energy, axis=0)/8760
+    #
+    #     load_8760.set_index('index', append=True, inplace=True)
+    #
+    #     load_8760.sort_index(inplace=True)
+    #
+    #     load_8760.update(
+    #         load_8760[['Weekly_op_hours','Weekly_op_hours_low',
+    #                    'Weekly_op_hours_high']].multiply(peak_demand)
+    #         )
+    #
+    #     load_8760.drop(['enduse', 'MMBtu'], axis=1, inplace=True)
+    #
+    #     return load_8760
+    #
+    # def calculate_peak_load(boiler_load_8760, ph_load_8760):
+    #
+    #     peak_load = boiler_load_8760[
+    #             ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
+    #             ].add(ph_load_8760[
+    #                 ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
+    #                 ])
+    #
+    #     peak_load = peak_load.sum(level=2)
+    #
+    #     peak_by_hrs_type= peak_load.max()
+    #
+    #     # Is there a need to identify times when peak is met?
+    #     # If so, do something like
+    #     # for op_hrs in ['Weekly_op_hours', 'Weekly_op_hours_low', 'Weekly_op_hours_high']:
+    #     #   peak_load.where(peak_load.Weekly_op_hours == peak_by_hrs_type[op_hrs])[op_hrs].dropna()
+    #
+    #     return peak_by_hrs_type
+    #
+    # def run_national_peak(county):
+    #
+    #     boiler_load_8760 = calculate_8760_load(
+    #         county, boiler_energy_county_naics_emp, boiler_ls, load_8760_blank
+    #         )
+    #
+    #     ph_load_8760 =  calculate_8760_load(
+    #         county, ph_energy_county_naics_emp, ph_ls, load_8760_blank
+    #         )
+    #
+    #     peak_load = calculate_peak_load(boiler_load_8760, ph_load_8760)
+    #
+    #     peak_load =  pd.DataFrame.from_records({county: peak_load})
+    #
+    #     return peak_load
+    #
+    # load_8760_blank = make_blank_8760(2014)
 
-    ls = dask.delayed(select_load_shape)(cc)
+    counties = list(npls.county_energy.COUNTY_FIPS.unique())
 
-    energy = dask.delayed(select_annual_energy)(cc)
+    logger.info('starting multiprocessing')
 
+    with multiprocessing.Pool() as pool:
 
+        results = pool.starmap(npls.calculate_county_peak, counties)
+
+        county_peak_loads = pd.concat([df for df in results], axis=1)
+
+    logger.info('Multiprocessing done')
+
+    county_peak_loads.to_csv('../results/peak_load_by_county.csv', index=False)
+
+    logger.info('Results saved done')
+
+# for county in counties:
+#
+#     boiler_load_8760 = calculate_8760_load(
+#         county, boiler_energy_county_naics_emp, boiler_ls, load_8760_blank
+#         )
+#
+#     ph_load_8760 =  calculate_8760_load(
+#         county, ph_energy_county_naics_emp, ph_ls, load_8760_blank
+#         )
+#
+#     peak_load = calculate_peak_load(boiler_load_8760, ph_load_8760)
+#
+#     county_peak_loads = pd.concat(
+#         [county_peak_loads, pd.DataFrame.from_records({county: peak_load})],
+#         axis=1
+#         )
 
 # Build inputs
 
 
 # Want peak load by county, so first sum by fuel, temp end use
 # calculate max load hour by each county (convert to MW)
-
-with multiprocessing.Pool() as pool:
-
-    results = pool.starmap(
-
-        )
-
-    boiler_ls = pd.concat([df for df in results], ignore_index=True,
-                          axis=0)
-
-# Tract projections are made at the total household level and are not
-# disaggregated by hh type. This can be changed in the future, but
-# increased computational resources are needed.
-if rf.geo == 'tract':
-
-    states_geos = pd.DataFrame(rf.res_agg_dict['total']['estimate'])
-
-    states_geos['df'] = 'total'
-
-    states_geos.reset_index(inplace=True)
-
-    states_geos.drop_duplicates(['state', 'geoid'], inplace=True)
-
-    states_geos = tuple(states_geos[['df', 'state', 'geoid']].values)
-
-else:
-
-    states_geos = pd.concat(
-        [rf.res_agg_dict[k]['estimate'] for k in rf.res_agg_dict.keys()],
-        axis=1, ignore_index=False
-        )
-
-    states_geos = states_geos.reset_index().groupby(
-            ['state', rf.geo]
-            )[['single', 'multi', 'mobile']].sum()
-
-    states_geos = states_geos.reset_index().melt(id_vars=['state', rf.geo],
-                                         value_name='hh', var_name='df')
-
-    states_geos = pd.DataFrame(states_geos[states_geos.hh !=0])
-
-    states_geos = tuple(states_geos[['df', 'state', rf.geo]].values)
-
-calc_load_shape(self, naics, emp_size, enduse_turndown={'boiler': 4},
-                hours='qpc', energy='heat'):
-
-res_forecasts = pd.DataFrame()
-
-with multiprocessing.Pool() as pool:
-
-    results = pool.starmap(rf.run_forecast_parallel, states_geos)
-
-    for ar in results:
-
-        res_forecasts = res_forecasts.append(
-                pd.Series(ar), ignore_index=True
-                )
-
-print('complete')
-
-res_forecasts.to_csv(ff_dict[rf.geo], compression='gzip',
-                     index=False)
-
-
-if ('res_forecasts_tract' in os.listdir()):
-
-    forecasts = pd.read_csv('res_forecasts_tract', compression='gzip')
-
-    rf.calc_final_projections(forecasts)
