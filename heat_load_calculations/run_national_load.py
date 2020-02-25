@@ -183,13 +183,14 @@ if __name__ == "__main__":
     npls = national_peak_load(2014)
     logger.info('Peak load class instantiated.')
 
-    counties = list(npls.county_energy.COUNTY_FIPS.unique())
+    # does this need to be a tuple?
+    counties = tuple(npls.county_energy.COUNTY_FIPS.unique())
 
     logger.info('starting multiprocessing')
 
     with multiprocessing.Pool() as pool:
 
-        results = pool.starmap(npls.calculate_county_peak, counties)
+        results = pool.map(npls.calculate_county_peak, counties)
 
         county_peak_loads = pd.concat([df for df in results], axis=1)
 
