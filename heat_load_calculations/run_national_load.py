@@ -6,6 +6,9 @@ import logging
 import numpy as np
 
 class national_peak_load:
+    """
+    Peak load defined as MMBtu/hour.
+    """
 
     def __init__(self, year):
 
@@ -125,22 +128,25 @@ class national_peak_load:
                        'Weekly_op_hours_high']].multiply(peak_demand)
             )
 
-        load_8760.drop(['enduse', 'MMBtu'], axis=1, inplace=True)
+        load_8760.drop(['enduse', 'MMBtu', 'month', 'dayofweek', 'Q', 'hour'],
+                       axis=1, inplace=True)
 
         return load_8760
 
     @staticmethod
-    def find_peak_load(boiler_load_8760, ph_load_8760):
+    def find_peak_load(load_dfs_list):
 
-        peak_load = boiler_load_8760[
-                ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
-                ].add(ph_load_8760[
-                    ['Weekly_op_hours','Weekly_op_hours_low','Weekly_op_hours_high']
-                    ])
+        peak_load = pd.concat(load_dfs_list, axis=0)
 
-        peak_load = peak_load.sum(level=2)
+        try:
 
-        peak_by_hrs_type= peak_load.max()
+            peak_load = peak_load.sum(level=2)
+
+            peak_by_hrs_type = peak_load.max()
+
+        except ValueError:
+
+            peak_by_hrs_type = pd.DataFrame()
 
         # Is there a need to identify times when peak is met?
         # If so, do something like
@@ -158,10 +164,17 @@ class national_peak_load:
         ph_load_8760 =  self.calculate_8760_load(county, 'process heat')
 
         peak_load = national_peak_load.find_peak_load(
-            boiler_load_8760, ph_load_8760
+            [boiler_load_8760, ph_load_8760]
             )
 
-        peak_load =  pd.DataFrame.from_records({county: peak_load})
+        if len(peak_load.index) == 0:
+
+            peak_load = 0
+
+        peak_load =  pd.DataFrame.from_records(
+            {county: peak_load},index=['Weekly_op_hours','Weekly_op_hours_low',
+                                       'Weekly_op_hours_high'], columns=[county]
+            )
 
         return peak_load
 
@@ -184,41 +197,22 @@ if __name__ == "__main__":
     logger.info('Peak load class instantiated.')
 
     # does this need to be a tuple?
-    counties = tuple(npls.county_energy.COUNTY_FIPS.unique())
+    counties = npls.county_energy.COUNTY_FIPS.unique()
+
+    county_peak_loads = pd.DataFrame()
 
     logger.info('starting multiprocessing')
-
-    with multiprocessing.Pool() as pool:
+    with multiprocessing.Pool(5) as pool:
 
         results = pool.map(npls.calculate_county_peak, counties)
 
-        county_peak_loads = pd.concat([df for df in results], axis=1)
+        county_peak_loads = pd.concat(results, axis=1)
+
+        #Convert from MMBtu/hr to MW
+        county_peak_loads = county_peak_loads.multiply(0.293297)
 
     logger.info('Multiprocessing done')
 
-    county_peak_loads.to_csv('../results/peak_load_by_county.csv', index=False)
+    county_peak_loads.to_csv('../results/peak_load_by_county.csv')
 
     logger.info('Results saved done')
-
-# for county in counties:
-#
-#     boiler_load_8760 = calculate_8760_load(
-#         county, boiler_energy_county_naics_emp, boiler_ls, load_8760_blank
-#         )
-#
-#     ph_load_8760 =  calculate_8760_load(
-#         county, ph_energy_county_naics_emp, ph_ls, load_8760_blank
-#         )
-#
-#     peak_load = calculate_peak_load(boiler_load_8760, ph_load_8760)
-#
-#     county_peak_loads = pd.concat(
-#         [county_peak_loads, pd.DataFrame.from_records({county: peak_load})],
-#         axis=1
-#         )
-
-# Build inputs
-
-
-# Want peak load by county, so first sum by fuel, temp end use
-# calculate max load hour by each county (convert to MW)
