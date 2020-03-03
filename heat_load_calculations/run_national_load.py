@@ -202,7 +202,7 @@ if __name__ == "__main__":
     county_peak_loads = pd.DataFrame()
 
     logger.info('starting multiprocessing')
-    with multiprocessing.Pool(5) as pool:
+    with multiprocessing.Pool(6) as pool:
 
         results = pool.map(npls.calculate_county_peak, counties)
 
