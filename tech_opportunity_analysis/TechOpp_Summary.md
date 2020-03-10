@@ -2,7 +2,7 @@
 Technical opportunity
  : The fraction of process heat demand that can be provided by solar technologies, given available solar resources and land.
 
-
+Carrie will add some things here.
 
 # Technologies
 
