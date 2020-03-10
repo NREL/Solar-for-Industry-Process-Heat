@@ -208,7 +208,7 @@ class national_peak_load:
                 lambda x: temp_fuel_mult(x, temp_eu_data)
                 )
 
-            temp_load_8760 = temp_load_8760.reset_index(drop=True)
+            temp_load_8760 = temp_load_8760.reset_index()
 
             temp_load_8760 = temp_load_8760.drop(columns=['MMBtu'])
 
