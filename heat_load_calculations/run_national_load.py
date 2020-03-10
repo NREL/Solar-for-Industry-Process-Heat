@@ -7,7 +7,7 @@ import numpy as np
 
 class national_peak_load:
     """
-    Peak load defined as MMBtu/hour.
+    Peak load converted from MMBtu/hour to MW.
     """
 
     def __init__(self, year):
@@ -138,9 +138,28 @@ class national_peak_load:
 
         peak_load = pd.concat(load_dfs_list, axis=0)
 
+        # Option to reduce NAICS to a different aggregation and separate
+        # peak load
+        peak_load.reset_index(inplace=True)
+
+        new_naics = pd.DataFrame(peak_load.naics.drop_duplicates())
+
+        new_naics['new_naics'] = new_naics.naics.apply(
+            lambda x: int(str(x)[0:3])
+            )
+
+        peak_load = peak_load.set_index('naics').join(
+            new_naics.set_index('naics')
+            ).reset_index()
+
+        peak_load.drop('naics', inplace=True, axis=1)
+
+        peak_load.set_index(['new_naics', 'Emp_Size', 'index'], inplace=True)
+
         try:
 
-            peak_load = peak_load.sum(level=2)
+            # peak_load = peak_load.sum(level=2)
+            peak_load = peak_load.sum(level=[0,2])
 
             peak_by_hrs_type = peak_load.max()
 
@@ -213,6 +232,6 @@ if __name__ == "__main__":
 
     logger.info('Multiprocessing done')
 
-    county_peak_loads.to_csv('../results/peak_load_by_county.csv')
+    county_peak_loads.to_csv('../results/peak_load_by_county_mw.csv')
 
     logger.info('Results saved done')

@@ -11,9 +11,21 @@ Technical opportunity
 | Flat plate collector (FPC) | Hot water | Boiler, CHP | Process requiring hw (108 book) | MMBtu, hourly
 | | Preheat boiler feedwater | Boiler, CHP |
 
+# Calculation Steps
+
+## FPC
+
+## CSP
+
+## PV + Electric Boiler
+
+## PV + Resistance Heater
+
+
 
 
 # Data Sources
+
 
 
 # To-Do's (set up as issues)
