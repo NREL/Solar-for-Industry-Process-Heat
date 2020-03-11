@@ -8,9 +8,9 @@ import re
 class CBP:
 
     def __init__(self, year):
-        
+
         self.data_dir = 'calculation_data/'
-        
+
         self.year = year
 
         def naics_table(year):
@@ -19,84 +19,84 @@ class CBP:
             Check if NAICS codes have been downloaded to disk. Download
             from Census API if not.
             """
-            
+
             base_html = 'https://api.census.gov/data/'
-            
+
             if year < 2012:
-                
+
                 naics_file = 'naics_2007.csv'
-                
+
                 html = \
                     base_html + '2011/cbp?get=NAICS2007,NAICS2007_TTL&for=us'
-                    
+
             if year >= 2012:
-                
+
                 naics_file = 'naics_2012.csv'
-                
+
                 html = 'https://api.census.gov/data/2012/cbp/variables.json'
-                    
+
             if naics_file in os.listdir(os.path.join('../', self.data_dir)):
-                
+
                 naics_df = pd.read_csv(
                         os.path.join('../', self.data_dir+naics_file)
                         )
-    
+
             else:
-                
+
                 r = requests.get(html)
-                
+
                 if year >=2012:
-                    
+
                     naics_df = pd.DataFrame.from_dict(
                         r.json()['variables']['NAICS2012']['values']['item'],
                         orient='index'
                         )
-                    
+
                     naics_df = naics_df[2:]
-                    
+
                     naics_df.reset_index(inplace=True)
-                    
+
                     naics_df.columns=['naics', 'desc']
-                
+
                 else:
-                    
+
                     naics_df = pd.DataFrame(r.json()[2:],
                                             columns=['naics', 'desc', 'us'])
-                    
+
                     naics_df.drop(['us'], axis=1, inplace=True)
-                
+
                 naics_df = pd.DataFrame(
-                        naics_df[(naics_df.naics != '31-33') & 
-                                 (naics_df.naics != '44-45') & 
+                        naics_df[(naics_df.naics != '31-33') &
+                                 (naics_df.naics != '44-45') &
                                  (naics_df.naics != '48-49')])
-        
+
                 naics_df['n_naics'] = naics_df.naics.apply(
                         lambda x: len(x)
                         )
-                
+
                 naics_df['naics'] = naics_df.naics.astype('int')
-                
+
                 naics_df = pd.DataFrame(
                         naics_df[naics_df.naics.between(1, 400000)]
                         )
-                
+
                 naics_df.to_csv(
                     os.path.join('../', self.data_dir + naics_file)
                     )
-                    
+
             return naics_df
 
         self.naics_df = naics_table(self.year)
 
 #            naics_soup = BeautifulSoup(f, "lxml")
-#    
+#
 #            naics_table_html = naics_soup.find_all('table')[0]
-#    
+#
 #            naics_df = pd.DataFrame(columns=['naics', 'desc'],
 #                index=range(0, len(naics_table_html.find_all('tr'))))
-#    
+#
 #            row_marker = 0
-#    
+#
 #            for row in naics_table_html.find_all('tr'):
 #                column_marker = 0
 #                columns = row.find_all('td')
@@ -105,24 +105,24 @@ class CBP:
 #                        column.get_text()
 #                    column_marker += 1
 #                row_marker += 1
-#    
+#
 #            naics_df.dropna(inplace=True)
-#    
+#
 #            naics_df.loc[:, 'desc'] = naics_df.desc.apply(
 #                lambda x: x.split("\n")[0]
 #                )
-#    
+#
 #            naics_df.loc[:, 'n_naics'] = naics_df.naics.apply(
 #                lambda x: len(x)
 #                )
-#    
+#
 #            naics_df = naics_df[(naics_df.n_naics == 6)]
-#    
+#
 #            naics_df.loc[:, 'naics'] = naics_df.naics.apply(
 #                lambda x: int(x)
 #                )
 
-        
+
         self.naics_cbp = {}
 
         cbp_file = 'cbp' + str(self.year)[2:] + 'co'
@@ -195,7 +195,7 @@ class CBP:
         cbp['COUNTY_FIPS'] = \
             cbp.fipstate.apply(state_fips_str) + \
                 cbp.fipscty.apply(county_fips_str)
-                
+
         cbp['COUNTY_FIPS'] = cbp.COUNTY_FIPS.astype(int)
 
         census_regions = pd.read_csv(
@@ -216,7 +216,7 @@ class CBP:
             ].sum(axis=1)
 
         self.cbp = cbp
-        
+
         # Remaining lines of code further format cbp data into cbp_matching
         # for comparison against GHGRP facilities.
         self.cbp['naics_n'] = self.cbp.naics.apply(lambda x: len(str(x)))
@@ -239,7 +239,7 @@ class CBP:
 
         #Correct instances where CBP NAICS are wrong
         #Hancock County, WV has a large electroplaing and rolling facility
-        #that shouldn't be classified as 331110/331111 
+        #that shouldn't be classified as 331110/331111
         if self.year >= 2012:
 
             self.cbp_matching.drop(
@@ -268,7 +268,7 @@ class CBP:
         self.cbp_matching = pd.DataFrame(
             self.cbp_matching[self.cbp_matching.fipscty != 999]
             )
-        
+
         self.cbp_matching.reset_index(drop=True, inplace=True)
 
 
@@ -371,136 +371,3 @@ class CBP:
 #                 cbp_list.append(requests.get(cbp_api).json())
 #
 #             print(cbp_api)
-# def import_seed(file_path):
-#     """
-#     Imports and formats seed for manufacturing IPF from specified path.
-#     """
-#
-#     def ft_split(s):
-#         """
-#         Handles splitting off fuel types with more than one word.
-#         """
-#         split = s.split('_')
-#
-#         ft = split[1]
-#
-#         for n in range(2, len(split)-1):
-#
-#             ft = ft + '_' + split[n]
-#
-#         return ft
-#
-#     seed_df = pd.read_csv(file_path, index_col=None)
-#
-#     seed_df = seed_df.replace({0:1})
-#
-#     seed_cols = [seed_df.columns[0]]
-#
-#     for c in seed_df.columns[1:]:
-#         seed_cols.append(int(c))
-#
-#     seed_df.columns = seed_cols
-#
-#     seed_df.loc[:, 'region'] = seed_df.iloc[:, 0].apply(
-#         lambda x: x.split('_')[0]
-#         )
-#
-#     seed_df.loc[:, 'Fuel_type'] = seed_df.iloc[:, 0].apply(
-#         lambda x: ft_split(x)
-#         )
-#
-#     seed_df.loc[:, 'EMPSZES'] = seed_df.iloc[:, 0].apply(
-#         lambda x: x.split('_')[-1]
-#         )
-#
-#     return seed_df
-#
-# # %%
-# def seed_correct_cbp(seed_df, cbp):
-#     """
-#     Changes seed values to zero based on CBP empolyment size count by
-#     industry and region.
-#     """
-#
-#     seed_df.set_index(['region', 'EMPSZES'], inplace=True)
-#
-#     # Reformat CBP data
-#     cbp_pivot = cbp.copy(deep=True)
-#
-#     cbp_pivot.rename(columns={"n50_99": "50-99", "n100_249": "100-249",
-#                               "n250_499": "250-499", "n500_999": "500-999"},
-#                      inplace=True)
-#
-#     cbp_pivot = cbp_pivot.melt(id_vars=['region', 'naics'],
-#                                value_vars=['Under 50', '50-99', '100-249',
-#                                            '250-499', '500-999', 'Over 1000'],
-#                                 var_name='EMPSZES')
-#
-#     cbp_pivot = pd.pivot_table(cbp_pivot, index=['region', 'EMPSZES'],
-#                                columns=['naics'], values=['value'],
-#                                aggfunc='sum')
-#
-#     cbp_pivot.columns = cbp_pivot.columns.droplevel()
-#
-#     shared_cols = []
-#
-#     for c in cbp_pivot.columns:
-#         if c in seed_df.columns:
-#             shared_cols.append(c)
-#
-#     cbp_mask = cbp_pivot[shared_cols].reindex(seed_df.index).fillna(0)
-#
-#     seed_df.update(seed_df[shared_cols].where(cbp_mask != 0, 0))
-#
-#     return seed_df
-#
-# seed = seed_correct_cbp(seed, cbp)
-# # %%
-# def seed_correct_MECS(seed_df, table3_2):
-#     """
-#     Changes seed values to zero based on MECS fuel use by industry and
-#     region.
-#     """
-#
-#     seed_df.reset_index(inplace=True, drop=False)
-#
-#     melt_cols = [0]
-#
-#     for n in range(3, len(table3_2.columns)):
-#         melt_cols.append(n)
-#
-#     table3_2_mask = pd.pivot_table(
-#         table3_2.iloc[:, melt_cols].melt(
-#             id_vars=['region', 'naics'], var_name=['Fuel_type']
-#             ),
-#         index=['region', 'Fuel_type'], columns='naics'
-#         )
-#
-#     table3_2_mask.columns = table3_2_mask.columns.droplevel()
-#
-#     seed_df.reset_index(drop=False, inplace=True)
-#
-#     seed_df.set_index(['region','Fuel_type'], inplace=True)
-#
-#     table3_2_mask = table3_2_mask.reindex(seed_df.index)
-#
-#     shared_cols = []
-#
-#     for c in table3_2_mask.columns:
-#         if c in seed_df.columns:
-#             shared_cols.append(c)
-#
-#     table3_2_mask = table3_2_mask[shared_cols].reindex(
-#         seed_df.index
-#         ).fillna(0)
-#
-#     seed_df.update(seed_df[shared_cols].where(table3_2_mask != 0, 0))
-#
-#     seed_df.reset_index(drop=True, inplace=True)
-#
-#     seed_df.drop(['EMPSZES'], axis=1, inplace=True)
-#
-#     return seed_df
-#
-# # %%
-
