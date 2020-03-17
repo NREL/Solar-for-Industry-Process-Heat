@@ -12,7 +12,8 @@ county_energy = pd.read_parquet(
   'mfg_eu_temps_20191031_2322.parquet.gzip', engine='pyarrow'
   )
 
-county_energy = county_energy.groupby('COUNTY_FIPS', as_index=False).MMBtu.sum()
+county_energy = county_energy.groupby(['COUNTY_FIPS', 'End_use'],
+                                      as_index=False).MMBtu.sum()
 
 county_energy.set_index('COUNTY_FIPS', inplace=True)
 
@@ -34,7 +35,7 @@ def test_county_total(county_file):
 
   county = int(re.search(r'(?<=_)\w+', county_file)[0])
 
-  counties = [15001, 19141, 21059, 39019, 4013, 45091, 8085, 8089]
+  counties = [48201]
 
   if county in counties:
 
@@ -43,15 +44,17 @@ def test_county_total(county_file):
                                   engine='pyarrow')
 
     county_8760 = np.around(
-      county_8760.groupby('op_hours').load_MMBtu_per_hour.sum(), 2
+      county_8760.groupby(['op_hours', 'End_use']).load_MMBtu_per_hour.sum(), 1
       )
 
-    county_sum = np.around(county_energy.xs(county).values[0], 2)
-
+    county_sum = np.tile(
+      np.around(county_energy.xs(county)['MMBtu'].values, 1), 3
+      )
 
     logger.error('No assert! Bad assert!''\n''County: %s''\n''County_sum: %s'\
                  '\n''County_8760_sum: %s' % (county, county_sum, county_8760),
                  exc_info=True)
+
     assert all(county_sum == county_8760)
 
   else:
