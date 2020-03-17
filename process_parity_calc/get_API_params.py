@@ -24,7 +24,7 @@ class UpdateParams:
         
     fips_data = pd.read_csv(os.path.join(path,"US_FIPS_Codes.csv"))
     
-    def get_ngprice(self, c_fips, year = False):
+    def get_ngprice(c_fips, year = False):
         
         """Obtain natural gas price averages on the annul, state scale from the EIA database."""
         
@@ -60,7 +60,7 @@ class UpdateParams:
 
                 return ng_series[dict_key][str(year-i) + "  "]
         
-    def get_coalprice(self, c_fips, year = False):
+    def get_coalprice(c_fips, year = False):
         
         """Obtain fuel coal averages on the annul, state scale from the EIA database."""
         
@@ -84,9 +84,7 @@ class UpdateParams:
             
             coal_series = UpdateParams.api.data_by_series(series = series_USA)
             
-            dict_key = list(coal_series.keys())[0]
-            
-        else:
+        finally:
             
             dict_key = list(coal_series.keys())[0]
         
