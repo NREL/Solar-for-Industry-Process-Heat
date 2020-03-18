@@ -22,7 +22,7 @@ class UpdateParams:
     
     api = eia.API(eia_api_key)
         
-    fips_data = pd.read_csv(os.path.join(path,"US_FIPS_Codes.csv"))
+    fips_data = pd.read_csv(os.path.join(path,"US_FIPS_Codes.csv"), usecols= ['State','COUNTY_FIPS','Abbrev'])
     
     def get_ngprice(c_fips, year = False):
         
@@ -32,7 +32,7 @@ class UpdateParams:
             year = UpdateParams.today.year
         
         state_abbr = UpdateParams.fips_data.loc[UpdateParams.fips_data['COUNTY_FIPS'] \
-                                                == c_fips, 'Abbrev'].values[0].strip()
+                                                == str(c_fips), 'Abbrev'].values[0].strip()
         
         series_ID = "NG.N3035" + state_abbr + "3.A"
         
@@ -46,29 +46,21 @@ class UpdateParams:
     
             try:
                 
-                ng_series[dict_key][str(year-i) + "  "]
-                
-                #catches none-types below
-                
-                ng_series[dict_key][str(year-i) + "  "] / 1
+                return ng_series[dict_key][str(year-i) + "  "] / 1.0
                     
             except:
 
                 i += 1 
                 
-            else:
-
-                return ng_series[dict_key][str(year-i) + "  "]
-        
     def get_coalprice(c_fips, year = False):
         
         """Obtain fuel coal averages on the annul, state scale from the EIA database."""
         
         if(not year):
             year = UpdateParams.today.year
-    
+            
         state_abbr = UpdateParams.fips_data.loc[UpdateParams.fips_data['COUNTY_FIPS'] \
-                                                == c_fips, 'Abbrev'].values[0].strip()
+                                                == str(c_fips), 'Abbrev'].values[0].strip()
         
         series_ID = "COAL.COST." + state_abbr + "-10.A"
         
@@ -94,17 +86,10 @@ class UpdateParams:
     
             try:
                 
-                coal_series[dict_key][str(year-i) + "  "]
-                
-                #catches none-types below
-                
-                coal_series[dict_key][str(year-i) + "  "] / 1
+                return coal_series[dict_key][str(year-i) + "  "] / 1.0
                     
             except:
 
                 i += 1 
                 
-            else:
 
-                return coal_series[dict_key][str(year-i) + "  "]
-        
