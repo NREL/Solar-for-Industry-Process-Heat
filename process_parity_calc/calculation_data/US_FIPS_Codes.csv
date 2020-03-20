@@ -1,4 +1,5 @@
 State,County_Name,FIPS State,FIPS_County,COUNTY_FIPS,MECS_Region,Abbrev,,
+USA,,,,USA,,USA,,
 Alabama,Autauga,1,1,1001,South,AL,Alabama,Autauga
 Alabama,Baldwin,1,3,1003,South,AL,Alabama,Baldwin
 Alabama,Barbour,1,5,1005,South,AL,Alabama,Barbour

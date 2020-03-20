@@ -1,0 +1,31 @@
+Name,State,Tech,Type,Value,Constraints,Description,URL
+Energy Equipment Property Tax Exemption,AZ,"PV,TE,TPH,WH,CHP",P_TAX_EXEMPT,0,N,No property tax added for value of solar equipment added,https://programs.dsireusa.org/system/program/detail/1683
+Property Tax Exclusion for Solar Energy Systems,CA,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Property tax exclusion for qualifying solar systems,https://programs.dsireusa.org/system/program/detail/558
+Sales and Use Tax Exemption for Renewable Energy Equipment,CO,"PV,TE,TPH,WH",SALES_TAX_EXEMPT,0,N,Sales and use tax exemption for full systems,https://programs.dsireusa.org/system/program/detail/3397
+Sales and Use Taxes for Items Used in Renewable Energy Industries,CT,"PV,TE,TPH,WH",SALES_TAX_EXEMPT,0,N,Sales and use tax exemption for full systems,https://programs.dsireusa.org/system/program/detail/4552
+Solar Energy System and Cogeneration System Personal Property Tax Credit,DC,"PV,TE,TPH,WH,CHP",P_TAX_EXEMPT,0,N,No property tax added for value of solar/CHP systems,https://programs.dsireusa.org/system/program/detail/5245
+Renewable Energy Property Tax Exemption,IN,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Property tax exclusion for qualifying solar systems,https://programs.dsireusa.org/system/program/detail/54
+Excise Tax Exemption for Solar or Wind Powered Systems,MA,"TPH,WH",TAX_DEDUCTION,None,Y,State-level tax structure - complicated logic,https://programs.dsireusa.org/system/program/detail/147
+Local Option - Property Tax Credit for Renewables and Energy Conservation Devices,MD,"PV,TE,TPH,WH",SPECIAL,None,Y,County-specific property tax credit,https://programs.dsireusa.org/system/program/detail/232
+Game Changer Competitive Grant Program,MD,"PV,TPH,CHP",GRANT,50000-250000,N,Application-based limited budget - must be an innovation,https://programs.dsireusa.org/system/program/detail/5559
+Solar Energy Sales Tax Exemption,MN,"PV,TE,TPH,WH",SALES_TAX_EXEMPT,0,N,State sales tax exempt,https://programs.dsireusa.org/system/program/detail/1218
+Minnesota Power - Power Grant Program,MN,"PV,TPH,WH",GRANT,10000-50000,Y,200/kW with bracketed maximums,https://programs.dsireusa.org/system/program/detail/1519
+Solar Property Tax Exemption,MO,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Property tax exclusion for solar systems,https://programs.dsireusa.org/system/program/detail/5431
+Renewable Energy Systems Exemption,MT,"PV,TE,TPH,WH",P_TAX_EXEMPT,None,Y,Complicated property-tax logic with limits,https://programs.dsireusa.org/system/program/detail/154
+Renewable Energy Property Tax Exemption,ND,"PV,TE,TPH,WH",P_TAX_EXEMPT,None,Y,Property-tax with term limit,https://programs.dsireusa.org/system/program/detail/160
+Commercial & Industrial Solar Rebate Program,NH,"PV,TPH,WH",REBATE,None,Y,Size limitations and other constraints,https://programs.dsireusa.org/system/program/detail/4457
+Solar Energy Sales Tax Exemption,NJ,"PV,TE,TPH,WH",SALES_TAX_EXEMPT,0,N,Full sales tax exemption,https://programs.dsireusa.org/system/program/detail/219
+Property Tax Exemption for Renewable Energy Systems,NJ,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Full property tax exemption,https://programs.dsireusa.org/system/program/detail/3100
+Large Scale Renewable Energy Property Tax Abatement (Nevada State Office of Energy),NV,"PV,TE,TPH",P_TAX_EXEMPT,None,Y,Term abatement and minimum 10 MW,https://programs.dsireusa.org/system/program/detail/180
+Portfolio Energy Credits,NV,"PV,TE,TPH,WH",SPECIAL,None,Y,Energy credit trading earned per kW under certain conditions,https://programs.dsireusa.org/system/program/detail/1036
+Renewable Energy Sales and Use Tax Abatement,NV,"PV,TE,TPH,WH",SALES_TAX_EXEMPT,None,Y,"Minimum heat/electricity requirements and term limit. Also its an abatement that also applies to property, not just solar system.",https://programs.dsireusa.org/system/program/detail/3233
+"Local Option - Solar, Wind & Biomass Energy Systems Exemption",NY,"PV,TE,TPH,WH",P_TAX_EXEMPT,None,Y,Depends on local jurisidction and term limit,https://programs.dsireusa.org/system/program/detail/192
+Energy Conversion and Thermal Efficiency Sales Tax Exemption,OH,"TPH,CHP",SALES_TAX_EXEMPT,None,Y,"Only for certain industries (natural gas conversion to products, etc.)",https://programs.dsireusa.org/system/program/detail/77
+Air-Quality Improvement Tax Incentives,OH,"PV,TE,TPH,WH",SPECIAL,None,Y,Complicated tax incentive breakdown,https://programs.dsireusa.org/system/program/detail/78
+Renewable Energy Systems Exemption,OR,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Property tax exempt from added value systems only,https://programs.dsireusa.org/system/program/detail/165
+Renewable Energy System Exemption,SD,"PV,TE,TPH,WH,CHP",P_TAX_EXEMPT,None,Y,Detailed logic in calculating,https://programs.dsireusa.org/system/program/detail/4068
+Solar and Wind Energy Device Franchise Tax Deduction,TX,"PV,TE,TPH,WH",TAX_DEDUCTION,None,Y,Choices in how to deduct tax,https://programs.dsireusa.org/system/program/detail/81
+Renewable Energy Systems Property Tax Exemption,TX,"PV,TE,TPH,WH",P_TAX_EXEMPT,0,N,Property tax exempt from added value systems only,https://programs.dsireusa.org/system/program/detail/173
+Business Energy Investment Tax Credit (ITC),USA,"PV,TE,TPH,WH,CHP",TAX_CREDIT,None,Y,Many constraints and limitations,https://programs.dsireusa.org/system/program/detail/658
+Investment Tax Credit,VT,"PV,TE,TPH,WH",TAX_CREDIT,None,Y,Equal to 24% of the vermont portion of the federal ITC,https://programs.dsireusa.org/system/program/detail/3428
+Renewable Energy Sales Tax Exemptions,WI,"PV,TPH,WH",SALES_TAX_EXEMPT,None,Y,Minimum requirements for heat/electricity,https://programs.dsireusa.org/system/program/detail/3223
