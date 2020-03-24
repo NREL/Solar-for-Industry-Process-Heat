@@ -21,14 +21,9 @@ class LCOH(metaclass=ABCMeta):
         print("Initialize variables that require user input/format")
 
     @abstractmethod
-    def __iter__(self):
+    def iterLCOH(self):
 
-        print("Used for process parity iteration")
-
-    @abstractmethod
-    def __next__(self):
-
-        pass
+        print("Updates LCOH based off updated iteration variable")
 
     @abstractmethod
     def import_param(self):
@@ -85,9 +80,9 @@ class Greenfield(LCOH):
                                         'Abbrev'].values[0].strip()
 
         # Initialize appropriate attributes based on iteration variables
-        self.capital = 0
-
         self.fuel_price, self.fuel_year = gap.UpdateParams.get_fuel_price(self.county)
+
+        self.capital = 0
 
         while True:
 
@@ -104,14 +99,6 @@ class Greenfield(LCOH):
 
         self.discount_rate = 0.05
 
-    def __iter__(self):
-
-        return self
-
-    def __next__(self):
-
-        # pass in updated iter_variable to get updated LCOH
-        pass
 
     def __str__(self):
 
@@ -217,7 +204,27 @@ class Greenfield(LCOH):
             return 10
 
         self.energy = get_energy_yield
+ 
+    def iterLCOH(self, iter_value = None):
+        
+        if iter_value is None:
 
+            self.calculate_LCOH()
+
+            return self.LCOH_val
+
+        if self.iter_name == "INVESTMENT":
+
+            self.capital = iter_value
+
+        if self.iter_name == "FUELPRICE":
+
+            self.fuel_price = iter_value
+
+        self.calculate_LCOH()
+
+        return self.LCOH_val
+    
     def calculate_LCOH(self):
 
         """using general LCOH equation"""
