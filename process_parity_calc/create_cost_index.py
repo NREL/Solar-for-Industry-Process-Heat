@@ -9,6 +9,8 @@ Please adjust years to reflect the years of data you downloaded.
 
 Did cost indices by year - not months.  
 
+
+
 @author: wxi
 """
 import re
@@ -16,7 +18,14 @@ import pandas as pd
 import os
 
 
+
 def create_index(path_folder):
+    """ 
+    https://fred.stlouisfed.org/series/WPU061 - producer price index csv
+    
+    https://www.chemengonline.com/pci - chemical eng cost index - by year
+    
+    """
     
     try:
         if not type(path_folder) == str:
@@ -28,6 +37,7 @@ def create_index(path_folder):
             raise AssertionError("Not a valid path/directory doesn't exist.")
 
     except AssertionError as e:
+
         print(e)
     
     path = path_folder
@@ -71,7 +81,18 @@ def create_index(path_folder):
 
     cost_index = df.applymap(remove_nonnumeric)
     
-    cost_index.to_csv(os.path.join(path_folder, "cost_index_data.csv"))
+    ppi = pd.read_csv(os.path.join(path,"WPU061.csv"))
+    
+    ppi = ppi.transpose()
+    ppi.columns = ppi.iloc[0,:].apply(lambda x: ''.join(list(x[-4:])))
+    ppi.drop(["DATE"], inplace = True)
+    ppi = ppi.apply(pd.to_numeric)
+    ppi = ppi.groupby(by = ppi.columns, axis = 1).mean()
+    
+    comb_index = pd.concat([cost_index, ppi], join='inner')
+    comb_index = comb_index.rename(index = {"WPU061" : "PPI_CHEM"})
+    
+    comb_index.to_csv(os.path.join(path_folder, "cost_index_data.csv"))
 
 if __name__ == "__main__":
     
