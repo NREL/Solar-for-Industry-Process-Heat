@@ -85,8 +85,8 @@ class FormatMaker:
 
             try:
 
-                lower_load = float(input("Please enter the lower load req: "))
-                upper_load = float(input("Please enter the upper load req: "))
+                lower_load = float(input("Enter the lower load req (kW): "))
+                upper_load = float(input("Enter the upper load req (kW): "))
 
                 if lower_load <= 0 or upper_load <= 0:
                     raise AssertionError("Enter a load above 0")

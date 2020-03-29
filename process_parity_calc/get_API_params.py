@@ -19,10 +19,10 @@ class UpdateParams:
     are from online databases.
     Expects inputs of NG, PETRO or, COAL
 
-    NG -> industrial price
-    COAL -> other industrial use price
+    NG -> industrial price ($ per thousand cubic feet)
+    COAL -> other industrial use price ($ per short ton)
     Petroleum -> residual fuel oil prices by area -> wholesale/resale price by
-    all sellers annual
+    all sellers annual ($ per gallon)
 
     """
 
@@ -127,3 +127,6 @@ class UpdateParams:
             return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
 
         return (fuel_series[dict_key][str(year-j) + "  "], year-j)
+    
+if __name__ == "__main__":
+    print(UpdateParams.get_fuel_price("1001", "NG"))

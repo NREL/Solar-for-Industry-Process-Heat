@@ -18,7 +18,6 @@ import pandas as pd
 import os
 
 
-
 def create_index(path_folder):
     """ 
     https://fred.stlouisfed.org/series/WPU061 - producer price index csv

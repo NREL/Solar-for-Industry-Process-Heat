@@ -39,7 +39,8 @@ class Tech(metaclass=ABCMeta):
 class Boiler(Tech):
     """
         Using the EPA report from 1978 to populate this boiler model. The EPA
-        report has varoius cost curves for different fuel types/loads. 
+        report has various cost curves for different fuel types/loads. 
+        - design heat input rate not the actual output rate- efficiency matters
 
         https://www1.eere.energy.gov/femp/pdfs/OM_9.pdf
 
@@ -65,15 +66,19 @@ class Boiler(Tech):
         """ Temp in Kelvins, heat load in kW """
         self.county = county
         self.temp = temp
-        # Q
-        self.heat_load = hload*0.00341 # unit conversion to M btu/hr for model -it's the peak heat load
-        # fueltype 
+        self.eff_dict = {"NG": [70,75], "COAL": [75,85], "PETRO": [72,80]}
         self.fuel_price, self.fuel_type = fuel
+        # unit conversion to M btu/hr for model -it's the peak heat load. Since it is input heat load design
+        # need to divide by efficiency to get the input heat rate. 
+        self.peak_load = int(hload[0]*0.00341 / (self.eff_dict[self.fuel_type][1]/100))
+        # self.load_8760 = hload[1] - this variable saved later in case we want to adjust efficiency by heat load
+        # fueltype 
         self.cost_index = pd.read_csv(os.path.join(Tech.path, "cost_index_data.csv"), index_col = 0)
+
         
         def select_boilers():
             
-            heat_load = self.heat_load
+            heat_load = self.peak_load
             
             boiler = namedtuple('Key', ['PorE', 'lower', 'upper', 'WorF'])
 
@@ -165,25 +170,29 @@ class Boiler(Tech):
         
         """
         
-        eff_dict = {"NG": [70,75], "COAL": [75,85], "PETRO": [72,80]}
-        
         # add something to process efficiency as a function of hload if
         # efficiency as a function of load
         
-        self.eff =  eff_dict[self.fuel_type][1]
+        return self.eff_dict[self.fuel_type][1]
     
 
-    def om(self,capacity = 1, shifts = 4, ash = 6):
+    def om(self,capacity = 1, shifts = 0.5, ash = 6):
 
-        """ all the om equations do not include fuel or any sort of taxes"""
+        """ 
+        
+            all the om equations do not include fuel or any sort of taxes
+            labor cost cut by factor of 0.539 bc not designing new power plant - field-erected only
+            - EPA cited
+            - use only 0.5 shifts -> unlikely new person will be hired
+        """
 
         cap = capacity
         shifts = shifts
         ash = ash
         year = 1978
-        
+        # update for utility price index
         deflate_price = [
-                         self.index_mult("PPI_CHEM", year), 
+                         self.index_mult("CE INDEX", year), 
                          self.index_mult("CE INDEX", year), 
                          self.index_mult("Construction Labor", year),
                          self.index_mult("Engineering Supervision", year),
@@ -191,16 +200,16 @@ class Boiler(Tech):
                          self.index_mult("Equipment", year),
                          self.index_mult("CE INDEX", year),
                         ]
-                
-        def om1(cap, shifts, hload, ash, HV = 28.608, count = 1): 
+       
+        def om1(cap, shifts, hload, ash, HV = 20.739, count = 1): 
 
             u_c = cap / 0.60 * (hload / (0.00001105 * hload + 0.0003690)) * (11800/(HV*500)) ** 0.9 * (ash/10.6) ** 0.3
             a_d = cap / 0.60 * 700 * hload * (11800/(HV*500)) ** 0.9 * (ash/10.6) ** 0.3 * 0.38
             d_l = (shifts*2190)/8760 * (38020 * math.log(hload) + 28640)
-            s = (shifts*2190)/8760 * ((hload+5300000)/(99.29-hload))
-            m = (shifts*2190)/8760 * ((hload+4955000)/(99.23-hload))
-            r_p = (1.705 * 10 ** 8 *hload - 2.959 * 10 ** 8)**0.5 * (11800/(HV*500)) ** 1.0028
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m)
+            s = (shifts*2190)/8760 * ((hload+5300000)/(99.29-hload)) 
+            m = (shifts*2190)/8760 * ((hload+4955000)/(99.23-hload)) 
+            r_p = (1.705 * 10 ** 8 *hload - 2.959 * 10 ** 8)**0.5 * (11800/(HV*500)) ** 1.0028 
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
             
             return sum(a * b for a, b in zip(deflate_price, [u_c, a_d, d_l, s, m, r_p, o])) * count
 
@@ -208,11 +217,11 @@ class Boiler(Tech):
 
             u_c = cap * (29303 + 719.8 * hload)
             a_d = cap * 0.38 * (547320 + 66038 * math.log(ash/(HV*500))) * (hload/150) ** 0.9754
-            d_l = (shifts*2190)/8760 * (202825 + 5.366*hload**2)
-            s = (shifts*2190)/8760 * 136900
-            m = (shifts*2190)/8760 * (107003 + 1.873* hload**2)
-            r_p = 50000 + 1000 * hload
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m)
+            d_l = (shifts*2190)/8760 * (202825 + 5.366*hload**2) * 0.539
+            s = (shifts*2190)/8760 * 136900 * 0.539
+            m = (shifts*2190)/8760 * (107003 + 1.873* hload**2) * 0.539
+            r_p = (50000 + 1000 * hload) * 0.539
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
             return sum(a * b for a, b in zip(deflate_price, [u_c, a_d, d_l, s, m, r_p, o])) * count
 
@@ -220,49 +229,49 @@ class Boiler(Tech):
 
             u_c = cap * (189430 + 1476.7 * hload)
             a_d = cap*(-641.08 + 70679828*ash/(HV*500))*(hload/200) ** 1.001 * 0.38
-            d_l = (shifts*2190)/8760 * (244455 + 1157 * hload)
-            s = (shifts*2190)/8760 * (243895 - 20636709/hload)
-            m = (shifts*2190)/8760 *(-1162910 + 256604 * math.log(hload))
-            r_p = 180429 + 405.4 * hload
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m) 
+            d_l = (shifts*2190)/8760 * (244455 + 1157 * hload) * 0.539
+            s = (shifts*2190)/8760 * (243895 - 20636709/hload) * 0.539
+            m = (shifts*2190)/8760 *(-1162910 + 256604 * math.log(hload)) * 0.539
+            r_p = (180429 + 405.4 * hload) * 0.539
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
             return sum(a * b for a, b in zip(deflate_price, [u_c, a_d, d_l, s, m, r_p, o])) * count
 
         def om4(cap, shifts, hload, ash, HV = 28.608, count = 1):
-
+      
             u_c = cap/0.45 * (580 * hload + 3900)
             d_l = (shifts*2190)/8760 * 105300
 
             if hload < 15:
-                s = (shifts*2190)/8760 * (hload - 5)/10 * 68500
-                m = (shifts*2190)/8760 * (1600 * hload + 8000)
+                s = (shifts*2190)/8760 * (hload - 5)/10 * 68500 
+                m = (shifts*2190)/8760 * (1600 * hload + 8000) 
             else:
-                s = (shifts*2190)/8760 * 68500
-                m = (shifts*2190)/8760 * 32000
-            r_p = 708.7 * hload + 4424
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m) 
-
+                s = (shifts*2190)/8760 * 68500 
+                m = (shifts*2190)/8760 * 32000 
+            r_p = 708.7 * hload + 4424 
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
+    
             return sum(a * b for a, b in zip(deflate_price, [u_c, 0, d_l, s, m, r_p, o])) * count
 
         def om5(cap, shifts, hload, ash, HV = 28.608, count = 1):
 
             u_c = cap/0.55 * (202 * hload + 24262)
             d_l = (shifts*2190)/8760 * (hload**2/(0.0008135 * hload - 0.01585))
-            s = (shifts*2190)/8760 * 68500
+            s = (shifts*2190)/8760 * 68500 
             m = (shifts*2190)/8760 * (-1267000/hload + 77190)
             r_p = 7185 * hload ** 0.4241
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m) 
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
 
             return sum(a * b for a, b in zip(deflate_price, [u_c, 0, d_l, s, m, r_p, o])) * count
 
         def om6(cap, shifts, hload, ash, HV = 28.608, count = 1):
 
             u_c = cap * (43671.7 + 479.6 * hload)
-            d_l = (shifts*2190)/8760 * (173197 + 734 * hload)
-            s = (shifts*2190)/8760 * (263250 - 30940000 / hload)
-            m = (shifts*2190)/8760 * (32029 + 320.4 * hload)
-            r_p = 50000 + 250 * hload
-            o = 0.3 * d_l + 0.26 * (d_l + s + r_p + m) 
+            d_l = (shifts*2190)/8760 * (173197 + 734 * hload) * 0.539
+            s = (shifts*2190)/8760 * (263250 - 30940000 / hload) * 0.539
+            m = (shifts*2190)/8760 * (32029 + 320.4 * hload) * 0.539
+            r_p = (50000 + 250 * hload) * 0.539
+            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
             return sum(a * b for a, b in zip(deflate_price, [u_c, 0, d_l, s, m, r_p, o])) * count
 
@@ -283,8 +292,93 @@ class Boiler(Tech):
         
     
     def capital(self):
-        pass
-    
+        
+        """ capital cost models do not include contingencies, land, working capital"""
+        
+        year = 1978
+
+        deflate_capital = [self.index_mult("Equipment", year), self.index_mult("Equipment", year), 
+                           self.index_mult("CE INDEX", year) ]
+        
+        def cap1(hload, HV = 28.608, count = 1):
+            
+            equip = 66392 * hload ** 0.622 * (11800/(HV*500)) + 2257 * hload ** 0.819
+            inst = 53219 * hload ** 0.65 * (11800/(HV*500)) + 2882 * hload ** 0.796
+            i_c = 40188 * hload ** 0.646 * (11800/(HV*500)) ** 0.926
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+            
+        def cap2(hload, HV = 28.608, count = 1):
+            
+            equip = hload / (7.5963 * 10 ** -8 * hload + 4.7611 * 10 ** -5) * (HV*500/11800) ** -0.35
+            inst = hload / (8.9174 * 10 ** -8 * hload + 5.5891 * 10 ** -5) * (HV*500/11800) ** -0.35
+            i_c = hload / (1.2739 * 10 ** -7 * hload + 7.9845 * 10 ** -5) * (HV*500/11800) ** -0.35
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap3(hload, HV = 28.608, count = 1):
+            
+            equip = (4926066 - 0.00337 * (HV*500) **2) * (hload/200) ** 0.712
+            inst = 1547622.7 + 6740.026 * hload - 0.0024133 * (HV*500) ** 2
+            i_c = 1257434.72 + 6271.316 * hload - 0.00185721 * (HV*500) ** 2
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap4(hload, count = 1):
+            
+            equip = 15981 * hload ** 0.561
+            inst = 4261 * hload + 56041
+            i_c = 2256 * hload + 28649
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap5(hload, count = 1):
+            
+            equip = 14850 * hload ** 0.786
+            inst = 54620 * hload ** 0.361
+            i_c = 15952 * hload ** 0.618
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap6(hload, count = 1):
+            
+            equip = 1024258 + 8458 * hload
+            inst = 579895 + 5636 * hload
+            i_c = 515189 + 4524 * hload
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap7(hload, count = 1):
+            
+            equip = 17360 * hload ** 0.557
+            inst = 4324 * hload + 56177
+            i_c = 2317 * hload + 29749
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+        def cap8(hload, count = 1):
+
+            equip = 15920 * hload ** 0.775
+            inst = 54833 * hload ** 0.364
+            i_c = 16561 * hload ** 0.613
+            
+            return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
+        
+
+        """ for now heating values done manually from Table_A5_...Coal in calculation_data"""
+        coal_cap = OrderedDict({'A': cap1, 'B': cap2, 'C': cap3})
+        ng_cap = OrderedDict({'A': cap4, 'B': cap5, 'C': cap6})
+        petro_cap = OrderedDict({'A': cap7, 'B': cap8, 'C': cap6})
+
+        boiler_cap = {'COAL': coal_cap, 'NG': ng_cap, 'PETRO': petro_cap}
+        
+        cost_cap = 0
+        
+        for i in range(len(self.boiler_list[0])):
+            cost_cap += list(boiler_cap[self.fuel_type].values())[self.boiler_list[0][i][0]] \
+                        (hload = self.boiler_list[0][i][1], count = self.boiler_list[1][i])
+        # add 20% for contingencies as suggested by EPA report
+        self.cap_val = cost_cap * 1.2
 
 class TechFactory():
     @staticmethod
@@ -298,12 +392,14 @@ class TechFactory():
 #             if re.search("REPLACE",format):
 #                 return Replace(format)
 # =============================================================================
-            raise AssertionError("No Such LCOH Equation")
+            raise AssertionError("No Such Technology")
         except AssertionError as e:
             print(e)
             
 if __name__ == "__main__":
     
-    test = Boiler("1001",300,419354.83871,(1,"NG"))
+    test = Boiler("1001",300,1500,(1,"NG"))
     test.om()
     print(test.om_val)
+    test.capital()
+    print(test.cap_val)
