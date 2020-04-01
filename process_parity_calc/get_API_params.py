@@ -33,25 +33,16 @@ class UpdateParams:
     eia_api_key = "68ea6b4094e685e32ec986a8053568d9"
     
     api = eia.API(eia_api_key)
-        
-    fips_data = pd.read_csv(os.path.join(path, "US_FIPS_Codes.csv"),
-                            usecols=['State', 'COUNTY_FIPS', 'Abbrev'])
+          
+    eerc_esc = pd.read_csv(os.path.join(path, "EERC_Fuel_Esc.csv"), index_col = ["State"])
 
-    def get_fuel_price(c_fips, fuel_type="NG", year=False):
+    def get_fuel_price(state_abbr, fuel_type="NG", year=False):
 
         """Obtain fuel avgs on the annul, state scale from the EIA database."""
 
         if(not year):
 
             year = UpdateParams.today.year
-
-        try:
-
-            state_abbr = UpdateParams.fips_data.loc[UpdateParams.fips_data['COUNTY_FIPS']
-                                                    == str(c_fips), 'Abbrev'].values[0].strip()
-        except KeyError:
-
-            print("Enter a valid county FIPS code")
 
         if fuel_type.upper() == "NG":
 
@@ -69,7 +60,7 @@ class UpdateParams:
 
             series_ID = "PET.EMA_EPPR_PWA_S" + state_abbr + "_DPG.A"
 
-            series_USA = "PET.EMA_EPPR_PWA_NUS_DPG.A"
+            series_USA = "PET.EMA_EPPR_PWG_NUS_DPG.A"
 
         else:
             raise AssertionError("Please input a valid fuel_type")
@@ -128,5 +119,51 @@ class UpdateParams:
 
         return (fuel_series[dict_key][str(year-j) + "  "], year-j)
     
-if __name__ == "__main__":
-    print(UpdateParams.get_fuel_price("1001", "NG"))
+    def get_esc(state_abbr, fuel_type="NG"):
+    
+        """Grabs fuel esc from EERC"""
+        
+        temp_dict = {"NG": "Natural Gas", "COAL" : "Coal", "PETRO": "Residual"}
+        
+        return UpdateParams.eerc_esc.loc[state_abbr, temp_dict[fuel_type]]
+        
+      
+        
+# =============================================================================
+#     def get_fuel_esc():
+#         
+#         ''' creates a csv file of fuel_esc'''
+#         
+#         ng_ser = UpdateParams.api.data_by_series("NG.N3035US3.A")
+#         key_ng = list(ng_ser.keys())[0]
+#         
+#         coal_ser = UpdateParams.api.data_by_series("COAL.COST.US-10.A")
+#         key_coal = list(coal_ser.keys())[0]
+#         
+#         petro_ser = UpdateParams.api.data_by_series("PET.EMA_EPPR_PWG_NUS_DPG.A")
+#         key_petro = list(petro_ser.keys())[0]
+#         
+#         fuel_esc_df = pd.DataFrame()
+#         
+#         j = 0
+#         
+#         # take first 15 years 
+#         for i in [petro_ser[key_petro], coal_ser[key_coal], ng_ser[key_ng]]:
+#             
+#             prices = [v for k,v in i.items()]
+#             
+#             esc = [(a / b) ** 0.2 - 1 for a, b in zip(prices[0:11], prices[4:15])]
+#             
+#             fuel_esc_df[str(j)] = esc
+#             
+#             j += 1
+#         
+#         fuel_esc_df.rename(columns={"0": "PETRO", "1": "COAL", "2" : "NG"}, inplace = True)
+#         fuel_esc_df.to_csv(os.path.join(UpdateParams.path,"fuel_esc_data.csv"))
+# =============================================================================
+# =============================================================================
+#         
+# if __name__ == "__main__":
+#     # generate the range of inflation values for yearly escalation
+#     UpdateParams.get_fuel_esc()
+# =============================================================================

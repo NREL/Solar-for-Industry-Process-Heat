@@ -52,53 +52,46 @@ class FormatMaker:
 
                 break
 
+# =============================================================================
+#         while True:
+# 
+#             try:
+#                 lower_T = float(input("Enter the lower temp bound(K): "))
+# 
+#                 upper_T = float(input("Enter the upper temp bound(K): "))
+# 
+#                 if lower_T <= 0 or upper_T <= 0:
+# 
+#                     raise AssertionError("Enter a temp(K) above 0")
+# 
+#                 if lower_T == upper_T:
+# 
+#                     temp = lower_T
+# 
+#                 else:
+# 
+#                     temp = [lower_T, upper_T]
+# 
+#                 break
+# 
+#             except ValueError:
+# 
+#                 print("That is not a number.")
+# 
+#             except AssertionError as e:
+# 
+#                 print(e)
+# =============================================================================
+
         while True:
 
             try:
-                lower_T = float(input("Enter the lower temp bound(K): "))
 
-                upper_T = float(input("Enter the upper temp bound(K): "))
+                avg_load = float(input("Enter the average load (kW): "))
 
-                if lower_T <= 0 or upper_T <= 0:
-
-                    raise AssertionError("Enter a temp(K) above 0")
-
-                if lower_T == upper_T:
-
-                    temp = lower_T
-
-                else:
-
-                    temp = [lower_T, upper_T]
-
-                break
-
-            except ValueError:
-
-                print("That is not a number.")
-
-            except AssertionError as e:
-
-                print(e)
-
-        while True:
-
-            try:
-
-                lower_load = float(input("Enter the lower load req (kW): "))
-                upper_load = float(input("Enter the upper load req (kW): "))
-
-                if lower_load <= 0 or upper_load <= 0:
+                if avg_load <= 0:
                     raise AssertionError("Enter a load above 0")
-
-                if lower_load == upper_load:
-
-                    load = lower_load
-
-                else:
-
-                    load = [lower_load, upper_load]
-
+                
                 break
 
             except ValueError:
@@ -110,6 +103,6 @@ class FormatMaker:
                 print(e)
 
         self.param = (','.join([type_invest, type_tech, type_iter]).upper(),
-                      temp, load)
+                     avg_load)
 
         return self.param
