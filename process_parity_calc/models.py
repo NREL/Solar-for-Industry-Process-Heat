@@ -7,11 +7,11 @@ load bin - can just be a spreadsheet mapping stuff
 
 """
 
-import os
 from abc import ABCMeta, abstractmethod
-import pandas as pd
 from collections import OrderedDict, namedtuple, Counter
 import math
+import os
+import pandas as pd
 
 
 class Tech(metaclass=ABCMeta):
@@ -61,11 +61,9 @@ class Boiler(Tech):
         https://iea-etsap.org/docs/TIMES_Dispatching_Documentation.pdf - multiple unit
     """
     
-    def __init__(self,county,temp,hload,fuel):
+    def __init__(self,hload,fuel):
         
         """ Temp in Kelvins, heat load in kW """
-        self.county = county
-        self.temp = temp
         self.eff_dict = {"NG": [70,75], "COAL": [75,85], "PETRO": [72,80]}
         self.fuel_price, self.fuel_type = fuel
         # unit conversion to M btu/hr for model -it's the peak heat load. Since it is input heat load design
@@ -143,7 +141,8 @@ class Boiler(Tech):
                 return [list(Counter(boiler_list).keys()), list(Counter(boiler_list).values())]
             
         self.boiler_list = select_boilers()
-            
+        
+        self.dep_year = 15
             
     def index_mult(self, index_name, year1, year2 = -1):
             
@@ -377,15 +376,16 @@ class Boiler(Tech):
         for i in range(len(self.boiler_list[0])):
             cost_cap += list(boiler_cap[self.fuel_type].values())[self.boiler_list[0][i][0]] \
                         (hload = self.boiler_list[0][i][1], count = self.boiler_list[1][i])
+
         # add 20% for contingencies as suggested by EPA report
         self.cap_val = cost_cap * 1.2
 
 class TechFactory():
     @staticmethod
-    def create_tech(form,county,temp,hload,fuel):
+    def create_tech(form,hload,fuel):
         try:
             if form.upper() == "BOILER":
-                return Boiler(county,temp,hload,fuel)
+                return Boiler(hload,fuel)
 # =============================================================================
 #             if re.search("EXTENSION",format):
 #                 return Extension(format)
