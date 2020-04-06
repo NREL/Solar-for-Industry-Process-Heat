@@ -4,7 +4,8 @@ Created on Sun Mar 15 13:26:30 2020
 
 @author: wxi
 """
-
+import pandas as pd
+import os
 
 class FormatMaker:
     """Creates formats to generate appropriate LCOH object"""
@@ -13,8 +14,10 @@ class FormatMaker:
         self.invest = ['REPLACE', 'GREENFIELD', 'EXTENSION']
         self.tech = ['FPC', 'CSP', 'PV+B', 'PV+R', 'PV+I',
                      'PV+HP', 'BOILER', 'CHP', 'FURNACE', 'KILN', 'OVEN']
-        self.iter_var = ['INVESTMENT', 'FUELPRICE']
+        #self.iter_var = ['INVESTMENT', 'FUELPRICE']
         self.param = ""
+        self.fips_data = pd.read_csv(os.path.join("./calculation_data", "US_FIPS_Codes.csv"),
+                                usecols=['State', 'COUNTY_FIPS', 'Abbrev'])
 
     def create_format(self):
 
@@ -23,7 +26,7 @@ class FormatMaker:
         # get investment type
         all_invest = ', '.join(elem for elem in self.invest)
         all_tech = ', '.join(elem for elem in self.tech)
-        all_iter = ', '.join(elem for elem in self.iter_var)
+        #all_iter = ', '.join(elem for elem in self.iter_var)
 
         while True:
 
@@ -42,15 +45,28 @@ class FormatMaker:
             if str(type_tech).upper() in self.tech:
 
                 break
-
+                # get county
+                
         while True:
 
-            type_iter = input("Please enter the process parity iteration \
-                              parameter from " + all_iter + ": ")
+            county = str(input("Enter a FIPS code or USA: ")).strip()
 
-            if str(type_iter).upper() in self.iter_var:
-
+            if county in self.fips_data['COUNTY_FIPS'].values:
+                    
                 break
+
+            print("No such county.")
+
+# =============================================================================
+#         while True:
+# 
+#             type_iter = input("Please enter the process parity iteration \
+#                               parameter from " + all_iter + ": ")
+# 
+#             if str(type_iter).upper() in self.iter_var:
+# 
+#                 break
+# =============================================================================
 
 # =============================================================================
 #         while True:
@@ -102,7 +118,10 @@ class FormatMaker:
 
                 print(e)
 
-        self.param = (','.join([type_invest, type_tech, type_iter]).upper(),
-                     avg_load)
+        self.param = (','.join([type_invest, type_tech]).upper(),
+                     avg_load, county)
 
         return self.param
+
+if __name__ == "__main__":
+    print(FormatMaker().create_format())

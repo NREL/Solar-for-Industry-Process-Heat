@@ -41,9 +41,11 @@ class Greenfield(LCOH):
         
         self.mc = False
 
-        f, self.load_avg = form
+        f, self.load_avg, self.county = form
 
-        self.invest_type, self.tech_type, self.iter_name = f.split(",")
+        self.invest_type, self.tech_type = f.split(",")
+        
+        self.iter_name = None
         
         # should add ability to import the fuel type in the future for tool
         self.fuel_type = "NG"
@@ -86,22 +88,7 @@ class Greenfield(LCOH):
         self.hv_vals["NG"] = 1039 * 1.05506 / 0.001 # / to thousand cuf * to kJ
         self.hv_vals["COAL"] = 20.739 * 1055055.85 # already in short ton, * to kJ
         # NG price unit - $/thousand cuf, Petro - $/gallon, Coal - $/ short ton
-
-        # get county
-        while True:
-
-            try:
-                self.county = str(input("Enter a FIPS code or USA: ")).strip()
-
-                if self.county not in fips_data['COUNTY_FIPS'].values:
-
-                    raise AssertionError("No Such County")
-
-                break
-
-            except AssertionError as e:
-
-                print(e)
+        
 
         # get state_name, state_abbr
         self.state_name = fips_data.loc[fips_data['COUNTY_FIPS'] == self.county,
@@ -115,18 +102,21 @@ class Greenfield(LCOH):
         
         self.fuel_esc = gap.UpdateParams.get_esc(self.state_abbr, self.fuel_type) / 100
 
-        while True:
-
-            try:
-                self.p_time = int(input("Enter period of analysis (int): "))
-
-                break
-
-            except TypeError or ValueError:
-
-                print("Please enter an integer.")
-
-                continue
+# =============================================================================
+#         while True:
+# 
+#             try:
+#                 self.p_time = int(input("Enter period of analysis (int): "))
+# 
+#                 break
+# 
+#             except TypeError or ValueError:
+# 
+#                 print("Please enter an integer.")
+# 
+#                 continue
+# =============================================================================
+        self.p_time = 20
 
         self.discount_rate = 0.15
         
@@ -230,7 +220,7 @@ class Greenfield(LCOH):
                     
                     mp = self.rand_o
                     
-                self.fc = self.load_avg * 31536000 / self.hv_vals[self.fuel_type] * self.fuel_price
+                self.fc = self.load_avg * 31536000 / (self.hv_vals[self.fuel_type]  * self.model.get_efficiency()) * self.fuel_price
     
                 #  fuel price - multiply to convert the kW to total energy in a year (kW)
                 #  divided by appropriate heating value 
@@ -285,15 +275,13 @@ class Greenfield(LCOH):
             t_energy_yield += energy_yield
 
         # convert to cents USD/kwh   
-        self.LCOH_val = (undiscounted + total_d_cost)/t_energy_yield * 3600 * 100
+        return (undiscounted + total_d_cost)/t_energy_yield * 3600 * 100
 
     def iterLCOH(self, iter_value = None):
         
         if iter_value is None:
 
-            self.calculate_LCOH()
-
-            return self.LCOH_val
+            return self.calculate_LCOH()
 
         if self.iter_name == "INVESTMENT":
 
@@ -303,9 +291,7 @@ class Greenfield(LCOH):
 
             self.fuel_price = iter_value
 
-        self.calculate_LCOH()
-
-        return self.LCOH_val
+        return self.calculate_LCOH()
    
     def apply_dists(self):
         
@@ -316,39 +302,37 @@ class Greenfield(LCOH):
         self.rand_c = np.random.triangular(0.9,1,4)
         self.rand_o = np.random.triangular(0.9,1,4)
     
-    def simulate(self, no_sims):
+    def simulate(self, no_sims = 1000):
         
         
-        self.mc_results = pd.DataFrame(columns = [
-                                                  "Lifetime",
-                                                  "Nominal Discount Rate",
-                                                  "O&M Escalation Rate",
-                                                  "Fuel Escalation Rate",
-                                                  "Capital Cost",
-                                                  "Operating Cost",
-                                                  "Capital Multiplier",
-                                                  "Operating Multiplier",
-                                                  "LCOH Value"
-                                                  ])
+        mc_results = pd.DataFrame(columns = [
+                                             "Lifetime",
+                                             "Nominal Discount Rate",
+                                             "O&M Escalation Rate",
+                                             "Fuel Escalation Rate",
+                                             "Capital Cost",
+                                             "Operating Cost",
+                                             "Capital Multiplier",
+                                             "Operating Multiplier",
+                                             "LCOH Value"
+                                             ])
         #initialize model capital and om attributes by running 1 calculate LCOH (default values)
-        self.calculate_LCOH()
-        self.mc_results.loc["Default"] = [
-                                  self.p_time, self.discount_rate, self.OM_esc,
-                                  self.fuel_esc, self.model.cap_val, 
-                                  self.model.om_val, 1,
-                                  1, self.LCOH_val
-                                 ]
+       
+        mc_results.loc["Default"] = [self.p_time, self.discount_rate, 
+                                     self.OM_esc, self.fuel_esc, 
+                                     self.model.cap_val, self.model.om_val, 1,
+                                     1, self.calculate_LCOH()]
         
         self.mc = True
         for i in range(no_sims):
             self.apply_dists()
-            self.calculate_LCOH()
-            self.mc_results.loc[i] = [
-                                  self.p_time, self.discount_rate, self.OM_esc,
-                                  self.fuel_esc, self.model.cap_val * self.rand_c, 
-                                  self.model.om_val * self.rand_o, self.rand_c,
-                                  self.rand_o, self.LCOH_val
-                                 ]
+            mc_results.loc[i] = [
+                                 self.p_time, self.discount_rate, self.OM_esc,
+                                 self.fuel_esc, self.model.cap_val * self.rand_c, 
+                                 self.model.om_val * self.rand_o, self.rand_c,
+                                 self.rand_o,  self.calculate_LCOH()
+                                ]
+        return mc_results
     
 class LCOHFactory():
     @staticmethod
@@ -367,5 +351,7 @@ class LCOHFactory():
             print(e)
             
 if __name__ == "__main__":
-    pass
+    s_form = FormatMaker().create_format()
+    solar = LCOHFactory().create_LCOH(s_form)
+    print(solar.simulate(no_sims=10))
         

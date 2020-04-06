@@ -48,7 +48,7 @@ class UpdateParams:
 
             series_ID = "NG.N3035" + state_abbr + "3.A"
 
-            series_USA = "NG.N3035US3.A"
+            series_USA = "NG.RNGWHHD.A"
 
         elif fuel_type.upper() == "COAL":
 
@@ -68,7 +68,7 @@ class UpdateParams:
         fuel_series_USA = UpdateParams.api.data_by_series(series=series_USA)
         
         dict_key_USA = list(fuel_series_USA.keys())[0]
-
+        
         # find latest USA value
         i = 0
 
@@ -93,9 +93,9 @@ class UpdateParams:
             if all(v is None for v in list(fuel_series[dict_key].values())):
                 
                 return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
-
+                
         except KeyError:
-            
+                
             return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
 
         j = 0
@@ -112,9 +112,9 @@ class UpdateParams:
 
                 j += 1
                 
-        # find latest USA value, return if 2 years more recent vs state
-        if (year-i) - (year-j) >= 2:
-
+        # return USA value if 2 years more recent vs state
+        if ((year-i) - (year-j) >= 2) | (fuel_series[dict_key][str(year-j) + "  "] >= fuel_series_USA[dict_key_USA][str(year-i) + "  "]):
+                
             return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
 
         return (fuel_series[dict_key][str(year-j) + "  "], year-j)
@@ -161,9 +161,8 @@ class UpdateParams:
 #         fuel_esc_df.rename(columns={"0": "PETRO", "1": "COAL", "2" : "NG"}, inplace = True)
 #         fuel_esc_df.to_csv(os.path.join(UpdateParams.path,"fuel_esc_data.csv"))
 # =============================================================================
-# =============================================================================
-#         
-# if __name__ == "__main__":
-#     # generate the range of inflation values for yearly escalation
-#     UpdateParams.get_fuel_esc()
-# =============================================================================
+        
+if __name__ == "__main__":
+    # generate the range of inflation values for yearly escalation
+    a = UpdateParams
+    print(a.get_fuel_price("CA"))

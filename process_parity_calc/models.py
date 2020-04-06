@@ -59,6 +59,9 @@ class Boiler(Tech):
         the numbers appear accurate for purchased equipment cost- 
         
         https://iea-etsap.org/docs/TIMES_Dispatching_Documentation.pdf - multiple unit
+        
+        <5 MMBTU - installed cost Table page 61
+        https://www.osti.gov/servlets/purl/797810
     """
     
     def __init__(self,hload,fuel):
@@ -68,35 +71,36 @@ class Boiler(Tech):
         self.fuel_price, self.fuel_type = fuel
         # unit conversion to M btu/hr for model -it's the peak heat load. Since it is input heat load design
         # need to divide by efficiency to get the input heat rate. 
-        self.peak_load = int(hload[0]*0.00341 / (self.eff_dict[self.fuel_type][1]/100))
+        self.peak_load = hload[0]*0.00341 / (self.eff_dict[self.fuel_type][1]/100)
         # self.load_8760 = hload[1] - this variable saved later in case we want to adjust efficiency by heat load
         # fueltype 
         self.cost_index = pd.read_csv(os.path.join(Tech.path, "cost_index_data.csv"), index_col = 0)
 
         
         def select_boilers():
-            
+            # extended coal packaged upper limit from 60 to 74 (not supposed to usually)
+            # extended water tube packaged upper limit from 150 to 199
             heat_load = self.peak_load
             
             boiler = namedtuple('Key', ['PorE', 'lower', 'upper', 'WorF'])
 
             coal_boilers = OrderedDict({
-                            'A': boiler("packaged", 15, 60, "watertube"), 
+                            'A': boiler("packaged", 15, 74, "watertube"), 
                             'B': boiler("erected", 75, 199, "watertube"), 
                             'C': boiler("erected", 200, 700, "watertube")
                             })
 
             petro_ng_boilers = OrderedDict({
-                                'D': boiler("packaged", 5, 29, "firetube"), 
-                                'E': boiler("packaged", 30, 150, "watertube"), 
-                                'F': boiler("erected", 200, 700, "watertube"),
+                                'A': boiler("packaged", 1, 4.99, "watertube"),
+                                'B': boiler("packaged", 5, 29, "firetube"), 
+                                'C': boiler("packaged", 30, 199, "watertube"), 
+                                'D': boiler("erected", 200, 700, "watertube"),
                                 })
 
             boiler_dict = {'COAL': coal_boilers, 'NG': petro_ng_boilers, 
                            'PETRO': petro_ng_boilers}
 
             def in_range(heat_load, lower, upper):
-  
                 for i in range(len(lower)):
 
                         if heat_load >= lower[i] and heat_load <= upper[i]:
@@ -130,14 +134,13 @@ class Boiler(Tech):
                                 boiler_list.append(in_range(heat_load, lower, upper))
 
                                 heat_load = 0 
-                        
-                                
+                                      
                 return [list(Counter(boiler_list).keys()), list(Counter(boiler_list).values())]
 
             else:
 
                 boiler_list.append(in_range(heat_load, lower, upper))   
-
+  
                 return [list(Counter(boiler_list).keys()), list(Counter(boiler_list).values())]
             
         self.boiler_list = select_boilers()
@@ -172,7 +175,8 @@ class Boiler(Tech):
         # add something to process efficiency as a function of hload if
         # efficiency as a function of load
         
-        return self.eff_dict[self.fuel_type][1]
+        
+        return self.eff_dict[self.fuel_type][1]/100
     
 
     def om(self,capacity = 1, shifts = 0.5, ash = 6):
@@ -198,8 +202,13 @@ class Boiler(Tech):
                          self.index_mult("Construction Labor", year),
                          self.index_mult("Equipment", year),
                          self.index_mult("CE INDEX", year),
+                         
                         ]
-       
+        def om(cap, shifts, ash, hload, count = 1):
+            """Assume 18% similar to times model -> VT_EPA"""
+            
+            return 0.18*(25554*hload + 134363) * deflate_price[5] * count
+
         def om1(cap, shifts, hload, ash, HV = 20.739, count = 1): 
 
             u_c = cap / 0.60 * (hload / (0.00001105 * hload + 0.0003690)) * (11800/(HV*500)) ** 0.9 * (ash/10.6) ** 0.3
@@ -276,8 +285,8 @@ class Boiler(Tech):
 
         """ for now heating values done manually from Table_A5_...Coal in calculation_data"""
         coal_om = OrderedDict({'A': om1, 'B': om2, 'C': om3})
-        ng_om = OrderedDict({'A': om4, 'B': om5, 'C': om6})
-        petro_om = OrderedDict({'A': om4, 'B': om5, 'C': om6})
+        ng_om = OrderedDict({'A': om, 'B': om4, 'C': om5, 'D': om6})
+        petro_om = OrderedDict({'A': om, 'B': om4, 'C': om5, 'D': om6})
 
         boiler_om = {'COAL': coal_om, 'NG': ng_om, 'PETRO': petro_om}
         
@@ -299,6 +308,11 @@ class Boiler(Tech):
         deflate_capital = [self.index_mult("Equipment", year), self.index_mult("Equipment", year), 
                            self.index_mult("CE INDEX", year) ]
         
+        def cap(hload, count = 1):
+            """Osti model"""
+        
+            return (25554 * hload + 134363) * deflate_capital[0] * count
+            
         def cap1(hload, HV = 28.608, count = 1):
             
             equip = 66392 * hload ** 0.622 * (11800/(HV*500)) + 2257 * hload ** 0.819
@@ -366,8 +380,8 @@ class Boiler(Tech):
 
         """ for now heating values done manually from Table_A5_...Coal in calculation_data"""
         coal_cap = OrderedDict({'A': cap1, 'B': cap2, 'C': cap3})
-        ng_cap = OrderedDict({'A': cap4, 'B': cap5, 'C': cap6})
-        petro_cap = OrderedDict({'A': cap7, 'B': cap8, 'C': cap6})
+        ng_cap = OrderedDict({'A': cap, 'B': cap4, 'C': cap5, 'D': cap6})
+        petro_cap = OrderedDict({'A': cap, 'B': cap4, 'C': cap5, 'D': cap6})
 
         boiler_cap = {'COAL': coal_cap, 'NG': ng_cap, 'PETRO': petro_cap}
         
@@ -398,8 +412,42 @@ class TechFactory():
             
 if __name__ == "__main__":
     
-    test = Boiler("1001",300,1500,(1,"NG"))
-    test.om()
-    print(test.om_val)
-    test.capital()
-    print(test.cap_val)
+    def check_boiler_choice():
+        
+        ngp_sol = [[(0, 2.0)], [(1, 5.0)], [(1, 20.0)], [(2, 30)], [(2, 30)],
+                   [(2, 70.0)], [(2, 150.0)], [(2, 175.0)], [(3, 200.0)], 
+                   [(3, 250.0)], [(3, 700.0)], [(-1, 700), (0, 2.0)], 
+                   [(-1, 700), (2, 175.0)], [(-1, 700), (2, 30.0)]]
+        
+        ngp_test = []
+        
+        for i in [a / 0.00341 * 0.75 for a in [2, 5, 20, 29.5, 30, 70,
+                                                      150, 175, 200, 250, 700,
+                                                      702, 875, 1430]] :
+            ng_select = TechFactory.create_tech("BOILER", (i,1), (1, "NG"))
+            ngp_test.append(ng_select.boiler_list[0])
+
+        assert(ngp_test == ngp_sol), "ngp boiler selection has a problem." 
+        
+        
+        coal_sol = [[(0, 15)], [(0, 15.0)], [(0, 40.5)], [(0, 60.0)],
+                    [(0, 68.0)], [(1, 75.0)], [(1, 150.0)], [(1, 199.0)], 
+                    [(2, 200.0)], [(2, 251.0)], [(2, 700.0)], 
+                    [(-1, 700), (0, 15)], [(-1, 700), (0, 15)]]
+        
+        coal_test = []
+        
+        for i in [a / 0.00341 * 0.85 for a in [10, 15, 40.5, 60, 68, 75,
+                                                      150, 199, 200, 251, 700,
+                                                      710, 1410]] :
+            coal_select = TechFactory.create_tech("BOILER", (i,1), (1, "COAL"))
+            coal_test.append(coal_select.boiler_list[0])
+
+        assert(coal_test == coal_sol), "coal boiler selection has a problem." 
+        
+        print("Boiler Selection Working")
+    
+    check_boiler_choice()
+
+    # need to make sure numbers are int cast for assertion test in case python
+    # rounding errors
