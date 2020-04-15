@@ -79,16 +79,6 @@ class Greenfield(LCOH):
         fips_data = pd.read_csv(os.path.join(LCOH.path, "US_FIPS_Codes.csv"),
                                 usecols=['State', 'COUNTY_FIPS', 'Abbrev'])
         
-        # get from https://www.eia.gov/totalenergy/data/monthly/#appendices spreadsheets - other industrial heat content for coal
-        # NG end-use sectors heat content, commercial industrial sector heat content for petro
-        #PETRO - M Btu/barrel, NG - BTU / cubic foot, COAL - Million Btu/ Short ton
-        self.hv_vals = {"PETRO" : 4.641, "NG" : 1039, "COAL" : 20.739}
-        # convert heating_values to the appropriate volume/mass basis and energy basis (kW)
-        self.hv_vals["PETRO"] = 4.641 * 1055055.85 / 42 # / to gallon, * to kJ
-        self.hv_vals["NG"] = 1039 * 1.05506 / 0.001 # / to thousand cuf * to kJ
-        self.hv_vals["COAL"] = 20.739 * 1055055.85 # already in short ton, * to kJ
-        # NG price unit - $/thousand cuf, Petro - $/gallon, Coal - $/ short ton
-        
 
         # get state_name, state_abbr
         self.state_name = fips_data.loc[fips_data['COUNTY_FIPS'] == self.county,
@@ -102,20 +92,6 @@ class Greenfield(LCOH):
         
         self.fuel_esc = gap.UpdateParams.get_esc(self.state_abbr, self.fuel_type) / 100
 
-# =============================================================================
-#         while True:
-# 
-#             try:
-#                 self.p_time = int(input("Enter period of analysis (int): "))
-# 
-#                 break
-# 
-#             except TypeError or ValueError:
-# 
-#                 print("Please enter an integer.")
-# 
-#                 continue
-# =============================================================================
         self.p_time = 20
 
         self.discount_rate = 0.15
@@ -154,12 +130,12 @@ class Greenfield(LCOH):
                 else:
                     """ For now to simplify, assume just the ITC tax credit """
     
-                    sol_subs = pd.read_csv(os.path.join(LCOH.path, "Sol_Subs.csv"),
-                                           index_col=['State'])
+                   # sol_subs = pd.read_csv(os.path.join(LCOH.path, "Sol_Subs.csv"),
+                                           #index_col=['State'])
                     
-                    ITC = lambda t: 0.26 if t == 0 else(0.22 if (t == 1) else 0.1)
+                    ITC = lambda t: 0.26 if t == 2019 else(0.22 if (t == 2020) else 0.1)
     
-                    return {"year0": 0, "time": ITC}
+                    return {"year0": ITC(self.year), "time": 0}
     
             self.subsidies = get_subsidies()
     
@@ -219,8 +195,9 @@ class Greenfield(LCOH):
                 if self.mc:
                     
                     mp = self.rand_o
-                    
-                self.fc = self.load_avg * 31536000 / (self.hv_vals[self.fuel_type]  * self.model.get_efficiency()) * self.fuel_price
+                
+                #
+                self.fc = self.model.fc * self.fuel_price
     
                 #  fuel price - multiply to convert the kW to total energy in a year (kW)
                 #  divided by appropriate heating value 
@@ -254,7 +231,7 @@ class Greenfield(LCOH):
 
         """using general LCOH equation"""
 
-        undiscounted = self.capital - self.subsidies["year0"]
+        undiscounted = self.capital - self.subsidies["year0"]*self.capital
 
         total_d_cost = 0
 
@@ -351,7 +328,5 @@ class LCOHFactory():
             print(e)
             
 if __name__ == "__main__":
-    s_form = FormatMaker().create_format()
-    solar = LCOHFactory().create_LCOH(s_form)
-    print(solar.simulate(no_sims=10))
+    pass
         

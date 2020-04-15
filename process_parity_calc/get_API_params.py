@@ -10,7 +10,10 @@ import datetime
 import pandas as pd
 import os
 import eia
-
+import re
+import requests
+import json
+from collections import OrderedDict
 
 class UpdateParams:
 
@@ -126,43 +129,110 @@ class UpdateParams:
         temp_dict = {"NG": "Natural Gas", "COAL" : "Coal", "PETRO": "Residual"}
         
         return UpdateParams.eerc_esc.loc[state_abbr, temp_dict[fuel_type]]
-        
       
+    def create_index():
         
-# =============================================================================
-#     def get_fuel_esc():
-#         
-#         ''' creates a csv file of fuel_esc'''
-#         
-#         ng_ser = UpdateParams.api.data_by_series("NG.N3035US3.A")
-#         key_ng = list(ng_ser.keys())[0]
-#         
-#         coal_ser = UpdateParams.api.data_by_series("COAL.COST.US-10.A")
-#         key_coal = list(coal_ser.keys())[0]
-#         
-#         petro_ser = UpdateParams.api.data_by_series("PET.EMA_EPPR_PWG_NUS_DPG.A")
-#         key_petro = list(petro_ser.keys())[0]
-#         
-#         fuel_esc_df = pd.DataFrame()
-#         
-#         j = 0
-#         
-#         # take first 15 years 
-#         for i in [petro_ser[key_petro], coal_ser[key_coal], ng_ser[key_ng]]:
-#             
-#             prices = [v for k,v in i.items()]
-#             
-#             esc = [(a / b) ** 0.2 - 1 for a, b in zip(prices[0:11], prices[4:15])]
-#             
-#             fuel_esc_df[str(j)] = esc
-#             
-#             j += 1
-#         
-#         fuel_esc_df.rename(columns={"0": "PETRO", "1": "COAL", "2" : "NG"}, inplace = True)
-#         fuel_esc_df.to_csv(os.path.join(UpdateParams.path,"fuel_esc_data.csv"))
-# =============================================================================
+        """ 
+        https://fred.stlouisfed.org/series/WPU061 - producer price index csv
+    
+        https://www.chemengonline.com/pci - chemical eng cost index - by year
+    
+        """ 
+        path = UpdateParams.path
+        
+        def remove_nonnumeric(string):
+            dummy_var = float(re.sub(r'[^\d.]', '', string))
+            return dummy_var        
+        
+        def get_CE_index():
+        
+            cost_dict = {}
+        
+            index_list = ["CE INDEX", "Equipment", "Heat Exchangers and Tanks", 
+                          "Process Machinery", "Pipe, valves and fittings", 
+                          "Process Instruments", 
+                          "Pumps and Compressors", "Electrical equipment", 
+                          "Structural supports", "Construction Labor", "Buildings", 
+                          "Engineering Supervision"]
+            
+    
+            
+            # grab raw txt 
+            file = open(os.path.join(path, "cost_index.txt"), "r")
+            text = file.read()
+            file.close()
+            
+            # modify initial year here
+            data = text.split("1978")
+            
+            # Remove the initial few words
+            data.pop(0)
+            cost_dict['1978'] = data[0:12]
+            del data[0:12]
+            data = data[0]
+            
+            # Go through text and grab data points as a function of year
+            for i in range(1979,2019):
+                data = data.split(str(i))
+                data.pop(0)
+                cost_dict[str(i)] = data[0:12]
+                del data[0:12]
+                data=data[0]
+        
+            df = pd.DataFrame(cost_dict, index = index_list)
+        
+            return df.applymap(remove_nonnumeric)
+            
+        ce_index = get_CE_index()
+        
+        def get_ppi_inds():
+            
+            """https://www.bls.gov/developers/api_signature_v2.htm"""
+            # noyears is the maximum number of years you can pull from api in 1 query
+            noyears = 20
+            
+            # the last year that you want the data from - default is this year -1
+            endyear = UpdateParams.today.year -1
+
+            # the first year that you want the data from, if not available NaN will be the value
+            startyear = 1970
+            
+            noyear_list = [noyears] * ((endyear-startyear) // noyears) + [(endyear - startyear) % 20]
+            year_tracker = endyear
+            
+            df = pd.DataFrame(columns = list(map(str,list(range(startyear,endyear+1)))))
+            
+            for noyears in noyear_list:
+                
+                headers = {'Content-type': 'application/json'}
+                # please label your series as "PPI series id" : "df label name"
+                series_list = OrderedDict({'WPU061': "Industrial Chemicals", "PCU33241-33241-": "Boilers"})
+                data = json.dumps({"seriesid": list(series_list.keys()), "annualaverage":"true","startyear":str(year_tracker+1-noyears), "endyear":str(year_tracker), "registrationkey":"2ad8d1d2aa574a05a389c070bee5e070"})
+                p = requests.post('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
+                json_data = json.loads(p.text)   
+            
+                pd_dict = {}
+                
+                for i in range(len(json_data["Results"]["series"])):
+                    series_id = json_data["Results"]["series"][i]["seriesID"]
+                    pd_dict[series_id] = [j for j in json_data["Results"]["series"][i]["data"] if j["periodName"] == "Annual"]
+            
+                for i in series_list.keys():
+                    ser_vals = [j["value"] for j in pd_dict[i][::-1]]
+                    ser_vals = [float("nan")] * (noyears - len(ser_vals)) + ser_vals
+                    df.loc[series_list[i], list(map(str,list(range(year_tracker+1-noyears,year_tracker+1)))) ] = ser_vals
+                    
+                year_tracker -= noyears
+
+            return df
+            
+        ppi_index = get_ppi_inds()
+        
+        comb_index = pd.concat([ce_index, ppi_index], join = "outer", sort = True)
+    
+        comb_index.to_csv(os.path.join(path, "cost_index_data.csv"))    
         
 if __name__ == "__main__":
-    # generate the range of inflation values for yearly escalation
-    a = UpdateParams
-    print(a.get_fuel_price("CA"))
+    a = UpdateParams.create_index()
+
+

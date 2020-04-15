@@ -56,14 +56,15 @@ class PrPar:
         
         fuel_units = {"NG" : "$/thousand cuf", "PETRO" : "$/gallon", "COAL" : "$/short ton"}
         
-        if iter_name == "INVESTMENT":
+        if iter_name.upper() == "INVESTMENT":
             self.solar.iter_name = "INVESTMENT"
             root = bisection(lambda x: self.solar.iterLCOH(x) - self.comb_current, 10 **6, 10 ** 8, 100)
             print("The investment price for process parity is {:.2f} $USD".format(root))
         
-        elif iter_name == "FUELPRICE":
+        elif iter_name.upper() == "FUELPRICE":
             self.comb.iter_name = "FUELPRICE"
-            root = bisection(lambda x: self.comb.iterLCOH(x) - self.solar_current, 0, 25, 100)
+            root = bisection(lambda x: self.comb.iterLCOH(x) - self.solar_current, 0, 20, 100)
+           
             print("The fuel price of {} for process parity is {:.2f} {}".format(self.comb.fuel_type, root, fuel_units[self.comb.fuel_type]))
 
         else:
@@ -86,7 +87,7 @@ class PrPar:
         df_sol = pd.DataFrame(columns = ["fuelprice", "investment", "LCOH"])
         
         for i in i_vals:
-            root = bisection(lambda x: self.comb.iterLCOH(x) - self.solar.iterLCOH(i), -10, 10, 100)
+            root = bisection(lambda x: self.comb.iterLCOH(x) - self.solar.iterLCOH(i), -10, 30, 100)
             df_sol = df_sol.append({"fuelprice": root, "investment" : i}, ignore_index = True)
 
         plt.scatter(df_sol["fuelprice"], df_sol["investment"])
@@ -100,5 +101,7 @@ class PrPar:
 
 if __name__ == "__main__":
     test_obj = PrPar()
-    test_obj.pp_nD("FUELPRICE")
+    test_obj.pp_1D("FUELPRICE")    
+
+
         

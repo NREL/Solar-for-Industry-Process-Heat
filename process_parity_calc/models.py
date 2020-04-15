@@ -36,6 +36,84 @@ class Tech(metaclass=ABCMeta):
 
         print("Returns the appropriate cost_index multiplier.")
         
+class PVHP(Tech):
+    """
+       Steven's PVHP model
+    """
+    def __init__(self, hload, fuel):
+        
+        self.simr = pd.read_csv(os.path.join(Tech.path,"pvhp_sim.csv"))
+        self.peak_load = hload[0]
+        self.load_8760 = hload[1]
+        self.cost_index = pd.read_csv(os.path.join(Tech.path, "cost_index_data.csv"), index_col = 0)
+        
+        def select_PVHP():
+            
+            self.sfid = self.simr["Solar Fraction"].idxmax()
+            self.sflcoh = self.simr.loc[self.sfid, "LCOH ($/kWh)"]
+            
+            self.lcohid = self.simr["LCOH ($/kWh)"].idxmin()
+            self.lcoh = self.simr["LCOH ($/kWh)"].min()
+            
+            #use lowest lcoh by default
+
+            self.sfcount = math.ceil(self.peak_load / self.simr.loc[self.sfid, "PVHP Design Output (kWth)"])
+            self.lcohcount = math.ceil(self.peak_load / self.simr.loc[self.lcohid, "PVHP Design Output (kWth)"])
+            
+            self.dep_year = 5
+            
+        select_PVHP()
+        
+    def om(self):
+        
+        year = 2018
+        
+        deflate_price = [
+                         self.index_mult("Engineering Supervision", year)
+                        ]        
+        d_l = 0.6/1.6 * self.simr.loc[self.lcohid, "CapEx ($)"]
+        
+        self.om_val = sum(a * b for a, b in zip(deflate_price, [d_l])) * self.lcohcount
+        
+        self.fc = 0
+        
+    def capital(self):
+        
+        year = 2018
+        
+        deflate_capital = [
+                         self.index_mult("Equipment", year)
+                        ]        
+        equip = self.simr.loc[self.lcohid, "CapEx ($)"]
+        
+        self.cap_val = sum(a * b for a, b in zip(deflate_capital, [equip])) * self.lcohcount
+        
+    def get_efficiency(self):
+
+        """
+        PVHP thermal efficiency 
+        
+        """
+        # returns 0 because assume that Solar doesn't use fuel
+        
+        return 1
+    
+    def index_mult(self, index_name, year1, year2 = -1):
+            
+        try:
+                
+            return self.cost_index.loc[index_name, self.cost_index.columns[year2]] / self.cost_index.loc[index_name, str(year1)]
+            
+        except KeyError:
+                
+            if year1 < int(self.cost_index.columns[1]) or year2 > int(self.cost_index.columns[-1]):
+                    
+                print("Please pick year between {} to {}".format(
+                        self.cost_index.columns[0], self.cost_index.columns[-1]))
+            else:
+                    
+                print("Not a valid cost index.")
+        
 class Boiler(Tech):
     """
         Using the EPA report from 1978 to populate this boiler model. The EPA
@@ -71,16 +149,26 @@ class Boiler(Tech):
         self.fuel_price, self.fuel_type = fuel
         # unit conversion to M btu/hr for model -it's the peak heat load. Since it is input heat load design
         # need to divide by efficiency to get the input heat rate. 
-        self.peak_load = hload[0]*0.00341 / (self.eff_dict[self.fuel_type][1]/100)
-        # self.load_8760 = hload[1] - this variable saved later in case we want to adjust efficiency by heat load
-        # fueltype 
-        self.cost_index = pd.read_csv(os.path.join(Tech.path, "cost_index_data.csv"), index_col = 0)
+        self.peak_load = hload[0]
+        self.load_8760 = hload[1]
+        self.design_load = hload[0]*0.00341 / (self.eff_dict[self.fuel_type][1]/100)
 
+        self.cost_index = pd.read_csv(os.path.join(Tech.path, "cost_index_data.csv"), index_col = 0)
+        
+        # get from https://www.eia.gov/totalenergy/data/monthly/#appendices spreadsheets - other industrial heat content for coal
+        # NG end-use sectors heat content, commercial industrial sector heat content for petro
+        #PETRO - M Btu/barrel, NG - BTU / cubic foot, COAL - Million Btu/ Short ton
+        self.hv_vals = {"PETRO" : 4.641, "NG" : 1039, "COAL" : 20.739}
+        # convert heating_values to the appropriate volume/mass basis and energy basis (kW)
+        self.hv_vals["PETRO"] = 4.641 * 1055055.85 / 42 # / to gallon, * to kJ
+        self.hv_vals["NG"] = 1039 * 1.05506 / 0.001 # / to thousand cuf * to kJ
+        self.hv_vals["COAL"] = 20.739 * 1055055.85 # already in short ton, * to kJ
+        # NG price unit - $/thousand cuf, Petro - $/gallon, Coal - $/ short ton
         
         def select_boilers():
             # extended coal packaged upper limit from 60 to 74 (not supposed to usually)
             # extended water tube packaged upper limit from 150 to 199
-            heat_load = self.peak_load
+            heat_load = self.design_load
             
             boiler = namedtuple('Key', ['PorE', 'lower', 'upper', 'WorF'])
 
@@ -298,6 +386,9 @@ class Boiler(Tech):
 
         self.om_val = cost
         
+        #don't forget kwh to kJ conversion, no fuel_price for iteration reasons
+        self.fc = (sum(self.load_8760)*3600 / (self.hv_vals[self.fuel_type]  * self.get_efficiency()))
+        
     
     def capital(self):
         
@@ -393,6 +484,8 @@ class Boiler(Tech):
 
         # add 20% for contingencies as suggested by EPA report
         self.cap_val = cost_cap * 1.2
+    
+    
 
 class TechFactory():
     @staticmethod
@@ -400,6 +493,8 @@ class TechFactory():
         try:
             if form.upper() == "BOILER":
                 return Boiler(hload,fuel)
+            if form.upper() == "PV+HP":
+                return PVHP(hload, fuel)
 # =============================================================================
 #             if re.search("EXTENSION",format):
 #                 return Extension(format)
@@ -448,6 +543,11 @@ if __name__ == "__main__":
         print("Boiler Selection Working")
     
     check_boiler_choice()
-
+    
+    def check_PVHP():
+        for i in [200,1000,3000,5000,7000,9000,11000,13000,15000]:
+            pvhp_select = TechFactory.create_tech("PV+HP", (i,1), (1, "NG"))
+            print(pvhp_select.lcohcount)
+    check_PVHP()
     # need to make sure numbers are int cast for assertion test in case python
     # rounding errors
