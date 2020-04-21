@@ -98,18 +98,22 @@ class PVHP(Tech):
         
         return 1
     
-    def index_mult(self, index_name, year1, year2 = -1):
+    def index_mult(self, index_name, year1, year2 = False):
             
         try:
-                
-            return self.cost_index.loc[index_name, self.cost_index.columns[year2]] / self.cost_index.loc[index_name, str(year1)]
+            if not year2:
+                year2 = self.cost_index.loc[index_name,:].last_valid_index()
+            return self.cost_index.loc[index_name, str(year2)] / self.cost_index.loc[index_name, str(year1)]
             
         except KeyError:
                 
-            if year1 < int(self.cost_index.columns[1]) or year2 > int(self.cost_index.columns[-1]):
+            lastyear = self.cost_index.loc[index_name,:].last_valid_index()
+            firstyear= self.cost_index.loc[index_name,:].first_valid_index()
+            
+            if year1 < int(firstyear) or year2 > int(lastyear):
                     
                 print("Please pick year between {} to {}".format(
-                        self.cost_index.columns[0], self.cost_index.columns[-1]))
+                        self.cost_index.columns[1], self.cost_index.columns[-1]))
             else:
                     
                 print("Not a valid cost index.")
@@ -235,15 +239,19 @@ class Boiler(Tech):
         
         self.dep_year = 15
             
-    def index_mult(self, index_name, year1, year2 = -1):
+    def index_mult(self, index_name, year1, year2 = False):
             
         try:
-                
-            return self.cost_index.loc[index_name, self.cost_index.columns[year2]] / self.cost_index.loc[index_name, str(year1)]
-            
+            if not year2:
+                year2 = self.cost_index.loc[index_name,:].last_valid_index()
+            return self.cost_index.loc[index_name, str(year2)] / self.cost_index.loc[index_name, str(year1)]
+        
         except KeyError:
-                
-            if year1 < int(self.cost_index.columns[1]) or year2 > int(self.cost_index.columns[-1]):
+            
+            lastyear = self.cost_index.loc[index_name,:].last_valid_index()
+            firstyear= self.cost_index.loc[index_name,:].first_valid_index()
+            
+            if year1 < int(firstyear) or year2 > int(lastyear):
                     
                 print("Please pick year between {} to {}".format(
                         self.cost_index.columns[0], self.cost_index.columns[-1]))
@@ -493,7 +501,7 @@ class TechFactory():
         try:
             if form.upper() == "BOILER":
                 return Boiler(hload,fuel)
-            if form.upper() == "PV+HP":
+            if form.upper() == "PVHP":
                 return PVHP(hload, fuel)
 # =============================================================================
 #             if re.search("EXTENSION",format):

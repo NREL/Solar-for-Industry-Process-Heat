@@ -14,7 +14,6 @@ import models
 import dask.dataframe as dd
 import numpy as np
 
-
 #This abstract class defines all methods that are used externally in run file
 class LCOH(metaclass=ABCMeta):
     today = datetime.datetime.now()
@@ -39,7 +38,7 @@ class Greenfield(LCOH):
 
     def __init__(self, form):
         
-        self.mc = False
+        self.sim = False
 
         f, self.load_avg, self.county = form
 
@@ -89,14 +88,14 @@ class Greenfield(LCOH):
         
         self.fuel_price, self.fuel_year = gap.UpdateParams.get_fuel_price(
                                             self.state_abbr, self.fuel_type)
-        
-        self.fuel_esc = gap.UpdateParams.get_esc(self.state_abbr, self.fuel_type) / 100
+        self.fp_range = gap.UpdateParams.get_max_fp(self.state_abbr, self.fuel_type) - self.fuel_price
+        self.fuel_esc = np.array([gap.UpdateParams.get_esc(self.state_abbr, self.fuel_type) / 100])
 
-        self.p_time = 20
+        self.p_time = np.array([20])
 
-        self.discount_rate = 0.15
+        self.discount_rate = np.array([0.15])
         
-        self.OM_esc = 0.02
+        self.OM_esc = np.array([0.02])
     
         # import the relevant tech to financial parameter model object
     
@@ -188,37 +187,50 @@ class Greenfield(LCOH):
                 
                 """ Placeholders, OM fixed/var should be obtained from model.py"""
                 # only need to initalize during init - first calculate_LCOH
-                if not self.mc:
+                if not self.sim:
                 
-                    mp = 1
-                
-                if self.mc:
+                    omp = 1
+                    fmp = 0
                     
-                    mp = self.rand_o
+                
+                if self.sim:
+                    
+                    omp = self.rand_o
+                    fmp = self.rand_f
                 
                 #
-                self.fc = self.model.fc * self.fuel_price
+                self.fc = self.model.fc * (self.fuel_price + fmp) * (1 + self.fuel_esc)**t
     
                 #  fuel price - multiply to convert the kW to total energy in a year (kW)
                 #  divided by appropriate heating value 
                 if self.tech_type == "BOILER":
-                    return (self.model.om_val * mp * (1 + self.OM_esc) ** t + self.fc * (1 + self.fuel_esc)**t) / (1 - self.corp_tax)
+      
+                    return np.array([(self.model.om_val * omp * (1 + self.OM_esc) ** t + self.fc) / (1 - self.corp_tax)]).flatten()
                 else:
-                    return (self.model.om_val * mp * (1 + self.OM_esc) ** t + self.fc * (1 + self.fuel_esc)**t) 
+
+                    return np.array([self.model.om_val * omp * (1 + self.OM_esc) ** t + self.fc]).flatten()
                 
             self.OM = get_OM
-    
-            def get_capital():
-            
-                if not self.mc:
-                    
-                    return self.model.cap_val
-                
-                if self.mc:
-                    
-                    return self.model.cap_val * self.rand_c
 
-            self.capital = get_capital()
+            def get_capital():
+                
+                try:
+                    return np.array([self.investment])
+                
+                except AttributeError:
+                    pass
+              
+                if not self.sim:
+                    
+                    cmp = 1
+                    
+                if self.sim:
+                    
+                    cmp = self.rand_c
+                    
+                return np.array([self.model.cap_val]) * cmp
+
+            self.capital = get_capital
             
         import_param()
 
@@ -231,25 +243,25 @@ class Greenfield(LCOH):
 
         """using general LCOH equation"""
 
-        undiscounted = self.capital - self.subsidies["year0"]*self.capital
+        undiscounted = self.capital() - self.subsidies["year0"]* self.capital()
 
-        total_d_cost = 0
+        total_d_cost = np.zeros(len(self.p_time))
 
-        t_energy_yield = 0
-
-        for i in range(1, self.p_time+1):
-            # removed 1 - self.corp_tax on OM because OM value is tax free for boiler
-            d_cost = (self.OM(i) *(1-self.corp_tax) - self.capital *
-                      self.depreciation(i, self.model.dep_year) * self.corp_tax) / \
-                      (1+self.discount_rate) ** i
-
-            total_d_cost += d_cost
+        t_energy_yield = np.zeros(len(self.p_time))
+        
+        
+        for ind, p_time in enumerate(self.p_time):
             
-            # assuming constant energy yield per year
+            for i in range(1, p_time+1):
 
-            energy_yield = self.load_avg * 31536000 / (1 + self.discount_rate) ** i
+                d_cost = (self.OM(i)[ind] *(1-self.corp_tax) - self.capital()[ind] *
+                self.depreciation(i, self.model.dep_year) * self.corp_tax) / \
+                (1+self.discount_rate[ind]) ** i
+                
+                total_d_cost[ind] += d_cost
 
-            t_energy_yield += energy_yield
+                energy_yield = self.load_avg * 31536000 / (1 + self.discount_rate[ind]) ** i
+                t_energy_yield[ind] += energy_yield
 
         # convert to cents USD/kwh   
         return (undiscounted + total_d_cost)/t_energy_yield * 3600 * 100
@@ -262,7 +274,8 @@ class Greenfield(LCOH):
 
         if self.iter_name == "INVESTMENT":
 
-            self.capital = iter_value
+
+            self.investment = iter_value
 
         if self.iter_name == "FUELPRICE":
 
@@ -270,47 +283,120 @@ class Greenfield(LCOH):
 
         return self.calculate_LCOH()
    
-    def apply_dists(self):
+    def apply_dists(self, a_type, no_sims):
         
-        self.p_time = np.random.randint(25,40)
-        self.discount_rate = np.random.uniform(0.05,0.15)
-        self.OM_esc = np.random.uniform(0,0.03)
-        self.fuel_esc = np.random.uniform(0,0.03)
-        self.rand_c = np.random.triangular(0.9,1,4)
-        self.rand_o = np.random.triangular(0.9,1,4)
+        if a_type.upper() == "MC":
+            
+            self.p_time = np.random.randint(25,40,size = no_sims)
+            self.discount_rate = np.random.uniform(0.05,0.15, size =no_sims)
+            self.OM_esc = np.random.uniform(0,0.03,size = no_sims)
+            self.fuel_esc = np.random.uniform(0,0.03,size = no_sims)
+            self.rand_c = np.random.triangular(0.9,1,4,size = no_sims)
+            self.rand_o = np.random.triangular(0.9,1,4,size = no_sims)
+            self.rand_f = np.random.uniform(0, self.fp_range, size = no_sims)
     
-    def simulate(self, no_sims = 1000):
+        if a_type.upper() == "TO":
+            
+            siml = int(no_sims/7)
+            
+            d_vals = [self.p_time[0], self.discount_rate[0], self.OM_esc[0], 
+                      self.fuel_esc[0], 1, 1, 0]
+            
+            # could use an ordereddict if needed
+# =============================================================================
+#             sim =[np.random.randint(25,40,size = siml), 
+#                   np.random.uniform(0.05,0.15, size = siml),
+#                   np.random.uniform(0,0.03,size = siml),
+#                   np.random.uniform(0,0.03,size = siml),
+#                   np.random.triangular(0.9,1,4,size = siml),
+#                   np.random.triangular(0.9,1,4,size = siml),
+#                   np.random.uniform(0, self.fp_range, size = siml)
+#                   ]
+# =============================================================================
+
+            sim =[np.linspace(25,40,num = siml), 
+                  np.linspace(0.05,0.15,num = siml),
+                  np.linspace(0,0.03,num = siml),
+                  np.linspace(0,0.03,num = siml),
+                  np.linspace(0.9,4,num = siml),
+                  np.linspace(0.9,4,num = siml),
+                  np.linspace(0,self.fp_range,num = siml)
+                  ]
+            
+            vals = [np.concatenate(([val]*i*siml, sim[i], [val]*(6-i)*siml), axis=0) for i, val in enumerate(d_vals)]
+
+            self.p_time = vals[0].astype(int)
+            self.discount_rate = vals[1]
+            self.OM_esc = vals[2]       
+            self.fuel_esc = vals[3]
+            self.rand_c = vals[4]
+            self.rand_o = vals[5]   
+            self.rand_f = vals[6]
+
+                     
+    def simulate(self, a_type, no_sims = 1000):
         
+        if a_type.upper() == "MC":
+            mc_results = pd.DataFrame(columns = [
+                                                 "Lifetime",
+                                                 "Nominal Discount Rate",
+                                                 "O&M Escalation Rate",
+                                                 "Fuel Escalation Rate",
+                                                 "Capital Cost",
+                                                 "Operating Cost",
+                                                 "Capital Multiplier",
+                                                 "Operating Multiplier",
+                                                 "Fuel Price",
+                                                 "LCOH Value US c/kwh"
+                                                 ])
+            #initialize model capital and om attributes by running 1 calculate LCOH (default values)
+            columns = list(mc_results.columns)
+            structure = [self.p_time, self.discount_rate, self.OM_esc, 
+                         self.fuel_esc, self.model.cap_val, self.model.om_val,
+                         1, 1, self.fuel_price, self.calculate_LCOH()]
+
+            mc_results = mc_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)
+            
+            self.sim = True
+            self.apply_dists("MC", no_sims)
+            results = [self.p_time, self.discount_rate, self.OM_esc, 
+                       self.fuel_esc, self.model.cap_val, self.model.om_val,
+                       self.rand_c, self.rand_o, self.fuel_price + self.rand_f, self.calculate_LCOH()]
+            mc_results = mc_results.append(pd.DataFrame({a:b for a,b in zip(columns,results)}))
+            #mc_results.to_csv(os.path.join(LCOH.path, "mcsim" + self.tech_type + ".csv"))
+            return mc_results
         
-        mc_results = pd.DataFrame(columns = [
-                                             "Lifetime",
-                                             "Nominal Discount Rate",
-                                             "O&M Escalation Rate",
-                                             "Fuel Escalation Rate",
-                                             "Capital Cost",
-                                             "Operating Cost",
-                                             "Capital Multiplier",
-                                             "Operating Multiplier",
-                                             "LCOH Value"
-                                             ])
-        #initialize model capital and om attributes by running 1 calculate LCOH (default values)
-       
-        mc_results.loc["Default"] = [self.p_time, self.discount_rate, 
-                                     self.OM_esc, self.fuel_esc, 
-                                     self.model.cap_val, self.model.om_val, 1,
-                                     1, self.calculate_LCOH()]
-        
-        self.mc = True
-        for i in range(no_sims):
-            self.apply_dists()
-            mc_results.loc[i] = [
-                                 self.p_time, self.discount_rate, self.OM_esc,
-                                 self.fuel_esc, self.model.cap_val * self.rand_c, 
-                                 self.model.om_val * self.rand_o, self.rand_c,
-                                 self.rand_o,  self.calculate_LCOH()
-                                ]
-        return mc_results
-    
+        if a_type.upper() == "TO":
+            
+            to_results = pd.DataFrame(columns = [
+                                                 "Lifetime",
+                                                 "Nominal Discount Rate",
+                                                 "O&M Escalation Rate",
+                                                 "Fuel Escalation Rate",
+                                                 "Capital Cost",
+                                                 "Operating Cost",
+                                                 "Capital Multiplier",
+                                                 "Operating Multiplier",
+                                                 "Fuel Price",
+                                                 "LCOH Value US c/kwh"
+                                                 ])
+                    
+            columns = list(to_results.columns)
+            structure = [self.p_time, self.discount_rate, self.OM_esc, 
+                         self.fuel_esc, self.model.cap_val, self.model.om_val,
+                         1, 1, self.fuel_price, self.calculate_LCOH()]
+            
+            to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)      
+            
+            self.sim = True                  
+            self.apply_dists("TO", no_sims)
+            results = [self.p_time, self.discount_rate, self.OM_esc, 
+                       self.fuel_esc, self.model.cap_val, self.model.om_val,
+                       self.rand_c, self.rand_o, self.fuel_price + self.rand_f, self.calculate_LCOH()]
+            to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,results)}))    
+           # to_results.to_csv(os.path.join(LCOH.path, "tosim" + self.tech_type + ".csv"))
+            return to_results
+            
 class LCOHFactory():
     @staticmethod
     def create_LCOH(form):
@@ -328,5 +414,5 @@ class LCOHFactory():
             print(e)
             
 if __name__ == "__main__":
-    pass
-        
+    test = CLO.LCOHFactory().create_LCOH(FormatMaker().create_format())
+    

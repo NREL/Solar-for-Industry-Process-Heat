@@ -12,8 +12,8 @@ class FormatMaker:
 
     def __init__(self):
         self.invest = ['REPLACE', 'GREENFIELD', 'EXTENSION']
-        self.tech = ['FPC', 'CSP', 'PV+B', 'PV+R', 'PV+I',
-                     'PV+HP', 'BOILER', 'CHP', 'FURNACE', 'KILN', 'OVEN']
+        self.tech = ['FPC', 'CSP', 'PVB', 'PVR', 'PVI',
+                     'PVHP', 'BOILER', 'CHP', 'FURNACE', 'KILN', 'OVEN']
         #self.iter_var = ['INVESTMENT', 'FUELPRICE']
         self.param = ""
         self.fips_data = pd.read_csv(os.path.join("./calculation_data", "US_FIPS_Codes.csv"),
@@ -56,48 +56,6 @@ class FormatMaker:
                 break
 
             print("No such county.")
-
-# =============================================================================
-#         while True:
-# 
-#             type_iter = input("Please enter the process parity iteration \
-#                               parameter from " + all_iter + ": ")
-# 
-#             if str(type_iter).upper() in self.iter_var:
-# 
-#                 break
-# =============================================================================
-
-# =============================================================================
-#         while True:
-# 
-#             try:
-#                 lower_T = float(input("Enter the lower temp bound(K): "))
-# 
-#                 upper_T = float(input("Enter the upper temp bound(K): "))
-# 
-#                 if lower_T <= 0 or upper_T <= 0:
-# 
-#                     raise AssertionError("Enter a temp(K) above 0")
-# 
-#                 if lower_T == upper_T:
-# 
-#                     temp = lower_T
-# 
-#                 else:
-# 
-#                     temp = [lower_T, upper_T]
-# 
-#                 break
-# 
-#             except ValueError:
-# 
-#                 print("That is not a number.")
-# 
-#             except AssertionError as e:
-# 
-#                 print(e)
-# =============================================================================
 
         while True:
 

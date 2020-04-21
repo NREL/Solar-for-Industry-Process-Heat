@@ -38,6 +38,7 @@ def bisection(f,a,b,N):
     0.5
     '''
     if f(a)*f(b) >= 0:
+        print(f(a), f(b))
         print("Bisection method fails.")
         return None
     a_n = a
@@ -48,11 +49,11 @@ def bisection(f,a,b,N):
         if f(a_n)*f_m_n < 0:
             a_n = a_n
             b_n = m_n
-        elif f(b_n)*f_m_n < 0:
+        elif f(b_n)*f_m_n < 0:         
             a_n = m_n
             b_n = b_n
         elif f_m_n == 0:
-            print("Found exact solution.")
+           # print("Found exact solution.");
             return m_n
         else:
             print("Bisection method fails.")
