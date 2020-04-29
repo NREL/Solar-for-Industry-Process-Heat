@@ -18,7 +18,7 @@ import os
 today = dt.datetime.now().strftime('%Y%m%d-%H%M')
 
 energy_ghgrp = pd.read_parquet(
-        '../results/ghgrp_energy_20190801-2337.parquet',
+        '../Results analysis/ghgrp_energy_20200312-1402.parquet',
         engine='pyarrow'
         )
 #%%
@@ -57,7 +57,7 @@ mecs_intensities = tcmfg.calc_intensities(cbp.cbp_matching)
 # column.
 mfg_energy = tcmfg.combfuel_calc(cbp_corrected, mecs_intensities)
 
-mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
+mfg_energy.to_parquet('../Results analysis/mfg_energy_total_'+today+'.parquet.gzip',
                       engine='pyarrow', compression='gzip')
 
 enduse_methods = mecs_table5_2_formatting.table5_2(2014)
@@ -70,11 +70,11 @@ mfg_energy_enduse = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                       temps=False)
 
 # Save as parquet
-os.mkdir('../results/mfg_eu_'+today)
+os.mkdir('../Results analysis/mfg_eu_'+today)
 
 dd.to_parquet(
         mfg_energy_enduse,
-        '../results/mfg_eu_'+today,
+        '../Results analysis/mfg_eu_'+today,
         write_index=True, engine='pyarrow', compression='gzip'
         )
 
@@ -86,6 +86,6 @@ mfg_energy_enduse_temps = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
 
 # Save as parquet
 mfg_energy_enduse_temps.to_parquet(
-        '../results/mfg_eu_temps_'+dt.datetime.now().strftime('%Y%m%d_%H%M')+\
+        '../Results analysis/mfg_eu_temps_'+dt.datetime.now().strftime('%Y%m%d_%H%M')+\
         '.parquet.gzip', engine='pyarrow', compression='gzip'
         )

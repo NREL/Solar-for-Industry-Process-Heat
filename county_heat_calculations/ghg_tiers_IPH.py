@@ -54,7 +54,7 @@ class tier_energy:
             Tables are 't2_hhv' and 't3'
             """
 
-            filedir = os.path.join('../', 'calculation_data/', 'ghgrp_data/')
+            filedir = os.path.join('./', 'calculation_data/', 'ghgrp_data/')
 
             #Check first if data have been downloaded already
             dl_tables = {'t2_hhv': ['t2_hhv'],
@@ -123,11 +123,11 @@ class tier_energy:
                 and carbon content.
                 """
 
-#                for c in [weighting_column, weighted_column]:
-#
-#                    data.dropna(subset=[c], axis=0, inplace=True)
-#
-#                    data[c] = data[c].astype(float)
+                for c in [weighting_column, weighted_column]:
+                    
+                    data.dropna(subset=[c], axis=0, inplace=True)
+                    
+                    data[c] = data[c].astype(float)
 
                 if 'molecular_weight' in data.columns:
 
@@ -146,7 +146,7 @@ class tier_energy:
                     if hhv_correct.empty != True:
 
                         tier_data[weighted_column].update(hhv_correct)
-
+            
                 data['energy_mmbtu'] = \
                     data[weighting_column].dropna().multiply(
                             data[weighted_column].dropna()

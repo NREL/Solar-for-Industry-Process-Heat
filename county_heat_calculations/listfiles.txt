@@ -1,0 +1,41 @@
+ Volume in drive C is C_Drive
+ Volume Serial Number is B8E7-F5EE
+
+ Directory of C:\Users\wxi\Documents\Jupyter\Solar-for-Industry-Process-Heat-master\Solar-for-Industry-Process-Heat-master\county_heat_calculations
+
+03/11/2020  03:22 PM    <DIR>          .
+03/11/2020  03:22 PM    <DIR>          ..
+03/11/2020  03:19 PM    <DIR>          .ipynb_checkpoints
+03/11/2020  03:07 PM             1,438 all_loads_datacatalog.py
+03/11/2020  03:07 PM            27,407 Calculate_MfgEnergy_IPH.py
+03/11/2020  03:07 PM    <DIR>          calculation_data
+03/11/2020  03:07 PM             3,509 calc_GHGRP_AA_IPH.py
+03/11/2020  03:07 PM            20,148 calc_GHGRP_energy_IPH.py
+03/11/2020  03:07 PM             6,754 colin_environment.yml
+03/11/2020  03:07 PM            62,602 EmpSize_hist_NAICS324.png
+03/11/2020  03:07 PM            16,414 enduse_temps_IPH.py
+03/11/2020  03:07 PM            20,611 figures.py
+03/11/2020  03:07 PM             1,235 find_fips.py
+03/11/2020  03:07 PM             2,818 FT_check.csv
+03/11/2020  03:07 PM            11,103 get_cbp.py
+03/11/2020  03:07 PM             4,014 Get_GHGRP_data_IPH.py
+03/11/2020  03:07 PM            20,436 GHGRP_energy_calc_IPH.py
+03/11/2020  03:07 PM            24,227 ghg_tiers_IPH.py
+03/11/2020  03:07 PM            17,849 heat_rate_uncertainty_IPH.py
+03/11/2020  03:07 PM            12,421 hw_steam_fraction_NAICS.csv
+03/11/2020  03:22 PM               220 listfiles.txt
+03/11/2020  03:07 PM            24,774 Match_GHGRP_County_IPH.py
+03/11/2020  03:07 PM            30,430 MECS2014_unformatted.xlsx
+03/11/2020  03:07 PM            10,162 mecs_ipf_IPH.py
+03/11/2020  03:07 PM            14,820 MECS_IPF_seed_format_IPH.py
+03/11/2020  03:07 PM            25,043 mecs_table5_2_formatting.py
+03/11/2020  03:07 PM            28,968 mult_facs.png
+03/11/2020  03:07 PM            28,181 mult_units.png
+03/11/2020  03:07 PM             2,755 run_all_IPH.py
+03/11/2020  03:07 PM             1,125 run_GHGRP_IPH.py
+03/11/2020  03:07 PM            10,640 test.png
+03/11/2020  03:07 PM    <DIR>          tests
+03/11/2020  03:07 PM            49,481 test_box.png
+03/11/2020  03:07 PM           181,641 test_seed.xlsx
+              29 File(s)        661,226 bytes
+               5 Dir(s)  956,263,124,992 bytes free

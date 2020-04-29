@@ -1,0 +1,277 @@
+,boiler_heat_uom,boiler_ratio_b,facility_id,facility_name,fuel_type,mass_of_steam,mass_of_steam_uom,month,reporting_year,unit_name
+0,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,19031514,pounds steam,April,2014,2
+1,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,April,2014,Biomass Cogeneration
+2,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,93771000,pounds steam,April,2014,GP-1
+3,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,164753000,pounds steam,April,2014,GP-Facility Emissions
+4,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18181824,pounds steam,April,2014,2
+5,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,April,2014,Unit 2
+6,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,April,2014,Biomass Cogeneration
+7,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,April,2014,Unit 1
+8,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14636759,pounds steam,April,2014,1
+9,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,April,2014,Unit 3
+10,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,24803400,pounds steam,April,2014,A Boiler
+11,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,28057590,pounds steam,April,2014,Boiler B
+12,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),13981228,pounds steam,April,2014,1
+13,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32903920,pounds steam,April,2014,Boiler A
+14,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,April,2014,GP-Combustors
+15,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,62477813,pounds steam,April,2014,2
+16,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,April,2014,GP-01
+17,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,61807019,pounds steam,April,2014,1
+18,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,27800000.3,pounds steam,April,2014,MWC Unit No. 2
+19,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72491828,pounds steam,April,2014,EU 002
+20,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,40626300,pounds steam,April,2014,B Boiler
+21,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,46904193,pounds steam,April,2014,EU 001
+22,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,25208000.1,pounds steam,April,2014,MWC Unit No. 1
+23,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,24433000.4,pounds steam,August,2014,MWC Unit No. 1
+24,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,203691600,pounds steam,August,2014,GP-Facility Emissions
+25,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,August,2014,Unit 2
+26,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,August,2014,Unit 1
+27,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,August,2014,Unit 3
+28,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,5876000,pounds steam,August,2014,Boiler B
+29,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,1040000,pounds steam,August,2014,Boiler A
+30,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,63746690,pounds steam,August,2014,2
+31,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,57087102,pounds steam,August,2014,1
+32,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,41857277,pounds steam,August,2014,EU 002
+33,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,73713612,pounds steam,August,2014,EU 001
+34,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,11634180,pounds steam,August,2014,2
+35,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),14876999,pounds steam,August,2014,2
+36,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16515408,pounds steam,August,2014,1
+37,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),21130372,pounds steam,August,2014,1
+38,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,August,2014,GP-01
+39,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,27942000.1,pounds steam,August,2014,MWC Unit No. 2
+40,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,August,2014,Biomass Cogeneration
+41,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,August,2014,Biomass Cogeneration
+42,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,August,2014,GP-Combustors
+43,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48636880,pounds steam,August,2014,B Boiler
+44,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51176000,pounds steam,August,2014,A Boiler
+45,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,153091400,pounds steam,August,2014,GP-1
+46,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,132732700,pounds steam,December,2014,GP-1
+47,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,0,pounds steam,December,2014,MWC Unit No. 1
+48,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51435300,pounds steam,December,2014,B Boiler
+49,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,December,2014,GP-Combustors
+50,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,December,2014,Biomass Cogeneration
+51,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,December,2014,Biomass Cogeneration
+52,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,2659000,pounds steam,December,2014,MWC Unit No. 2
+53,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,December,2014,GP-01
+54,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),21105885,pounds steam,December,2014,1
+55,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14957307,pounds steam,December,2014,1
+56,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),23053764,pounds steam,December,2014,2
+57,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16339841,pounds steam,December,2014,2
+58,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,65660199,pounds steam,December,2014,EU 001
+59,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,46050273,pounds steam,December,2014,EU 002
+60,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,48070709,pounds steam,December,2014,1
+61,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,54691284,pounds steam,December,2014,2
+62,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31901330,pounds steam,December,2014,Boiler A
+63,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,29425840,pounds steam,December,2014,Boiler B
+64,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,December,2014,Unit 3
+65,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,December,2014,Unit 1
+66,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,December,2014,Unit 2
+67,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,212128000,pounds steam,December,2014,GP-Facility Emissions
+68,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,40903900,pounds steam,December,2014,A Boiler
+69,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,136622100,pounds steam,February,2014,GP-1
+70,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,27121000.7,pounds steam,February,2014,MWC Unit No. 2
+71,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,37675100,pounds steam,February,2014,B Boiler
+72,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,February,2014,GP-Combustors
+73,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,February,2014,Biomass Cogeneration
+74,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,February,2014,Biomass Cogeneration
+75,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,February,2014,GP-01
+76,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),16105168,pounds steam,February,2014,1
+77,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,12021141,pounds steam,February,2014,1
+78,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18931664,pounds steam,February,2014,2
+79,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14133817,pounds steam,February,2014,2
+80,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,16313784,pounds steam,February,2014,EU 001
+81,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,42604178,pounds steam,February,2014,EU 002
+82,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,48348787,pounds steam,February,2014,1
+83,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,34281045,pounds steam,February,2014,2
+84,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,27059410,pounds steam,February,2014,Boiler A
+85,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31383180,pounds steam,February,2014,Boiler B
+86,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,February,2014,Unit 3
+87,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,February,2014,Unit 1
+88,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,February,2014,Unit 2
+89,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,128927110,pounds steam,February,2014,GP-Facility Emissions
+90,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,25729000.4,pounds steam,February,2014,MWC Unit No. 1
+91,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,41102500,pounds steam,February,2014,A Boiler
+92,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,15878000.7,pounds steam,January,2014,MWC Unit No. 1
+93,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,182114130,pounds steam,January,2014,GP-Facility Emissions
+94,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,153408600,pounds steam,January,2014,GP-1
+95,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50999000,pounds steam,January,2014,A Boiler
+96,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50357600,pounds steam,January,2014,B Boiler
+97,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,January,2014,GP-Combustors
+98,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),16111353.15,pounds steam,January,2014,Biomass Cogeneration
+99,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,8059646.85,pounds steam,January,2014,Biomass Cogeneration
+100,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,January,2014,GP-01
+101,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),20767878,pounds steam,January,2014,1
+102,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,9628718,pounds steam,January,2014,1
+103,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),20762430,pounds steam,January,2014,2
+104,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,9626192,pounds steam,January,2014,2
+105,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,65039099,pounds steam,January,2014,EU 001
+106,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,55354193,pounds steam,January,2014,EU 002
+107,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,4148470,pounds steam,January,2014,1
+108,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,884534,pounds steam,January,2014,2
+109,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,33848410,pounds steam,January,2014,Boiler A
+110,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32682670,pounds steam,January,2014,Boiler B
+111,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,January,2014,Unit 3
+112,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,January,2014,Unit 1
+113,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,January,2014,Unit 2
+114,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,35667000.1,pounds steam,January,2014,MWC Unit No. 2
+115,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34716000.5,pounds steam,July,2014,MWC Unit No. 1
+116,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,152543300,pounds steam,July,2014,GP-1
+117,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,43584700,pounds steam,July,2014,A Boiler
+118,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48216200,pounds steam,July,2014,B Boiler
+119,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,July,2014,GP-Combustors
+120,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,July,2014,Biomass Cogeneration
+121,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,July,2014,Biomass Cogeneration
+122,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,38509000,pounds steam,July,2014,MWC Unit No. 2
+123,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,July,2014,GP-01
+124,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),25377751,pounds steam,July,2014,1
+125,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18064135,pounds steam,July,2014,1
+126,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),20074984,pounds steam,July,2014,2
+127,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14292468,pounds steam,July,2014,2
+128,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,66532996,pounds steam,July,2014,EU 001
+129,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,56628889,pounds steam,July,2014,EU 002
+130,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,55433673,pounds steam,July,2014,1
+131,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,66945921,pounds steam,July,2014,2
+132,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,33118070,pounds steam,July,2014,Boiler A
+133,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,25701010,pounds steam,July,2014,Boiler B
+134,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,July,2014,Unit 3
+135,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,July,2014,Unit 1
+136,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,July,2014,Unit 2
+137,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,178637700,pounds steam,July,2014,GP-Facility Emissions
+138,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,25230000.1,pounds steam,June,2014,MWC Unit No. 1
+139,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,196130400,pounds steam,June,2014,GP-Facility Emissions
+140,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,133488900,pounds steam,June,2014,GP-1
+141,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47504900,pounds steam,June,2014,A Boiler
+142,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50044200,pounds steam,June,2014,B Boiler
+143,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,June,2014,GP-Combustors
+144,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,June,2014,Biomass Cogeneration
+145,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,June,2014,Biomass Cogeneration
+146,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,June,2014,GP-01
+147,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),20320973,pounds steam,June,2014,1
+148,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,15653154,pounds steam,June,2014,1
+149,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),19366449,pounds steam,June,2014,2
+150,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14921676,pounds steam,June,2014,2
+151,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,63069488,pounds steam,June,2014,EU 001
+152,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,50931897,pounds steam,June,2014,EU 002
+153,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,48826718,pounds steam,June,2014,1
+154,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,53457833,pounds steam,June,2014,2
+155,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32193010,pounds steam,June,2014,Boiler A
+156,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,25373180,pounds steam,June,2014,Boiler B
+157,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,June,2014,Unit 3
+158,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,June,2014,Unit 1
+159,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,June,2014,Unit 2
+160,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34847000,pounds steam,June,2014,MWC Unit No. 2
+161,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,138000000,pounds steam,March,2014,GP-1
+162,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47317000,pounds steam,March,2014,A Boiler
+163,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,28561200,pounds steam,March,2014,B Boiler
+164,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,March,2014,GP-Combustors
+165,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,March,2014,Biomass Cogeneration
+166,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,March,2014,Biomass Cogeneration
+167,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,March,2014,GP-01
+168,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),18773457,pounds steam,March,2014,1
+169,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,15197932,pounds steam,March,2014,1
+170,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),15794887,pounds steam,March,2014,2
+171,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,12788511,pounds steam,March,2014,2
+172,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,0,pounds steam,March,2014,EU 001
+173,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,46792851,pounds steam,March,2014,EU 002
+174,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,61987356,pounds steam,March,2014,1
+175,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,67822633,pounds steam,March,2014,2
+176,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,35667790,pounds steam,March,2014,Boiler A
+177,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,34703790,pounds steam,March,2014,Boiler B
+178,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,March,2014,Unit 3
+179,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,March,2014,Unit 1
+180,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,March,2014,Unit 2
+181,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,197300950,pounds steam,March,2014,GP-Facility Emissions
+182,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,44214000.2,pounds steam,March,2014,MWC Unit No. 1
+183,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,30276000.8,pounds steam,March,2014,MWC Unit No. 2
+184,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,153538400,pounds steam,May,2014,GP-1
+185,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,33018000.9,pounds steam,May,2014,MWC Unit No. 2
+186,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50243400,pounds steam,May,2014,B Boiler
+187,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,May,2014,GP-Combustors
+188,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,May,2014,Biomass Cogeneration
+189,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,May,2014,Biomass Cogeneration
+190,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,May,2014,GP-01
+191,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),20037763,pounds steam,May,2014,1
+192,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,17070711,pounds steam,May,2014,1
+193,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),16824294,pounds steam,May,2014,2
+194,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14333956,pounds steam,May,2014,2
+195,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,49689396,pounds steam,May,2014,EU 001
+196,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,55114424,pounds steam,May,2014,EU 002
+197,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59753115,pounds steam,May,2014,1
+198,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,67496713,pounds steam,May,2014,2
+199,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,37221430,pounds steam,May,2014,Boiler A
+200,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,16703550,pounds steam,May,2014,Boiler B
+201,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,May,2014,Unit 3
+202,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,May,2014,Unit 1
+203,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,May,2014,Unit 2
+204,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,145292200,pounds steam,May,2014,GP-Facility Emissions
+205,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,31212000.3,pounds steam,May,2014,MWC Unit No. 1
+206,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47801500,pounds steam,May,2014,A Boiler
+207,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,144432300,pounds steam,November,2014,GP-1
+208,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,1406000,pounds steam,November,2014,MWC Unit No. 1
+209,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49765000,pounds steam,November,2014,B Boiler
+210,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,November,2014,GP-Combustors
+211,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,November,2014,Biomass Cogeneration
+212,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,November,2014,Biomass Cogeneration
+213,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,2953000.8,pounds steam,November,2014,MWC Unit No. 2
+214,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,November,2014,GP-01
+215,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),16702496,pounds steam,November,2014,1
+216,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,11574519,pounds steam,November,2014,1
+217,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18858555,pounds steam,November,2014,2
+218,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,13070402,pounds steam,November,2014,2
+219,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64832705,pounds steam,November,2014,EU 001
+220,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,50381699,pounds steam,November,2014,EU 002
+221,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,46139676,pounds steam,November,2014,1
+222,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,58187759,pounds steam,November,2014,2
+223,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31826360,pounds steam,November,2014,Boiler A
+224,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,30415010,pounds steam,November,2014,Boiler B
+225,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,November,2014,Unit 3
+226,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,November,2014,Unit 1
+227,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,November,2014,Unit 2
+228,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,201211300,pounds steam,November,2014,GP-Facility Emissions
+229,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48979500,pounds steam,November,2014,A Boiler
+230,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,134004550,pounds steam,October,2014,GP-1
+231,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,16399000.5,pounds steam,October,2014,MWC Unit No. 1
+232,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,52475600,pounds steam,October,2014,B Boiler
+233,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,October,2014,GP-Combustors
+234,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,October,2014,Biomass Cogeneration
+235,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,October,2014,Biomass Cogeneration
+236,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,42311000.4,pounds steam,October,2014,MWC Unit No. 2
+237,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,October,2014,GP-01
+238,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),14248479,pounds steam,October,2014,1
+239,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,7381504,pounds steam,October,2014,1
+240,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),12060746,pounds steam,October,2014,2
+241,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,6248137,pounds steam,October,2014,2
+242,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70186107,pounds steam,October,2014,EU 001
+243,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,50651628,pounds steam,October,2014,EU 002
+244,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59407592,pounds steam,October,2014,1
+245,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,63482037,pounds steam,October,2014,2
+246,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,26353150,pounds steam,October,2014,Boiler A
+247,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,24510760,pounds steam,October,2014,Boiler B
+248,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,October,2014,Unit 3
+249,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,October,2014,Unit 1
+250,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,October,2014,Unit 2
+251,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,167997900,pounds steam,October,2014,GP-Facility Emissions
+252,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49361200,pounds steam,October,2014,A Boiler
+253,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,132066700,pounds steam,September,2014,GP-1
+254,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,29350000.3,pounds steam,September,2014,MWC Unit No. 1
+255,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49838930,pounds steam,September,2014,B Boiler
+256,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103739500,pounds steam,September,2014,GP-Combustors
+257,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Wood and Wood Residuals (dry basis),0,pounds steam,September,2014,Biomass Cogeneration
+258,mmBtu/pounds steam,0.001712,1006792,SIERRA POWER CORPORATION,Agricultural Byproducts,0,pounds steam,September,2014,Biomass Cogeneration
+259,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,26769000,pounds steam,September,2014,MWC Unit No. 2
+260,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,57910916,pounds steam,September,2014,GP-01
+261,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),8834697,pounds steam,September,2014,1
+262,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,6600760,pounds steam,September,2014,1
+263,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),12055044,pounds steam,September,2014,2
+264,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,9006811,pounds steam,September,2014,2
+265,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,63210103,pounds steam,September,2014,EU 001
+266,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,53556137,pounds steam,September,2014,EU 002
+267,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,45038547,pounds steam,September,2014,1
+268,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,46675425,pounds steam,September,2014,2
+269,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32358270,pounds steam,September,2014,Boiler A
+270,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,27289840,pounds steam,September,2014,Boiler B
+271,mmBtu/pounds steam,0.001203,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,20763608.6,pounds steam,September,2014,Unit 3
+272,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9636685.5,pounds steam,September,2014,Unit 1
+273,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10163782,pounds steam,September,2014,Unit 2
+274,mmBtu/pounds steam,0.00146,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,177557800,pounds steam,September,2014,GP-Facility Emissions
+275,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48668130,pounds steam,September,2014,A Boiler

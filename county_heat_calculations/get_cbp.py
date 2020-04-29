@@ -199,7 +199,7 @@ class CBP:
         cbp['COUNTY_FIPS'] = cbp.COUNTY_FIPS.astype(int)
 
         census_regions = pd.read_csv(
-                os.path.join('../', self.data_dir + '/US_FIPS_Codes.csv'),
+                os.path.join('./', self.data_dir + 'US_FIPS_Codes.csv'),
                 index_col=['COUNTY_FIPS'])
 
         cbp['region'] = cbp.fipstate.map(

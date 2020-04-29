@@ -1,0 +1,613 @@
+,boiler_heat_uom,boiler_ratio_b,facility_id,facility_name,fuel_type,mass_of_steam,mass_of_steam_uom,month,reporting_year,unit_name
+0,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,April,2015,Unit 4
+1,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,April,2015,Unit 3
+2,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,38898200,pounds steam,April,2015,MWC Unit No. 2
+3,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,April,2015,Unit 2
+4,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,April,2015,Unit 1
+5,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,April,2015,Unit 3
+6,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,April,2015,EU 001
+7,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72542768,pounds steam,April,2015,EU 001
+8,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,April,2015,EU 002
+9,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,54690498,pounds steam,April,2015,EU 002
+10,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),20321386,pounds steam,April,2015,1
+11,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18702031,pounds steam,April,2015,1
+12,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),17273395,pounds steam,April,2015,2
+13,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15895326,pounds steam,April,2015,2
+14,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,75609000,pounds steam,April,2015,EU 001 - Boiler No. 1
+15,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,202317000,pounds steam,April,2015,EU 014 - Boiler No. 7
+16,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,148749000,pounds steam,April,2015,EU 009 - Boiler No. 4
+17,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,271951000,pounds steam,April,2015,EU 028 - Boiler No. 8
+18,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,88638000,pounds steam,April,2015,EU 002 - Boiler No. 2
+19,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,April,2015,Unit 2
+20,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,April,2015,Unit 1
+21,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,782000,pounds steam,April,2015,GP-Combustors
+22,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,April,2015,GP-MWC
+23,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,17837300,pounds steam,April,2015,A Boiler
+24,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,30462400,pounds steam,April,2015,B Boiler
+25,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,April,2015,GP-01
+26,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,200796878.40,pounds steam,April,2015,GP-Facility Emissions
+27,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,36705220,pounds steam,April,2015,GP-Facility Stack
+28,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,April,2015,Unit 2
+29,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,April,2015,Unit 1
+30,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,April,2015,GP-Combustors
+31,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,April,2015,MWC-1
+32,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,April,2015,MWC-2
+33,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,42636960,pounds steam,April,2015,GP-Facility Stack
+34,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,April,2015,GP-Boilers 1 and 2
+35,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,April,2015,Unit 1
+36,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,April,2015,Unit 2
+37,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,94413200,pounds steam,April,2015,GP-1
+38,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,April,2015,Unit #2
+39,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,April,2015,Unit 1
+40,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,65742230,pounds steam,April,2015,Unit 2
+41,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,66418900,pounds steam,April,2015,Unit 1
+42,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,April,2015,GP-MWC
+43,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,April,2015,Unit 3
+44,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,April,2015,Unit 1
+45,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,April,2015,Unit 2
+46,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,60701817,pounds steam,April,2015,1
+47,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,69081996,pounds steam,April,2015,2
+48,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,April,2015,Unit 1
+49,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,April,2015,Unit 2
+50,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,38494000,pounds steam,April,2015,MWC Unit No. 1
+51,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,August,2015,Unit 4
+52,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,44077200,pounds steam,August,2015,MWC Unit No. 1
+53,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,42630500,pounds steam,August,2015,MWC Unit No. 2
+54,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,August,2015,Unit 2
+55,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,August,2015,Unit 1
+56,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,August,2015,Unit 3
+57,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,August,2015,EU 001
+58,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70302638,pounds steam,August,2015,EU 001
+59,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,August,2015,EU 002
+60,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,62162687,pounds steam,August,2015,EU 002
+61,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),20120466,pounds steam,August,2015,1
+62,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,17592643,pounds steam,August,2015,1
+63,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18369431,pounds steam,August,2015,2
+64,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16057682,pounds steam,August,2015,2
+65,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,38000,pounds steam,August,2015,EU 001 - Boiler No. 1
+66,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2015,EU 014 - Boiler No. 7
+67,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2015,EU 009 - Boiler No. 4
+68,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,243261000,pounds steam,August,2015,EU 028 - Boiler No. 8
+69,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2015,EU 002 - Boiler No. 2
+70,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,August,2015,Unit 2
+71,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,August,2015,Unit 1
+72,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,August,2015,GP-Combustors
+73,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,August,2015,GP-MWC
+74,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,53608200,pounds steam,August,2015,A Boiler
+75,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48593200,pounds steam,August,2015,B Boiler
+76,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,August,2015,GP-01
+77,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,198182203.92,pounds steam,August,2015,GP-Facility Emissions
+78,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,38272363,pounds steam,August,2015,GP-Facility Stack
+79,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,August,2015,Unit 2
+80,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,August,2015,Unit 1
+81,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,August,2015,GP-Combustors
+82,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,August,2015,MWC-1
+83,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,August,2015,MWC-2
+84,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,54318000,pounds steam,August,2015,GP-Facility Stack
+85,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,August,2015,GP-Boilers 1 and 2
+86,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,August,2015,Unit 1
+87,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,August,2015,Unit 2
+88,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,138422100,pounds steam,August,2015,GP-1
+89,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,August,2015,Unit #2
+90,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,August,2015,Unit 1
+91,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,73711080,pounds steam,August,2015,Unit 2
+92,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,73580570,pounds steam,August,2015,Unit 1
+93,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,August,2015,GP-MWC
+94,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,August,2015,Unit 3
+95,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,August,2015,Unit 1
+96,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,August,2015,Unit 2
+97,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59054114,pounds steam,August,2015,1
+98,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,60886377,pounds steam,August,2015,2
+99,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,August,2015,Unit 1
+100,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,August,2015,Unit 2
+101,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,August,2015,Unit 3
+102,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,December,2015,GP-MWC
+103,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,102048000,pounds steam,December,2015,EU 002 - Boiler No. 2
+104,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,December,2015,Unit 1
+105,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,December,2015,GP-Combustors
+106,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,December,2015,GP-MWC
+107,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50542000,pounds steam,December,2015,A Boiler
+108,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,52759300,pounds steam,December,2015,B Boiler
+109,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,December,2015,GP-01
+110,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,209690487.36,pounds steam,December,2015,GP-Facility Emissions
+111,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,41835339,pounds steam,December,2015,GP-Facility Stack
+112,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,December,2015,Unit 2
+113,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,December,2015,Unit 1
+114,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,December,2015,GP-Combustors
+115,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,December,2015,MWC-1
+116,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,December,2015,MWC-2
+117,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,56129760,pounds steam,December,2015,GP-Facility Stack
+118,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,December,2015,GP-Boilers 1 and 2
+119,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,December,2015,Unit 1
+120,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,December,2015,Unit 2
+121,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,127883100,pounds steam,December,2015,GP-1
+122,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,December,2015,Unit #2
+123,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,December,2015,Unit 1
+124,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,44911090,pounds steam,December,2015,Unit 2
+125,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,68580140,pounds steam,December,2015,Unit 1
+126,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,December,2015,Unit 3
+127,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,December,2015,Unit 1
+128,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,December,2015,Unit 2
+129,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,50180146,pounds steam,December,2015,1
+130,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,57216132,pounds steam,December,2015,2
+131,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,December,2015,Unit 1
+132,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,December,2015,Unit 2
+133,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,December,2015,Unit 3
+134,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,December,2015,Unit 4
+135,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,41695000,pounds steam,December,2015,MWC Unit No. 1
+136,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,29054200,pounds steam,December,2015,MWC Unit No. 2
+137,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,December,2015,Unit 2
+138,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,December,2015,Unit 1
+139,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,December,2015,Unit 3
+140,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),54494,pounds steam,December,2015,EU 001
+141,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,63720247,pounds steam,December,2015,EU 001
+142,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),54565,pounds steam,December,2015,EU 002
+143,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,66040129,pounds steam,December,2015,EU 002
+144,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),22355527,pounds steam,December,2015,1
+145,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16434952,pounds steam,December,2015,1
+146,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),20753922,pounds steam,December,2015,2
+147,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15258864,pounds steam,December,2015,2
+148,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,96631000,pounds steam,December,2015,EU 001 - Boiler No. 1
+149,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,212663000,pounds steam,December,2015,EU 014 - Boiler No. 7
+150,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,160624000,pounds steam,December,2015,EU 009 - Boiler No. 4
+151,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,381499000,pounds steam,December,2015,EU 028 - Boiler No. 8
+152,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,December,2015,Unit 2
+153,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,February,2015,Unit 2
+154,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,88185000,pounds steam,February,2015,EU 002 - Boiler No. 2
+155,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,31300000,pounds steam,February,2015,GP-Combustors
+156,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,February,2015,GP-MWC
+157,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,36404600,pounds steam,February,2015,A Boiler
+158,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,32747500,pounds steam,February,2015,B Boiler
+159,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,February,2015,GP-01
+160,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,133571247.36,pounds steam,February,2015,GP-Facility Emissions
+161,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,35986636,pounds steam,February,2015,GP-Facility Stack
+162,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,February,2015,Unit 2
+163,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,February,2015,Unit 1
+164,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,February,2015,GP-Combustors
+165,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,February,2015,MWC-1
+166,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,February,2015,MWC-2
+167,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,51324360,pounds steam,February,2015,GP-Facility Stack
+168,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,February,2015,GP-Boilers 1 and 2
+169,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,February,2015,Unit 1
+170,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,February,2015,Unit 2
+171,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,136898300,pounds steam,February,2015,GP-1
+172,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,February,2015,Unit #2
+173,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,February,2015,Unit 1
+174,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,57297832,pounds steam,February,2015,Unit 2
+175,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,57285870,pounds steam,February,2015,Unit 1
+176,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,February,2015,GP-MWC
+177,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,February,2015,Unit 3
+178,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,February,2015,Unit 1
+179,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,February,2015,Unit 2
+180,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,38437305,pounds steam,February,2015,1
+181,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,60629609,pounds steam,February,2015,2
+182,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,February,2015,Unit 1
+183,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,February,2015,Unit 2
+184,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,February,2015,Unit 3
+185,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,February,2015,Unit 4
+186,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,28202700,pounds steam,February,2015,MWC Unit No. 1
+187,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,25505300,pounds steam,February,2015,MWC Unit No. 2
+188,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,February,2015,Unit 2
+189,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,February,2015,Unit 1
+190,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,February,2015,Unit 3
+191,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,February,2015,EU 001
+192,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,31427360,pounds steam,February,2015,EU 001
+193,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,February,2015,EU 002
+194,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,15610330,pounds steam,February,2015,EU 002
+195,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),23364872,pounds steam,February,2015,1
+196,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,13886038,pounds steam,February,2015,1
+197,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),19784579,pounds steam,February,2015,2
+198,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,11757041,pounds steam,February,2015,2
+199,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,84670000,pounds steam,February,2015,EU 001 - Boiler No. 1
+200,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,169167000,pounds steam,February,2015,EU 014 - Boiler No. 7
+201,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,144867000,pounds steam,February,2015,EU 009 - Boiler No. 4
+202,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,319869000,pounds steam,February,2015,EU 028 - Boiler No. 8
+203,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,February,2015,Unit 1
+204,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,January,2015,Unit 4
+205,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,January,2015,Unit 3
+206,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,0,pounds steam,January,2015,MWC Unit No. 2
+207,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,January,2015,Unit 2
+208,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,January,2015,Unit 1
+209,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,January,2015,Unit 3
+210,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,January,2015,EU 001
+211,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64924312,pounds steam,January,2015,EU 001
+212,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,January,2015,EU 002
+213,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,55356784,pounds steam,January,2015,EU 002
+214,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),21613138,pounds steam,January,2015,1
+215,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,13520813,pounds steam,January,2015,1
+216,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22066807,pounds steam,January,2015,2
+217,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,13800789,pounds steam,January,2015,2
+218,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,104922000,pounds steam,January,2015,EU 001 - Boiler No. 1
+219,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,205800000,pounds steam,January,2015,EU 014 - Boiler No. 7
+220,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,167640000,pounds steam,January,2015,EU 009 - Boiler No. 4
+221,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,370884000,pounds steam,January,2015,EU 028 - Boiler No. 8
+222,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,107425000,pounds steam,January,2015,EU 002 - Boiler No. 2
+223,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,January,2015,Unit 2
+224,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,January,2015,Unit 1
+225,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,45752000,pounds steam,January,2015,GP-Combustors
+226,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,January,2015,GP-MWC
+227,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,46667200,pounds steam,January,2015,A Boiler
+228,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47758400,pounds steam,January,2015,B Boiler
+229,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,January,2015,GP-01
+230,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,205808429.28,pounds steam,January,2015,GP-Facility Emissions
+231,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,40128155,pounds steam,January,2015,GP-Facility Stack
+232,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,January,2015,Unit 2
+233,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,January,2015,Unit 1
+234,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,January,2015,GP-Combustors
+235,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,January,2015,MWC-1
+236,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,January,2015,MWC-2
+237,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,63055080,pounds steam,January,2015,GP-Facility Stack
+238,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,January,2015,GP-Boilers 1 and 2
+239,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,January,2015,Unit 1
+240,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,January,2015,Unit 2
+241,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,139276300,pounds steam,January,2015,GP-1
+242,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,January,2015,Unit #2
+243,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,January,2015,Unit 1
+244,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,39700590,pounds steam,January,2015,Unit 2
+245,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,66427780,pounds steam,January,2015,Unit 1
+246,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,January,2015,GP-MWC
+247,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,January,2015,Unit 3
+248,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,January,2015,Unit 1
+249,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,January,2015,Unit 2
+250,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,0,pounds steam,January,2015,1
+251,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,16303650,pounds steam,January,2015,2
+252,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,January,2015,Unit 1
+253,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,January,2015,Unit 2
+254,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,0,pounds steam,January,2015,MWC Unit No. 1
+255,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,July,2015,Unit 4
+256,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,28534100,pounds steam,July,2015,MWC Unit No. 1
+257,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34328200,pounds steam,July,2015,MWC Unit No. 2
+258,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,July,2015,Unit 2
+259,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,July,2015,Unit 1
+260,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,July,2015,Unit 3
+261,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,July,2015,EU 001
+262,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,71706704,pounds steam,July,2015,EU 001
+263,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,July,2015,EU 002
+264,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64362685,pounds steam,July,2015,EU 002
+265,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),21318238,pounds steam,July,2015,1
+266,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,17146092,pounds steam,July,2015,1
+267,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),19595714,pounds steam,July,2015,2
+268,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15761090,pounds steam,July,2015,2
+269,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2015,EU 001 - Boiler No. 1
+270,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2015,EU 014 - Boiler No. 7
+271,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2015,EU 009 - Boiler No. 4
+272,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,220148000,pounds steam,July,2015,EU 028 - Boiler No. 8
+273,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2015,EU 002 - Boiler No. 2
+274,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,July,2015,Unit 2
+275,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,July,2015,Unit 1
+276,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,July,2015,GP-Combustors
+277,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,July,2015,GP-MWC
+278,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50821100,pounds steam,July,2015,A Boiler
+279,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51398000,pounds steam,July,2015,B Boiler
+280,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,July,2015,GP-01
+281,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,214996034.88,pounds steam,July,2015,GP-Facility Emissions
+282,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,39225095,pounds steam,July,2015,GP-Facility Stack
+283,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,July,2015,Unit 2
+284,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,July,2015,Unit 1
+285,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,July,2015,GP-Combustors
+286,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,July,2015,MWC-1
+287,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,July,2015,MWC-2
+288,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,57147600,pounds steam,July,2015,GP-Facility Stack
+289,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,July,2015,GP-Boilers 1 and 2
+290,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,July,2015,Unit 1
+291,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,July,2015,Unit 2
+292,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,143489800,pounds steam,July,2015,GP-1
+293,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,July,2015,Unit #2
+294,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,July,2015,Unit 1
+295,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,70777400,pounds steam,July,2015,Unit 2
+296,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,70612420,pounds steam,July,2015,Unit 1
+297,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,July,2015,GP-MWC
+298,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,July,2015,Unit 3
+299,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,July,2015,Unit 1
+300,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,July,2015,Unit 2
+301,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,57769310,pounds steam,July,2015,1
+302,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,67039584,pounds steam,July,2015,2
+303,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,July,2015,Unit 1
+304,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,July,2015,Unit 2
+305,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,July,2015,Unit 3
+306,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,June,2015,Unit 2
+307,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,June,2015,Unit 1
+308,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,June,2015,GP-Combustors
+309,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,June,2015,GP-MWC
+310,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51323900,pounds steam,June,2015,A Boiler
+311,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51385600,pounds steam,June,2015,B Boiler
+312,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,June,2015,GP-01
+313,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,194117580.00,pounds steam,June,2015,GP-Facility Emissions
+314,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,41583261,pounds steam,June,2015,GP-Facility Stack
+315,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,June,2015,Unit 2
+316,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,June,2015,Unit 1
+317,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,June,2015,GP-Combustors
+318,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,June,2015,MWC-1
+319,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,June,2015,MWC-2
+320,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,57168600,pounds steam,June,2015,GP-Facility Stack
+321,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,June,2015,GP-Boilers 1 and 2
+322,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,June,2015,Unit 1
+323,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,June,2015,Unit 2
+324,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,147421300,pounds steam,June,2015,GP-1
+325,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,June,2015,Unit #2
+326,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,June,2015,Unit 1
+327,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,50418410,pounds steam,June,2015,Unit 2
+328,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,68833770,pounds steam,June,2015,Unit 1
+329,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,June,2015,GP-MWC
+330,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,June,2015,Unit 3
+331,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,June,2015,Unit 1
+332,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,June,2015,Unit 2
+333,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,50445609,pounds steam,June,2015,1
+334,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,55386239,pounds steam,June,2015,2
+335,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,June,2015,Unit 1
+336,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,June,2015,Unit 2
+337,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,June,2015,Unit 3
+338,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,June,2015,Unit 4
+339,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,36804300,pounds steam,June,2015,MWC Unit No. 1
+340,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,42651800,pounds steam,June,2015,MWC Unit No. 2
+341,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,June,2015,Unit 2
+342,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,June,2015,Unit 1
+343,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,June,2015,Unit 3
+344,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,June,2015,EU 001
+345,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,62948392,pounds steam,June,2015,EU 001
+346,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,June,2015,EU 002
+347,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,71838021,pounds steam,June,2015,EU 002
+348,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),16045497,pounds steam,June,2015,1
+349,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14408464,pounds steam,June,2015,1
+350,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),20380529,pounds steam,June,2015,2
+351,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,18295477,pounds steam,June,2015,2
+352,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,June,2015,EU 001 - Boiler No. 1
+353,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,78000,pounds steam,June,2015,EU 014 - Boiler No. 7
+354,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,June,2015,EU 009 - Boiler No. 4
+355,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,147637000,pounds steam,June,2015,EU 028 - Boiler No. 8
+356,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,June,2015,EU 002 - Boiler No. 2
+357,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,March,2015,Unit 4
+358,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,March,2015,Unit 3
+359,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,39502100,pounds steam,March,2015,MWC Unit No. 2
+360,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,March,2015,Unit 2
+361,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,March,2015,Unit 1
+362,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,March,2015,Unit 3
+363,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,March,2015,EU 001
+364,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,47129074,pounds steam,March,2015,EU 001
+365,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,March,2015,EU 002
+366,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,8908,pounds steam,March,2015,EU 002
+367,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),18633960,pounds steam,March,2015,1
+368,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14155707,pounds steam,March,2015,1
+369,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22370466,pounds steam,March,2015,2
+370,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16998903,pounds steam,March,2015,2
+371,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,104105000,pounds steam,March,2015,EU 001 - Boiler No. 1
+372,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,205143000,pounds steam,March,2015,EU 014 - Boiler No. 7
+373,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,156556000,pounds steam,March,2015,EU 009 - Boiler No. 4
+374,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,362473000,pounds steam,March,2015,EU 028 - Boiler No. 8
+375,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,107569000,pounds steam,March,2015,EU 002 - Boiler No. 2
+376,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,March,2015,Unit 2
+377,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,March,2015,Unit 1
+378,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,25420000,pounds steam,March,2015,GP-Combustors
+379,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,March,2015,GP-MWC
+380,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47448000,pounds steam,March,2015,A Boiler
+381,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51386400,pounds steam,March,2015,B Boiler
+382,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,March,2015,GP-01
+383,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,139559018.16,pounds steam,March,2015,GP-Facility Emissions
+384,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,42834634,pounds steam,March,2015,GP-Facility Stack
+385,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,March,2015,Unit 2
+386,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,March,2015,Unit 1
+387,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,March,2015,GP-Combustors
+388,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,March,2015,MWC-1
+389,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,March,2015,MWC-2
+390,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,61014840,pounds steam,March,2015,GP-Facility Stack
+391,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,March,2015,GP-Boilers 1 and 2
+392,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,March,2015,Unit 1
+393,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,March,2015,Unit 2
+394,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,143412800,pounds steam,March,2015,GP-1
+395,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,March,2015,Unit #2
+396,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,March,2015,Unit 1
+397,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,63454970,pounds steam,March,2015,Unit 2
+398,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,63417610,pounds steam,March,2015,Unit 1
+399,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,March,2015,GP-MWC
+400,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,March,2015,Unit 3
+401,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,March,2015,Unit 1
+402,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,March,2015,Unit 2
+403,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59188420,pounds steam,March,2015,1
+404,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,62374128,pounds steam,March,2015,2
+405,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,March,2015,Unit 1
+406,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,March,2015,Unit 2
+407,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,42604100,pounds steam,March,2015,MWC Unit No. 1
+408,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,May,2015,Unit 4
+409,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34081500,pounds steam,May,2015,MWC Unit No. 1
+410,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,28294000,pounds steam,May,2015,MWC Unit No. 2
+411,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,May,2015,Unit 2
+412,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,May,2015,Unit 1
+413,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,May,2015,Unit 3
+414,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,May,2015,EU 001
+415,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,73927765,pounds steam,May,2015,EU 001
+416,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,May,2015,EU 002
+417,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,75340166,pounds steam,May,2015,EU 002
+418,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),19426141,pounds steam,May,2015,1
+419,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18693020,pounds steam,May,2015,1
+420,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),15528912,pounds steam,May,2015,2
+421,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14945667,pounds steam,May,2015,2
+422,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,May,2015,EU 001 - Boiler No. 1
+423,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,208708000,pounds steam,May,2015,EU 014 - Boiler No. 7
+424,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,7893000,pounds steam,May,2015,EU 009 - Boiler No. 4
+425,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,316000,pounds steam,May,2015,EU 028 - Boiler No. 8
+426,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,May,2015,EU 002 - Boiler No. 2
+427,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,May,2015,Unit 2
+428,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,May,2015,Unit 1
+429,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,May,2015,GP-Combustors
+430,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,May,2015,GP-MWC
+431,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,40822900,pounds steam,May,2015,A Boiler
+432,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,30037200,pounds steam,May,2015,B Boiler
+433,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,May,2015,GP-01
+434,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,218259378.72,pounds steam,May,2015,GP-Facility Emissions
+435,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,39315577,pounds steam,May,2015,GP-Facility Stack
+436,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,May,2015,Unit 2
+437,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,May,2015,Unit 1
+438,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,May,2015,GP-Combustors
+439,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,May,2015,MWC-1
+440,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,May,2015,MWC-2
+441,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,61416840,pounds steam,May,2015,GP-Facility Stack
+442,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,May,2015,GP-Boilers 1 and 2
+443,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,May,2015,Unit 1
+444,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,May,2015,Unit 2
+445,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,151850800,pounds steam,May,2015,GP-1
+446,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,May,2015,Unit #2
+447,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,May,2015,Unit 1
+448,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,74243320,pounds steam,May,2015,Unit 2
+449,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,58681390,pounds steam,May,2015,Unit 1
+450,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,May,2015,GP-MWC
+451,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,May,2015,Unit 3
+452,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,May,2015,Unit 1
+453,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,May,2015,Unit 2
+454,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59145313,pounds steam,May,2015,1
+455,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,69874030,pounds steam,May,2015,2
+456,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,May,2015,Unit 1
+457,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,May,2015,Unit 2
+458,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,May,2015,Unit 3
+459,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,November,2015,GP-MWC
+460,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,95915000,pounds steam,November,2015,EU 002 - Boiler No. 2
+461,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,November,2015,Unit 1
+462,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,November,2015,GP-Combustors
+463,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,November,2015,GP-MWC
+464,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50963100,pounds steam,November,2015,A Boiler
+465,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,42092900,pounds steam,November,2015,B Boiler
+466,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,November,2015,GP-01
+467,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,197437495.73,pounds steam,November,2015,GP-Facility Emissions
+468,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,37423271,pounds steam,November,2015,GP-Facility Stack
+469,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,November,2015,Unit 2
+470,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,November,2015,Unit 1
+471,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,November,2015,GP-Combustors
+472,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,November,2015,MWC-1
+473,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,November,2015,MWC-2
+474,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,46219920,pounds steam,November,2015,GP-Facility Stack
+475,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,November,2015,GP-Boilers 1 and 2
+476,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,November,2015,Unit 1
+477,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,November,2015,Unit 2
+478,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,140074400,pounds steam,November,2015,GP-1
+479,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,November,2015,Unit #2
+480,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,November,2015,Unit 1
+481,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,58593330,pounds steam,November,2015,Unit 2
+482,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,57803210,pounds steam,November,2015,Unit 1
+483,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,November,2015,Unit 3
+484,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,November,2015,Unit 1
+485,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,November,2015,Unit 2
+486,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,46660113,pounds steam,November,2015,1
+487,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,58007945,pounds steam,November,2015,2
+488,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,November,2015,Unit 1
+489,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,November,2015,Unit 2
+490,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,November,2015,Unit 3
+491,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,November,2015,Unit 4
+492,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,37965800,pounds steam,November,2015,MWC Unit No. 1
+493,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,37509900,pounds steam,November,2015,MWC Unit No. 2
+494,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,November,2015,Unit 2
+495,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,November,2015,Unit 1
+496,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,November,2015,Unit 3
+497,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,November,2015,EU 001
+498,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,59858445,pounds steam,November,2015,EU 001
+499,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),0,pounds steam,November,2015,EU 002
+500,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,39871201,pounds steam,November,2015,EU 002
+501,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),23624912,pounds steam,November,2015,1
+502,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,15245100,pounds steam,November,2015,1
+503,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),19213788,pounds steam,November,2015,2
+504,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,12398719,pounds steam,November,2015,2
+505,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,90857000,pounds steam,November,2015,EU 001 - Boiler No. 1
+506,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,211796000,pounds steam,November,2015,EU 014 - Boiler No. 7
+507,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,151410000,pounds steam,November,2015,EU 009 - Boiler No. 4
+508,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,367115000,pounds steam,November,2015,EU 028 - Boiler No. 8
+509,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,November,2015,Unit 2
+510,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,October,2015,GP-MWC
+511,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,103801000,pounds steam,October,2015,EU 002 - Boiler No. 2
+512,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,October,2015,Unit 1
+513,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,October,2015,GP-Combustors
+514,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,October,2015,GP-MWC
+515,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50888800,pounds steam,October,2015,A Boiler
+516,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,41790800,pounds steam,October,2015,B Boiler
+517,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,October,2015,GP-01
+518,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,208000022.16,pounds steam,October,2015,GP-Facility Emissions
+519,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,36425503,pounds steam,October,2015,GP-Facility Stack
+520,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,October,2015,Unit 2
+521,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,October,2015,Unit 1
+522,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,October,2015,GP-Combustors
+523,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,October,2015,MWC-1
+524,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,October,2015,MWC-2
+525,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,50322480,pounds steam,October,2015,GP-Facility Stack
+526,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,October,2015,GP-Boilers 1 and 2
+527,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,October,2015,Unit 1
+528,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,October,2015,Unit 2
+529,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,124303300,pounds steam,October,2015,GP-1
+530,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,October,2015,Unit #2
+531,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,October,2015,Unit 1
+532,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,66345650,pounds steam,October,2015,Unit 2
+533,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,70606640,pounds steam,October,2015,Unit 1
+534,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,October,2015,Unit 3
+535,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,October,2015,Unit 1
+536,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,October,2015,Unit 2
+537,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,57572921,pounds steam,October,2015,1
+538,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,70666085,pounds steam,October,2015,2
+539,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,October,2015,Unit 1
+540,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,October,2015,Unit 2
+541,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,October,2015,Unit 3
+542,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,October,2015,Unit 4
+543,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,39623300,pounds steam,October,2015,MWC Unit No. 1
+544,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,35770900,pounds steam,October,2015,MWC Unit No. 2
+545,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,October,2015,Unit 2
+546,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,October,2015,Unit 1
+547,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,October,2015,Unit 3
+548,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),13531,pounds steam,October,2015,EU 001
+549,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64850281,pounds steam,October,2015,EU 001
+550,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),14702,pounds steam,October,2015,EU 002
+551,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,59986661,pounds steam,October,2015,EU 002
+552,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),23046190,pounds steam,October,2015,1
+553,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,19577871,pounds steam,October,2015,1
+554,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18619575,pounds steam,October,2015,2
+555,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15811483,pounds steam,October,2015,2
+556,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,90228000,pounds steam,October,2015,EU 001 - Boiler No. 1
+557,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,200634000,pounds steam,October,2015,EU 014 - Boiler No. 7
+558,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,158318000,pounds steam,October,2015,EU 009 - Boiler No. 4
+559,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,372497000,pounds steam,October,2015,EU 028 - Boiler No. 8
+560,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,October,2015,Unit 2
+561,mmBtu/pounds steam,0.00167,1004572,MCKAY BAY FACILITY,Municipal Solid Waste,156096000,pounds steam,September,2015,GP-MWC
+562,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,September,2015,EU 002 - Boiler No. 2
+563,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,43918583,pounds steam,September,2015,Unit 1
+564,mmBtu/pounds steam,0.001631,1005171,COVANTA RESOURCE RECOVERY FACILITY,Municipal Solid Waste,0,pounds steam,September,2015,GP-Combustors
+565,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,156334167,pounds steam,September,2015,GP-MWC
+566,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50914300,pounds steam,September,2015,A Boiler
+567,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51179200,pounds steam,September,2015,B Boiler
+568,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,62653083,pounds steam,September,2015,GP-01
+569,mmBtu/pounds steam,0.001465,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,151878636.72,pounds steam,September,2015,GP-Facility Emissions
+570,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,35740812,pounds steam,September,2015,GP-Facility Stack
+571,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47769417,pounds steam,September,2015,Unit 2
+572,mmBtu/pounds steam,0.00163,1004540,Wheelabrator Lisbon Inc.,Municipal Solid Waste,47768167,pounds steam,September,2015,Unit 1
+573,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,125729581.8,pounds steam,September,2015,GP-Combustors
+574,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,47394083,pounds steam,September,2015,MWC-1
+575,mmBtu/pounds steam,0.001608,1001646,"COVANTA MARION, INC",Municipal Solid Waste,46398167,pounds steam,September,2015,MWC-2
+576,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,54425760,pounds steam,September,2015,GP-Facility Stack
+577,mmBtu/pounds steam,0.00179,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,125502287.65,pounds steam,September,2015,GP-Boilers 1 and 2
+578,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,41921000,pounds steam,September,2015,Unit 1
+579,mmBtu/pounds steam,0.00148,1004968,WHEELABRATOR HUDSON FALLS LLC,Municipal Solid Waste,40265417,pounds steam,September,2015,Unit 2
+580,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,144605100,pounds steam,September,2015,GP-1
+581,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,47234833.333,pounds steam,September,2015,Unit #2
+582,mmBtu/pounds steam,0.00156,1006369,WHEELABRATOR CONCORD COMPANY LP,Municipal Solid Waste,46730500,pounds steam,September,2015,Unit 1
+583,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,63854580,pounds steam,September,2015,Unit 2
+584,mmBtu/pounds steam,0.0016,1004053,City of Spokane Waste-to-Energy,Municipal Solid Waste,66867640,pounds steam,September,2015,Unit 1
+585,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21171113.1,pounds steam,September,2015,Unit 3
+586,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10275513.4,pounds steam,September,2015,Unit 1
+587,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10559612.3,pounds steam,September,2015,Unit 2
+588,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,43004124,pounds steam,September,2015,1
+589,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,53804078,pounds steam,September,2015,2
+590,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91057916.67,pounds steam,September,2015,Unit 1
+591,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,93833083.33,pounds steam,September,2015,Unit 2
+592,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,91093500,pounds steam,September,2015,Unit 3
+593,mmBtu/pounds steam,0.00132,1004969,Wheelabrator Portsmouth Inc.,Municipal Solid Waste,89678333.33,pounds steam,September,2015,Unit 4
+594,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,39693200,pounds steam,September,2015,MWC Unit No. 1
+595,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,30156100,pounds steam,September,2015,MWC Unit No. 2
+596,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,60597500,pounds steam,September,2015,Unit 2
+597,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,63001916,pounds steam,September,2015,Unit 1
+598,mmBtu/pounds steam,0.001589,1004963,Covanta WBH,Municipal Solid Waste,64434333,pounds steam,September,2015,Unit 3
+599,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),79758,pounds steam,September,2015,EU 001
+600,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,55017420,pounds steam,September,2015,EU 001
+601,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),75762,pounds steam,September,2015,EU 002
+602,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,69459200,pounds steam,September,2015,EU 002
+603,mmBtu/pounds steam,0.00164000,1000219,French Island,Wood and Wood Residuals (dry basis),20550272,pounds steam,September,2015,1
+604,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18278587,pounds steam,September,2015,1
+605,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),17670909,pounds steam,September,2015,2
+606,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15719028,pounds steam,September,2015,2
+607,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,September,2015,EU 001 - Boiler No. 1
+608,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,8926000,pounds steam,September,2015,EU 014 - Boiler No. 7
+609,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,2497000,pounds steam,September,2015,EU 009 - Boiler No. 4
+610,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,208600000,pounds steam,September,2015,EU 028 - Boiler No. 8
+611,mmBtu/pounds steam,0.00151,1004279,"WHEELABRATOR GLOUCESTER COMPANY, L.P.",Municipal Solid Waste,42320083,pounds steam,September,2015,Unit 2

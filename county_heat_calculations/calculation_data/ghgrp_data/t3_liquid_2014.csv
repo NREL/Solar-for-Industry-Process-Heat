@@ -1,0 +1,121 @@
+,carbon_content,carbon_content_uom,facility_id,facility_name,fuel_combusted,fuel_combusted_uom,fuel_type,high_heat_value,high_heat_value_uom,molecular_weight,molecular_weight_uom,month,reporting_year,unit_name
+0,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,93,short tons/month,Subbituminous,,,,,April,2014,GP-01
+1,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,4999,short tons/month,Subbituminous,,,,,April,2014,SB-1
+2,0.74,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,4296.455,short tons/month,Bituminous,,,,,April,2014,GP-Coal_Boilers
+3,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,April,2014,SB-1
+4,0,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,0,short tons/month,Bituminous,,,,,August,2014,GP-Coal_Boilers
+5,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,August,2014,GP-01
+6,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,August,2014,SB-1
+7,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,August,2014,SB-1
+8,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,5346,short tons/month,Subbituminous,,,,,December,2014,SB-1
+9,0.73,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,5630.941,short tons/month,Bituminous,,,,,December,2014,GP-Coal_Boilers
+10,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,5416,short tons/month,Subbituminous,,,,,December,2014,GP-01
+11,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,1782,short tons/month,Bituminous,,,,,December,2014,SB-1
+12,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,February,2014,SB-1
+13,0.7451,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,5508.988,short tons/month,Bituminous,,,,,February,2014,GP-Coal_Boilers
+14,0.5520,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,3428,short tons/month,Subbituminous,,,,,February,2014,GP-01
+15,0.552,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,4757,short tons/month,Subbituminous,,,,,February,2014,SB-1
+16,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,January,2014,SB-1
+17,0.5553,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,7402,short tons/month,Subbituminous,,,,,January,2014,SB-1
+18,0.71,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,6163.436,short tons/month,Bituminous,,,,,January,2014,GP-Coal_Boilers
+19,0.5553,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,4107,short tons/month,Subbituminous,,,,,January,2014,GP-01
+20,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,July,2014,SB-1
+21,0.75,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,781.898,short tons/month,Bituminous,,,,,July,2014,GP-Coal_Boilers
+22,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,July,2014,GP-01
+23,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,July,2014,SB-1
+24,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,June,2014,SB-1
+25,0.75,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,3159.537,short tons/month,Bituminous,,,,,June,2014,GP-Coal_Boilers
+26,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,June,2014,SB-1
+27,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,June,2014,GP-01
+28,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,3742,short tons/month,Subbituminous,,,,,March,2014,GP-01
+29,0.74,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,5860.115,short tons/month,Bituminous,,,,,March,2014,GP-Coal_Boilers
+30,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,7363,short tons/month,Subbituminous,,,,,March,2014,SB-1
+31,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,March,2014,SB-1
+32,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,May,2014,SB-1
+33,0.75,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,4219.24,short tons/month,Bituminous,,,,,May,2014,GP-Coal_Boilers
+34,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Subbituminous,,,,,May,2014,GP-01
+35,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,May,2014,SB-1
+36,0.7449,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,5283.463,short tons/month,Bituminous,,,,,November,2014,GP-Coal_Boilers
+37,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,5348,short tons/month,Subbituminous,,,,,November,2014,GP-01
+38,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,1738,short tons/month,Bituminous,,,,,November,2014,SB-1
+39,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,5202,short tons/month,Subbituminous,,,,,November,2014,SB-1
+40,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,1464,short tons/month,Bituminous,,,,,October,2014,SB-1
+41,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,6406,short tons/month,Subbituminous,,,,,October,2014,SB-1
+42,0.746,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,4246.714,short tons/month,Bituminous,,,,,October,2014,GP-Coal_Boilers
+43,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,5464,short tons/month,Subbituminous,,,,,October,2014,GP-01
+44,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,2851,short tons/month,Subbituminous,,,,,September,2014,GP-01
+45,0.75,"percent by weight, expressed as a decimal fraction",1001921,MEDICAL CENTER COMPANY,2329.567,short tons/month,Bituminous,,,,,September,2014,GP-Coal_Boilers
+46,0.6556,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,0,short tons/month,Bituminous,,,,,September,2014,SB-1
+47,0.5537,"percent by weight, expressed as a decimal fraction",1006412,AMALGAMATED SUGAR CO LLC,4874,short tons/month,Subbituminous,,,,,September,2014,SB-1
+48,3.311,kg C per gallon,1004611,Tanguisson Power Plant,338083,gallons/month,Residual Fuel Oil No. 6,,,,,April,2014,2
+49,3.311,kg C per gallon,1004611,Tanguisson Power Plant,470984,gallons/month,Residual Fuel Oil No. 6,,,,,April,2014,1
+50,3.268,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,August,2014,2
+51,3.268,kg C per gallon,1004611,Tanguisson Power Plant,517876,gallons/month,Residual Fuel Oil No. 6,,,,,August,2014,1
+52,3.240,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,December,2014,2
+53,3.240,kg C per gallon,1004611,Tanguisson Power Plant,595725,gallons/month,Residual Fuel Oil No. 6,,,,,December,2014,1
+54,3.269,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,February,2014,1
+55,3.269,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,February,2014,2
+56,3.266,kg C per gallon,1004611,Tanguisson Power Plant,309326,gallons/month,Residual Fuel Oil No. 6,,,,,January,2014,1
+57,3.266,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,January,2014,2
+58,3.268,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,July,2014,2
+59,3.268,kg C per gallon,1004611,Tanguisson Power Plant,980181,gallons/month,Residual Fuel Oil No. 6,,,,,July,2014,1
+60,3.318,kg C per gallon,1004611,Tanguisson Power Plant,941580,gallons/month,Residual Fuel Oil No. 6,,,,,June,2014,1
+61,3.318,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,June,2014,2
+62,3.269,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,March,2014,2
+63,3.269,kg C per gallon,1004611,Tanguisson Power Plant,131218,gallons/month,Residual Fuel Oil No. 6,,,,,March,2014,1
+64,3.314,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,May,2014,2
+65,3.315,kg C per gallon,1004611,Tanguisson Power Plant,688472,gallons/month,Residual Fuel Oil No. 6,,,,,May,2014,1
+66,3.240,kg C per gallon,1004611,Tanguisson Power Plant,32124,gallons/month,Residual Fuel Oil No. 6,,,,,November,2014,1
+67,3.240,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,November,2014,2
+68,3.249,kg C per gallon,1004611,Tanguisson Power Plant,394430,gallons/month,Residual Fuel Oil No. 6,,,,,October,2014,1
+69,3.249,kg C per gallon,1004611,Tanguisson Power Plant,0,gallons/month,Residual Fuel Oil No. 6,,,,,October,2014,2
+70,3.268,kg C per gallon,1004611,Tanguisson Power Plant,39767,gallons/month,Residual Fuel Oil No. 6,,,,,September,2014,2
+71,3.268,kg C per gallon,1004611,Tanguisson Power Plant,570596,gallons/month,Residual Fuel Oil No. 6,,,,,September,2014,1
+72,0.1891,kg C per kg,1006695,Dearborn Industrial Generation,1940957900,scf/month,Blast Furnace Gas,,,29.20,kg/kg-mole,April,2014,BL2100
+73,0.1891,kg C per kg,1006695,Dearborn Industrial Generation,539404600,scf/month,Blast Furnace Gas,,,29.20,kg/kg-mole,April,2014,BL3100
+74,0.1891,kg C per kg,1006695,Dearborn Industrial Generation,2166671000,scf/month,Blast Furnace Gas,,,29.20,kg/kg-mole,April,2014,BL1100
+75,0.705,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,73224094,scf/month,Natural Gas (Weighted U.S. Average),,,17.200,kg/kg-mole,April,2014,H-2101
+76,0.1881,kg C per kg,1006695,Dearborn Industrial Generation,3634781000,scf/month,Blast Furnace Gas,,,29.85,kg/kg-mole,August,2014,BL1100
+77,0.1881,kg C per kg,1006695,Dearborn Industrial Generation,1280828900,scf/month,Blast Furnace Gas,,,29.85,kg/kg-mole,August,2014,BL2100
+78,0.1881,kg C per kg,1006695,Dearborn Industrial Generation,2366877500,scf/month,Blast Furnace Gas,,,29.85,kg/kg-mole,August,2014,BL3100
+79,0.704,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,76742711,scf/month,Natural Gas (Weighted U.S. Average),,,16.763,kg/kg-mole,August,2014,H-2101
+80,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,1809906600,scf/month,Blast Furnace Gas,,,29.88,kg/kg-mole,December,2014,BL3100
+81,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,2661255000,scf/month,Blast Furnace Gas,,,29.88,kg/kg-mole,December,2014,BL1100
+82,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,1931538600,scf/month,Blast Furnace Gas,,,29.88,kg/kg-mole,December,2014,BL2100
+83,0.705,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,94904910,scf/month,Natural Gas (Weighted U.S. Average),,,17.448,kg/kg-mole,December,2014,H-2101
+84,0.706,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,79275547,scf/month,Natural Gas (Weighted U.S. Average),,,17.026,kg/kg-mole,February,2014,H-2101
+85,0.1899,kg C per kg,1006695,Dearborn Industrial Generation,708949900,scf/month,Blast Furnace Gas,,,28.58,kg/kg-mole,February,2014,BL1100
+86,0.1899,kg C per kg,1006695,Dearborn Industrial Generation,2253037300,scf/month,Blast Furnace Gas,,,28.58,kg/kg-mole,February,2014,BL2100
+87,0.1899,kg C per kg,1006695,Dearborn Industrial Generation,3037833300,scf/month,Blast Furnace Gas,,,28.58,kg/kg-mole,February,2014,BL3100
+88,0.706,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,75418673,scf/month,Natural Gas (Weighted U.S. Average),,,16.944,kg/kg-mole,January,2014,H-2101
+89,0.1893,kg C per kg,1006695,Dearborn Industrial Generation,1882578400,scf/month,Blast Furnace Gas,,,29.11,kg/kg-mole,January,2014,BL3100
+90,0.1893,kg C per kg,1006695,Dearborn Industrial Generation,1400450300,scf/month,Blast Furnace Gas,,,29.11,kg/kg-mole,January,2014,BL1100
+91,0.1893,kg C per kg,1006695,Dearborn Industrial Generation,2472233000,scf/month,Blast Furnace Gas,,,29.11,kg/kg-mole,January,2014,BL2100
+92,0.1770,kg C per kg,1006695,Dearborn Industrial Generation,460900400,scf/month,Blast Furnace Gas,,,27.29,kg/kg-mole,July,2014,BL3100
+93,0.1770,kg C per kg,1006695,Dearborn Industrial Generation,2923611500,scf/month,Blast Furnace Gas,,,27.29,kg/kg-mole,July,2014,BL1100
+94,0.1770,kg C per kg,1006695,Dearborn Industrial Generation,3365820300,scf/month,Blast Furnace Gas,,,27.29,kg/kg-mole,July,2014,BL2100
+95,0.703,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,75833467,scf/month,Natural Gas (Weighted U.S. Average),,,16.751,kg/kg-mole,July,2014,H-2101
+96,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,1309739600,scf/month,Blast Furnace Gas,,,29.60,kg/kg-mole,June,2014,BL3100
+97,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,2810385500,scf/month,Blast Furnace Gas,,,29.60,kg/kg-mole,June,2014,BL1100
+98,0.705,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,62809953,scf/month,Natural Gas (Weighted U.S. Average),,,16.961,kg/kg-mole,June,2014,H-2101
+99,0.1885,kg C per kg,1006695,Dearborn Industrial Generation,2907428000,scf/month,Blast Furnace Gas,,,29.60,kg/kg-mole,June,2014,BL2100
+100,0.1889,kg C per kg,1006695,Dearborn Industrial Generation,3181055300,scf/month,Blast Furnace Gas,,,29.29,kg/kg-mole,March,2014,BL2100
+101,0.1889,kg C per kg,1006695,Dearborn Industrial Generation,1020295000,scf/month,Blast Furnace Gas,,,29.29,kg/kg-mole,March,2014,BL1100
+102,0.1889,kg C per kg,1006695,Dearborn Industrial Generation,2948015300,scf/month,Blast Furnace Gas,,,29.29,kg/kg-mole,March,2014,BL3100
+103,0.712,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,102781393,scf/month,Natural Gas (Weighted U.S. Average),,,17.581,kg/kg-mole,March,2014,H-2101
+104,0.1882,kg C per kg,1006695,Dearborn Industrial Generation,2697137800,scf/month,Blast Furnace Gas,,,29.93,kg/kg-mole,May,2014,BL3100
+105,0.1882,kg C per kg,1006695,Dearborn Industrial Generation,1072421400,scf/month,Blast Furnace Gas,,,29.93,kg/kg-mole,May,2014,BL1100
+106,0.1882,kg C per kg,1006695,Dearborn Industrial Generation,3204152000,scf/month,Blast Furnace Gas,,,29.93,kg/kg-mole,May,2014,BL2100
+107,0.702,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,49840772,scf/month,Natural Gas (Weighted U.S. Average),,,17.345,kg/kg-mole,May,2014,H-2101
+108,0.1892,kg C per kg,1006695,Dearborn Industrial Generation,1318300100,scf/month,Blast Furnace Gas,,,29.46,kg/kg-mole,November,2014,BL1100
+109,0.1892,kg C per kg,1006695,Dearborn Industrial Generation,1827482300,scf/month,Blast Furnace Gas,,,29.46,kg/kg-mole,November,2014,BL2100
+110,0.708,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,86797258,scf/month,Natural Gas (Weighted U.S. Average),,,16.853,kg/kg-mole,November,2014,H-2101
+111,0.1892,kg C per kg,1006695,Dearborn Industrial Generation,2995041300,scf/month,Blast Furnace Gas,,,29.46,kg/kg-mole,November,2014,BL3100
+112,0.705,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,89708827,scf/month,Natural Gas (Weighted U.S. Average),,,17.144,kg/kg-mole,October,2014,H-2101
+113,0.1823,kg C per kg,1006695,Dearborn Industrial Generation,3383032500,scf/month,Blast Furnace Gas,,,28.78,kg/kg-mole,October,2014,BL3100
+114,0.1823,kg C per kg,1006695,Dearborn Industrial Generation,0,scf/month,Blast Furnace Gas,,,28.78,kg/kg-mole,October,2014,BL1100
+115,0.1823,kg C per kg,1006695,Dearborn Industrial Generation,3371995300,scf/month,Blast Furnace Gas,,,28.78,kg/kg-mole,October,2014,BL2100
+116,0.1880,kg C per kg,1006695,Dearborn Industrial Generation,2367508800,scf/month,Blast Furnace Gas,,,30.00,kg/kg-mole,September,2014,BL2100
+117,0.1880,kg C per kg,1006695,Dearborn Industrial Generation,1948908100,scf/month,Blast Furnace Gas,,,30.00,kg/kg-mole,September,2014,BL1100
+118,0.706,kg C per kg,1007923,SUNCOR ENERGY (USA) COMMERCE CITY REFINERY,96640266,scf/month,Natural Gas (Weighted U.S. Average),,,16.990,kg/kg-mole,September,2014,H-2101
+119,0.1880,kg C per kg,1006695,Dearborn Industrial Generation,2889823300,scf/month,Blast Furnace Gas,,,30.00,kg/kg-mole,September,2014,BL3100

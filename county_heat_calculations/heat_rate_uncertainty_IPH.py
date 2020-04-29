@@ -62,7 +62,7 @@ class FuelUncertainty:
                                    'C_T3EQC4C8MONTHLYINPUTS', 
                                    'C_T3EQC5C8MONTHLYINPUTS']}
         
-        self.ef_file_path = os.path.join('../', 'calculation_data/',
+        self.ef_file_path = os.path.join('./', 'calculation_data/',
                                          'EPA_FuelEFs.csv')
         
         if std_efs is None:
@@ -160,7 +160,7 @@ class FuelUncertainty:
                 
             if c in tier_df.columns:
                     
-                if c == 'bioler_ratio_b':
+                if c == 'boiler_ratio_b':
                     
                     column_unit = 'boiler_heat_uom'
 
@@ -229,7 +229,7 @@ class FuelUncertainty:
     def tier_bootstrap(cls, data, value_col, data_abbrev):
         
         if data_abbrev+'_uncertainty.csv' not in os.listdir(
-                os.path.join('../', 'calculation_data/')
+                os.path.join('./', 'calculation_data/')
                 ):
         
             uncert = data[data[value_col] >0].groupby(

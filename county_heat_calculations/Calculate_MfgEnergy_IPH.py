@@ -28,7 +28,7 @@ class Manufacturing_energy:
 
             self.naics_column = 'PRIMARY_NAICS_CODE'
 
-        self.file_dir = '../calculation_data/'
+        self.file_dir = './calculation_data/'
 
         self.fuelxwalk_file = 'MECS_FT_IPF.csv'
 

@@ -1,0 +1,325 @@
+,boiler_heat_uom,boiler_ratio_b,facility_id,facility_name,fuel_type,mass_of_steam,mass_of_steam_uom,month,reporting_year,unit_name
+0,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,87402000,pounds steam,April,2016,GP-1
+1,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48967700,pounds steam,April,2016,B Boiler
+2,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,35153900,pounds steam,April,2016,A Boiler
+3,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,April,2016,GP-Boilers 1 and 2
+4,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15546761.56,pounds steam,April,2016,2
+5,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),23635284,pounds steam,April,2016,2
+6,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,15579248,pounds steam,April,2016,1
+7,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),23681792,pounds steam,April,2016,1
+8,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72118069,pounds steam,April,2016,EU 002
+9,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),158889,pounds steam,April,2016,EU 002
+10,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,57636396,pounds steam,April,2016,EU 001
+11,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),92681,pounds steam,April,2016,EU 001
+12,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,April,2016,Unit 2
+13,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,April,2016,Unit 1
+14,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,April,2016,Unit 3
+15,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32269000,pounds steam,April,2016,Boiler B
+16,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32396000,pounds steam,April,2016,Boiler A
+17,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,63639503,pounds steam,April,2016,2
+18,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,61742569,pounds steam,April,2016,1
+19,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,April,2016,North Unit
+20,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,April,2016,South Unit
+21,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,April,2016,GP-Stack
+22,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,52469760,pounds steam,April,2016,GP-Facility Stack
+23,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,April,2016,GP-Combustors
+24,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,April,2016,GP-01
+25,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,April,2016,GP-MWC
+26,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,42378363,pounds steam,April,2016,GP-Facility Stack
+27,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,August,2016,GP-Boilers 1 and 2
+28,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,August,2016,North Unit
+29,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),22028296,pounds steam,August,2016,1
+30,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,10967000,pounds steam,August,2016,Boiler B
+31,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,53885600,pounds steam,August,2016,A Boiler
+32,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,6000,pounds steam,August,2016,Boiler A
+33,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64709129,pounds steam,August,2016,EU 002
+34,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,56546992,pounds steam,August,2016,2
+35,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,17686581.22,pounds steam,August,2016,2
+36,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59176702,pounds steam,August,2016,1
+37,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),61835,pounds steam,August,2016,EU 002
+38,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,53388100,pounds steam,August,2016,B Boiler
+39,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,August,2016,South Unit
+40,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,52342933,pounds steam,August,2016,EU 001
+41,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,August,2016,GP-Stack
+42,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21843685,pounds steam,August,2016,2
+43,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,60444240,pounds steam,August,2016,GP-Facility Stack
+44,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),57501,pounds steam,August,2016,EU 001
+45,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,August,2016,GP-Combustors
+46,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,43146100,pounds steam,August,2016,GP-Facility Stack
+47,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,August,2016,GP-01
+48,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,August,2016,Unit 2
+49,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,August,2016,GP-MWC
+50,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,17832896,pounds steam,August,2016,1
+51,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,132625000,pounds steam,August,2016,GP-1
+52,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,August,2016,Unit 1
+53,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,August,2016,Unit 3
+54,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,December,2016,North Unit
+55,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48495400,pounds steam,December,2016,B Boiler
+56,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,December,2016,GP-MWC
+57,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,December,2016,GP-01
+58,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,December,2016,GP-Combustors
+59,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,58786440,pounds steam,December,2016,GP-Facility Stack
+60,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,December,2016,GP-Stack
+61,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,December,2016,South Unit
+62,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,16923390,pounds steam,December,2016,1
+63,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,0.0000000001,pounds steam,December,2016,2
+64,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,33568,pounds steam,December,2016,Boiler A
+65,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,36810000,pounds steam,December,2016,Boiler B
+66,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,December,2016,Unit 3
+67,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,December,2016,Unit 1
+68,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,December,2016,Unit 2
+69,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),114504,pounds steam,December,2016,EU 001
+70,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70190556,pounds steam,December,2016,EU 001
+71,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),124344,pounds steam,December,2016,EU 002
+72,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,59834549,pounds steam,December,2016,EU 002
+73,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),23282834,pounds steam,December,2016,1
+74,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14555572,pounds steam,December,2016,1
+75,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22422182,pounds steam,December,2016,2
+76,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14021309.77,pounds steam,December,2016,2
+77,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,December,2016,GP-Boilers 1 and 2
+78,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,40342005,pounds steam,December,2016,GP-Facility Stack
+79,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48483600,pounds steam,December,2016,A Boiler
+80,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,136787100,pounds steam,December,2016,GP-1
+81,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,140391300,pounds steam,February,2016,GP-1
+82,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,37351770,pounds steam,February,2016,GP-Facility Stack
+83,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,February,2016,GP-01
+84,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,February,2016,GP-Combustors
+85,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,54040056,pounds steam,February,2016,GP-Facility Stack
+86,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,February,2016,GP-Stack
+87,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,February,2016,South Unit
+88,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,February,2016,North Unit
+89,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,52976206,pounds steam,February,2016,1
+90,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,53534241,pounds steam,February,2016,2
+91,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,29559000,pounds steam,February,2016,Boiler A
+92,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,35320000,pounds steam,February,2016,Boiler B
+93,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,February,2016,Unit 3
+94,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,February,2016,Unit 1
+95,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,February,2016,Unit 2
+96,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),175155,pounds steam,February,2016,EU 001
+97,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,23856118,pounds steam,February,2016,EU 001
+98,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),88082,pounds steam,February,2016,EU 002
+99,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,31822640,pounds steam,February,2016,EU 002
+100,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),13423197,pounds steam,February,2016,1
+101,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,10625120,pounds steam,February,2016,1
+102,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21881246,pounds steam,February,2016,2
+103,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,17312869.81,pounds steam,February,2016,2
+104,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,February,2016,GP-Boilers 1 and 2
+105,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,45016000,pounds steam,February,2016,A Boiler
+106,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,43568800,pounds steam,February,2016,B Boiler
+107,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,February,2016,GP-MWC
+108,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,144327000,pounds steam,January,2016,GP-1
+109,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,42756237,pounds steam,January,2016,GP-Facility Stack
+110,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,January,2016,GP-01
+111,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,January,2016,GP-Combustors
+112,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,57923760,pounds steam,January,2016,GP-Facility Stack
+113,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,January,2016,GP-Stack
+114,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,January,2016,South Unit
+115,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,January,2016,North Unit
+116,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,10169603,pounds steam,January,2016,1
+117,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,25873987,pounds steam,January,2016,2
+118,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,39393000,pounds steam,January,2016,Boiler A
+119,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,37323000,pounds steam,January,2016,Boiler B
+120,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,January,2016,Unit 3
+121,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,January,2016,Unit 1
+122,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,January,2016,Unit 2
+123,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),66160,pounds steam,January,2016,EU 001
+124,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,65736496,pounds steam,January,2016,EU 001
+125,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),61765,pounds steam,January,2016,EU 002
+126,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,67035153,pounds steam,January,2016,EU 002
+127,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),14266981,pounds steam,January,2016,1
+128,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,10779011.4,pounds steam,January,2016,1
+129,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22170674,pounds steam,January,2016,2
+130,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16758867.28,pounds steam,January,2016,2
+131,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,January,2016,GP-Boilers 1 and 2
+132,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,46317300,pounds steam,January,2016,A Boiler
+133,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51473100,pounds steam,January,2016,B Boiler
+134,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,January,2016,GP-MWC
+135,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,July,2016,North Unit
+136,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,146079200,pounds steam,July,2016,GP-1
+137,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,July,2016,GP-MWC
+138,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,July,2016,GP-01
+139,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,July,2016,GP-Combustors
+140,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,57251160,pounds steam,July,2016,GP-Facility Stack
+141,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,July,2016,GP-Stack
+142,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,July,2016,South Unit
+143,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,62590600,pounds steam,July,2016,1
+144,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,67110598,pounds steam,July,2016,2
+145,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,33564000,pounds steam,July,2016,Boiler A
+146,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,22541000,pounds steam,July,2016,Boiler B
+147,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,July,2016,Unit 3
+148,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,July,2016,Unit 1
+149,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,July,2016,Unit 2
+150,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),91084,pounds steam,July,2016,EU 001
+151,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,52018321,pounds steam,July,2016,EU 001
+152,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),73482,pounds steam,July,2016,EU 002
+153,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,62701210,pounds steam,July,2016,EU 002
+154,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),20236364,pounds steam,July,2016,1
+155,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16705005,pounds steam,July,2016,1
+156,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),17468695,pounds steam,July,2016,2
+157,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14417172.04,pounds steam,July,2016,2
+158,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,July,2016,GP-Boilers 1 and 2
+159,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,41186325,pounds steam,July,2016,GP-Facility Stack
+160,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50674700,pounds steam,July,2016,A Boiler
+161,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49604000,pounds steam,July,2016,B Boiler
+162,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,June,2016,North Unit
+163,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,45009018,pounds steam,June,2016,GP-Facility Stack
+164,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,June,2016,GP-MWC
+165,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,June,2016,GP-01
+166,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,June,2016,GP-Combustors
+167,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,50438760,pounds steam,June,2016,GP-Facility Stack
+168,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,June,2016,GP-Stack
+169,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,June,2016,South Unit
+170,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,50206387,pounds steam,June,2016,1
+171,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,52554136,pounds steam,June,2016,2
+172,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31596000,pounds steam,June,2016,Boiler A
+173,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,27778000,pounds steam,June,2016,Boiler B
+174,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,June,2016,Unit 3
+175,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,June,2016,Unit 1
+176,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,June,2016,Unit 2
+177,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),41832,pounds steam,June,2016,EU 001
+178,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70165265,pounds steam,June,2016,EU 001
+179,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),38605,pounds steam,June,2016,EU 002
+180,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,68801892,pounds steam,June,2016,EU 002
+181,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),22826571,pounds steam,June,2016,1
+182,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16886650,pounds steam,June,2016,1
+183,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22466491,pounds steam,June,2016,2
+184,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16618450.2,pounds steam,June,2016,2
+185,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,June,2016,GP-Boilers 1 and 2
+186,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49097300,pounds steam,June,2016,A Boiler
+187,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50513400,pounds steam,June,2016,B Boiler
+188,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,145420800,pounds steam,June,2016,GP-1
+189,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,141041100,pounds steam,March,2016,GP-1
+190,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,March,2016,Unit 1
+191,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,39554500,pounds steam,March,2016,GP-Facility Stack
+192,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51668900,pounds steam,March,2016,B Boiler
+193,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,43903300,pounds steam,March,2016,A Boiler
+194,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,March,2016,GP-Boilers 1 and 2
+195,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,16187884.86,pounds steam,March,2016,2
+196,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21282288,pounds steam,March,2016,2
+197,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,19733019,pounds steam,March,2016,1
+198,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),25935536,pounds steam,March,2016,1
+199,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,74047705,pounds steam,March,2016,EU 002
+200,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),49161,pounds steam,March,2016,EU 002
+201,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,64277851,pounds steam,March,2016,EU 001
+202,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),54910,pounds steam,March,2016,EU 001
+203,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,March,2016,Unit 2
+204,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,March,2016,Unit 3
+205,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,34321000,pounds steam,March,2016,Boiler B
+206,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,36879000,pounds steam,March,2016,Boiler A
+207,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,64257505,pounds steam,March,2016,2
+208,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,66691346,pounds steam,March,2016,1
+209,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,March,2016,North Unit
+210,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,March,2016,South Unit
+211,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,March,2016,GP-Stack
+212,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,56476320,pounds steam,March,2016,GP-Facility Stack
+213,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,March,2016,GP-Combustors
+214,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,March,2016,GP-01
+215,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,March,2016,GP-MWC
+216,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,May,2016,Unit 1
+217,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,144171700,pounds steam,May,2016,GP-1
+218,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,May,2016,Unit 3
+219,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),21410203,pounds steam,May,2016,1
+220,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,38090000,pounds steam,May,2016,Boiler B
+221,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15923889.06,pounds steam,May,2016,2
+222,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,37634000,pounds steam,May,2016,Boiler A
+223,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,58704263,pounds steam,May,2016,EU 002
+224,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,63877511,pounds steam,May,2016,2
+225,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,53841300,pounds steam,May,2016,B Boiler
+226,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59704504,pounds steam,May,2016,1
+227,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),37085,pounds steam,May,2016,EU 002
+228,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,May,2016,North Unit
+229,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),18572491,pounds steam,May,2016,2
+230,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,May,2016,South Unit
+231,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70134817,pounds steam,May,2016,EU 001
+232,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,May,2016,GP-Stack
+233,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,May,2016,GP-Boilers 1 and 2
+234,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,55231080,pounds steam,May,2016,GP-Facility Stack
+235,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),19818,pounds steam,May,2016,EU 001
+236,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,May,2016,GP-Combustors
+237,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18364742,pounds steam,May,2016,1
+238,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,May,2016,GP-01
+239,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,May,2016,Unit 2
+240,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,May,2016,GP-MWC
+241,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,54119400,pounds steam,May,2016,A Boiler
+242,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,40835750,pounds steam,May,2016,GP-Facility Stack
+243,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,November,2016,North Unit
+244,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,41395600,pounds steam,November,2016,B Boiler
+245,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,November,2016,GP-MWC
+246,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,November,2016,GP-01
+247,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,November,2016,GP-Combustors
+248,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,47209680,pounds steam,November,2016,GP-Facility Stack
+249,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,November,2016,GP-Stack
+250,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,November,2016,South Unit
+251,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,41501707,pounds steam,November,2016,1
+252,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,0.0000000001,pounds steam,November,2016,2
+253,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,32169000,pounds steam,November,2016,Boiler A
+254,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31221000,pounds steam,November,2016,Boiler B
+255,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,November,2016,Unit 3
+256,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,November,2016,Unit 1
+257,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,November,2016,Unit 2
+258,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),193815,pounds steam,November,2016,EU 001
+259,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,66135279,pounds steam,November,2016,EU 001
+260,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),332090,pounds steam,November,2016,EU 002
+261,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,68959808,pounds steam,November,2016,EU 002
+262,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),24306382,pounds steam,November,2016,1
+263,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16813831.4,pounds steam,November,2016,1
+264,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22121560,pounds steam,November,2016,2
+265,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15296243.78,pounds steam,November,2016,2
+266,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,November,2016,GP-Boilers 1 and 2
+267,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,37826926,pounds steam,November,2016,GP-Facility Stack
+268,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51087500,pounds steam,November,2016,A Boiler
+269,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,144470500,pounds steam,November,2016,GP-1
+270,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,October,2016,North Unit
+271,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,39292700,pounds steam,October,2016,B Boiler
+272,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,October,2016,GP-MWC
+273,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,October,2016,GP-01
+274,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,October,2016,GP-Combustors
+275,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,57899040,pounds steam,October,2016,GP-Facility Stack
+276,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,October,2016,GP-Stack
+277,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,October,2016,South Unit
+278,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,55074868,pounds steam,October,2016,1
+279,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,59200462,pounds steam,October,2016,2
+280,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,28384000,pounds steam,October,2016,Boiler A
+281,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,25303000,pounds steam,October,2016,Boiler B
+282,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,October,2016,Unit 3
+283,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,October,2016,Unit 1
+284,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,October,2016,Unit 2
+285,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),242577,pounds steam,October,2016,EU 001
+286,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,60868617,pounds steam,October,2016,EU 001
+287,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),111300,pounds steam,October,2016,EU 002
+288,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,56421262,pounds steam,October,2016,EU 002
+289,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),23633558,pounds steam,October,2016,1
+290,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14783209,pounds steam,October,2016,1
+291,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),23800280,pounds steam,October,2016,2
+292,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14886136.69,pounds steam,October,2016,2
+293,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,October,2016,GP-Boilers 1 and 2
+294,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,32093235,pounds steam,October,2016,GP-Facility Stack
+295,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,52011500,pounds steam,October,2016,A Boiler
+296,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,129110600,pounds steam,October,2016,GP-1
+297,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15375758.3,pounds steam,September,2016,North Unit
+298,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50485300,pounds steam,September,2016,B Boiler
+299,mmBtu/pounds steam,0.00136,1000047,PENOBSCOT ENERGY RECOVERY CO.,Municipal Solid Waste,152849889,pounds steam,September,2016,GP-MWC
+300,mmBtu/pounds steam,0.001558448,1005528,OLMSTED WASTE-TO-ENERGY FACILITY,Municipal Solid Waste,65402917,pounds steam,September,2016,GP-01
+301,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,104675083.3,pounds steam,September,2016,GP-Combustors
+302,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,48443520,pounds steam,September,2016,GP-Facility Stack
+303,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,82806250,pounds steam,September,2016,GP-Stack
+304,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12283350.7,pounds steam,September,2016,South Unit
+305,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,48432951,pounds steam,September,2016,1
+306,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,50373758,pounds steam,September,2016,2
+307,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,25924000,pounds steam,September,2016,Boiler A
+308,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,23776000,pounds steam,September,2016,Boiler B
+309,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21468473.7,pounds steam,September,2016,Unit 3
+310,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,9802784.6,pounds steam,September,2016,Unit 1
+311,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10356301.4,pounds steam,September,2016,Unit 2
+312,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),42887,pounds steam,September,2016,EU 001
+313,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,58003417,pounds steam,September,2016,EU 001
+314,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),24701,pounds steam,September,2016,EU 002
+315,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,48365896,pounds steam,September,2016,EU 002
+316,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),25693679,pounds steam,September,2016,1
+317,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,18090510,pounds steam,September,2016,1
+318,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),16258381,pounds steam,September,2016,2
+319,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,11447302.94,pounds steam,September,2016,2
+320,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,129999166,pounds steam,September,2016,GP-Boilers 1 and 2
+321,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,38542428,pounds steam,September,2016,GP-Facility Stack
+322,mmBtu/pounds steam,0.00130456,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50087900,pounds steam,September,2016,A Boiler
+323,mmBtu/pounds steam,0.001724378,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,134914450,pounds steam,September,2016,GP-1

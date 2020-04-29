@@ -19,7 +19,9 @@ class GHGRP:
     facility energy use based on either reported energy use or
     reported greenhouse gas emissions.
     """
-
+    # subpartc - .stationary fuel combustion source, d = electricity gen
+    # V_fac = summary table, V_emis = summary table
+    # AA is pulp and paper
     table_dict = {'subpartC': 'C_FUEL_LEVEL_INFORMATION',
                   'subpartD': 'D_FUEL_LEVEL_INFORMATION',
                   'subpartV_fac': 'V_GHG_EMITTER_FACILITIES',
@@ -462,8 +464,7 @@ class GHGRP:
                     (energy_subC.FUEL_TYPE == 'Wood and Wood Residuals (dry basis)'),
                         'T4CH4COMBUSTIONEMISSIONS'].multiply(1.9 / 7.2)
 
-        tier_calcs = ghg_tiers_IPH.tier_energy(years=self.years,
-                                               std_efs=self.std_efs)
+        tier_calcs = ghg_tiers_IPH.tier_energy(years=self.years, std_efs=self.std_efs)
 
         #New method for calculating energy based on tier methodology
         energy_subC = tier_calcs.calc_all_tiers(energy_subC)

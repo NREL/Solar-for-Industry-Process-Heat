@@ -1,0 +1,481 @@
+,boiler_heat_uom,boiler_ratio_b,facility_id,facility_name,fuel_type,mass_of_steam,mass_of_steam_uom,month,reporting_year,unit_name
+0,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),112741393,pounds steam,April,2017,McBurney Boiler
+1,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47488800,pounds steam,April,2017,B Boiler
+2,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),165259000,pounds steam,April,2017,McBurney Boiler
+3,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,April,2017,GP-Boilers 1 and 2
+4,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,39094348,pounds steam,April,2017,GP-Facility Stack
+5,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,April,2017,North Unit
+6,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,April,2017,South Unit
+7,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,April,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+8,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,April,2017,MWC Unit 2
+9,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,April,2017,MWC Unit 3
+10,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,21055000,pounds steam,April,2017,MWC Unit No. 1
+11,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),18485065,pounds steam,April,2017,1
+12,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,15100483,pounds steam,April,2017,1
+13,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),19241373,pounds steam,April,2017,2
+14,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,15717119,pounds steam,April,2017,2
+15,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),41005,pounds steam,April,2017,EU 001
+16,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,52372638,pounds steam,April,2017,EU 001
+17,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),68294,pounds steam,April,2017,EU 002
+18,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72476418,pounds steam,April,2017,EU 002
+19,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,April,2017,MWC Unit 1
+20,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,101857860,pounds steam,April,2017,EU 002 - Boiler No. 2
+21,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,19219300,pounds steam,April,2017,MWC Unit No. 2
+22,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,April,2017,Unit 3
+23,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,April,2017,Unit 1
+24,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,April,2017,Unit 2
+25,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,31870000,pounds steam,April,2017,Boiler A
+26,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,35355000,pounds steam,April,2017,Boiler B
+27,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,141606500,pounds steam,April,2017,GP-1
+28,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,,,April,2017,1
+29,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,65504884,pounds steam,April,2017,2
+30,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,105222730,pounds steam,April,2017,EU 001 - Boiler No. 1
+31,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,186130640,pounds steam,April,2017,EU 014 - Boiler No. 7
+32,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,166580160,pounds steam,April,2017,EU 009 - Boiler No. 4
+33,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,373214455,pounds steam,April,2017,EU 028 - Boiler No. 8
+34,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,April,2017,GP-Combustors
+35,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,58194720,pounds steam,April,2017,GP-Facility Stack
+36,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,April,2017,GP-Stack
+37,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),29942000,pounds steam,April,2017,Boiler - Nebraska
+38,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,38527200,pounds steam,April,2017,A Boiler
+39,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,200817757,pounds steam,April,2017,GP-Facility Emissions
+40,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),115341183,pounds steam,August,2017,McBurney Boiler
+41,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,176963121,pounds steam,August,2017,GP-Facility Emissions
+42,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),165858000,pounds steam,August,2017,McBurney Boiler
+43,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,August,2017,GP-Boilers 1 and 2
+44,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,41441196,pounds steam,August,2017,GP-Facility Stack
+45,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,August,2017,North Unit
+46,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,August,2017,South Unit
+47,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,August,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+48,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,August,2017,MWC Unit 1
+49,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,August,2017,MWC Unit 2
+50,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,August,2017,MWC Unit 3
+51,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),30382554,pounds steam,August,2017,1
+52,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,20864766,pounds steam,August,2017,1
+53,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),16050247,pounds steam,August,2017,2
+54,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,11023178,pounds steam,August,2017,2
+55,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),60569,pounds steam,August,2017,EU 001
+56,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,74943281,pounds steam,August,2017,EU 001
+57,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),29161,pounds steam,August,2017,EU 002
+58,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,63857964,pounds steam,August,2017,EU 002
+59,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2017,EU 002 - Boiler No. 2
+60,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,36935800,pounds steam,August,2017,MWC Unit No. 1
+61,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,43782000,pounds steam,August,2017,MWC Unit No. 2
+62,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,August,2017,Unit 3
+63,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,August,2017,Unit 1
+64,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,August,2017,Unit 2
+65,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,August,2017,Boiler A
+66,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,August,2017,Boiler B
+67,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,127822600,pounds steam,August,2017,GP-1
+68,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,56318501,pounds steam,August,2017,1
+69,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,62451755,pounds steam,August,2017,2
+70,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2017,EU 001 - Boiler No. 1
+71,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2017,EU 014 - Boiler No. 7
+72,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,August,2017,EU 009 - Boiler No. 4
+73,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,232459384,pounds steam,August,2017,EU 028 - Boiler No. 8
+74,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,August,2017,GP-Combustors
+75,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,52126080,pounds steam,August,2017,GP-Facility Stack
+76,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,August,2017,GP-Stack
+77,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),22864000,pounds steam,August,2017,Boiler - Nebraska
+78,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,53390400,pounds steam,August,2017,A Boiler
+79,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51098400,pounds steam,August,2017,B Boiler
+80,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,December,2017,MWC Unit 1
+81,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,December,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+82,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,December,2017,MWC Unit 3
+83,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),26081641,pounds steam,December,2017,1
+84,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,12932906,pounds steam,December,2017,1
+85,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21645194,pounds steam,December,2017,2
+86,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,10731814,pounds steam,December,2017,2
+87,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),62540,pounds steam,December,2017,EU 001
+88,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70676229,pounds steam,December,2017,EU 001
+89,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,December,2017,EU 002
+90,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,,,December,2017,EU 002
+91,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,368523041,pounds steam,December,2017,EU 028 - Boiler No. 8
+92,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,103807000,pounds steam,December,2017,EU 002 - Boiler No. 2
+93,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,32535200,pounds steam,December,2017,MWC Unit No. 1
+94,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,38249900,pounds steam,December,2017,MWC Unit No. 2
+95,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,December,2017,Unit 3
+96,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,December,2017,Unit 1
+97,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,December,2017,Unit 2
+98,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,December,2017,Boiler A
+99,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,December,2017,Boiler B
+100,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,136648500,pounds steam,December,2017,GP-1
+101,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,53550146,pounds steam,December,2017,1
+102,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,55778417,pounds steam,December,2017,2
+103,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,103915910,pounds steam,December,2017,EU 001 - Boiler No. 1
+104,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,219577400,pounds steam,December,2017,EU 014 - Boiler No. 7
+105,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,160515990,pounds steam,December,2017,EU 009 - Boiler No. 4
+106,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,December,2017,GP-Combustors
+107,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,64480200,pounds steam,December,2017,GP-Facility Stack
+108,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,December,2017,GP-Stack
+109,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),26903000,pounds steam,December,2017,Boiler - Nebraska
+110,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,37468200,pounds steam,December,2017,A Boiler
+111,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,45772000,pounds steam,December,2017,B Boiler
+112,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),117657306,pounds steam,December,2017,McBurney Boiler
+113,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,204183710,pounds steam,December,2017,GP-Facility Emissions
+114,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),160688000,pounds steam,December,2017,McBurney Boiler
+115,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,December,2017,GP-Boilers 1 and 2
+116,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,43962350,pounds steam,December,2017,GP-Facility Stack
+117,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,December,2017,North Unit
+118,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,December,2017,South Unit
+119,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,December,2017,MWC Unit 2
+120,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,February,2017,MWC Unit 2
+121,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,February,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+122,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,38517000,pounds steam,February,2017,MWC Unit No. 1
+123,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),24940777,pounds steam,February,2017,1
+124,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,13539285,pounds steam,February,2017,1
+125,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22138769,pounds steam,February,2017,2
+126,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,12012700,pounds steam,February,2017,2
+127,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),73784,pounds steam,February,2017,EU 001
+128,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,13753066,pounds steam,February,2017,EU 001
+129,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,February,2017,EU 002
+130,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,12690213,pounds steam,February,2017,EU 002
+131,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,February,2017,MWC Unit 1
+132,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,101471070,pounds steam,February,2017,EU 002 - Boiler No. 2
+133,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,39738000,pounds steam,February,2017,MWC Unit No. 2
+134,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,February,2017,Unit 3
+135,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,February,2017,Unit 1
+136,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,February,2017,Unit 2
+137,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,29022000,pounds steam,February,2017,Boiler A
+138,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,26031000,pounds steam,February,2017,Boiler B
+139,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,128131100,pounds steam,February,2017,GP-1
+140,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,26454288,pounds steam,February,2017,1
+141,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,34395937,pounds steam,February,2017,2
+142,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,100404460,pounds steam,February,2017,EU 001 - Boiler No. 1
+143,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,184070700,pounds steam,February,2017,EU 014 - Boiler No. 7
+144,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,154206660,pounds steam,February,2017,EU 009 - Boiler No. 4
+145,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,338043322,pounds steam,February,2017,EU 028 - Boiler No. 8
+146,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,February,2017,GP-Combustors
+147,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,52103760,pounds steam,February,2017,GP-Facility Stack
+148,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,February,2017,GP-Stack
+149,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),28517000,pounds steam,February,2017,Boiler - Nebraska
+150,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,41997600,pounds steam,February,2017,A Boiler
+151,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,41234400,pounds steam,February,2017,B Boiler
+152,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),106558208,pounds steam,February,2017,McBurney Boiler
+153,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,179984603,pounds steam,February,2017,GP-Facility Emissions
+154,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),156333000,pounds steam,February,2017,McBurney Boiler
+155,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,February,2017,GP-Boilers 1 and 2
+156,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,36662848,pounds steam,February,2017,GP-Facility Stack
+157,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,February,2017,North Unit
+158,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,February,2017,South Unit
+159,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,February,2017,MWC Unit 3
+160,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,January,2017,MWC Unit 2
+161,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,January,2017,MWC Unit 3
+162,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,42844300,pounds steam,January,2017,MWC Unit No. 1
+163,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),23241946,pounds steam,January,2017,1
+164,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14767909,pounds steam,January,2017,1
+165,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21497668,pounds steam,January,2017,2
+166,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,13658584,pounds steam,January,2017,2
+167,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),17494,pounds steam,January,2017,EU 001
+168,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70064855,pounds steam,January,2017,EU 001
+169,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),21096,pounds steam,January,2017,EU 002
+170,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,63678733,pounds steam,January,2017,EU 002
+171,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,January,2017,MWC Unit 1
+172,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,109213350,pounds steam,January,2017,EU 002 - Boiler No. 2
+173,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,29702100,pounds steam,January,2017,MWC Unit No. 2
+174,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,January,2017,Unit 3
+175,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,January,2017,Unit 1
+176,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,January,2017,Unit 2
+177,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,35324000,pounds steam,January,2017,Boiler A
+178,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,28010000,pounds steam,January,2017,Boiler B
+179,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,93781100,pounds steam,January,2017,GP-1
+180,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,,,January,2017,1
+181,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,,,January,2017,2
+182,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,108667390,pounds steam,January,2017,EU 001 - Boiler No. 1
+183,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,204336220,pounds steam,January,2017,EU 014 - Boiler No. 7
+184,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,160895660,pounds steam,January,2017,EU 009 - Boiler No. 4
+185,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,371466112,pounds steam,January,2017,EU 028 - Boiler No. 8
+186,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,January,2017,GP-Combustors
+187,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,60169680,pounds steam,January,2017,GP-Facility Stack
+188,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,January,2017,GP-Stack
+189,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),31068000,pounds steam,January,2017,Boiler - Nebraska
+190,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,45532800,pounds steam,January,2017,A Boiler
+191,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47683200,pounds steam,January,2017,B Boiler
+192,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),107883654,pounds steam,January,2017,McBurney Boiler
+193,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,178355000,pounds steam,January,2017,GP-Facility Emissions
+194,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),171340000,pounds steam,January,2017,McBurney Boiler
+195,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,January,2017,GP-Boilers 1 and 2
+196,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,37082503,pounds steam,January,2017,GP-Facility Stack
+197,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,January,2017,North Unit
+198,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,January,2017,South Unit
+199,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,January,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+200,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),114258292,pounds steam,July,2017,McBurney Boiler
+201,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,46258000,pounds steam,July,2017,B Boiler
+202,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),168645000,pounds steam,July,2017,McBurney Boiler
+203,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,July,2017,GP-Boilers 1 and 2
+204,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,44078643,pounds steam,July,2017,GP-Facility Stack
+205,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,July,2017,North Unit
+206,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,July,2017,South Unit
+207,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,July,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+208,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,July,2017,MWC Unit 2
+209,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,July,2017,MWC Unit 3
+210,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,41410300,pounds steam,July,2017,MWC Unit No. 1
+211,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),22814047,pounds steam,July,2017,1
+212,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16782985,pounds steam,July,2017,1
+213,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),16699861,pounds steam,July,2017,2
+214,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,12288302,pounds steam,July,2017,2
+215,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),17399,pounds steam,July,2017,EU 001
+216,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72316702,pounds steam,July,2017,EU 001
+217,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),17902,pounds steam,July,2017,EU 002
+218,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,61555200,pounds steam,July,2017,EU 002
+219,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,July,2017,MWC Unit 1
+220,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2017,EU 002 - Boiler No. 2
+221,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,39828200,pounds steam,July,2017,MWC Unit No. 2
+222,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,July,2017,Unit 3
+223,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,July,2017,Unit 1
+224,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,July,2017,Unit 2
+225,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,July,2017,Boiler A
+226,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,July,2017,Boiler B
+227,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,139740300,pounds steam,July,2017,GP-1
+228,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,61577212,pounds steam,July,2017,1
+229,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,68219130,pounds steam,July,2017,2
+230,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,25578130,pounds steam,July,2017,EU 001 - Boiler No. 1
+231,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,59951390,pounds steam,July,2017,EU 014 - Boiler No. 7
+232,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,July,2017,EU 009 - Boiler No. 4
+233,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,153239299,pounds steam,July,2017,EU 028 - Boiler No. 8
+234,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,July,2017,GP-Combustors
+235,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,56082960,pounds steam,July,2017,GP-Facility Stack
+236,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,July,2017,GP-Stack
+237,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),25095000,pounds steam,July,2017,Boiler - Nebraska
+238,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,51578000,pounds steam,July,2017,A Boiler
+239,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,202766655,pounds steam,July,2017,GP-Facility Emissions
+240,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),112872741,pounds steam,June,2017,McBurney Boiler
+241,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,196550142,pounds steam,June,2017,GP-Facility Emissions
+242,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),166471000,pounds steam,June,2017,McBurney Boiler
+243,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,June,2017,GP-Boilers 1 and 2
+244,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,46320626,pounds steam,June,2017,GP-Facility Stack
+245,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,June,2017,North Unit
+246,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,June,2017,South Unit
+247,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,June,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+248,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,June,2017,MWC Unit 2
+249,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,June,2017,MWC Unit 3
+250,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,27272400,pounds steam,June,2017,MWC Unit No. 1
+251,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),21475220,pounds steam,June,2017,1
+252,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,17641457,pounds steam,June,2017,1
+253,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22398575,pounds steam,June,2017,2
+254,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,18399122,pounds steam,June,2017,2
+255,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),46026,pounds steam,June,2017,EU 001
+256,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,72418359,pounds steam,June,2017,EU 001
+257,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),24439,pounds steam,June,2017,EU 002
+258,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,66418615,pounds steam,June,2017,EU 002
+259,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,June,2017,MWC Unit 1
+260,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,9531600,pounds steam,June,2017,EU 002 - Boiler No. 2
+261,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,40694700,pounds steam,June,2017,MWC Unit No. 2
+262,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,June,2017,Unit 3
+263,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,June,2017,Unit 1
+264,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,June,2017,Unit 2
+265,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,June,2017,Boiler A
+266,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,June,2017,Boiler B
+267,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,145747100,pounds steam,June,2017,GP-1
+268,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,38634825,pounds steam,June,2017,1
+269,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,63649110,pounds steam,June,2017,2
+270,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,34236940,pounds steam,June,2017,EU 001 - Boiler No. 1
+271,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,150607000,pounds steam,June,2017,EU 014 - Boiler No. 7
+272,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,June,2017,EU 009 - Boiler No. 4
+273,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,June,2017,EU 028 - Boiler No. 8
+274,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,June,2017,GP-Combustors
+275,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,53995200,pounds steam,June,2017,GP-Facility Stack
+276,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,June,2017,GP-Stack
+277,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),23543000,pounds steam,June,2017,Boiler - Nebraska
+278,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50873000,pounds steam,June,2017,A Boiler
+279,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,44299000,pounds steam,June,2017,B Boiler
+280,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),116777931,pounds steam,March,2017,McBurney Boiler
+281,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,173925020,pounds steam,March,2017,GP-Facility Emissions
+282,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),172513000,pounds steam,March,2017,McBurney Boiler
+283,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,March,2017,GP-Boilers 1 and 2
+284,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,43614192,pounds steam,March,2017,GP-Facility Stack
+285,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,March,2017,North Unit
+286,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,March,2017,South Unit
+287,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,March,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+288,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,March,2017,MWC Unit 2
+289,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,March,2017,MWC Unit 3
+290,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,44392700,pounds steam,March,2017,MWC Unit No. 1
+291,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),26536792,pounds steam,March,2017,1
+292,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16528728,pounds steam,March,2017,1
+293,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),23382344,pounds steam,March,2017,2
+294,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14564490,pounds steam,March,2017,2
+295,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,March,2017,EU 001
+296,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,,,March,2017,EU 001
+297,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),378664,pounds steam,March,2017,EU 002
+298,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,70390964,pounds steam,March,2017,EU 002
+299,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,March,2017,MWC Unit 1
+300,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,103770500,pounds steam,March,2017,EU 002 - Boiler No. 2
+301,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,40231000,pounds steam,March,2017,MWC Unit No. 2
+302,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,March,2017,Unit 3
+303,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,March,2017,Unit 1
+304,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,March,2017,Unit 2
+305,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,35914000,pounds steam,March,2017,Boiler A
+306,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,27272000,pounds steam,March,2017,Boiler B
+307,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,136689550,pounds steam,March,2017,GP-1
+308,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,,,March,2017,1
+309,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,54820455,pounds steam,March,2017,2
+310,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,111033290,pounds steam,March,2017,EU 001 - Boiler No. 1
+311,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,199056520,pounds steam,March,2017,EU 014 - Boiler No. 7
+312,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,169264780,pounds steam,March,2017,EU 009 - Boiler No. 4
+313,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,385263924,pounds steam,March,2017,EU 028 - Boiler No. 8
+314,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,March,2017,GP-Combustors
+315,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,51688920,pounds steam,March,2017,GP-Facility Stack
+316,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,March,2017,GP-Stack
+317,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),30280000,pounds steam,March,2017,Boiler - Nebraska
+318,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,42840000,pounds steam,March,2017,A Boiler
+319,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,52689600,pounds steam,March,2017,B Boiler
+320,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),93065439,pounds steam,May,2017,McBurney Boiler
+321,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47248800,pounds steam,May,2017,B Boiler
+322,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),116618000,pounds steam,May,2017,McBurney Boiler
+323,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,May,2017,GP-Boilers 1 and 2
+324,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,22656283,pounds steam,May,2017,GP-Facility Stack
+325,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,May,2017,North Unit
+326,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,May,2017,South Unit
+327,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,May,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+328,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,May,2017,MWC Unit 2
+329,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,May,2017,MWC Unit 3
+330,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,44707400,pounds steam,May,2017,MWC Unit No. 1
+331,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),20821058,pounds steam,May,2017,1
+332,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,16788864,pounds steam,May,2017,1
+333,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),21304111,pounds steam,May,2017,2
+334,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,17177743,pounds steam,May,2017,2
+335,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,May,2017,EU 001
+336,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,75081176,pounds steam,May,2017,EU 001
+337,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,May,2017,EU 002
+338,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,65860965,pounds steam,May,2017,EU 002
+339,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,May,2017,MWC Unit 1
+340,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,92461880,pounds steam,May,2017,EU 002 - Boiler No. 2
+341,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,43823000,pounds steam,May,2017,MWC Unit No. 2
+342,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,May,2017,Unit 3
+343,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,May,2017,Unit 1
+344,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,May,2017,Unit 2
+345,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,26299000,pounds steam,May,2017,Boiler A
+346,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,27953000,pounds steam,May,2017,Boiler B
+347,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,151246050,pounds steam,May,2017,GP-1
+348,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,,,May,2017,1
+349,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,40743437,pounds steam,May,2017,2
+350,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,84382450,pounds steam,May,2017,EU 001 - Boiler No. 1
+351,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,161421810,pounds steam,May,2017,EU 014 - Boiler No. 7
+352,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,52483960,pounds steam,May,2017,EU 009 - Boiler No. 4
+353,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,143061875,pounds steam,May,2017,EU 028 - Boiler No. 8
+354,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,May,2017,GP-Combustors
+355,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,62207880,pounds steam,May,2017,GP-Facility Stack
+356,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,May,2017,GP-Stack
+357,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),27377000,pounds steam,May,2017,Boiler - Nebraska
+358,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,50182000,pounds steam,May,2017,A Boiler
+359,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,204011198,pounds steam,May,2017,GP-Facility Emissions
+360,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,November,2017,MWC Unit 1
+361,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,November,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+362,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,November,2017,MWC Unit 3
+363,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),9384324,pounds steam,November,2017,1
+364,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,5489300,pounds steam,November,2017,1
+365,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),30420762,pounds steam,November,2017,2
+366,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,17789638,pounds steam,November,2017,2
+367,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),57417,pounds steam,November,2017,EU 001
+368,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,71046963,pounds steam,November,2017,EU 001
+369,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,November,2017,EU 002
+370,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,,,November,2017,EU 002
+371,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,353317367,pounds steam,November,2017,EU 028 - Boiler No. 8
+372,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,96347570,pounds steam,November,2017,EU 002 - Boiler No. 2
+373,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,35742400,pounds steam,November,2017,MWC Unit No. 1
+374,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,43462700,pounds steam,November,2017,MWC Unit No. 2
+375,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,November,2017,Unit 3
+376,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,November,2017,Unit 1
+377,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,November,2017,Unit 2
+378,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,November,2017,Boiler A
+379,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,November,2017,Boiler B
+380,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,135641000,pounds steam,November,2017,GP-1
+381,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,42560445,pounds steam,November,2017,1
+382,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,49433863,pounds steam,November,2017,2
+383,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,95745830,pounds steam,November,2017,EU 001 - Boiler No. 1
+384,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,204762330,pounds steam,November,2017,EU 014 - Boiler No. 7
+385,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,154839920,pounds steam,November,2017,EU 009 - Boiler No. 4
+386,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,November,2017,GP-Combustors
+387,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,47817360,pounds steam,November,2017,GP-Facility Stack
+388,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,November,2017,GP-Stack
+389,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),23941000,pounds steam,November,2017,Boiler - Nebraska
+390,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48401400,pounds steam,November,2017,A Boiler
+391,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,43113200,pounds steam,November,2017,B Boiler
+392,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),113364777,pounds steam,November,2017,McBurney Boiler
+393,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,185350185,pounds steam,November,2017,GP-Facility Emissions
+394,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),163250000,pounds steam,November,2017,McBurney Boiler
+395,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,November,2017,GP-Boilers 1 and 2
+396,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,41275506,pounds steam,November,2017,GP-Facility Stack
+397,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,November,2017,North Unit
+398,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,November,2017,South Unit
+399,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,November,2017,MWC Unit 2
+400,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,October,2017,MWC Unit 1
+401,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,October,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+402,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,October,2017,MWC Unit 3
+403,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),22178561,pounds steam,October,2017,1
+404,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14318974,pounds steam,October,2017,1
+405,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),22999537,pounds steam,October,2017,2
+406,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14847850,pounds steam,October,2017,2
+407,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),95355,pounds steam,October,2017,EU 001
+408,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,74245994,pounds steam,October,2017,EU 001
+409,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),,,October,2017,EU 002
+410,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,5875344,pounds steam,October,2017,EU 002
+411,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,334077213,pounds steam,October,2017,EU 028 - Boiler No. 8
+412,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,53224120,pounds steam,October,2017,EU 002 - Boiler No. 2
+413,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34165400,pounds steam,October,2017,MWC Unit No. 1
+414,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,37777200,pounds steam,October,2017,MWC Unit No. 2
+415,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,October,2017,Unit 3
+416,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,October,2017,Unit 1
+417,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,October,2017,Unit 2
+418,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,October,2017,Boiler A
+419,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,October,2017,Boiler B
+420,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,139966300,pounds steam,October,2017,GP-1
+421,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,47872033,pounds steam,October,2017,1
+422,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,60587188,pounds steam,October,2017,2
+423,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,48302300,pounds steam,October,2017,EU 001 - Boiler No. 1
+424,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,144218830,pounds steam,October,2017,EU 014 - Boiler No. 7
+425,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,101398490,pounds steam,October,2017,EU 009 - Boiler No. 4
+426,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,October,2017,GP-Combustors
+427,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,29720160,pounds steam,October,2017,GP-Facility Stack
+428,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,October,2017,GP-Stack
+429,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),24663000,pounds steam,October,2017,Boiler - Nebraska
+430,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,47510400,pounds steam,October,2017,A Boiler
+431,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,36407000,pounds steam,October,2017,B Boiler
+432,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),114252575,pounds steam,October,2017,McBurney Boiler
+433,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,135865012,pounds steam,October,2017,GP-Facility Emissions
+434,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),15795000,pounds steam,October,2017,McBurney Boiler
+435,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,October,2017,GP-Boilers 1 and 2
+436,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,43762801,pounds steam,October,2017,GP-Facility Stack
+437,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,October,2017,North Unit
+438,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,October,2017,South Unit
+439,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,October,2017,MWC Unit 2
+440,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,48941083,pounds steam,September,2017,MWC Unit 1
+441,mmBtu/pounds steam,0.001449,1003244,HUNTSVILLE SOLID WASTE DISPOSAL AUTHORIT,Municipal Solid Waste,118958250,pounds steam,September,2017,"GP-MWC 1 & 2, PB 1, 2, 3, & 4"
+442,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,44954166,pounds steam,September,2017,MWC Unit 3
+443,mmBtu/pounds steam,0.00164,1000219,French Island,Wood and Wood Residuals (dry basis),21326856,pounds steam,September,2017,1
+444,mmBtu/pounds steam,0.00164,1000219,French Island,Municipal Solid Waste,14518839,pounds steam,September,2017,1
+445,mmBtu/pounds steam,0.00166333,1000219,French Island,Wood and Wood Residuals (dry basis),20899580,pounds steam,September,2017,2
+446,mmBtu/pounds steam,0.00166333,1000219,French Island,Municipal Solid Waste,14226950,pounds steam,September,2017,2
+447,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),73572,pounds steam,September,2017,EU 001
+448,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,75772308,pounds steam,September,2017,EU 001
+449,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Wood and Wood Residuals (dry basis),38005,pounds steam,September,2017,EU 002
+450,mmBtu/pounds steam,0.00160681,1006774,Red Wing Plant,Municipal Solid Waste,51023279,pounds steam,September,2017,EU 002
+451,mmBtu/pounds steam,0.00187,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,203665354,pounds steam,September,2017,EU 028 - Boiler No. 8
+452,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,September,2017,EU 002 - Boiler No. 2
+453,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,41437800,pounds steam,September,2017,MWC Unit No. 1
+454,mmBtu/pounds steam,0.00141,1004618,BAY COUNTY WASTE - TO - ENERGY FACILITY,Municipal Solid Waste,34216500,pounds steam,September,2017,MWC Unit No. 2
+455,mmBtu/pounds steam,0.0012026,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,21376374.0,pounds steam,September,2017,Unit 3
+456,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10003521.2,pounds steam,September,2017,Unit 1
+457,mmBtu/pounds steam,0.001389,1004475,POPE/DOUGLAS SOLID WASTE MANAGEMENT,Municipal Solid Waste,10368175.7,pounds steam,September,2017,Unit 2
+458,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,September,2017,Boiler A
+459,mmBtu/pounds steam,0.00122,1007282,WASATCH INTEGRATED WASTE MANAGEMENT DISTRICT,Municipal Solid Waste,,,September,2017,Boiler B
+460,mmBtu/pounds steam,0.00172,1003200,Covanta Stanislaus Inc.,Municipal Solid Waste,140268500,pounds steam,September,2017,GP-1
+461,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,46263772,pounds steam,September,2017,1
+462,mmBtu/pounds steam,0.00159027,1003410,Key City/Wilmarth Plant,Municipal Solid Waste,56747613,pounds steam,September,2017,2
+463,mmBtu/pounds steam,0.00215,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,0,pounds steam,September,2017,EU 001 - Boiler No. 1
+464,mmBtu/pounds steam,0.00211,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,152510,pounds steam,September,2017,EU 014 - Boiler No. 7
+465,mmBtu/pounds steam,0.00221,1006008,CLEWISTON SUGAR HOUSE,Agricultural Byproducts,16880,pounds steam,September,2017,EU 009 - Boiler No. 4
+466,mmBtu/pounds steam,0.001665,1005172,"COVANTA BRISTOL, INC",Municipal Solid Waste,103424000,pounds steam,September,2017,GP-Combustors
+467,mmBtu/pounds steam,0.001607717,1004865,COVANTA SPRINGFIELD LLC,Municipal Solid Waste,48270120,pounds steam,September,2017,GP-Facility Stack
+468,mmBtu/pounds steam,0.00176,1001869,COVANTA WARREN ENERGY RESOURCE CO,Municipal Solid Waste,81907000,pounds steam,September,2017,GP-Stack
+469,mmBtu/pounds steam,0.00147,1010897,Sierra Pacific Industries - Centralia,Wood and Wood Residuals (dry basis),21761000,pounds steam,September,2017,Boiler - Nebraska
+470,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,49538000,pounds steam,September,2017,A Boiler
+471,mmBtu/pounds steam,0.0013,1005673,REGIONAL WASTE SYSTEMS INCORPORATED,Municipal Solid Waste,48974400,pounds steam,September,2017,B Boiler
+472,mmBtu/pounds steam,0.001938,1010895,Sierra Pacific Industries - Aberdeen,Wood and Wood Residuals (dry basis),109521928,pounds steam,September,2017,McBurney Boiler
+473,mmBtu/pounds steam,0.00147,1000362,CAMDEN CNTY RESOURCE RECOVERY ASSOC,Municipal Solid Waste,188718629,pounds steam,September,2017,GP-Facility Emissions
+474,mmBtu/pounds steam,0.00172,1010898,Sierra Pacific Industries - Burlington,Wood and Wood Residuals (dry basis),127085000,pounds steam,September,2017,McBurney Boiler
+475,mmBtu/pounds steam,0.001729,1002744,SOUTHEASTERN CT RESOURCE RECOVERY FACILITY,Municipal Solid Waste,127967416.67,pounds steam,September,2017,GP-Boilers 1 and 2
+476,mmBtu/pounds steam,0.001470773,1004797,COVANTA PITTSFIELD LLC,Municipal Solid Waste,45275025,pounds steam,September,2017,GP-Facility Stack
+477,mmBtu/pounds steam,0.001324,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,15596800,pounds steam,September,2017,North Unit
+478,mmBtu/pounds steam,0.001309,1006340,PERHAM RESOURCE RECOVERY FACILITY,Municipal Solid Waste,12226875,pounds steam,September,2017,South Unit
+479,mmBtu/pounds steam,0.001685,1002561,SUSQUEHANNA RESOURCE MGMT COMPLEX,Municipal Solid Waste,45667666,pounds steam,September,2017,MWC Unit 2
