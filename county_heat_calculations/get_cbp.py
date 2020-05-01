@@ -35,10 +35,10 @@ class CBP:
 
                 html = 'https://api.census.gov/data/2012/cbp/variables.json'
 
-            if naics_file in os.listdir(os.path.join('../', self.data_dir)):
+            if naics_file in os.listdir(os.path.join('./', self.data_dir)):
 
                 naics_df = pd.read_csv(
-                        os.path.join('../', self.data_dir+naics_file)
+                        os.path.join('./', self.data_dir+naics_file)
                         )
 
             else:
@@ -81,7 +81,7 @@ class CBP:
                         )
 
                 naics_df.to_csv(
-                    os.path.join('../', self.data_dir + naics_file)
+                    os.path.join('./', self.data_dir + naics_file)
                     )
 
             return naics_df
@@ -133,7 +133,7 @@ class CBP:
 
         # first check if file exists
         if cbp_file + '.txt' not in os.listdir(
-                os.path.join('../', self.data_dir)
+                os.path.join('./', self.data_dir)
                 ):
 
             zip_cbp =  zipfile.ZipFile(
@@ -142,10 +142,10 @@ class CBP:
                     )
                 )
 
-            zip_cbp.extractall(os.path.join('../', self.data_dir))
+            zip_cbp.extractall(os.path.join('./', self.data_dir))
 
         cbp = pd.read_csv(
-                os.path.join('../', self.data_dir + '/' + cbp_file + '.txt')
+                os.path.join('./', self.data_dir + '/' + cbp_file + '.txt')
                 )
 
         # NAICS codes are a strings that include - and / characters
@@ -199,7 +199,7 @@ class CBP:
         cbp['COUNTY_FIPS'] = cbp.COUNTY_FIPS.astype(int)
 
         census_regions = pd.read_csv(
-                os.path.join('../', self.data_dir + '/US_FIPS_Codes.csv'),
+                os.path.join('./', self.data_dir + 'US_FIPS_Codes.csv'),
                 index_col=['COUNTY_FIPS'])
 
         cbp['region'] = cbp.fipstate.map(
