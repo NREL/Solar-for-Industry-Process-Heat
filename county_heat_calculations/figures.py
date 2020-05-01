@@ -50,7 +50,7 @@ class results_figures:
 
         # Import MECS 2014 data for fuel use by NAICS and Region
         self.mecs3_2 = pd.read_excel(
-                self.url_3_2, sheet='Table 3.2', index_col=None, skiprows=10,
+                self.url_3_2, sheet_name='table 3.2', index_col=None, skiprows=10,
                 skipfooter=14
                 )
 
@@ -250,8 +250,6 @@ class results_figures:
                  self.mecs3_2.set_index(['Region', 'NAICS'])
                  )
 
-
-    def
 
     def enduse_by_empsize(self, energy_enduse_dd):
         """
