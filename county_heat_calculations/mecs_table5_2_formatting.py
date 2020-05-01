@@ -38,7 +38,7 @@ class table5_2:
 #                           'table5_2_'+str(self.year)+'_formatted.csv']
 #
 #        if all(
-#            [f in os.listdir('../calculation_data/') for f in formatted_files]
+#            [f in os.listdir('./calculation_data/') for f in formatted_files]
 #            ):
 #
 
@@ -361,7 +361,7 @@ class table5_2:
 
         # Save the table for final manual filling in of data.
         # After manual operations, file is saved as table5_2_[year]_formatted.csv
-        self.eu_table.to_csv(os.path.join('../calculation_data/',
+        self.eu_table.to_csv(os.path.join('./calculation_data/',
                              'table5_2_'+str(self.year)+'.csv'), index=False)
 
     def format_other_use(self):
@@ -438,7 +438,7 @@ class table5_2:
             # Export for manual formatting (i.e., filling in Q values)
             # Renaming to "_formatted.csv" is required.
             df.to_csv(os.path.join(
-                    '../calculation_data/' + df.name + str(self.year) + '.csv'
+                    './calculation_data/' + df.name + str(self.year) + '.csv'
                     ), index=False)
 
     def calculate_eu_share(self):
@@ -453,7 +453,7 @@ class table5_2:
 
         for f in formatted_files:
 
-            if f in os.listdir('../calculation_data/'):
+            if f in os.listdir('./calculation_data/'):
 
                 continue
 
@@ -462,13 +462,13 @@ class table5_2:
                 print(f, 'does not exist in /calculation_data/', '\n',
                       'Please create it')
 
-        bio_table = pd.read_csv('../calculation_data/' + \
+        bio_table = pd.read_csv('./calculation_data/' + \
                                 'bio' + str(self.year) +'_formatted.csv')
 
-        byp_table = pd.read_csv('../calculation_data/' +\
+        byp_table = pd.read_csv('./calculation_data/' +\
                                 'byp' + str(self.year) + '_formatted.csv')
 
-        eu_table = pd.read_csv('../calculation_data/' +\
+        eu_table = pd.read_csv('./calculation_data/' +\
                                'table5_2_' + str(self.year) + '_formatted.csv')
 
         def format_biobyp_tables(df):
@@ -553,7 +553,7 @@ class table5_2:
         ## Don't actually use this. Keep steam energy and the level
         ## of conventional boiler
         steam_fraction = pd.read_csv(
-                '../calculation_data/steam_enduse_fraction_ICF.csv'
+                './calculation_data/steam_enduse_fraction_ICF.csv'
                 )
 
         steam_fraction = format_steam_other_enduse(steam_fraction)
@@ -568,7 +568,7 @@ class table5_2:
         # Other fraction is defined using expert judgement and
         # Fox et al. (2001).
         other_fraction = pd.read_csv(
-                '../calculation_data/other_enduse_fraction.csv'
+                './calculation_data/other_enduse_fraction.csv'
                 )
 
         other_fraction = format_steam_other_enduse(other_fraction)
@@ -721,11 +721,11 @@ class table5_2:
 
             eu_fraction[k] = eu_reformat(eu_fraction[k])
 
-        eu_fraction['GHGRP'].to_csv('../calculation_data/eu_frac_GHGRP_' +\
+        eu_fraction['GHGRP'].to_csv('./calculation_data/eu_frac_GHGRP_' +\
                    str(self.year) + '.csv')
 
         eu_fraction['nonGHGRP'].to_csv(
-                '../calculation_data/eu_frac_nonGHGRP_' + \
+                './calculation_data/eu_frac_nonGHGRP_' + \
                 str(self.year) + '.csv'
                 )
 
