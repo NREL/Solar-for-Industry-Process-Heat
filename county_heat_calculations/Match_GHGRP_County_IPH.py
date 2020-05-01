@@ -32,11 +32,11 @@ class County_matching:
             mecs_naics_file = self.mecs2010_naics_file
 
         self.mecs_naics = pd.read_csv(
-                os.path.join('../', self.data_dir + mecs_naics_file)
+                os.path.join('./', self.data_dir + mecs_naics_file)
                 )
 
         self.MECS_regions = pd.read_csv(
-            os.path.join('../', self.data_dir + self.fips_file),
+            os.path.join('./', self.data_dir + self.fips_file),
             index_col=['COUNTY_FIPS']
             )
 
@@ -89,7 +89,7 @@ class County_matching:
         if self.year > 2011:
 
             naics07_12 = pd.read_csv(
-                os.path.join('../', self.data_dir+'/2007_to_2012_NAICS.csv')
+                os.path.join('./', self.data_dir+'/2007_to_2012_NAICS.csv')
                 )
 
             for c in ['2007 NAICS Code', '2012 NAICS Code']:
@@ -278,13 +278,13 @@ class County_matching:
                 ).dropna()
 
         ghgrp_manual.to_csv(os.path.join(
-                '../', self.data_dir + \
+                './', self.data_dir + \
                 '/facilities_for_manual_cbp-ghgrp_matching.csv'
                 ))
 
         #Import csv that has manual matching for unmatched facilities
         ghgrp_manual_matched = pd.read_csv(os.path.join(
-                '../', self.data_dir+'/manual_fac_matching_corrected.csv'
+                './', self.data_dir+'/manual_fac_matching_corrected.csv'
                 ))
 
         ghgrp_manual_matched.set_index('FACILITY_ID', inplace=True)
@@ -590,7 +590,7 @@ class County_matching:
 #            )
 #
 #        flagged_list.to_csv(
-#            os.path.join('../', self.data_dir + '/flagged_county_list.csv')
+#            os.path.join('./', self.data_dir + '/flagged_county_list.csv')
 #            )
 #
 #        return flagged_list

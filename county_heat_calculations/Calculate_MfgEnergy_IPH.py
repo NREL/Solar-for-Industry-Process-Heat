@@ -28,7 +28,7 @@ class Manufacturing_energy:
 
             self.naics_column = 'PRIMARY_NAICS_CODE'
 
-        self.file_dir = '../calculation_data/'
+        self.file_dir = './calculation_data/'
 
         self.fuelxwalk_file = 'MECS_FT_IPF.csv'
 
@@ -260,7 +260,6 @@ class Manufacturing_energy:
 
         #Format results from IPF of MECS energy data by region, fuel type,
         #and employment size.
-
         ipf_results_formatted = pd.read_csv(
                 self.file_dir+self.ipf_results_file, index_col=0
                 )
