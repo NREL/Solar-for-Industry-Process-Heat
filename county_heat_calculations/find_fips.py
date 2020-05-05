@@ -7,6 +7,7 @@ Created on Wed Mar  6 15:14:53 2019
 import json
 import requests
 import numpy as np
+import sys
 
 def fipfind(data_directory, f, missingfips):
     """
@@ -26,23 +27,31 @@ def fipfind(data_directory, f, missingfips):
             'showall': 'True', 'censusYear': 2010
             }
 
-        r = requests.get('http://geo.fcc.gov/api/census/block/find?', 
-            params=payload
-            )
+        try:
+
+            r = requests.get('http://geo.fcc.gov/api/census/block/find?',
+                params=payload
+                )
+
+        except:
+
+            e = sys.exc_info()[0]
+
+            print(e)
 
         if r.json()['County']['FIPS'] == None:
-            
+
             fipfound = 0
-        
+
         else:
-            
+
             fipfound = r.json()['County']['FIPS']
 
         return fipfound
 
-    if ((missingfips.loc[f, 'ZIP'] > 1000) 
+    if ((missingfips.loc[f, 'ZIP'] > 1000)
 
-        & (np.isnan(missingfips.loc[ f, 'COUNTY_FIPS'])==True) 
+        & (np.isnan(missingfips.loc[ f, 'COUNTY_FIPS'])==True)
 
         & (str(missingfips.loc[f, 'ZIP']) in z2f)):
 

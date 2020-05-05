@@ -140,7 +140,7 @@ class GHGRP:
 
         total_co2.fillna(0, inplace=True)
 
-        GHGs['CO2e_TOTAL'] = total_co2.sum(axis=1)
+        GHGs['MTCO2e_TOTAL'] = total_co2.sum(axis=1)
 
         for c in ['FACILITY_ID', 'REPORTING_YEAR']:
 
@@ -208,12 +208,10 @@ class GHGRP:
                         1004098: {'PRIMARY_NAICS_CODE': 322121},
                         1005445: {'PRIMARY_NAICS_CODE': 331524}}
 
-
             for k, v in fix_dict.items():
 
                 facdata.loc[facdata[facdata.FACILITY_ID == k].index,
                             list(v)[0]] = list(v.values())[0]
-
 
             cogen_index = facdata[facdata.FACILITY_ID.isin(fac_cogen)].index
 
@@ -343,7 +341,7 @@ class GHGRP:
 
                 ghgrp_data[c] = ghgrp_data[c].astype('float32')
 
-            ghgrp_data['CO2e_TOTAL'] = ghgrp_data.N2O_EMISSIONS_CO2E.add(
+            ghgrp_data['MTCO2e_TOTAL'] = ghgrp_data.N2O_EMISSIONS_CO2E.add(
                 ghgrp_data.CH4_EMISSIONS_CO2E
                 )
 
@@ -409,7 +407,6 @@ class GHGRP:
                 download_or_read_ghgrp_file(subpart, filename)
 
             return formatted_ghgrp_data
-
 
     def calc_energy_subC(self, formatted_subC, all_fac):
         """
