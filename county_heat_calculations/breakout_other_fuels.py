@@ -67,7 +67,7 @@ class Other_fuels:
 
         return energy_ghgrp
 
-    def breakout_other(self):
+    def breakout_MECS_other(self):
         """
         Breakout MECS intensities into byproducts
         """
@@ -93,7 +93,13 @@ class Other_fuels:
 
         def format_biobyp_tables(df):
 
-            df['naics'].replace({'31-33': 31}, inplace=True)
+            try:
+
+                df['naics'].replace({'31-33': 31}, inplace=True)
+
+            except TypeError as e:
+
+                print('Formatting error in bio, byp table import:', e)
 
             for c in df.columns:
 
@@ -169,8 +175,6 @@ class Other_fuels:
 
         other_table.Biomass.fillna(0, inplace=True)
 
-        other_table.to_csv('other_table.csv')
-
         other_table.Total.update(
             other_table.Total.subtract(
                 other_table[['wood_chips', 'pulp_liq']].sum(axis=1)
@@ -179,21 +183,24 @@ class Other_fuels:
                     )
             )
 
-        other_table.Total.to_csv('total_star_star.csv')
-
-        # # Table 3.5 reports values for NAICS codes not provided in Table 3.6
-        # missing_bio = other_table[other_table.Biomass.isna()]
-        #
-        # missing_bio.Biomass.update(missing_bio.wood_chips)
-        #
-        # other_table.Biomass.update(missing_bio.Biomass)
-
         #  Calculate purchased steam as difference between total Other
         # and total byproducts and biomass
-        table3_2['Steam'] = \
-            table3_2.Other.subtract(other_table.Total, fill_value=0)
+        # New total may be > original total of other from Table 3.2
+        steam = pd.concat([table3_2.Other, other_table.Total], axis=1)
 
-        table3_2['Steam']= table3_2.Steam.astype('int32')
+        def check_totals(r):
+
+             if r['Other'] - r['Total'] < 0:
+
+                 return 0
+
+             else:
+
+                return r['Other'] - r['Total']
+
+        steam['Total_star'] = steam.apply(lambda x: check_totals(x), axis=1)
+
+        table3_2.loc[:, 'Steam'] = steam['Total_star']
 
         # Subtract blast furnace and coke oven gases from total other because
         #these are captured by GHGRP data and non-integrated mills would not
@@ -216,19 +223,13 @@ class Other_fuels:
             other_table, how='left'
             )
 
-        other_table.to_csv('final_before_divide.csv')
+        other_table.to_csv('final_before_divide.csv', header=True)
 
         other_table.update(
             other_table[other_disag].divide(
                 other_table[other_disag].sum(axis=1), axis=0
                 )
             )
-
-         # =.update(other_table[byp].sum(axis=1))
-
-        # other_table.update(other_table[other_disag].divide(
-        #     other_table.Total, axis=0)
-        #     )
 
         other_table.fillna(0, inplace=True)
 
@@ -246,6 +247,11 @@ class Other_fuels:
         other_table = pd.merge(
             other_table, eu_frac_nonGHGRP, on='MECS_NAICS', how='outer'
             )
+
+        other_table['Byp_fraction'] = \
+            other_table.value_x.multiply(other_table.value_y)
+
+        other_table.drop(['value_x', 'value_y'], axis=1, inplace=True)
 
         return other_table
 
