@@ -66,6 +66,7 @@ class Emissions:
         """
 
 
+
     def calc_fuel_intensity():
         """
         Calculates the GHG intensity by county, NAICs, and employment size
@@ -77,7 +78,13 @@ class Emissions:
         residuals are not included.
         """
 
-    def calc_elect_intensity():
-        """
+        # Purchased steam emissions factor from
+        #https://www.epa.gov/sites/production/files/2020-04/documents/ghg-emission-factors-hub.pdf
+        # Assumes steam generated with nat gas at 80% efficiency
+        steam_ef = (66.33+1.25*25/1000+0.125*298/1000)/1000 # MTCO2e/MMBtu
 
+    def calc_elect_intensity(self, county):
+        """
+        GHG intensity of grid electricity (MMTCO2e/MMBtu), calculated from
+        EPA eGrid.
         """

@@ -10,7 +10,8 @@ class Other_fuels:
 
         formatted_files = ['bio'+str(self.year)+'_formatted.csv',
                            'byp'+str(self.year)+'_formatted.csv',
-                           'table5_2_'+str(self.year)+'_formatted.csv']
+                           'table5_2_'+str(self.year)+'_formatted.csv',
+                           'Tables3_'+str(self.year)+'_formatted.xlsx']
 
         for f in formatted_files:
 
@@ -20,7 +21,7 @@ class Other_fuels:
 
             else:
 
-                print(f, 'does not exist in /calculation_data/', '\n',
+                print(f, 'does not exist in ./calculation_data/', '\n',
                       'Please create it')
 
 
@@ -70,13 +71,12 @@ class Other_fuels:
         """
         Breakout MECS intensities into byproducts
         """
-        #From byproducts Table3.5: Waste_oils_tars_waste_materials,
-        #Blast_furnace_coke_oven_gases, Waste_gas, Petroleum_coke
-        #From Wood and wood-related Table3.6: create sum of pulping liquor
-        # and total biomass for Biomass total.
+
+        # MECS Table3.6
         bio_table = pd.read_csv('./calculation_data/' + \
                                 'bio'+str(self.year)+'_formatted.csv')
 
+        #MECS Table 3.5
         byp_table = pd.read_csv('./calculation_data/' +\
                                 'byp'+str(self.year)+'_formatted.csv')
 
@@ -115,20 +115,38 @@ class Other_fuels:
 
         byp_table = format_biobyp_tables(byp_table)
 
-        # eu_table.set_index(['naics', 'end_use'], inplace=True)
+        # Import table3_2 for total "Other"
+        table3_2 = pd.read_excel(
+            './calculation_data/Tables3_2014_formatted.xlsx',
+            sheet_name='Table3.2', usecols=['NAICS', 'Region', 'Other']
+            )
 
-        # adj_total = eu_table.xs(
-        #     'TOTAL FUEL CONSUMPTION', level=1
-        #     ).total.subtract(
-        #             eu_table.xs('End Use Not Reported',
-        #                         level=1).total, level=1
-        #             )
-        #
-        # adj_total.name = 'adj_total'
-        #
-        # eu_table.reset_index('end_use', inplace=True)
+        # Correct negative value
+        table3_2.update(table3_2.where(table3_2.Other>0).Other.fillna(0))
 
-        byp_table_final = pd.merge(
+        table3_2.replace({'United States':'us'}, inplace=True)
+
+        table3_2['Region'] = table3_2.Region.apply(lambda x: x.lower())
+
+        table3_2.set_index(['NAICS', 'Region'], inplace=True)
+
+        table3_2.index.names = ['MECS_NAICS', 'MECS_Region']
+
+        table3_2.sort_index(inplace=True)
+
+        #Totals show up under NAICS 339, creating duplicate index entries.
+        totals3_2 = \
+            table3_2[table3_2.index.duplicated(keep='first')].reset_index()
+
+        totals3_2['MECS_NAICS'] = 31
+
+        totals3_2.set_index(['MECS_NAICS', 'MECS_Region'], inplace=True)
+
+        table3_2 = table3_2.loc[~table3_2.index.duplicated(keep='first')]
+
+        table3_2 = pd.concat([table3_2, totals3_2], axis=0)
+
+        other_table = pd.merge(
             byp_table.set_index(['naics', 'region']),
             pd.DataFrame(
                 bio_table.set_index(['naics', 'region'])[
@@ -137,51 +155,98 @@ class Other_fuels:
                     ), left_index=True, right_index=True, how='left'
             )
 
-        byp_table_final.rename(
+        other_table.index.names = ['MECS_NAICS', 'MECS_Region']
+
+        other_table.sort_index(inplace=True)
+
+        other_table.rename(
             columns={0: 'Biomass', 'pet_coke': 'Petroleum_coke',
                      'blast_furnace': 'Blast_furnace_coke_oven_gases',
                      'waste_gas': 'Waste_gas',
-                     'waste_oils': 'Waste_oils_tars_waste_materials'},
-            inplace=True
+                     'waste_oils': 'Waste_oils_tars_waste_materials',
+                     'total':'Total'}, inplace=True
             )
 
-        byp_table_final.index.names = ['MECS_NAICS', 'MECS_REGION']
+        other_table.Biomass.fillna(0, inplace=True)
 
-        # Table 3.5 reports values for NAICS codes not provided in Table 3.6
-        missing_bio = byp_table_final[byp_table_final.Biomass.isna()]
+        other_table.to_csv('other_table.csv')
 
-        missing_bio.Biomass.update(missing_bio.wood_chips)
-
-        byp_table_final.Biomass.update(missing_bio.Biomass)
-
-        # Remove Blast furnace/Coke oven gas values because these are
-        # captured by GHGRP data and non-integrated mills would not have
-        # blast furnace gas emissions.
-        byp_table_final.loc[:, 'Blast_furnace_coke_oven_gases'] = 0
-
-        # List of byproduct fuels to diaggregate Other fuel use by.
-        byp = ['Blast_furnace_coke_oven_gases', 'Waste_gas', 'Petroleum_coke',
-               'Waste_oils_tars_waste_materials', 'Biomass']
-
-        byp_table_final.total.update(byp_table_final[byp].sum(axis=1))
-
-        byp_table_final.update(byp_table_final[byp].divide(
-            byp_table_final.total, axis=0)
+        other_table.Total.update(
+            other_table.Total.subtract(
+                other_table[['wood_chips', 'pulp_liq']].sum(axis=1)
+                ).add(
+                    other_table.Biomass
+                    )
             )
 
-        byp_table_final.fillna(0, inplace=True)
+        other_table.Total.to_csv('total_star_star.csv')
 
-        # Prep table for merge
-        byp_table_final = pd.melt(
-            byp_table_final[byp].reset_index(),
-            id_vars=['MECS_NAICS', 'MECS_REGION'], var_name='MECS_FT_byp'
+        # # Table 3.5 reports values for NAICS codes not provided in Table 3.6
+        # missing_bio = other_table[other_table.Biomass.isna()]
+        #
+        # missing_bio.Biomass.update(missing_bio.wood_chips)
+        #
+        # other_table.Biomass.update(missing_bio.Biomass)
+
+        #  Calculate purchased steam as difference between total Other
+        # and total byproducts and biomass
+        table3_2['Steam'] = \
+            table3_2.Other.subtract(other_table.Total, fill_value=0)
+
+        table3_2['Steam']= table3_2.Steam.astype('int32')
+
+        # Subtract blast furnace and coke oven gases from total other because
+        #these are captured by GHGRP data and non-integrated mills would not
+        # have blast furnace gas emissions.
+        other_table.Total.update(
+            other_table.Total.subtract(
+                other_table.Blast_furnace_coke_oven_gases
+                )
             )
 
-        byp_table_final = pd.merge(
-            byp_table_final[byp], eu_frac_nonGHGRP, left_index=True,
-            right_index=True, how='outer'
+        # Remove Blast furnace/Coke oven gas values
+        other_table.loc[:, 'Blast_furnace_coke_oven_gases'] = 0
+
+        # List of fuels to diaggregate Other fuel use by.
+        other_disag = ['Waste_gas','Petroleum_coke',
+                       'Waste_oils_tars_waste_materials','Biomass', 'Steam'
+                       ]
+
+        other_table = table3_2[['Other', 'Steam']].join(
+            other_table, how='left'
             )
 
-        return byp_table_final
+        other_table.to_csv('final_before_divide.csv')
 
-        # Later, multiply this by eu_frac_nonGHGRP to get
+        other_table.update(
+            other_table[other_disag].divide(
+                other_table[other_disag].sum(axis=1), axis=0
+                )
+            )
+
+         # =.update(other_table[byp].sum(axis=1))
+
+        # other_table.update(other_table[other_disag].divide(
+        #     other_table.Total, axis=0)
+        #     )
+
+        other_table.fillna(0, inplace=True)
+
+        # Prep tables for merge
+        other_table = pd.melt(
+            other_table[other_disag].reset_index(),
+            id_vars=['MECS_NAICS', 'MECS_Region'], var_name='MECS_FT_byp'
+            )
+
+        eu_frac_nonGHGRP = pd.melt(
+            eu_frac_nonGHGRP.reset_index(),
+            id_vars=['MECS_NAICS', 'MECS_FT'], var_name='End_use'
+            )
+
+        other_table = pd.merge(
+            other_table, eu_frac_nonGHGRP, on='MECS_NAICS', how='outer'
+            )
+
+        return other_table
+
+        # # Later, multiply this by eu_frac_nonGHGRP to get
