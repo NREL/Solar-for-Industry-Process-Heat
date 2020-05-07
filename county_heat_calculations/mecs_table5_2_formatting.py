@@ -364,8 +364,6 @@ class table5_2:
         self.eu_table.to_csv(os.path.join('./calculation_data/',
                              'table5_2_'+str(self.year)+'.csv'), index=False)
 
-    def format_other_use(self):
-
         if self.year == 2010:
 
             byp_url = '2010/xls/table3_5.xls'
@@ -400,17 +398,13 @@ class table5_2:
                 sheet_name=0, usecols=bio_cols
                 )
 
-        self.byp_table.name = 'byp'
-
-        self.bio_table.name = 'bio'
-
-        for df in [self.byp_table, self.bio_table]:
+        def format_other_table(df, name):
 
             df.replace({'*': 0.1}, inplace=True)
 
             df.dropna(thresh=3, axis=0, inplace=True)
 
-            if df.name == 'bio':
+            if name == 'bio':
 
                 other_index = df[df.naics_desc=='Other Manufacturing'].index
 
@@ -418,18 +412,18 @@ class table5_2:
 
                 df = df[~df.naics.isnull()]
 
-            df.naics.fillna('31-33', inplace=True)
+            df.loc[:, 'naics'] = df.naics.fillna('31-33')
 
-            df['naics'] = df.naics.astype('str')
+            df.loc[:, 'naics'] = df.naics.astype('str')
 
-            df['naics'] = df.naics.apply(lambda x: x.strip())
+            df.loc[:, 'naics'] = df.naics.apply(lambda x: x.strip())
 
             region_n = len(df)/5
 
-            df['region'] = np.repeat(['us', 'northeast', 'midwest', 'south',
+            df.loc[:, 'region'] = np.repeat(['us', 'northeast', 'midwest', 'south',
                                       'west'], region_n)
 
-            df['n_naics'] = df.naics.apply(lambda x: len(x))
+            df.loc[:, 'n_naics'] = df.naics.apply(lambda x: len(x))
 
             total_index = df[df.naics == '31-33'].index
 
@@ -438,8 +432,14 @@ class table5_2:
             # Export for manual formatting (i.e., filling in Q values)
             # Renaming to "_formatted.csv" is required.
             df.to_csv(os.path.join(
-                    './calculation_data/' + df.name + str(self.year) + '.csv'
-                    ), index=False)
+                './calculation_data/' + name + str(self.year) + '.csv'
+                ), index=False)
+
+            return df
+
+        self.byp_table = format_other_table(self.byp_table, 'byp')
+
+        self.bio_table = format_other_table(self.bio_table, 'bio')
 
     def calculate_eu_share(self):
         """
@@ -470,6 +470,15 @@ class table5_2:
 
         eu_table = pd.read_csv('./calculation_data/' +\
                                'table5_2_' + str(self.year) + '_formatted.csv')
+
+        # Do things here to byp_table before reformatting.
+        # Need to keep regional disaggregation. Calculate as fraction of
+        # byproduct total. Need to subtract off purchased steam component
+        # before appling fraction.
+        # Also careful to account for ghgrp byproducts before calculating.
+        # energy_ghgrp.
+        #
+        # byp_table =
 
         def format_biobyp_tables(df):
 
@@ -627,6 +636,9 @@ class table5_2:
                                ), fill_value=0
                 ).divide(steam.add(byp_bio))
 
+        # Output for use?
+        other_fraction_weighted.to_csv('oth_frac_weighted.csv')
+
         eu_table.set_index('end_use', append=True, inplace=True)
 
         eu_fraction = {}
@@ -663,7 +675,6 @@ class table5_2:
 
         eu_fraction['nonGHGRP']['Coke_and_breeze'] = \
              eu_fraction['nonGHGRP']['Coal']
-
 
         def eu_reformat(eu_df):
             """
