@@ -253,6 +253,14 @@ class Other_fuels:
 
         other_table.drop(['value_x', 'value_y'], axis=1, inplace=True)
 
+        other_table['MECS_Region'] = other_table.MECS_Region.apply(
+            lambda x: x.capitalize()
+            )
+
+        other_table.replace({'Us': 'US'}, inplace=True)
+
+        other_table.to_csv('./calculation_data/MECS_byp_breakout.csv')
+
         return other_table
 
         # # Later, multiply this by eu_frac_nonGHGRP to get
