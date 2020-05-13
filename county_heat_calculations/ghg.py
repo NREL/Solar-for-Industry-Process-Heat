@@ -3,17 +3,23 @@ import calc_elect_ghgs
 import breakout_other_fuels
 import Match_MECS_NAICS
 import numpy as np
+import Match_GHGRP_County_IPH as county_matching
+import get_cbp
+import os
 
 class Emissions:
 
-    def __init__(self, years):
+    def __init__(self, year):
 
-        # Define as a range or list
-        if (type(years) != list) | (type(years)!=range):
+        self.year = year
 
-            years = [years]
+        if self.year > 2012:
 
-        self.years = years
+            self.naics_column = 'PRIMARY_NAICS_CODE_12'
+
+        else:
+
+            self.naics_column = 'PRIMARY_NAICS_CODE'
 
         self.data_dir = './calculation_data/'
 
@@ -44,30 +50,33 @@ class Emissions:
             self.std_efs.gCH4_per_mmbtu.multiply(gwp['CH4']/1000) +\
                 self.std_efs.gN2O_per_mmbtu.multiply(gwp['N2O']/1000))/1000
 
-        ghgrp_emissions = pd.read_parquet(
+        # This is an updated ghgrp energy file. Bug was fixed that
+        # didn't capture MTCO2e_TOTAL values. Energy values are the same
+        # as the original calculations.
+        ghgrp_energy = pd.read_parquet(
             '../results/ghgrp_energy_20200505-1117.parquet', engine='pyarrow',
             columns=['FACILITY_ID', 'REPORTING_YEAR', 'FUEL_TYPE',
-                     'FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND', 'MTCO2e_TOTAL',
-                     'MMBtu_TOTAL']
+                     'FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND', 'COUNTY_FIPS',
+                     'MECS_Region','MTCO2e_TOTAL', 'PRIMARY_NAICS_CODE',
+                     'SECONDARY_NAICS_CODE','MMBtu_TOTAL', ]
             )
 
-        ghgrp_emissions = pd.DataFrame(
-            ghgrp_emissions[ghgrp_emissions.REPORTING_YEAR.isin(years)]
+        # Drop entries with zero calculated MMBtu
+        ghgrp_energy = ghgrp_energy.loc[
+            (ghgrp_energy[ghgrp_energy.MMBtu_TOTAL!=0].index), :
+            ]
+
+        ghgrp_energy = pd.DataFrame(
+            ghgrp_energy[ghgrp_energy.REPORTING_YEAR == self.year]
             )
 
         of = breakout_other_fuels.Other_fuels(2014)
 
-        def map_byproducts_ghgrp(ghgrp_data):
+        # Map aggregated fuel types to GHGRP fuel types
+        ghgrp_energy = of.map_GHGRP_fueltypes(ghgrp_energy, 'MECS_FT_IPF.csv')
 
-            # Map aggregated fuel types to GHGRP fuel types
-            ghgrp_data = of.map_GHGRP_fueltypes(ghgrp_data, 'MECS_FT_IPF.csv')
-
-            # Map disaggregated fuel types to GHGRP fuel type
-            ghgrp_data = of.map_GHGRP_fueltypes(ghgrp_data, 'MECS_FT_byp.csv')
-
-            return ghgrp_data
-
-        ghgrp_emissions = map_byproducts_ghgrp(ghgrp_emissions)
+        # Map disaggregated fuel types to GHGRP fuel type
+        ghgrp_energy = of.map_GHGRP_fueltypes(ghgrp_energy, 'MECS_FT_byp.csv')
 
         # Save fuel breakout by MECS byproducts & other. Represented as
         # a portion of MECS_FT, aggregated by REPORTING_YEAR and FACILITY_ID
@@ -87,7 +96,7 @@ class Emissions:
             os.path.join(self.data_dir,'ghgrp_other_fuel_agg.csv')
             ):
 
-            self.ghgrp_other_fuel_agg = calc_ghgrp_fuel_agg(ghgrp_emissions)
+            self.ghgrp_other_fuel_agg = calc_ghgrp_fuel_agg(ghgrp_energy)
 
             self.ghgrp_other_fuel_agg.to_csv(
                 os.path.join(self.data_dir,'ghgrp_other_fuel_agg.csv')
@@ -95,23 +104,23 @@ class Emissions:
 
         else:
 
-            self.ghgrp_other_fuel_agg.read_csv(
-                os.path.join(self.data_dir,'ghgrp_other_fuel_agg.csv')
+            self.ghgrp_other_fuel_agg = pd.read_csv(
+                os.path.join(self.data_dir, 'ghgrp_other_fuel_agg.csv')
                 )
 
         # Replace Biomass emissions with zero value
-        ghgrp_emissions.loc[ghgrp_emissions.MECS_FT_byp == 'Biomass',
+        ghgrp_energy.loc[ghgrp_energy.MECS_FT_byp == 'Biomass',
                             'MTCO2e_TOTAL'
                             ] = 0
 
         # Sum emissions (MTCO2e) for specified year(s)
-        self.ghgrp_ffc_emissions = ghgrp_emissions.groupby(
+        ghgrp_ffc_emissions = ghgrp_energy.groupby(
                 ['FACILITY_ID', 'REPORTING_YEAR', 'MECS_FT', 'MECS_FT_byp']
                 ).MTCO2e_TOTAL.sum().dropna()
 
         # Calculate CO2e intensity (MTCO2e/MMBtu)
-        self.ghgrp_CO2e_intensity = self.ghgrp_ffc_emissions.divide(
-                ghgrp_emissions.groupby(
+        self.ghgrp_CO2e_intensity = ghgrp_ffc_emissions.divide(
+                ghgrp_energy.groupby(
                     ['FACILITY_ID', 'REPORTING_YEAR', 'MECS_FT', 'MECS_FT_byp']
                     ).MMBtu_TOTAL.sum().dropna()
                 )
@@ -142,7 +151,55 @@ class Emissions:
         self.mecs_energy_intensity = \
             pd.read_csv(os.path.join(self.data_dir,'MECS_byp_breakout.csv'))
 
-    def calc_ghgrp_and_fuel_intensity(self, energy_ghgrp_y):
+        cbp = get_cbp.CBP(2014)
+
+        tcm = county_matching.County_matching(2014)
+
+        ghgrp_matching = tcm.format_ghgrp(ghgrp_energy, cbp.cbp_matching)
+
+        # Update NAICS codes based on Census Business Patterns Data
+        energy_ghgrp_matched = \
+            pd.merge(ghgrp_energy,
+                     ghgrp_matching[['FACILITY_ID',
+                                     self.naics_column]],
+                     on='FACILITY_ID', how='left')
+
+        energy_ghgrp_matched[self.naics_column] = \
+            energy_ghgrp_matched[self.naics_column].astype('int')
+
+        naics6d = pd.DataFrame(
+            energy_ghgrp_matched[self.naics_column].unique(),
+            columns=[self.naics_column],
+            index=range(0, len(energy_ghgrp_matched[self.naics_column].unique()))
+            )
+
+        naics6d = Match_MECS_NAICS.Match(naics6d, self.naics_column,
+                                         naics_vintage=2012)
+
+        energy_ghgrp_matched = pd.merge(
+            energy_ghgrp_matched, naics6d, on=self.naics_column, how='left'
+            )
+
+        # Filter out facilities that use PRIMARY_NAICS_CODE == 486210 and
+        # NAICS_USED == 0
+        energy_ghgrp_matched = energy_ghgrp_matched[
+                (energy_ghgrp_matched[self.naics_column] != 486210) &\
+                (energy_ghgrp_matched.MECS_NAICS !=0)
+                ]
+
+        if self.naics_column == 'PRIMARY_NAICS_CODE_12':
+
+            energy_ghgrp_matched.drop('PRIMARY_NAICS_CODE', inplace=True,
+                                     axis=1)
+
+            energy_ghgrp_matched.rename(
+                columns={'PRIMARY_NAICS_CODE_12': 'PRIMARY_NAICS_CODE'},
+                inplace=True
+                )
+
+        self.energy_ghgrp_matched = energy_ghgrp_matched
+
+    def calc_ghgrp_and_fuel_intensity(self):
         """
         NAICS codes of reported GHGRP data may be corrected based on Census
         County Business Patterns data. Final GHGRP GHG intensity and
@@ -152,13 +209,10 @@ class Emissions:
         and MECS_FT_byp.
         """
 
-        #Drop non-manufacturing industries (MECS_NAICS == 0)
-        energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y.MECS_NAICS !=0]
-
-        energy_ghgrp_y = map_byproducts_ghgrp(energy_ghgp_y)
+        energy_ghgrp_y = pd.DataFrame(self.energy_ghgrp_matched)
 
         energy_ghgrp_y = energy_ghgrp_y.groupby(
-                ['FACILITY_ID','MECS_Region', 'COUNTY_FIPS',
+                ['REPORTING_YEAR','FACILITY_ID','MECS_Region', 'COUNTY_FIPS',
                  'PRIMARY_NAICS_CODE','MECS_NAICS','MECS_FT', 'MECS_FT_byp'],
                 as_index=False
                 ).MMBtu_TOTAL.sum()
@@ -169,45 +223,99 @@ class Emissions:
                                        inplace=True)
 
         final_ghgrp_fuel_disagg = energy_ghgrp_y.groupby(
-            ['COUNTY_FIPS','PRIMARY_NAICS_CODE', 'MECS_FT', 'MECS_FT_byp']
+            ['COUNTY_FIPS','naics', 'MECS_FT', 'MECS_FT_byp']
             ).MMBtu_TOTAL.sum()
 
         final_ghgrp_fuel_disagg = final_ghgrp_fuel_disagg.divide(
             final_ghgrp_fuel_disagg.sum(level=[0,1,2])
             ).reset_index()
 
-        final_ghgrp_CO2e_intensity = energy_ghgrp_y.set_index(
-            ['REPORTING_YEAR','FACILITY_ID', 'MECS_FT_byp']
-            ).MMBtu_TOTAL.multiply(
-                self.ghgrp_CO2_intensity.reset_index(
-                    'MECS_FT'
-                    ).MTCO2e_per_MMBtu
-                )
+        final_ghgrp_fuel_disagg.rename(
+            columns={'MMBtu_TOTAL': 'MMBtu_fraction'}, inplace=True
+            )
+
+        final_ghgrp_CO2e_intensity = pd.merge(
+            energy_ghgrp_y.set_index(
+                ['FACILITY_ID','REPORTING_YEAR', 'MECS_FT', 'MECS_FT_byp']
+                ), self.ghgrp_CO2e_intensity, left_index=True,
+            right_index=True, how='left'
+            )
+
+        # Remove MMBtu_TOTAL values of Zero
+        final_ghgrp_CO2e_intensity = final_ghgrp_CO2e_intensity.loc[
+            (final_ghgrp_CO2e_intensity[
+                final_ghgrp_CO2e_intensity.MMBtu_TOTAL !=0
+                ].index), :
+            ]
+
+        # Created weighted average CO2e intensity by county and naics
+        final_ghgrp_CO2e_intensity = pd.DataFrame(
+            final_ghgrp_CO2e_intensity.groupby(
+                ['REPORTING_YEAR', 'COUNTY_FIPS', 'naics', 'MECS_FT',
+                 'MECS_FT_byp']
+                 ).apply(lambda x: np.average(x.MTCO2e_per_MMBtu,
+                                              weights=x.MMBtu_TOTAL))
+            )
 
         final_ghgrp_CO2e_intensity.rename(
-            columns={'MMBtu_TOTAL':'MTCO2e_per_MMBtu'}, inplace=True
+            columns={0:'MTCO2e_per_MMBtu'}, inplace=True
             )
 
-        final_ghgrp_CO2e_intensity = final_ghgrp_CO2e_intensity.join(
-            energy_ghgrp_y.set_index(
-                ['REPORTING_YEAR','FACILITY_ID', 'MECS_FT_byp']
-                )['COUNTY_FIPS', 'naics'], how='left'
-            )
+        # Do a quick QA/QC on average emission factors of standard fuel types
+        # If weighted average is +/- 20%, use EPA standard value.
+        def calc_ef_range(x, plusminus=0.2):
 
-        final_ghgrp_CO2e_intensity = \
-            final_ghgrp_CO2e_intensity.reset_index().groupby(
-                ['REPORTING_YEAR', 'COUNTY_FIPS', 'naics', 'MECS_FT',
-                 'MECS_FT_byp'], as_index=False
-                ).MTCO2e_per_MMBtu.mean()
+            if x['MECS_FT_byp'] !='Other':
+
+                std_ef = self.std_efs[
+                    self.std_efs.MECS_FT == x['MECS_FT']
+                    ].MTCO2e_per_MMBtu.values[0]
+
+            elif x['MECS_FT_byp'] == 'Other':
+
+                return x['MTCO2e_per_MMBtu']
+
+            else:
+
+                std_ef = self.std_efs[
+                    (self.std_efs.MECS_FT == x['MECS_FT']) &
+                    (self.std_efs.MECS_FT_byp == x['MECS_FT_byp'])
+                     ].MTCO2e_per_MMBtu.values[0]
+
+            ef_range = [std_ef*(1-plusminus), std_ef*(1+plusminus)]
+
+            if ef_range[0] <= x['MTCO2e_per_MMBtu'] <= ef_range[1]:
+
+                return x['MTCO2e_per_MMBtu']
+
+            else:
+
+                return std_ef
+
+
+        final_ghgrp_CO2e_intensity.reset_index(inplace=True)
+
+        print(final_ghgrp_CO2e_intensity.columns)
+
+        final_ghgrp_CO2e_intensity['pass_qaqc'] = \
+            final_ghgrp_CO2e_intensity.apply(lambda x:
+                calc_ef_range(x), axis=1
+                )
+
+        final_ghgrp_CO2e_intensity.MTCO2e_per_MMBtu.update(
+            final_ghgrp_CO2e_intensity.pass_qaqc
+            )
 
         # Save for first time
         if not os.path.isfile(
-            os.path.join(self.data_dir,'ghgrp_CO2e_intensity.csv')
+            os.path.join(self.data_dir,
+                         'ghgrp_CO2e_intensity_'+str(self.year)+'.csv')
             ):
 
             final_ghgrp_CO2e_intensity.to_csv(
-                os.path.join(self.data_dir,'ghgrp_CO2_intensity.csv'),
-                index_col=False
+                os.path.join(self.data_dir,
+                             'ghgrp_CO2e_intensity_'+str(self.year)+'.csv'),
+                index=False
                 )
 
         return final_ghgrp_CO2e_intensity, final_ghgrp_fuel_disagg
@@ -246,7 +354,7 @@ class Emissions:
             # Split out byproducts
             ghgrp_emissions = pd.merge(
                 ghgrp_emissions, final_ghgrp_fuel_disagg, how='left',
-                on=['COUNTY_FIPS', 'naics', 'MECS_FT'], suffixes=('', '_inten')
+                on=['COUNTY_FIPS', 'naics', 'MECS_FT']
                 )
 
             ghgrp_emissions = pd.merge(
@@ -255,8 +363,8 @@ class Emissions:
                 )
 
             ghgrp_emissions['MTCO2e_TOTAL'] =\
-                ghgrp_emissions.MMBtu_TOTAl.multiply(
-                    ghgrp_emissions.MMBtu_TOTAL_inten.multiply(
+                ghgrp_emissions.MMBtu.multiply(
+                    ghgrp_emissions.MMBtu_fraction.multiply(
                         ghgrp_emissions.MTCO2e_per_MMBtu
                         )
                     )
@@ -337,7 +445,7 @@ class Emissions:
                 )
 
             nonGHGRP_emissions['MTCO2e_TOTAL'] = \
-                nonGHGRP_emissions.astype('float32')
+                nonGHGRP_emissions.MTCO2e_TOTAL.astype('float32')
 
             all_emissions = pd.concat([nonGHGRP_emissions, ghgrp_emissions],
                                       axis=0, ignore_index=True)
