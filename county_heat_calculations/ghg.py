@@ -105,7 +105,8 @@ class Emissions:
         else:
 
             self.ghgrp_other_fuel_agg = pd.read_csv(
-                os.path.join(self.data_dir, 'ghgrp_other_fuel_agg.csv')
+                os.path.join(self.data_dir, 'ghgrp_other_fuel_agg.csv'),
+                index_col=False
                 )
 
         # Replace Biomass emissions with zero value
@@ -306,6 +307,17 @@ class Emissions:
             final_ghgrp_CO2e_intensity.pass_qaqc
             )
 
+        final_ghgrp_CO2e_intensity.drop(['pass_qaqc'], axis=1, inplace=True)
+
+        # fill biomass emission factor = 0
+        biomass = final_ghgrp_CO2e_intensity.where(
+            final_ghgrp_CO2e_intensity.MECS_FT_byp=='Biomass'
+            ).dropna()
+
+        biomass.loc[:, 'MTCO2e_per_MMBtu'] = 0
+
+        final_ghgrp_CO2e_intensity.update(biomass)
+
         # Save for first time
         if not os.path.isfile(
             os.path.join(self.data_dir,
@@ -351,26 +363,65 @@ class Emissions:
 
         else:
 
+            final_ghgrp_fuel_disagg = final_ghgrp_fuel_disagg[
+                final_ghgrp_fuel_disagg.MECS_FT == 'Other'
+                ]
+
             # Split out byproducts
             ghgrp_emissions = pd.merge(
-                ghgrp_emissions, final_ghgrp_fuel_disagg, how='left',
-                on=['COUNTY_FIPS', 'naics', 'MECS_FT']
+                ghgrp_emissions.set_index(['COUNTY_FIPS', 'naics', 'MECS_FT']),
+                final_ghgrp_fuel_disagg.set_index(
+                    ['COUNTY_FIPS', 'naics', 'MECS_FT', 'MECS_FT_byp']
+                    ),
+                how='left', left_index=True, right_index=True
                 )
 
-            ghgrp_emissions = pd.merge(
+            ghgrp_emissions.reset_index(inplace=True)
+
+            ghgrp_emissions.MMBtu.update(ghgrp_emissions.MMBtu.multiply(
+                ghgrp_emissions.MMBtu_fraction
+                ).dropna())
+
+
+            ghgrp_emissions.MECS_FT_byp.update(
+                ghgrp_emissions[ghgrp_emissions.MECS_FT_byp.isnull()].MECS_FT
+                )
+
+            ghgrp_emissions= pd.merge(
                 ghgrp_emissions, final_ghgrp_CO2e_intensity, how='left',
-                on=['COUNTY_FIPS', 'naics', 'MECS_FT']
+                on=['COUNTY_FIPS', 'naics', 'MECS_FT', 'MECS_FT_byp']
                 )
 
             ghgrp_emissions['MTCO2e_TOTAL'] =\
                 ghgrp_emissions.MMBtu.multiply(
-                    ghgrp_emissions.MMBtu_fraction.multiply(
-                        ghgrp_emissions.MTCO2e_per_MMBtu
-                        )
+                    ghgrp_emissions.MTCO2e_per_MMBtu
                     )
+
+            # ghgrp_emissions = pd.merge(
+            #     ghgrp_emissions, final_ghgrp_fuel_disagg, how='left',
+            #     on=['COUNTY_FIPS', 'naics', 'MECS_FT', 'MECS_FT_byp']
+            #     )
+            # ghgrp_emissions = pd.merge(
+            #     ghgrp_emissions, final_ghgrp_CO2e_intensity, how='left',
+            #     on=['COUNTY_FIPS', 'naics', 'MECS_FT']
+            #     )
+            #
+            # ghgrp_emissions['MTCO2e_TOTAL'] =\
+            #     ghgrp_emissions.MMBtu.multiply(
+            #         ghgrp_emissions.MMBtu_fraction.multiply(
+            #             ghgrp_emissions.MTCO2e_per_MMBtu
+            #             )
+            #         )
 
             ghgrp_emissions['MTCO2e_TOTAL'] = \
                 ghgrp_emissions.MTCO2e_TOTAL.astype('float32')
+
+            ghgrp_emissions.drop(['MMBtu_fraction', 'REPORTING_YEAR'],
+                                 axis=1, inplace=True)
+
+            ghgrp_emissions[
+                (ghgrp_emissions[ghgrp_emissions.MECS_FT!='Other']),
+                'MECS_FT_byp'] = np.nan
 
         # Calculate GHG emissions for non-GHGRP data
         finally:
@@ -403,6 +454,11 @@ class Emissions:
                     )
                 )
 
+            # Drop instances where the byproduct fraction == 0
+            mecs_GHG_disagg = mecs_GHG_disagg.where(
+                mecs_GHG_disagg.Byp_fraction !=0
+                ).dropna()
+
             mecs_GHG_disagg['MTCO2e_per_MMBtu'] = \
                 mecs_GHG_disagg.MTCO2e_per_MMBtu.astype('float32')
 
@@ -417,7 +473,8 @@ class Emissions:
                 )
 
             nonGHGRP_emissions = pd.merge(
-                nonGHGRP_emissions, mecs_GHG_disagg['MTCO2e_per_MMBtu'],
+                nonGHGRP_emissions,
+                mecs_GHG_disagg[['MECS_FT_byp', 'MTCO2e_per_MMBtu']],
                 left_index=True, right_index=True, how='left'
                 )
 
@@ -434,15 +491,12 @@ class Emissions:
 
             nonGHGRP_emissions.reset_index(inplace=True)
 
-            nonGHGRP_emissions.MTCO2e_per_MMBtu.update(
+            nonGHGRP_emissions['MTCO2e_TOTAL'] =\
                 nonGHGRP_emissions.MTCO2e_per_MMBtu.multiply(
                     nonGHGRP_emissions.MMBtu
                     )
-                )
 
-            nonGHGRP_emissions.rename(
-                columns={'MTCO2e_per_MMBtu': 'MTCO2e_TOTAL'}, inplace=True
-                )
+            nonGHGRP_emissions.drop(['MTCO2e_per_MMBtu'], axis=1, inplace=True)
 
             nonGHGRP_emissions['MTCO2e_TOTAL'] = \
                 nonGHGRP_emissions.MTCO2e_TOTAL.astype('float32')
