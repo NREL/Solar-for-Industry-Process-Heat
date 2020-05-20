@@ -1,0 +1,25 @@
+============================= test session starts =============================
+platform win32 -- Python 3.6.5, pytest-5.3.4, py-1.8.0, pluggy-0.12.0
+rootdir: C:\Users\cmcmilla\Solar-for-Industry-Process-Heat\county_heat_calculations
+collected 1 item
+
+tests\test_ghg_calcs.py .                                                [100%]
+
+============================== warnings summary ===============================
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266
+  C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:266: PendingDeprecationWarning: This method will be removed in future versions.  Use 'tree.iter()' or 'list(tree.iter())' instead.
+    for elem in self.tree.iter() if Element_has_iter else self.tree.getiterator():
+
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:312
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:312
+C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:312
+  C:\Users\cmcmilla\AppData\Local\Continuum\anaconda3\lib\site-packages\xlrd\xlsx.py:312: PendingDeprecationWarning: This method will be removed in future versions.  Use 'tree.iter()' or 'list(tree.iter())' instead.
+    for elem in self.tree.iter() if Element_has_iter else self.tree.getiterator():
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+======================= 1 passed, 9 warnings in 49.39s ========================

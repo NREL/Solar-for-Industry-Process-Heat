@@ -19,6 +19,10 @@ class Emissions:
         gwp = {'CH4': 25, 'N2O': 298}
 
         # Define standard emission factors (from EPA) for MECS Fuel types
+        # Set biomass EFs = 0. Reported values for CO2, CH4, and N2O are
+        # #np.mean([118.17,105.51,93.8]),np.mean([32,32,7.2]),
+        # np.mean([4.2,4.2,3.6])],
+
         self.std_efs = pd.DataFrame(
             [['Coal',np.nan,94.67,11,1.6],
              ['Coke_and_breeze',np.nan,113.67,11,1.6],
@@ -28,10 +32,9 @@ class Emissions:
              ['Residual_fuel_oil', np.nan,75.10,3,0.6],
              ['LPG_NGL',np.nan,61.71,3,0.6],
              ['Other', 'Waste_gas',59,3,.6],
-             ['Other', 'Biomass', np.mean([118.17,105.51,93.8]),
-              np.mean([32,32,7.2]), np.mean([4.2,4.2,3.6])],
-             ['Other', 'Steam',66.33,1.25,0.125],
-             ['Other', 'Waste_oils_tars_waste_materials', 74,3,0.6]
+             ['Other', 'Biomass', 0,0,0],
+             ['Other', 'Waste_oils_tars_waste_materials', 74,3,0.6],
+             ['Other', 'Steam',66.33,1.25,0.125]
               ],
             columns=['MECS_FT', 'MECS_FT_byp', 'kgCO2_per_mmbtu',
                      'gCH4_per_mmbtu','gN2O_per_mmbtu']
@@ -44,7 +47,8 @@ class Emissions:
 
         # import MECS other fuel disaggregation
         self.mecs_other_disagg = \
-            pd.read_csv(os.path.join(self.data_dir,'MECS_byp_breakout.csv'))
+            pd.read_csv(os.path.join(self.data_dir,'MECS_byp_breakout.csv'),
+                        index_col=0)
 
         # import MECS energy intensities by region, NAICS, and fuel type
         self.mecs_energy_intensity = \
@@ -400,7 +404,6 @@ class Emissions:
                 ghgrp_emissions.MMBtu_fraction
                 ).dropna())
 
-
             ghgrp_emissions.MECS_FT_byp.update(
                 ghgrp_emissions[ghgrp_emissions.MECS_FT_byp.isnull()].MECS_FT
                 )
@@ -453,15 +456,16 @@ class Emissions:
                     ], how='left', on='MECS_FT_byp'
                 )
 
-            mecs_GHG_disagg.MTCO2e_per_MMBtu.update(
-                mecs_GHG_disagg.Byp_fraction.multiply(
-                    mecs_GHG_disagg.MTCO2e_per_MMBtu
-                    )
-                )
+            # mecs_GHG_disagg.MTCO2e_per_MMBtu.update(
+            #     mecs_GHG_disagg.Byp_fraction.multiply(
+            #         mecs_GHG_disagg.MTCO2e_per_MMBtu
+            #         )
+            #     )
 
             # Drop instances where the byproduct fraction == 0
             mecs_GHG_disagg = mecs_GHG_disagg.where(
-                mecs_GHG_disagg.Byp_fraction !=0
+                (mecs_GHG_disagg.Byp_fraction !=0) &
+                (mecs_GHG_disagg.MECS_Region!='US')
                 ).dropna()
 
             mecs_GHG_disagg['MTCO2e_per_MMBtu'] = \
@@ -479,13 +483,21 @@ class Emissions:
 
             nonGHGRP_emissions = pd.merge(
                 nonGHGRP_emissions,
-                mecs_GHG_disagg[['MECS_FT_byp', 'MTCO2e_per_MMBtu']],
-                left_index=True, right_index=True, how='left'
+                mecs_GHG_disagg[['MECS_FT_byp', 'Byp_fraction',
+                                 'MTCO2e_per_MMBtu']], left_index=True,
+                right_index=True, how='left'
                 )
 
             nonGHGRP_emissions.reset_index(
                 ['MECS_Region', 'MECS_NAICS', 'End_use'], drop=False,
                 inplace=True
+                )
+
+            # Breakout Other fuel use.
+            nonGHGRP_emissions.MMBtu.update(
+                nonGHGRP_emissions.MMBtu.multiply(
+                    nonGHGRP_emissions.Byp_fraction
+                    )
                 )
 
             nonGHGRP_emissions.update(
@@ -507,6 +519,6 @@ class Emissions:
                 nonGHGRP_emissions.MTCO2e_TOTAL.astype('float32')
 
             all_emissions = pd.concat([nonGHGRP_emissions, ghgrp_emissions],
-                                      axis=0, ignore_index=True)
+                                      axis=0, ignore_index=True, sort=True)
 
             return all_emissions
