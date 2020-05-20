@@ -10,9 +10,8 @@ import enduse_temps_IPH
 class Manufacturing_energy:
     """
     Calcualtes energy for a single year, combining energy values for GHGRP
-    facilities calculated by GHGRP_config_IPH.py, with energy values calculated
+    facilities calculated by run_GHGRP_IPH.py, with energy values calculated
     below for remaining manufacturing facilities.
-
     """
 
     #Set analysis year and required file paths

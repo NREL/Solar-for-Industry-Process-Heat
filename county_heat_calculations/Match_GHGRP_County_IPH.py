@@ -71,7 +71,13 @@ class County_matching:
 
         for c in ['SECONDARY_NAICS_CODE', 'PRIMARY_NAICS_CODE', 'COUNTY_FIPS']:
 
-            ghgrp_matching[c] = ghgrp_matching[c].astype('int')
+            try:
+
+                 ghgrp_matching[c] = ghgrp_matching[c].astype('int')
+
+            except ValueError:
+
+                  print('WHAT IS WRONG WITH {}?'.format(c))
 
         ghgrp_matching['INDUSTRY'] = ghgrp_matching.PRIMARY_NAICS_CODE.apply(
             lambda x: (int(str(x)[0:2]) in [11, 21, 23, 31, 32, 33])
