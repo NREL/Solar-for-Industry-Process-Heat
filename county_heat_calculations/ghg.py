@@ -50,10 +50,6 @@ class Emissions:
             pd.read_csv(os.path.join(self.data_dir,'MECS_byp_breakout.csv'),
                         index_col=0)
 
-        # import MECS energy intensities by region, NAICS, and fuel type
-        self.mecs_energy_intensity = \
-            pd.read_csv(os.path.join(self.data_dir,'MECS_byp_breakout.csv'))
-
         # Import end-use breakdowns
         # self.eufrac_ghgrp = \
         #     pd.read_csv(os.path.join(self.data_dir,'eu_frac_GHGRP_2014.csv'),
