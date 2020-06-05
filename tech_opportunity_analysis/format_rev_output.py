@@ -1,11 +1,16 @@
 
 import pandas as pd
+import numpy as np
 import h5py
 import os
 
 class rev_postprocessing:
 
     def __init__(self, rev_output_filepath, solar_tech):
+
+        """
+        Solar_tech is 'ptc_tes', 'ptc_notes', 'dsg_lf', 'pv', or 'swh'.
+        """
 
         self.data_dir = './calculation_data/'
 
@@ -20,30 +25,28 @@ class rev_postprocessing:
 
         gid_to_fips.rename(columns={'FIPS': 'COUNTY_FIPS'}, inplace=True)
 
-        rev_output_filepath = \
-            'c:/users/cmcmilla/desktop/rev_output/ptc_tes/ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5'
+        county_avail_area_file = 'county_rural_ten_percent_results_20200330.csv'
+
+        # Import available county area (km2)
+        self.area_avail = pd.read_csv(
+            os.path.join(self.data_dir, county_avail_area_file),
+            index_col=['County FIPS']
+            )
 
         generation_groups = {
             'ptc_tes': {'power': ['q_dot_to_heat_sink'],
-                        'resource': ['']},
+                        'footprint': 16187},
             'dsg_lf': {'power':['q_dot_to_heat_sink'],
-                       'resource': []},
+                       'footprint':3698},
             'ptc_notes': {'power': ['q_dot_to_heat_sink'],
-                          'resource': ['beam']},
-            'pv': {'power_ac': ['ac'], 'power_dc':['dc'],
-                   'resource': ['gh']'},
-            'swh': {'power': ['Q_deliv'], 'temp': ['T_deliv'],
-                    'resource': ['']}
+                          'footprint':8094},
+            'pv_ac': {'power': ['ac'], 'footprint':35208},
+            'pv_dc': {'power':['dc'], 'footprint':42250}, # 1-axis
+            'swh': {'power': ['Q_deliv'], 'footprint':2024}
             }
-        # other? ptc_tes: annual_energy (kWt-hr);
 
-        self.default_pkgparams = {
-            'dsg_lf': {'industries': , 'temp_range':[0,], 'end_uses':},
-            'ptc_notes': {'industries': , 'temp_range':[], 'end_uses': },
-            'ptc_tes': {'industries': , 'temp_range':[], 'end_uses': },
-            'pv:' {'industries': , 'temp_range':[], 'end_uses': },
-            'swh': {'industries': , 'temp_range':[], 'end_uses': }
-            }
+        self.generation_group = generation_groups[self.solar_tech]
+
         # Read in file
         file = h5py.File(rev_output_filepath, 'r')
 
@@ -59,6 +62,12 @@ class rev_postprocessing:
 
         time_index = pd.to_datetime(time_index[0])
 
+        # Use GHI as resource for all solar tech packages
+        pv_output_filepath = 'c:/users/cmcmilla/desktop/rev_output/'+\
+            'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
+
+        self.resource_h5file = h5py.File(pv_output_filepath, 'r')
+
         def resample_h5_dataset(h5py_file, dataset):
             """
             Resamples h5 generation dataset to hourly and convert from W or MW
@@ -66,8 +75,13 @@ class rev_postprocessing:
             Returns dataframe with datetime index.
             """
 
-            dataset_name = \
-                h5py_file[generation_group[self.solar_tech][dataset].name
+            if dataset == 'resource':
+
+                dataset_name = 'gh'
+
+            else:
+
+                dataset_name = generation_groups[self.solar_tech][dataset][0]
 
             resampled_df = pd.DataFrame(
                 h5py_file[dataset_name][:,:], index=time_index
@@ -96,46 +110,93 @@ class rev_postprocessing:
         self.gen_kW = resample_h5_dataset(file, dataset='power')
 
         # Pull out solar resource (in kW/m2) for all counties
-        self.resource = resampled_h5_dataset(file, dataset='resource')
+        self.resource = resample_h5_dataset(self.resource_h5file,
+                                             dataset='resource')
 
-    def get_county_gen_month(self, county_fips):
+
+    def scale_generation(self, county_fips, county_peak, month=1):
+        """
+        Scale generation based on month yield. Default is January (month=1).
+        """
 
         gid, timezone, h5_index = self.county_info.xs(county_fips)[
             ['gid', 'timezone', 'h5_index']
             ]
 
-        # Make
-        # Select county my matching FIPS to self.gen_W column
-        county_gen = pd.DataFrame(self.gen_kW[:, h5_index])
+        county_gen = pd.DataFrame(self.gen_kW.loc[:, h5_index])
 
         # Need to correct time based on each county timezone in
         # ['meta']['timezone'] using np.roll (only for gen)
-        county_gen.iloc[:,0] = np.roll(county_gen), timezone)
+        county_gen.iloc[:,0] = np.roll(county_gen, timezone)
 
-        # calc January yield (kWh/kWp)
-        county_gen_month = \
-            gen_kW_county.groupby(by=gen_kw_county.index.month).agg(
-                ['sum', 'max']
+        def get_county_gen_month(county_gen, county_fips):
+
+            # calc January yield (kWh/kWp)
+            county_gen_month = \
+                county_gen.groupby(by=county_gen.index.month)[h5_index].agg(
+                    ['sum', 'max']
+                    )
+
+            county_gen_month.rename(columns={'sum':'kWh', 'max':'kW_peak'},
+                                   inplace=True)
+
+            county_gen_month['yield'] = county_gen_month.kWh.divide(
+                county_gen_month.kW_peak
                 )
 
-        county_gen_month.rename(columns={'sum':'kWh', 'max':'kW_peak'},
-                               inplace=True)
+            return county_gen_month
 
-        county_gen_month['yield'] = county_gen_month.kWh.divide(
-            county_gen_month.kW_peak
-            )
+        # Sum hourly resource (kW/m2) for annual kWh/m2
+        # Convert to kWh/km2
+        resource_annual = self.resource.sum()*1000**2
 
-        return county_gen_month
+        county_gen_month = get_county_gen_month(county_gen, county_fips)
 
+        month_yield = county_gen_month.xs(month)['yield']
 
-    def plot_generation(self, county_generation):
-        # Make
-        # Select county my matching FIPS to self.gen_W column
-        county_gen = pd.DataFrame(self.gen_W[:, 'county'])
+        # Convert from kWh to MWh
+        month_gen = county_gen_month.xs(month)['kWh']/1000
 
-        # Need to correct time based on each county timezone in
-        # ['meta']['timezone'] using np.roll (only for gen)
-        county_gen.iloc[:,0] = np.roll(county_gen), timezone)
+        area_avail = self.area_avail.xs(county_fips)[
+            'County Available area km2'
+            ]
+
+        # Convert footprint from m2/MW to km2/MW
+        footprint = self.generation_group['footprint']/1000**2
+
+        print(county_peak, month_yield)
+
+        # county_peak is in MWh (or MW).
+        # (MWh/MW)/(km2/MW)*km2
+        if (month_gen/footprint*area_avail) <= county_peak:
+
+            scaled_gen = county_gen*(area_avail/footprint)/1000
+
+            used_area_abs = area_avail
+
+        else:
+
+            scaled_gen = county_peak/month_yield
+
+            used_area_abs = scaled_gen*footprint
+
+            scaled_gen = scaled_gen * county_gen/1000
+
+        used_area_pct = used_area_abs / area_avail
+
+        scaled_gen.index.name = 'index'
+
+        scaled_gen.columns = ['MW']
+
+        return scaled_gen, used_area_abs, used_area_pct
+    # def plot_generation(self, county_generation):
+    #     # Make
+    #     # Select county my matching FIPS to self.gen_W column
+    #     county_gen = pd.DataFrame(self.gen_W[:, 'county'])
+    #
+    #     # Need to correct time based on each county timezone in
+    #     # ['meta']['timezone'] using np.roll (only for gen)
+    #     county_gen.iloc[:,0] = np.roll(county_gen), timezone)
 
 
 
@@ -147,7 +208,6 @@ class rev_postprocessing:
 
 
 
-    def calc_():
 
 
         # calcualte
