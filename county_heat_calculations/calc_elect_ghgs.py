@@ -34,8 +34,6 @@ class electricity(object):
         e_grid_file, sheet_name=['Zip-subregion','Zip_multiple_Subregions']
         )
 
-
-
     # Extracted from egrid summary tables for 2014 from
     # https://www.epa.gov/sites/production/files/2020-01/egrid2018_historical_files_since_1996.zip
     resource_mix_file = os.path.join(data_wd, 'egrid2014_resource_mix.csv')

@@ -24,7 +24,6 @@ class Other_fuels:
                 print(f, 'does not exist in ./calculation_data/', '\n',
                       'Please create it')
 
-
     @staticmethod
     def map_GHGRP_fueltypes(energy_ghgrp, ft_file):
         """
@@ -262,5 +261,3 @@ class Other_fuels:
         other_table.to_csv('./calculation_data/MECS_byp_breakout.csv')
 
         return other_table
-
-        # # Later, multiply this by eu_frac_nonGHGRP to get
