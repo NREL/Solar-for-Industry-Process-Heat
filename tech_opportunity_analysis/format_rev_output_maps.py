@@ -43,8 +43,8 @@ for st in solar_techs:
     # to nearest integer
     sys_multiple = avail_land.apply(lambda x: np.round(x/sys_footprint,0))
 
-    # Generation in kW; convert to GWh/km2
-    annual_gen = pd.DataFrame(rev_output.gen_kW.sum()/10**6)
+    # Generation in kW; convert to TWh/km2
+    annual_gen = pd.DataFrame(rev_output.gen_kW.sum()/10**9)
 
     annual_gen = annual_gen.join(
         rev_output.county_info.reset_index().set_index(
@@ -59,5 +59,5 @@ for st in solar_techs:
 
     all_gen = pd.concat([all_gen, annual_gen], axis=1, ignore_index=False)
 
-all_gen.to_csv('../Results analysis/mapping/rev_output_for_mapping.csv',
+all_gen.to_csv('../Results analysis/mapping/rev_output_for_mapping_TWh.csv',
                header=True, index=True)

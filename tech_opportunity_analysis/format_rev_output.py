@@ -90,22 +90,16 @@ class rev_postprocessing:
 
             resampled_df = resampled_df.resample('H').sum()
 
-            print('solar tech name:{}\n dataset name:{}'.format(self.solar_tech, dataset_name))
-            # solar thermal generation in MW
+            # PTC and thermal generation in MWt; SWH in kW
             # Solar resources for both in kW/m2.
-            if (dataset_name=='/q_dot_to_heat_sink')| \
-                (dataset_name == '/Q_deliv'):
+            if (dataset_name=='q_dot_to_heat_sink'):
 
                 resampled_df = resampled_df*1000
 
             # PV generation in W
-            elif (dataset=='power') & ('pv' in self.solar_tech):
+            if (dataset=='power') & (self.solar_tech in ['pv_ac', 'pv_dc']):
 
                 resampled_df = resampled_df/1000
-
-            else:
-
-                pass
 
             return resampled_df
 
