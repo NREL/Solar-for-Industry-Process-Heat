@@ -9,12 +9,14 @@ sys.path.append('../')
 from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 
-class tech_potential:
+class tech_opportunity:
 
-    def __init__(self, tech_package_name, demand_filepath, rev_output_filepath):
+    def __init__(self, tech_package_name, demand_filepath, rev_output_filepath,
+                 sizing_month=1):
 
         """
-        Tech packages: 'swh', 'pv_hp', 'pv_boiler', 'pv_resist'
+        Tech packages: 'swh', 'dsg_lf', 'ptc_notes', 'ptc_tes', 'pv_ac', or
+        'pv_dc'
         """
 
         # self.county_data = pd.read_parquet()
@@ -64,6 +66,9 @@ class tech_potential:
         # load
         self.demand_hourly = demand_hourly_load(2014, self.demand.demand_data)
 
+        # Set month to size generation (default=1 [January]). Default approach
+        # is to size by month energy, not month peak power.
+        self.sizing_month = 1
 
     def set_package_info(name, temp_range, enduses, industries):
         """
@@ -111,16 +116,10 @@ class tech_potential:
 
         return selection
 
-    def calc_tech_opp(self, county):
+    def tech_opp_county(self, county):
         """
 
         """
-    # Make a method to calculate tech opp for a county here.
-    # Add process_county_results and calc_tech_opp from tech_opp_demand.py
-
-        # Month used to calculate peak demand and to scale generation
-        month=1
-
         # Set fuels to break out tech opportunity
         fuels_breakout = ['Natural_gas', 'Coal']
 
@@ -129,9 +128,9 @@ class tech_potential:
         # Calculate hourly load for annual demand (in MW). Calculate January
         #demand (in MWh) for sizing generation
         county_8760, county_peak = \
-            self.demand_hourly.calculate_county_8760_and_peak(county,
-                                                              peak_month=month,
-                                                              peak_MW=False)
+            self.demand_hourly.calculate_county_8760_and_peak(
+                county, peak_month=self.sizing_month, peak_MW=False
+                )
 
         def create_empty_dict(list):
 
@@ -141,28 +140,25 @@ class tech_potential:
 
             return tech_opp_dict
 
-        tech_opp_all = create_empty_dict(op_hours)
+        # tech_opp_all = create_empty_dict(op_hours)
+
+        tech_opp_all = {}
 
         # Loop through mean, low, and high weekly operating hours
         for op_h in op_hours:
 
-            print(op_h)
-
-            tech_opp_fuels = create_empty_dict(fuels_breakout)
+            tech_opp_all[op_h] = {}
 
             peak_demand = county_peak.xs(op_h)[0]
 
             # Scale base-unit solar generation by peak demand
             # Also returns the amount of land area used (in km2) and the
             # fraction of available land area.
-            scaled_generation, used_area_abs, use_area_pct = \
+            scaled_generation, used_area_abs, used_area_pct = \
                 self.rev_output.scale_generation(county, peak_demand,
-                                                 month=month)
+                                                 month=self.sizing_month)
 
             county_8760_ophours = county_8760.xs(op_h, level='op_hours')
-
-
-            print(scaled_generation.head())
 
             # Assign breakouts by fuel and other characteristics
             self.demand.process_results(county_8760_ophours, county)
@@ -173,23 +169,31 @@ class tech_potential:
 
             tech_opp = tech_opp.groupby(tech_opp.index).MW.sum()
 
-            print(tech_opp.head())
+            tech_op_all['timeindex'] = tech_opp.index.values
 
-            tech_opp = abs(1 - tech_opp.divide(scaled_generation.MW))
+            tech_opp = abs(1 - scaled_generation.MW.divide(tech_opp))
 
             tech_opp = pd.DataFrame(tech_opp.where(tech_opp < 1).fillna(1))
 
+            tech_opp_all[op_h]['tech_opp'] = tech_opp.values
+
             for ft in fuels_breakout:
 
-                tech_opp_fuels[ft] = \
-                    self.demand.breakout_fuels_tech_opp(tech_opp, ft)
+                tech_opp_all[op_h]['tech_opp_'+ft.lower()] = \
+                    self.demand.breakout_fuels_tech_opp(tech_opp, ft).values
 
-            tech_opp_all[op_h] = tech_opp
+            # tech_opp_all[op_h+'_by_fuel'] = tech_opp_fuels
 
-            tech_op_all[op_h+'_by_fuel'] = tech_opp_fuels
-
-            tech_opp_all[op_h+'_land'] = dict(
+            tech_opp_all[op_h]['land'] = dict(
                 [('abs', used_area_abs), ('pct_of_avail', used_area_pct)]
                 )
+
+        avail_land = self.rev_output.area_avail.xs(county)[
+            'County Available area km2'
+            ]
+
+        timezone = self.rev_output.county_info.xs(county).timezone.values[0]
+
+        tech_opp_all['county_info'] = np.array([[county], [avail_land], []])
 
         return tech_opp_all

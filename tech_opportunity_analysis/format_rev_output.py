@@ -33,16 +33,17 @@ class rev_postprocessing:
             index_col=['County FIPS']
             )
 
+        # Footprints in m2
         generation_groups = {
-            'ptc_tes': {'power': ['q_dot_to_heat_sink'],
+            'ptc_tes': {'power': ['q_dot_to_heat_sink'], # in MWt
                         'footprint': 16187},
-            'dsg_lf': {'power':['q_dot_to_heat_sink'],
+            'dsg_lf': {'power':['q_dot_to_heat_sink'], # in MWt
                        'footprint':3698},
-            'ptc_notes': {'power': ['q_dot_to_heat_sink'],
+            'ptc_notes': {'power': ['q_dot_to_heat_sink'], # in MWt
                           'footprint':8094},
-            'pv_ac': {'power': ['ac'], 'footprint':35208},
-            'pv_dc': {'power':['dc'], 'footprint':42250}, # 1-axis
-            'swh': {'power': ['Q_deliv'], 'footprint':2024}
+            'pv_ac': {'power': ['ac'], 'footprint':35208}, # 1-axis; in W
+            'pv_dc': {'power':['dc'], 'footprint':42250}, # 1-axis; in W
+            'swh': {'power': ['Q_deliv'], 'footprint':2024} # in kW
             }
 
         self.generation_group = generation_groups[self.solar_tech]
@@ -89,14 +90,16 @@ class rev_postprocessing:
 
             resampled_df = resampled_df.resample('H').sum()
 
-            # PV generation in W; solar thermal generation in MW
+            print('solar tech name:{}\n dataset name:{}'.format(self.solar_tech, dataset_name))
+            # solar thermal generation in MW
             # Solar resources for both in kW/m2.
-            if ((dataset=='power') & (dataset_name=='/q_dot_to_heat_sink') | \
-                (dataset_name == '/Q_deliv')):
+            if (dataset_name=='/q_dot_to_heat_sink')| \
+                (dataset_name == '/Q_deliv'):
 
                 resampled_df = resampled_df*1000
 
-            elif (dataset=='power'):
+            # PV generation in W
+            elif (dataset=='power') & ('pv' in self.solar_tech):
 
                 resampled_df = resampled_df/1000
 
@@ -118,6 +121,7 @@ class rev_postprocessing:
         """
         Scale generation based on month yield. Default is January (month=1).
         """
+
 
         gid, timezone, h5_index = self.county_info.xs(county_fips)[
             ['gid', 'timezone', 'h5_index']
