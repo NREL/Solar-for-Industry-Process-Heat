@@ -2,6 +2,7 @@
 # conda env geo_env
 import pandas as pd
 import numpy as np
+import json
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import requests
@@ -13,27 +14,21 @@ import mapclassify
 
 class mapping:
 
-    def __init__(self):
+    def __init__(self, data):
 
-        cshp_file = \
-            'Y:/6A20/Public/IEDB/cb_2014_us_county_20m/cb_2014_us_county_20m.shp'
+        if type(data) == str:
 
-        sshp_file = \
-            'Y:/6A20/Public/IEDB/cb_2014_us_state_5m/cb_2014_us_state_5m.shp'
+            data = pd.read_csv(data)
 
-        fuel_file = \
-            'Y:/6A20/Public/IEDB/Code/output/county_summary_fuels.csv'
+            if 'Unnamed: 0' in data.columns:
 
-        sector_file = \
-            'Y:/6A20/Public/IEDB/Code/output/' +\
-            'county_summary_sector_largest_sector.xlsx'
+                data.rename(columns={'Unnamed: 0':'COUNTY_FIPS'}, inplace=True)
 
-        #import energy results
-        self.energy = pd.read_csv(fuel_file, index_col=0)
+        self.data = data
 
-        self.sector = pd.read_excel(sector_file, sheet_name='for_map')
+        cshp_file = './cb_2014_us_county_20m/cb_2014_us_county_20m.shp'
 
-        self.sector.dropna(inplace=True)
+        sshp_file = './cb_2014_us_state_5m/cb_2014_us_state_5m.shp'
 
         self.cshp = gpd.read_file(cshp_file)
 
@@ -45,9 +40,20 @@ class mapping:
 
         cb_url = 'http://colorbrewer2.org/export/colorbrewer.json'
 
-        cb_r = requests.get(cb_url)
+        # Updated. Getting SSLError
+        try:
+            cb_r = requests.get(cb_url)
 
-        self.colors = cb_r.json()
+        except requests.exceptions.SSLError as e:
+
+            print('Exception: {}.\n Using local json file.'.format(e))
+
+            with open('colorbrewer.json') as json_file:
+                self.colors = json.load(json_file)
+
+        else:
+
+            self.colors = cb_r.json()
 
         #  to convert to HEX
         for c in self.colors.keys():
@@ -74,8 +80,8 @@ class mapping:
 
                 self.colors[c][n] = hex_list
 
-    def make_county_choropleth(self, data_df, palette, filename, class_scheme,
-                               scheme_kwds):
+    def make_county_choropleth(self, data_column, palette, filename,
+                               class_scheme,scheme_kwds):
         """
 
         Class_scheme and scheme_kwds is scheme provided by mapclassify
@@ -83,6 +89,10 @@ class mapping:
         https://pysal.readthedocs.io/en/1.5/library/esda/mapclassify.html for
         more details on both schemes and their keywords.
         """
+
+        #import energy results if path
+
+
         def format_county_fips(cf):
 
             cf = str(int(cf))
@@ -93,18 +103,17 @@ class mapping:
 
             return cf
 
-        data = data_df.copy(deep=True)
 
-        data['COUNTY_FIPS'] = data.COUNTY_FIPS.apply(
+        self.data['COUNTY_FIPS'] = self.data.COUNTY_FIPS.apply(
             lambda x: format_county_fips(x)
             )
 
         # match on geo_id
         map_data = self.cshp.set_index('GEOID').join(
-            data.set_index('COUNTY_FIPS').MMBtu_TOTAL
+            self.data.set_index('COUNTY_FIPS')[data_column]
             )
 
-        map_data.dropna(subset=['MMBtu_TOTAL'], inplace=True)
+        map_data.dropna(subset=[data_column], inplace=True)
 
         # set the range for the choropleth
         #vmin, vmax = map_data.MMBtu_TOTAL.min(), map_data.MMBtu_TOTAL.max()
@@ -118,16 +127,20 @@ class mapping:
 
         if scheme_kwds == None:
 
-            map_data.plot(column='MMBtu_TOTAL', cmap=palette, linewidth=0.8,
+            map_data.plot(column=data_column, cmap=palette, linewidth=0.8,
                           ax=ax, edgecolor='0.8', scheme=class_scheme,
                           legend=True,
-                          legend_kwds={'title': 'Energy Use (MMBtu)'})
+                          legend_kwds={'title':'Solar Generation (TWh)',
+                                       'loc': 'lower right',
+                                       'fontsize': 'small'})
         else:
 
-            map_data.plot(column='MMBtu_TOTAL', cmap=palette, linewidth=0.8,
+            map_data.plot(column=data_column, cmap=palette, linewidth=0.8,
                           ax=ax, edgecolor='0.8', scheme=class_scheme,
                           classification_kwds=scheme_kwds, legend=True,
-                          legend_kwds={'title': 'Energy Use (MMBtu)'})
+                          legend_kwds={'title':'Solar Generation (TWh)',
+                                       'loc': 'lower right',
+                                       'fontsize': 'small'})
 
         ax.axis('off')
 
@@ -146,74 +159,16 @@ class mapping:
 
         plt.close()
 
-    def make_sector_map(self, data):
-        """
-        Method for creating county map indicating largest energy-using
-        subsector.
-        """
 
-        def format_county_fips(cf):
-
-            cf = str(cf)
-
-            if len(cf)<=4:
-
-                cf = '0'+cf
-
-            return cf
-
-        data['COUNTY_FIPS'] = data.COUNTY_FIPS.apply(
-            lambda x: format_county_fips(x)
-            )
-
-        # match on geo_id
-        map_data = self.cshp.set_index('GEOID').join(
-            data.set_index('COUNTY_FIPS').MMBtu
-            )
-
-        ## Need to specify colors or will geopandas automatcially assign?
-
-mm = mapping()
-
-# Make % change map (2010 - 2016)
-pct_ch = mm.energy.groupby(
-    ['COUNTY_FIPS', 'year'], as_index=False
-    ).MMBtu_TOTAL.sum()
-
-pct_ch = pct_ch[pct_ch.year.isin([2010, 2016])]
-
-pct_ch = pct_ch.groupby('COUNTY_FIPS').apply(
-    lambda x: x.pct_change()
-    ).dropna()
-
-pct_ch.drop(['COUNTY_FIPS', 'year'], axis=1, inplace=True)
-
-pct_ch.reset_index('COUNTY_FIPS', inplace=True)
-#
-# mm.make_county_choropleth(pct_ch, palette='GnBu',
-#                                filename='county_pct_change',
-#                                class_scheme='fisherjenks', scheme_kwds=None)
-#
-# Make total energy map
-mm.make_county_choropleth(
-    mm.energy[mm.energy.year==2016].groupby(
-        'COUNTY_FIPS', as_index=False).MMBtu_TOTAL.sum(), palette='Blues',
-        filename='county_total_2016',class_scheme='Percentiles', scheme_kwds=None
-        )
+mm = mapping('rev_output_for_mapping_TWh.csv')
 
 # Make fuel maps
-fuel_maps = {'Coal':'Greys', 'Natural_gas':'bone_r',
-             'Net_electricity': 'plasma_r', 'Other': 'YlOrRd'}
+rev_techs = ['ptc_tes','ptc_notes','dsg_lf','pv_ac','pv_dc','swh']
 
-for fuel, palette in fuel_maps.items():
-
-    map_data = mm.energy[
-        (mm.energy.MECS_FT==fuel) &
-        (mm.energy.year==2016)
-        ]
+for tech in rev_techs:
 
     mm.make_county_choropleth(
-        map_data, palette=palette, filename='county_'+fuel+'_2016',
+        tech, palette='YlOrRd', filename='county_'+tech+'_2014',
         class_scheme='Percentiles', scheme_kwds=None
         )
 
