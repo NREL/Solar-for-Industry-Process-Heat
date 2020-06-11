@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+import multiprocessing
 from format_rev_output import rev_postprocessing
 from tech_opp_demand import demand_results
 
@@ -129,7 +130,7 @@ class tech_opportunity:
 
         avail_land = self.rev_output.area_avail.xs(county)[
             'County Available area km2'
-            ].astype('float16')
+            ].astype('float32')
 
         timezone = self.rev_output.county_info.xs(county).timezone.astype('int')
 
@@ -152,7 +153,7 @@ class tech_opportunity:
                 county, peak_month=self.sizing_month, peak_MW=False
                 )
 
-        time_index = self.rev_output.gen_kW.index.values
+        time_index = self.rev_output.gen_kW.index.values.astype(bytes)
 
         first = True
 
@@ -194,7 +195,7 @@ class tech_opportunity:
 
             if first:
 
-                names = np.array([[op_h+'_techopp']])
+                names = np.array([[op_h+'_techopp']]).astype(bytes)
 
                 tech_opp_all = tech_opp.values
 
@@ -202,18 +203,22 @@ class tech_opportunity:
 
             else:
 
-                names = np.append(names, np.array([[op_h+'_techopp']]),
+                names = np.append(names,
+                                  np.array([[op_h+'_techopp']]).astype(bytes),
                                   axis=1)
 
                 tech_opp_all = np.hstack([tech_opp_all, tech_opp.values])
 
-                tech_opp_land = np.vstack([tech_opp_land,
-                                           np.array([[used_area_abs]])])
+                tech_opp_land = np.vstack(
+                    [tech_opp_land, np.array([[used_area_abs]]).astype(bytes)]
+                    )
 
             for fuel in self.fuels_breakout:
 
-                names = np.append(names, np.array([[op_h+'_techopp'+'_'+fuel]]),
-                                  axis=1)
+                names = np.append(
+                    names, np.array([[op_h+'_techopp'+'_'+fuel]]).astype(bytes),
+                    axis=1
+                    )
 
                 # All fuels in fuels_breakout may not be used in the county
                 # Returns a dataframe of zeros if that is the case
@@ -233,21 +238,31 @@ class tech_opportunity:
         tech_opp_meta = self.get_county_info(county)
 
         return names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land
+        # return list(names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land)
 
+if __name__=='__main__':
 
-        #
-        # to_array_columns = [op_h+'_techopp' for op_h in op_hours]
-        #
-        # to_array_columns = list(set(to_array_columns).union(
-        #     [techopp+'_'+f for techopp in to_array_columns for f in fuels_breakout]
-        #     ))
-        #
-        # to_array_columns.insert(0, 'time_index')
+    __spec__ = None
 
-            # Final calc should return 3 arrays:
-        # tech_opp.shape == (8761, len(to_array_columns)+1)
-        # tech_opp[0,:] = ['timeindex','ophours_low_techopp'...'ophours_low_techopp_f1']
-        # tech_opp_meta.shape == (county,)
+    topp = tech_opportunity('swh', 'c:/users/cmcmilla/desktop/fpc_hw_process_energy.csv.gz', 'c:/Users/cmcmilla/Desktop/rev_output/swh/swh_sc0_t0_or0_d0_gen_2014.h5')
 
-        # tech_opp_land.shape == (3,1) [[o]]
-        #
+    counties = [1001, 9005]
+
+    names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land = topp.tech_opp_county(counties[0])
+
+    for a in [names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land]:
+
+        print(a.dtype)
+
+    # if counties == 'all':
+    #
+    #     process_counties = list(topp.demand.demand_data.COUNTY_FIPS.unique())
+    #
+    # else:
+    #
+    #     process_counties = counties
+    #
+    # with multiprocessing.Pool(processes=3) as pool:
+    #
+    #     for x in pool.map(topp_by_county, process_counties):
+    #         print(len(x))
