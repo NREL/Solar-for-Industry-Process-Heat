@@ -162,19 +162,19 @@ class rev_postprocessing:
         # Convert footprint from m2/MW to km2/MW
         footprint = self.generation_group['footprint']/1000**2
 
-        print(county_peak, month_yield)
-
         # county_peak is in MWh (or MW).
         # (MWh/MW)/(km2/MW)*km2
-        if (month_gen/footprint*area_avail) <= county_peak:
+        # rounds up
+        if (np.ceil(area_avail/footprint)*month_gen) <= county_peak:
 
-            scaled_gen = county_gen*(area_avail/footprint)/1000
+            scaled_gen = county_gen*np.ceil(area_avail/footprint)/1000
 
             used_area_abs = area_avail
 
         else:
 
-            scaled_gen = county_peak/month_yield
+            # round up for number of generating units
+            scaled_gen = np.ceil(county_peak/month_yield)
 
             used_area_abs = scaled_gen*footprint
 
@@ -187,6 +187,7 @@ class rev_postprocessing:
         scaled_gen.columns = ['MW']
 
         return scaled_gen, used_area_abs, used_area_pct
+
     # def plot_generation(self, county_generation):
     #     # Make
     #     # Select county my matching FIPS to self.gen_W column

@@ -19,6 +19,7 @@ import tech_opp_h5
 import numpy as np
 import datetime
 
+
 tech_package = args.tech_package
 counties = args.counties
 demand_path = args.demand_path
@@ -31,7 +32,7 @@ def append_results(tech_opp_dict, results):
     """
 
     # Check if empty
-    if tech_opp_dict:
+    if not tech_opp_dict:
 
         return results
 
@@ -91,22 +92,18 @@ def append_results(tech_opp_dict, results):
                                 else:
 
                                     tech_opp_dict[k1][k2][k3][k4] = kcheck4
-                                    continue
 
                         else:
 
                             tech_opp_dict[k1][k2][k3] = kcheck3
-                            continue
 
                 else:
 
                     tech_opp_dict[k1][k2] = kcheck2
-                    continue
 
         else:
 
             tech_opp_dict[k1] = kcheck
-            continue
 
     return tech_opp_dict
 
@@ -122,11 +119,11 @@ def tech_opp_parallel(counties):
 
         process_counties = counties
 
-    for county in process_counties[0:5]:
+    for county in process_counties:
+
+        print(county)
 
         tech_opp_county = tp.tech_opp_county(county)
-
-        print(tech_opp_county.keys())
 
         tech_opp_results = append_results(tech_opp_results, tech_opp_county)
 
@@ -160,7 +157,7 @@ tp = tech_opp_calcs.tech_opportunity(tech_package, demand_path, supply_path)
 
 tech_opp_results = tech_opp_parallel(counties)
 
-print(tech_opp_results.keys())
+tech_opp_h5.create_h5('swh_tech_opp.h5', tech_opp_results)
 
 # tech_opp_h5.create_h5(output_path, tech_opp_results)
 
