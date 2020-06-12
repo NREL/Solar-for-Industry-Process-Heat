@@ -138,7 +138,6 @@ class tech_opportunity:
 
         return county_meta
 
-
     def tech_opp_county(self, county):
         """
         Calculates the technical opportunity for a single county. Returns
@@ -237,32 +236,40 @@ class tech_opportunity:
 
         tech_opp_meta = self.get_county_info(county)
 
-        return names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land
+
+        results = [names, time_index, tech_opp_all, tech_opp_meta,
+                   tech_opp_land]
+
+        return results
         # return list(names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land)
 
-if __name__=='__main__':
-
-    __spec__ = None
-
-    topp = tech_opportunity('swh', 'c:/users/cmcmilla/desktop/fpc_hw_process_energy.csv.gz', 'c:/Users/cmcmilla/Desktop/rev_output/swh/swh_sc0_t0_or0_d0_gen_2014.h5')
-
-    counties = [1001, 9005]
-
-    names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land = topp.tech_opp_county(counties[0])
-
-    for a in [names, time_index, tech_opp_all, tech_opp_meta, tech_opp_land]:
-
-        print(a.dtype)
-
-    # if counties == 'all':
-    #
-    #     process_counties = list(topp.demand.demand_data.COUNTY_FIPS.unique())
-    #
-    # else:
-    #
-    #     process_counties = counties
-    #
-    # with multiprocessing.Pool(processes=3) as pool:
-    #
-    #     for x in pool.map(topp_by_county, process_counties):
-    #         print(len(x))
+# if __name__=='__main__':
+#
+#     __spec__ = None
+#
+#     topp = tech_opportunity('swh', 'c:/users/cmcmilla/desktop/fpc_hw_process_energy.csv.gz', 'c:/Users/cmcmilla/Desktop/rev_output/swh/swh_sc0_t0_or0_d0_gen_2014.h5')
+#
+#     counties = [1001, 9005]
+#
+#     def blah(topp):
+#
+#         topp.tech_opp_county()
+#
+#     # test1 = topp.tech_opp_county(counties[0])
+#
+#     # for a in test1:
+#     #
+#     #     print(a.dtype)
+#
+#     if counties == 'all':
+#
+#         process_counties = list(topp.demand.demand_data.COUNTY_FIPS.unique())
+#
+#     else:
+#
+#         process_counties = counties
+#
+#     with multiprocessing.Pool(processes=3) as pool:
+#
+#         results = pool.map(topp.tech_opp_county, process_counties)
+#         # results = pool.map(blah, process_counties)

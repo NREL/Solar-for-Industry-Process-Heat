@@ -173,7 +173,6 @@ class national_peak_load:
 
         return load_8760
 
-
     def calculate_ft_temp(self, county, load_8760, enduse):
         """
         Break out calculations by fuel type and temperature.
