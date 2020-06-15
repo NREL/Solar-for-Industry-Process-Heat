@@ -67,38 +67,6 @@ Alabama,Walker,1,127,1127,South,AL,Alabama,Walker
 Alabama,Washington,1,129,1129,South,AL,Alabama,Washington
 Alabama,Wilcox,1,131,1131,South,AL,Alabama,Wilcox
 Alabama,Winston,1,133,1133,South,AL,Alabama,Winston
-Alaska,Aleutians East,2,13,2013,West,AK ,Alaska,Aleutians East
-Alaska,Aleutians West,2,16,2016,West,AK ,Alaska,Aleutians West
-Alaska,Anchorage,2,20,2020,West,AK ,Alaska,Anchorage
-Alaska,Bethel,2,50,2050,West,AK ,Alaska,Bethel
-Alaska,Bristol Bay,2,60,2060,West,AK ,Alaska,Bristol Bay
-Alaska,Denali,2,68,2068,West,AK ,Alaska,Denali
-Alaska,Dillingham,2,70,2070,West,AK ,Alaska,Dillingham
-Alaska,Fairbanks North Star,2,90,2090,West,AK ,Alaska,Fairbanks North Star
-Alaska,Haines,2,100,2100,West,AK ,Alaska,Haines
-Alaska,Hoonah-Angoon Census Area,2,105,2105,West,AK ,Alaska,Hoonah-Angoon Census Area
-Alaska,Juneau,2,110,2110,West,AK ,Alaska,Juneau
-Alaska,Kenai Peninsula,2,122,2122,West,AK ,Alaska,Kenai Peninsula
-Alaska,Ketchikan Gateway,2,130,2130,West,AK ,Alaska,Ketchikan Gateway
-Alaska,Kodiak Island,2,150,2150,West,AK ,Alaska,Kodiak Island
-Alaska,Lake and Peninsula,2,164,2164,West,AK ,Alaska,Lake and Peninsula
-Alaska,Matanuska Susitna,2,170,2170,West,AK ,Alaska,Matanuska Susitna
-Alaska,Nome,2,180,2180,West,AK ,Alaska,Nome
-Alaska,North Slope,2,185,2185,West,AK ,Alaska,North Slope
-Alaska,Northwest Arctic,2,188,2188,West,AK ,Alaska,Northwest Arctic
-Alaska,Petersburg Census area,2,195,2195,West,AK ,Alaska,Petersburg Census area
-Alaska,Price of Wales Hyder Census Area,2,198,2198,West,AK ,Alaska,Price of Wales Hyder Census Area
-Alaska,Prince Wales Ketchikan,2,201,2201,West,AK ,Alaska,Prince Wales Ketchikan
-Alaska,Sitka,2,220,2220,West,AK ,Alaska,Sitka
-Alaska,Skagway Municipality,2,230,2230,West,AK ,Alaska,Skagway Municipality
-Alaska,Skagway Hoonah Angoon,2,232,2232,West,AK ,Alaska,Skagway Hoonah Angoon
-Alaska,Southeast Fairbanks,2,240,2240,West,AK ,Alaska,Southeast Fairbanks
-Alaska,Valdez Cordova,2,261,2261,West,AK ,Alaska,Valdez Cordova
-Alaska,Wade Hampton,2,270,2270,West,AK ,Alaska,Wade Hampton
-Alaska,Wrangell City and Borough,2,275,2275,West,AK ,Alaska,Wrangell City and Borough
-Alaska,Wrangell Petersburg,2,280,2280,West,AK ,Alaska,Wrangell Petersburg
-Alaska,Yakutat,2,282,2282,West,AK ,Alaska,Yakutat
-Alaska,Yukon Koyukuk,2,290,2290,West,AK ,Alaska,Yukon Koyukuk
 Arizona,Apache,4,1,4001,West,AZ ,Arizona,Apache
 Arizona,Cochise,4,3,4003,West,AZ ,Arizona,Cochise
 Arizona,Coconino,4,5,4005,West,AZ ,Arizona,Coconino
@@ -550,10 +518,6 @@ Georgia,Wilcox,13,315,13315,South,GA ,Georgia,Wilcox
 Georgia,Wilkes,13,317,13317,South,GA ,Georgia,Wilkes
 Georgia,Wilkinson,13,319,13319,South,GA ,Georgia,Wilkinson
 Georgia,Worth,13,321,13321,South,GA ,Georgia,Worth
-Hawaii,Hawaii,15,1,15001,West,HI ,Hawaii,Hawaii
-Hawaii,Honolulu,15,3,15003,West,HI ,Hawaii,Honolulu
-Hawaii,Kauai,15,7,15007,West,HI ,Hawaii,Kauai
-Hawaii,Maui,15,9,15009,West,HI ,Hawaii,Maui
 Idaho,Ada,16,1,16001,West,ID ,Idaho,Ada
 Idaho,Adams,16,3,16003,West,ID ,Idaho,Adams
 Idaho,Bannock,16,5,16005,West,ID ,Idaho,Bannock

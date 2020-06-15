@@ -38,7 +38,6 @@ def bisection(f,a,b,N):
     0.5
     '''
     if f(a)*f(b) >= 0:
-        print(f(a), f(b))
         print("Bisection method fails.")
         return None
     a_n = a

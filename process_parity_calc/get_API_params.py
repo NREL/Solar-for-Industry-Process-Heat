@@ -26,6 +26,8 @@ class UpdateParams:
     COAL -> other industrial use price ($ per short ton)
     Petroleum -> residual fuel oil prices by area -> wholesale/resale price by
     all sellers annual ($ per gallon)
+    
+    CHECK UNITS BETWEEN SERIES _ HENRY HUB , etc. 
 
     """
 
@@ -101,8 +103,12 @@ class UpdateParams:
         if fuel_type.upper() == "NG":
 
             series_ID = "NG.N3035" + state_abbr + "3.A"
-
+            
             series_USA = "NG.RNGWHHD.A"
+            
+            series_LA = UpdateParams.api.data_by_series(series="NG.N3035" + "LA" + "3.A")
+            
+            dict_key_LA = list(series_LA.keys())[0]
 
         elif fuel_type.upper() == "COAL":
 
@@ -111,7 +117,7 @@ class UpdateParams:
             series_USA = "COAL.COST.US-10.A"
 
         elif fuel_type.upper() == "PETRO":
-
+            # state level wholesale/resale price data ends 2011
             series_ID = "PET.EMA_EPPR_PWA_S" + state_abbr + "_DPG.A"
 
             series_USA = "PET.EMA_EPPR_PWG_NUS_DPG.A"
@@ -129,7 +135,7 @@ class UpdateParams:
         while True:
             
             try:
-                fuel_series_USA[dict_key_USA][str(year-i) + "  "] / 1.0
+                fp_USA = fuel_series_USA[dict_key_USA][str(year-i) + "  "] / 1.0
 
                 break
 
@@ -146,11 +152,11 @@ class UpdateParams:
             # if fuel price in state is empty return national price
             if all(v is None for v in list(fuel_series[dict_key].values())):
                 
-                return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
+                return (fp_USA, year-i)
                 
         except KeyError:
                 
-            return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
+            return (fp_USA, year-i)
 
         j = 0
 
@@ -158,20 +164,25 @@ class UpdateParams:
         while True:
 
             try:
-                fuel_series[dict_key][str(year-j) + "  "] / 1.0
+                fp_state = fuel_series[dict_key][str(year-j) + "  "] / 1.0
 
                 break
 
             except:
 
                 j += 1
+        
+        if fuel_type.upper() == "NG":
+            # series_LA is just the actual series not a series ID
+            fp_mult = fp_state / series_LA[dict_key_LA][str(year-j) + "  "]
+            return (fp_mult * fp_USA, year-j)
                 
         # return USA value if 2 years more recent vs state
-        if ((year-i) - (year-j) >= 2) | (fuel_series[dict_key][str(year-j) + "  "] >= fuel_series_USA[dict_key_USA][str(year-i) + "  "]):
+        if ((year-i) - (year-j) >= 2) | (fp_state >= fp_USA):
                 
-            return (fuel_series_USA[dict_key_USA][str(year-i) + "  "], year-i)
+            return (fp_USA, year-i)
 
-        return (fuel_series[dict_key][str(year-j) + "  "], year-j)
+        return (fp_state, year-j)
     
     def get_esc(state_abbr, fuel_type="NG"):
     
@@ -284,6 +295,74 @@ class UpdateParams:
         comb_index.to_csv(os.path.join(path, "cost_index_data.csv"))    
         
 if __name__ == "__main__":
-    a = UpdateParams.get_max_fp("AL")
+    #a = UpdateParams.get_fuel_price("AL")
 
-
+    # create chloropeth map
+    from plotly.offline import plot
+    import pandas as pd
+    
+# =============================================================================
+#     def fuel_price_by_state():
+#         state_abbr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
+#                       "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+#                       "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+#                       "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+#                       "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+#         fuel_price = list(map(lambda x: round(UpdateParams.get_fuel_price(x)[0],2), state_abbr))
+#         #print(fuel_price)
+#         df = pd.DataFrame()
+#         df["state"] = state_abbr
+#         df["fp"] = fuel_price
+#         return df
+#     
+#     def plotly(csv):
+#         df = csv
+#         for col in df.columns:
+#             df[col] = df[col].astype(str)
+#         
+#         scl = [[0.0, 'rgb(242,240,247)'],[0.2, 'rgb(218,218,235)'],[0.4, 'rgb(188,189,220)'],\
+#                     [0.6, 'rgb(158,154,200)'],[0.8, 'rgb(117,107,177)'],[1.0, 'rgb(84,39,143)']]
+#         
+#         df['text'] = df['state'] + '<br>' + df["fp"] + " $/thousand cuf"
+#         
+#         data = [ dict(
+#                 type='choropleth',
+#                 colorscale = scl,
+#                 autocolorscale = False,
+#                 locations = df['state'],
+#                 z = df['fp'].astype(float),
+#                 locationmode = 'USA-states',
+#                 #text = df['text'],
+#                 marker = dict(
+#                     line = dict (
+#                         color = 'rgb(255,255,255)',
+#                         width = 2
+#                     )
+#                 ),
+#                 colorbar = dict(
+#                     title = "$/Mcf"
+#                 )
+#             ) , 
+#                  dict(
+#                 type = 'scattergeo',
+#                 locations = df['state'],
+#                 locationmode = 'USA-states',
+#                 text = df["fp"],
+#                 mode = 'text') ]
+#         
+#         layout = dict(
+#                 title = 'Fuel Price by State',
+#                 geo = dict(
+#                     scope='usa',
+#                     projection=dict( type='albers usa' ),
+#                     showlakes = True,
+#                     lakecolor = 'rgb(255, 255, 255)',
+#                 ),
+#             )
+#         
+#         fig = dict( data=data, layout=layout )
+#         
+#         plot(fig, validate=False, filename='fp-USAmap.html')
+# 
+#     plotly(fuel_price_by_state())
+# =============================================================================
