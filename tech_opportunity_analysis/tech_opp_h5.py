@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import h5py
-import numpy
+import numpy as np
 import datetime
 
 def create_h5(target_file_path, tech_opp_results):
