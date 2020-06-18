@@ -180,7 +180,14 @@ class rev_postprocessing:
 
             scaled_gen = scaled_gen * county_gen/1000
 
-        used_area_pct = used_area_abs / area_avail
+        # There are 2 counties missing available land area
+        if (area_avail == 0) | ([area_avail] == [np.nan]):
+
+            used_area_pct = np.inf
+
+        else:
+
+            used_area_pct = used_area_abs / area_avail
 
         scaled_gen.index.name = 'index'
 

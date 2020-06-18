@@ -29,12 +29,6 @@ supply_path = args.supply_path
 # output_path = args.output_path
 
 
-# if __name__=='__main__':
-
-# freeze_support()
-
-# pool = ProcessPool(nodes=3)
-
 tech_opp = tech_opportunity(tech_package, demand_path, supply_path)
 
 if counties == []:
@@ -45,14 +39,44 @@ else:
 
     process_counties = [int(x) for x in counties]
 
+def check_county(process_counties):
+    """
+    Check that county is in demand and solar gen data sets.
+    """
+
+    checked = set(process_counties).intersection(
+        tech_opp.demand.demand_data.COUNTY_FIPS.unique()
+        ).intersection(
+            tech_opp.rev_output.county_info.index.values
+        )
+
+    return list(checked)
+
+process_counties = check_county(process_counties)
 # results = pool.map(tp.tech_opp_county, process_counties)
 
 final_results = []
 
 start = time.time()
+n=1
 for county in process_counties:
 
-    final_results.append(tech_opp.tech_opp_county(county))
+    # 46113 shouldn't be appearing in process
+    if county == 46113:
+
+        print('There\'s that {} again'.format(county))
+
+        continue
+
+    else:
+
+        print('Now running county {}, {} of {} counties'.format(
+            county, n, len(process_counties)
+            ))
+
+        final_results.append(tech_opp.tech_opp_county(county))
+
+    n+=1
 
 end = (time.time()-start)
 print('---------')
