@@ -2,15 +2,16 @@
 import h5py
 import numpy as np
 import datetime
+import itertools
 
 def create_h5(target_file_path, tech_opp_results):
     """
     Creates and saves h5 file of tech opportunity results.
     """
-    # results as list
+    # tech_opp_results as a list of numpy arrays:
     # [tech_opp_meta (1,), time_index (8760,1), names (3,1),
-    #  county_tech_opp (3, 8760)(8760,1), county_tech_opp_fuels(3, 8760)(8760, n),
-    # county_tech_opp_land (3,1)]
+    #  county_tech_opp (3, 8760)(8760,1),
+    #  county_tech_opp_fuels(3, 8760)(8760, n), county_tech_opp_land (3,1)]
 
     # Range of average weekly operating hours
     ophours = ['ophours_mean', 'ophours_high', 'ophours_low']
@@ -45,9 +46,14 @@ def create_h5(target_file_path, tech_opp_results):
 
         for fuel in fuels:
 
+            mask = \
+                [1 if fuel in a[4].dtype.names else 0 for a in tech_opp_results]
+
+            matching = itertools.compress([a[4] for a in tech_opp_results],
+                                          mask)
+
             tech_opp[op_h][fuel] = np.stack(
-                [a[4][fuel][ophours_index[op_h]] for a in tech_opp_results],
-                axis=1
+                [a[fuel][ophours_index[op_h]] for a in matching], axis=1
                 )
 
         tech_opp_land[op_h] = np.hstack(
