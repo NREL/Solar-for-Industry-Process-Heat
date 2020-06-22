@@ -2,35 +2,42 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+import time
 import multiprocessing
 import pickle
 from tech_opp_calcs_parallel import tech_opportunity
 from tech_opp_demand import demand_results
 from format_rev_output import rev_postprocessing
-from tech_opp_h5 import create_h5
+import tech_opp_h5
 sys.path.append('../')
 from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'swh'
-demand_filepath= 'fpc_hw_process_energy.csv.gz'
-rev_output_filepath ='rev_output/{}/{}_sc0_t0_or0_d0_gen_2014.h5'.format(
-    tech_package, tech_package
-    )
+tech_package = 'pv_boiler'
+demand_filepath= 'eboiler_process_energy.csv.gz'
+# tech_package = 'swh'
+# demand_filepath= 'fpc_hw_process_energy.csv.gz'
+rev_output_filepath ='rev_output/pv/pv_sc0_t0_or0_d0_gen_2014.h5'
+
+# rev_output_filepath ='rev_output/{}/{}_sc0_t0_or0_d0_gen_2014.h5'.format(
+#     tech_package, tech_package
+#     )
 sizing_month = 12
 
 # Time stamp (in UTC) for h5 file.
-time_stamp = time.strftime('%Y%m%d-%H:%M', time.gmtime())
+time_stamp = time.strftime('%Y%m%d_%H%M', time.gmtime())
 
-# pickle_results = False
+# pickle_results = True
 
+# Start timing calculations
+start = time.time()
 tech_opp_methods = tech_opportunity(tech_package,
                                     os.path.join(data_dir, rev_output_filepath),
                                     sizing_month=sizing_month)
 
 # Instantiate process demand data (annual MMBtu) and methods
-process_demand = demand_results(os.path.join(data_dr, demand_filepath))
+process_demand = demand_results(os.path.join(data_dir, demand_filepath))
 
 # Instantiate methods for creating hourly loads (in MW)
 hourly_demand = demand_hourly_load(2014, process_demand.demand_data)
@@ -123,29 +130,18 @@ if __name__ == "__main__":
 
     counties = check_county(counties)
 
-    # Start timing calculations
-    start = time.time()
+    target_file_path = '{}_sizing_{}_{}.hdf5'.format(tech_package,
+                                                     sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=5) as pool:
+    with multiprocessing.Pool(processes=3) as pool:
 
         results = pool.map(calc_county, counties)
 
-        # if pickle_results==True:
-        #
-        #     rpfile =  open('c:/users/cmcmilla/desktop/swh_test_20200619', 'wb')
-        #     pickle.dump(results, rpfile)
-        #     rpfile.close()
-        #
-        # else:
-        #     pass
-
-        create_h5(data_dir+'{}swh_sizing_{}_{}.h5'.format(
-            tech_pacakge, sizing_month, timestamp
-            ), results)
+    tech_opp_h5.create_h5(target_file_path, results)
 
     # End timer
     end = (time.time()-start)
     print('---------')
-    print("it took {} to run.".format(end))
+    print("it took {} seconds to run.".format(np.round(end,0)))
     print('---------')

@@ -4,29 +4,7 @@ import os
 import sys
 from format_rev_output import rev_postprocessing
 
-# # Loop through mean, low, and high weekly operating hours
-# for op_h in self.op_hours:
-#
-#     county_8760_ophours = county_8760.xs(op_h, level='op_hours')
-#
-#     # Assign breakouts by fuel and other characteristics
-#     county_fuel_fraction = self.demand.county_load_fuel_fraction(
-#         county_8760_ophours, county
-#         )
-#
-#     peak_demand = county_peak.xs(op_h)[0]
 
-
-
-
-#
-# # All fuels in fuels_breakout may not be used in the county
-# # Returns a dataframe of zeros if that is the case
-
-# tech_opp_fuel = \
-#     tech_opp_fuel.sort_index().values
-#
-# tech_opp_fuel.shape = (len(tech_opp_fuel), 1)
 class tech_opportunity(rev_postprocessing):
 
     def __init__(self, tech_package_name, rev_output_filepath, sizing_month=1):
@@ -36,47 +14,58 @@ class tech_opportunity(rev_postprocessing):
         'pv_dc'
         """
 
-        # Instantiate methods for importing, formating, and
-        # scaling reV output
-        rev_postprocessing.__init__(self,rev_output_filepath,tech_package_name)
-
-
         self.calc_datadir = './calculation_data/'
 
         self.tech_package_default = {
             'pv_hp': {'temp_range':[0,90],
                       'enduses':['Conventional Boiler Use'],
-                      'industries': ['all']},
+                      'industries': ['all'],
+                      'rev_solar_tech': 'pv_ac'},
             'swh': {'temp_range':[0,90],
                     'enduses':['Conventional Boiler Use',
                                'CHP and/or Cogeneration Use'],
-                    'industries':['all']},
+                    'industries':['all'],
+                    'rev_solar_tech': 'pv_ac'},
             'pv_boiler': {'temp_range':[0,450],
                           'enduses':['Conventional Boiler Use',
                                      'CHP and/or Cogeneration Use'],
-                          'industries': ['all']},
+                          'industries': ['all'],
+                          'rev_solar_tech': 'pv_ac'},
             'pv_resist': {'temp_range': [0, 800], 'enduses':['Process Heat'],
-                          'industries': ['all']},
+                          'industries': ['all'],
+                          'rev_solar_tech': 'pv_ac'},
             'pv_whrhp':{'temp_range':[0,160],
                         'enduses':['Conventional Boiler Use',
                                    'CHP and/or Cogeneration Use',
                                    'Process Heat'],
-                         'industries': ['all']},
+                         'industries': ['all'],
+                         'rev_solar_tech': 'pv_ac'},
             'dsg_lf': {'temp_range':[0,250],
                        'enduses':['Conventional Boiler Use',
                                   'CHP and/or Cogeneration Use','Process Heat'],
-                         'industries': ['all']},
+                         'industries': ['all'],
+                         'rev_solar_tech': 'dsg_lf'},
             'ptc': {'temp_range': [0,400],
                     'enduses':['Conventional Boiler Use',
                                'CHP and/or Cogeneration Use','Process Heat'],
-                     'industries': ['all']}
+                     'industries': ['all'],
+                     'rev_solar_tech':'ptc_tes'}
             }
 
         self.tech_package = self.tech_package_default[tech_package_name]
 
+        # Instantiate methods for importing, formating, and
+        # scaling reV output
+        rev_postprocessing.__init__(
+            self, rev_output_filepath,
+            self.tech_package_default[tech_package_name]['rev_solar_tech']
+            )
+
         # # import and format reV output for solar technology package
-        self.rev_output = rev_postprocessing(rev_output_filepath,
-                                             tech_package_name)
+        self.rev_output = rev_postprocessing(
+            rev_output_filepath,
+            self.tech_package_default[tech_package_name]['rev_solar_tech']
+            )
 
         # # import and format demand data
         # self.demand = demand_results(demand_filepath)

@@ -93,9 +93,12 @@ def create_h5(target_file_path, tech_opp_results):
 
     # Special formatting for lists in array
     string_dt = h5py.special_dtype(vlen=str)
+
     f.create_dataset("industries", data=all_meta['industries'].T,
                      dtype=string_dt)
 
     f.close()
 
-    return 'File Saved'
+    print('File Saved')
+
+    return
