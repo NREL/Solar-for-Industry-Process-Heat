@@ -1,33 +1,15 @@
 # Summary
-Technical opportunity
- : The fraction of process heat demand that can be provided by solar technologies, given available solar resources and land.
+Technical Opportunity
+: The fraction of process heat demand that can be provided by solar technologies, given available land and solar resources.
 
-Carrie will add some things here.
+## Description of Files and Directories
+* `run_tech_opp_parallel.py`: Used to run the technical opportunity calculations for a technology package. Default setup is to run calculations for all relevant counties using the `multiprocessing` package. Saves results as `hdf5` file.
+* `tech_opp_calcs_parallel.py`: Performs the technical opportunity calculation by dividing the hourly scaled solar generation by the hourly IPH demand.
+* `tech_opp_demand.py`: Formats the process demand results and creates 8760 load using the `demand_hourly_load` method from `/heat_load_calculations/run_demand_8760.py`
+* `format_rev_output.py`: Formats `.h5/` file from [reV](https://github.com/NREL/reV) runs of [pySAM](https://nrel-pysam.readthedocs.io/en/v1.2.dev3/index.html) for 1-MW equivalent photovoltaic (PV), parabolic trough collector (PTC, with and without 6-hour thermal energy storage), linear Fresenel direct steam generation (dsg_lf), and solar hot water (swh). Scales generation to meet IPH demand based on estimates of available land area and system footprint.
+* `pvhpmodel.py`: Translated from Matlab code developed by Steven Meyers to calculate tech opportunity of PV + ambient heat pump.
+* `/calculation_data/`: Contains most data necessary for tech opportunity calculations. Other related, necessary data are in `/heat_load_calculations/calculation_data/`.
+* `/archive/`: Contains code files not current in use.
 
-# Technologies
-
-| Technology Package | IPH Use | End Use (MECS) | IPH Demand (annual) | Adjusted for Load Profile |
-| -- | -- | -- |-- | -- |
-| Flat plate collector (FPC) | Hot water | Boiler, CHP | Process requiring hw (108 book) | MMBtu, hourly
-| | Preheat boiler feedwater | Boiler, CHP |
-
-# Calculation Steps
-
-## FPC
-
-## CSP
-
-## PV + Electric Boiler
-
-## PV + Resistance Heater
-
-
-
-
-# Data Sources
-
-
-
-# To-Do's (set up as issues)
- - [ ] Finish updating load calculations
- - [ ] Get available land use estimates by county
+## Technology Packages
+Add table identifying the solar technology-IPH demand combinations, their relevant temperature ranges, industries, and other relevant info.
