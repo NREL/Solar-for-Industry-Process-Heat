@@ -16,6 +16,8 @@ class tech_opportunity(rev_postprocessing):
 
         self.calc_datadir = './calculation_data/'
 
+        # The details of tech packages (temp_range, end_uses, industris)
+        # aren't currently used.
         self.tech_package_default = {
             'pv_hp': {'temp_range':[0,90],
                       'enduses':['Conventional Boiler Use'],
