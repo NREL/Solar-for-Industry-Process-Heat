@@ -1,5 +1,6 @@
+# Heat Load Shape Estimation Oveview
 
-# Data
+## Data
 * Census quarterly survey (QPC) of avg. weekly operating hours
 (~90 NAICS. Some are grouped together; 132 total).
 * IAC database on annual operating hours by facility size (defined by
@@ -10,13 +11,13 @@ units (22 manufacturing NAICS).
 by day type (ie, weekday, Saturday, and Sunday).
 
 
-# Process
+## Process
 Overall intent is to develop a load shape generator (option for heat vs. elect?)
 based on inputs of annual energy use, NAICS code, operating hours
 (default to Census data), and employee size class. Additional flexibility for
 specifying the load factor by industry and min and max of daily load shape
 (represented relative to monthly peak load.)
-## Steps
+### Steps
 1. Test for seasonality in Census QPC data; use annual average where seasonality
 does not exist.
  * Use estimate standard errors to report high and low values for operating
@@ -32,7 +33,7 @@ operating hours.
 5. Calculate monthly peak load using EPA data (for large facilities of relevant
   NAICS codes) or EPRI data. NAICS codes are mapped to QPC NAICS.
 
-# Gaps
+## Gaps
 1. **NAICS and facility size diversity.** EPA Air Markets Program data cover only
 22 NAICS codes. The facilities are likely all very large and operate
 continuously.
@@ -44,7 +45,7 @@ and electrical heating units are much less common for most industries than
 combustion heating units. Therefore, the EPRI data may not adequately reflect
 process heating operations.  
 
-# Misc. Thoughts
+## Misc. Thoughts
 * EPRI load shapes are averages across many facilities that may have different
 operating schedules. For instance, an industry load curve may indicate the
 operation of a second shift but at a lower load than the first shift. This may
@@ -52,7 +53,7 @@ represent the effect of averaging the load of facilities with and without
 second shifts.
 * Are fixed loads a key differentiator between electrical and heat loads? I.e.,
 what are boiler and process heating loads when a facility is not operating?
-## Assumptions
+### Assumptions
 * Assume during nonoperating hours **boilers** are run at 25% of peak load to avoid
 on/off cycling problems (e.g., [this](https://www.babcock.com/resources/learning-center/boiler-cycling-considerations) and [this discussion of turndown](http://cleaverbrooks.com/reference-center/boiler-basics/number-of-boilers.html))
 * Assume during nonoperating hours **process heating equipment** is run
