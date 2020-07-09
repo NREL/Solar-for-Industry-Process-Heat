@@ -30,13 +30,15 @@ class CSP:
     
     def calc_ph_energy(self):
         
-        ph_eu = self.mfg_energy.loc[self.mfg_energy['End_use'] == "Process Heating"].copy()
+        ph_energy = End_use_eff.end_use_efficiency(self.mfg_energy).ph_eu
+        ph_eff = End_use_eff.end_use_efficiency(self.mfg_energy).ph_efficiency
+        
         
         #filter based on process temp < temp limit for PTC
-        ph_eu.loc[ph_eu['Temp_C'] <= self.ptc_upper_temp, 'proc_MMBtu'] = ph_eu['MMBtu']
+        ph_energy.loc[ph_energy['Temp_C'] <= self.ptc_upper_temp, 'proc_MMBtu'] = ph_energy['MMBtu']*ph_eff
         
         
-        return ph_eu
+        return ph_energy
     
     
     
