@@ -29,6 +29,13 @@ class end_use_efficiency:
          
         self.chp_eu = mfg_energy.loc[mfg_energy['End_use'] == "CHP and/or Cogeneration Process"].copy()
         
+        
+        self.ph_efficiency = 0.5 #based on Improving Process Heating System Performance, DOE, AMO, 2016
+        
+        
+        self.ph_eu = mfg_energy.loc[mfg_energy['End_use'] == "Process Heating"].copy()
+        
+        
     def chp_pm_frac():
     
         #chp-mapped-to-county database for determining prime mover breakdown within county
