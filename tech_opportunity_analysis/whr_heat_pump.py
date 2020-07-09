@@ -83,6 +83,9 @@ class WHR_HP:
         #combine into one df
         whr_process_energy = pd.concat([boiler_chp, ph], ignore_index=True)
         
+        #remove lines that have no proces heat demand
+        whr_process_energy = whr_process_energy.loc[whr_process_energy['proc_MMBtu']>0].copy()
+        
         return whr_process_energy
 
 
