@@ -22,6 +22,10 @@ def create_h5(target_file_path, tech_opp_results):
 
     time_index = tech_opp_results[0][1]
 
+    time_index = time_index.strftime('%Y-%m-%d %T').values
+
+    time_index = time_index.astype('S')
+
     fuels = list(tech_opp_results[0][4][0].dtype.names)
 
     op_list = [f for f in fuels]
@@ -40,8 +44,8 @@ def create_h5(target_file_path, tech_opp_results):
 
         tech_opp[op_h] = {d: {} for d in op_list}
 
-        tech_opp[op_h]['tech_opp'] = np.hstack(
-            [a[3][ophours_index[op_h]] for a in tech_opp_results]
+        tech_opp[op_h]['tech_opp'] = np.stack(
+            [a[3][:,ophours_index[op_h]] for a in tech_opp_results], axis=1
             )
 
         for fuel in fuels:
@@ -65,6 +69,9 @@ def create_h5(target_file_path, tech_opp_results):
     f.attrs.create('timestamp',
                     datetime.datetime.today().strftime('%Y%m%d_%H%M'))
     f.attrs.create('h5py_version', h5py.version.version)
+
+    # Include datetime
+    f.create_dataset('time_index', data=time_index, dtype='S19')
 
     for op_h in ophours:
 

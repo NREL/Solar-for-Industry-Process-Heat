@@ -17,6 +17,7 @@ class rev_postprocessing:
         gid_fips_file = 'county_center.csv'
 
         self.solar_tech = solar_tech
+        print('SOLAR TECH:{}'.format(self.solar_tech))
 
         # Crosswalk for matching FIPS to gid in 'meta' group.
         gid_to_fips = pd.read_csv(
@@ -47,6 +48,7 @@ class rev_postprocessing:
             }
 
         self.generation_group = generation_groups[self.solar_tech]
+        print('generation group:{}'.format(generation_groups[self.solar_tech]))
 
         # Read in file
         file = h5py.File(rev_output_filepath, 'r')
