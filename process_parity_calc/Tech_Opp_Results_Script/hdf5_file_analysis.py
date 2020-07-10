@@ -39,19 +39,28 @@ def hdf5_to_df(filepath):
             fuels.append("Coal")
         if "Natural_gas" in data[op_hour].keys():
             fuels.append("Natural_gas")
+            
+        total_fuel = np.zeros((df_size,8760))
+        
         for fuel in fuels:
             fuel_size = len(np.array(data[op_hour][fuel]).T)
+            
             if fuel_size != df_size:
                 print(fuel + " isn't complete for each county")
                 continue
+                
             df[op_hour + "_" + fuel] = list(np.array(data[op_hour][fuel]).T)
+            
+            total_fuel += np.array(data[op_hour][fuel]).T
+            
+        df[op_hour + "_total_fuel"] = list(total_fuel)
+    
             
         df[op_hour + "_" + "land_use"] = np.array(data[op_hour]['land_use'])
         
-        tech_opp = np.array(data[op_hour]['tech_opp']).reshape(3,df_size)
-    
-        for i in range(3):
-            df[op_hour + "_" + str(i)] = tech_opp[i]
+        df[op_hour + "_" + "tech_opp"] = list(np.array(data[op_hour]['tech_opp']).T)
+        
+        
     return df
 
 class mapping:
