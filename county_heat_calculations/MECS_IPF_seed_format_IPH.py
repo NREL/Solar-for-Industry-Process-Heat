@@ -65,12 +65,12 @@ class IPF_seed:
         def create_unformatted_tables():
 
             table3_2 = pd.read_excel(
-                self.url_3_2, sheet='Table 3.2', index_col=None, skiprows=10,
+                self.url_3_2, sheet_name='Table 3.2', index_col=None, skiprows=10,
                 skipfooter=skipfooter
                 )
 
             table3_3 = pd.read_excel(
-                self.url_3_3, sheet='Table 3.3', index_col=None, skiprows=10,
+                self.url_3_3, sheet_name='Table 3.3', index_col=None, skiprows=10,
                 skipfooter=skipfooter
                 )
 

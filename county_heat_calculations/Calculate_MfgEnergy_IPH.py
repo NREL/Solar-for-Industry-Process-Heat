@@ -382,16 +382,16 @@ class Manufacturing_energy:
 #                )[['MMBtu_TOTAL', 'est_count']].sum()
 
         energy_nonghgrp = energy_nonghgrp.groupby(
-                ['MECS_Region', 'COUNTY_FIPS', 'naics', 'MECS_NAICS',
-                 'MECS_FT', 'fipstate', 'fipscty', 'Emp_Size'], as_index=False
-                )[['MMBtu_TOTAL', 'est_count']].sum()
+            ['MECS_Region', 'COUNTY_FIPS', 'naics', 'MECS_NAICS',
+             'MECS_FT', 'fipstate', 'fipscty', 'Emp_Size'], as_index=False
+            )[['MMBtu_TOTAL', 'est_count']].sum()
 
         energy_nonghgrp['data_source'] = 'mecs_ipf'
 
         energy_ghgrp_y = self.energy_ghgrp_y.groupby(
-                ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
-                 'MECS_NAICS','MECS_FT'], as_index=False
-                ).MMBtu_TOTAL.sum()
+            ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
+             'MECS_NAICS','MECS_FT'], as_index=False
+            ).MMBtu_TOTAL.sum()
 
         #Drop non-manufacturing industries (MECS_NAICS == 0)
         energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y.MECS_NAICS !=0]
@@ -399,6 +399,23 @@ class Manufacturing_energy:
         energy_ghgrp_y['data_source'] = 'ghgrp'
 
         energy_ghgrp_y['Emp_Size'] = 'ghgrp'
+
+        energy_ghgrp_y['est_count'] = np.nan
+
+        # County GHGRP facilities
+        est_count_ghgrp = energy_ghgrp_y.groupby(
+            ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE']
+             ).FACILITY_ID.count()
+
+        est_count_ghgrp.name = 'est_count'
+
+        energy_ghgp_y.set_index(
+            ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE'], inplace=True
+            )
+
+        energy_ghgrp_y.est_count.update(est_count_ghgrp)
+
+        energy_ghgrp_y.reset_index(inplace=True)
 
         energy_ghgrp_y.rename(columns={'PRIMARY_NAICS_CODE':'naics'},
                                        inplace=True)
