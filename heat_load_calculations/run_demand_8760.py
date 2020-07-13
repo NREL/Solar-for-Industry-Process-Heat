@@ -14,9 +14,9 @@ class demand_hourly_load:
         #'c:/users/cmcmilla/solar-for-industry-process-heat/results/mfg_eu_temps_20191031_2322.parquet.gzip'
         self.year = year
 
-        self.results_dir = \
-            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
-            'national_loads_8760/'
+        # self.results_dir = \
+        #     'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+        #     'national_loads_8760/'
 
         if type(county_filepath_or_dataframe) == pd.core.frame.DataFrame:
 
