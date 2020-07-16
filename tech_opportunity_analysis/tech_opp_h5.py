@@ -11,7 +11,8 @@ def create_h5(target_file_path, tech_opp_results):
     # tech_opp_results as a list of numpy arrays:
     # [tech_opp_meta (1,), time_index (8760,1), names (3,1),
     #  county_tech_opp (3, 8760)(8760,1),
-    #  county_tech_opp_fuels(3, 8760)(8760, n), county_tech_opp_land (3,1)]
+    #  county_tech_opp_fuels(3, 3106)(8760, n), county_tech_opp_land (3,1),
+    #  county_total_load(3, 8760)]
 
     # Range of average weekly operating hours
     ophours = ['ophours_mean', 'ophours_high', 'ophours_low']
@@ -37,6 +38,8 @@ def create_h5(target_file_path, tech_opp_results):
 
     tech_opp_land = {}
 
+    total_load = {}
+
     for op_h in ophours:
 
         ophours_index[op_h] = \
@@ -46,6 +49,12 @@ def create_h5(target_file_path, tech_opp_results):
 
         tech_opp[op_h]['tech_opp'] = np.stack(
             [a[3][:,ophours_index[op_h]] for a in tech_opp_results], axis=1
+            )
+
+        total_load[op_h] = {d: {} for d in op_list}
+
+        total_load[op_h]['total_load'] = np.stack(
+            [a[6][:,ophours_index[op_h]] for a in tech_opp_results], axis=1
             )
 
         for fuel in fuels:
@@ -76,6 +85,9 @@ def create_h5(target_file_path, tech_opp_results):
     for op_h in ophours:
 
         f.create_dataset(op_h+'/tech_opp', data=tech_opp[op_h]['tech_opp'])
+        f[op_h+'/tech_opp'].attrs.create('units', 'MW solar gen/MW demand')
+        f.create_dataset(op_h+'/total_load', data=total_load[op_h]['total_load'])
+        f[op_h+'/total_load'].attrs.create('units', 'MW')
         f.create_dataset(op_h+'/land_use', data=tech_opp_land[op_h])
         f[op_h+'/land_use'].attrs.create('units', 'km2')
 
@@ -83,7 +95,8 @@ def create_h5(target_file_path, tech_opp_results):
 
             f.create_dataset(op_h+'/'+fuel, data=tech_opp[op_h][fuel])
             f[op_h+'/'+fuel].attrs.create('desc',
-                                          '% of {} displaced'.format(fuel))
+                                          'MW of {} displaced'.format(fuel))
+            f[op_h+'/'+fuel].attrs.create('units', 'MW')
 
     f['ophours_mean'].attrs.create('desc', 'mean weekly operating hours')
     f['ophours_low'].attrs.create('desc','low weekly operating hours')

@@ -58,10 +58,10 @@ class tech_opportunity(rev_postprocessing):
 
         # Instantiate methods for importing, formating, and
         # scaling reV output
-        rev_postprocessing.__init__(
-            self, rev_output_filepath,
-            self.tech_package_default[tech_package_name]['rev_solar_tech']
-            )
+        # rev_postprocessing.__init__(
+        #     self, rev_output_filepath,
+        #     self.tech_package_default[tech_package_name]['rev_solar_tech']
+        #     )
 
         # # import and format reV output for solar technology package
         self.rev_output = rev_postprocessing(
@@ -166,17 +166,15 @@ class tech_opportunity(rev_postprocessing):
             self.rev_output.scale_generation(county, county_peak,
                                              month=self.sizing_month)
 
-        county_8760_ophours.reset_index(
+        county_8760 = county_8760_ophours.copy(deep=True)
+
+        county_8760.reset_index(
             ['naics', 'Emp_Size', 'End_use'], drop=True, inplace=True
             )
 
-        county_8760_ophours = county_8760_ophours.groupby(
-            county_8760_ophours.index
-            ).MW.sum()
+        county_8760 = county_8760.groupby(county_8760.index).MW.sum()
 
-        tech_opp = pd.DataFrame(
-            scaled_generation.MW.divide(county_8760_ophours)
-            )
+        tech_opp = pd.DataFrame(scaled_generation.MW.divide(county_8760))
         ## Cap tech opp at 1?
         # tech_opp = pd.DataFrame(
         #     tech_opp.where(tech_opp < 1).fillna(1)
