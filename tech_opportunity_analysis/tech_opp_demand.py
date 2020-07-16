@@ -95,12 +95,6 @@ class demand_results:
 
         fuel_dfs.set_index(['naics', 'Emp_Size', 'End_use'], inplace=True)
 
-        # county_load_f['MW'].update(
-        #     tech_opp_fuels.MW.multiply(tech_opp_fuels.fraction)
-        #     )
-        #
-        # tech_opp_fuels = tech_opp_fuels.drop(['fraction'], axis=1).reset_index()
-
         # Make sure county has GHGRP facilities before concatenating fuel mix
         if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
 
@@ -119,18 +113,12 @@ class demand_results:
 
         for f in fuels:
 
-            if f not in fuels_df.columns:
+            if f not in fuel_dfs.columns:
 
-                fuels_df.loc[:, f] = 0
+                fuel_dfs.loc[:, f] = 0
 
             else:
                 continue
-
-        # fuel_dfs = pd.concat(
-        #     [fuel_dfs[fuel_dfs[col].isin(fuels)] for col in ['MECS_FT',
-        #                                                     'MECS_FT_byp']],
-        #     axis=0,
-        #     )
 
         # These will not sum to 1 for all naics-emp size-end use combinations
         # b/c not all "other" fuel types are included (e.g., some biomass types)

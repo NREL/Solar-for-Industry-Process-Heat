@@ -85,7 +85,7 @@ def create_h5(target_file_path, tech_opp_results):
     for op_h in ophours:
 
         f.create_dataset(op_h+'/tech_opp', data=tech_opp[op_h]['tech_opp'])
-        f.creat_dataset(op_h+'/total_load', data=total_load[op_h]['total_load'])
+        f.create_dataset(op_h+'/total_load', data=total_load[op_h]['total_load'])
         f[op_h+'/total_load'].attrs.create('units', 'MW')
         f.create_dataset(op_h+'/land_use', data=tech_opp_land[op_h])
         f[op_h+'/land_use'].attrs.create('units', 'km2')

@@ -7,24 +7,23 @@ import multiprocessing
 import pickle
 from tech_opp_calcs_parallel import tech_opportunity
 from tech_opp_demand import demand_results
-from format_rev_output import rev_postprocessing
 import tech_opp_h5
 sys.path.append('../')
 from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'dsg_lf'
-demand_filepath= 'LF_process_energy.csv.gz'
+tech_package = 'swh'
+demand_filepath= 'fpc_hw_process_energy.csv.gz'
 # tech_package = 'swh'
 # demand_filepath= 'fpc_hw_process_energy.csv.gz'
-rev_output_filepath ='rev_output/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5'
+rev_output_filepath ='rev_output/swh/swh_sc0_t0_or0_d0_gen_2014.h5'
 
 ## Dictionary by tech package of all solar gen and process energy inputs
 #  tech_opp_inputs = {
 #   'dsg_lf': {'supply': 'dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
 #              'demand': 'LF_process_energy.csv.gz'},
-#    'swh': {'supply': 'swh/swh_sc0_t0_or0_d0_gen_2014.h5'',
+#    'swh': {'supply': 'swh/swh_sc0_t0_or0_d0_gen_2014.h5',
 #            'demand': 'fpc_hw_process_energy.csv.gz'}
 #    'pv_boiler': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
 #                  'demand': 'eboiler_process_energy.csv.gz'},
@@ -37,15 +36,16 @@ rev_output_filepath ='rev_output/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5'
 # rev_output_filepath ='rev_output/{}/{}_sc0_t0_or0_d0_gen_2014.h5'.format(
 #     tech_package, tech_package
 #     )
-sizing_month = 12
+sizing_month = 6
 
 # Time stamp (in UTC) for h5 file.
 time_stamp = time.strftime('%Y%m%d_%H%M', time.gmtime())
 
-# pickle_results = True
+pickle_results = False
 
 # Start timing calculations
 start = time.time()
+
 tech_opp_methods = tech_opportunity(tech_package,
                                     os.path.join(data_dir, rev_output_filepath),
                                     sizing_month=sizing_month)
@@ -89,7 +89,7 @@ def calc_county(county):
 
         # Assign breakouts by fuel and other characteristics
         county_fuel_fraction = process_demand.county_load_fuel_fraction(
-            county_8760_ophours
+            county, county_8760_ophours, tech_opp_methods.fuels_breakout
             )
 
         peak_demand = county_peak.xs(op_h)[0]
@@ -100,15 +100,20 @@ def calc_county(county):
                                              peak_demand)
 
         tech_opp_fuels = process_demand.breakout_fuels_tech_opp(
-            county, county_fuel_fraction, tech_opp,
-            tech_opp_methods.fuels_breakout
+            county_fuel_fraction, tech_opp,
             )
 
         tech_opp = tech_opp.values
 
+        # This is just the total county hourly load, summed across all
+        # naics, emp sizes, and end uses
+        county_sum = county_8760_ophours.sum(level=3).values
+
         if first:
 
             names = np.array((op_h,))
+
+            county_total_load = county_sum
 
             county_tech_opp = tech_opp
 
@@ -122,6 +127,8 @@ def calc_county(county):
 
             names = np.vstack([names, np.array((op_h,))])
 
+            county_total_load = np.hstack([county_total_load, county_sum])
+
             county_tech_opp = np.hstack([county_tech_opp, tech_opp])
 
             county_tech_opp_fuels = np.vstack([county_tech_opp_fuels,
@@ -133,7 +140,7 @@ def calc_county(county):
     tech_opp_meta = tech_opp_methods.get_county_info(county, county_ind)
 
     return [tech_opp_meta, time_index, names, county_tech_opp,
-            county_tech_opp_fuels, county_tech_opp_land]
+            county_tech_opp_fuels, county_tech_opp_land, county_total_load]
 
 
 if __name__ == "__main__":
@@ -148,9 +155,15 @@ if __name__ == "__main__":
                                                      sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=7) as pool:
+    with multiprocessing.Pool(processes=5) as pool:
 
         results = pool.map(calc_county, counties)
+
+    if pickle_results:
+
+        pickle_file = open('tech_opps.pkl', 'wb')
+        pickle.dump(results, pickle_file)
+        pickle_file.close()
 
     tech_opp_h5.create_h5(target_file_path, results)
 
