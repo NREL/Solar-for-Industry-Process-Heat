@@ -48,9 +48,10 @@ class demand_results:
             usecols=['COUNTY_FIPS', 'MECS_Region'], index_col=['COUNTY_FIPS']
             )
 
-    def county_load_fuel_fraction(self, county_8760):
+    def county_load_fuel_fraction(self, county_8760, fuels):
         """
-
+        Calculate by industry, employment size class, and end use the hourly
+        fraction of total load
         """
 
         if type(county_8760) == pd.core.frame.DataFrame:
@@ -64,8 +65,7 @@ class demand_results:
         # self.county_load = self.county_load.set_index(0, inplace=True)
         county_load_f['fraction'] = np.nan
 
-        # Calculate by industry, employment size class, and end use the hourly
-        # fraction of total load
+
         county_load_f.fraction.update(
             county_load_f.MW.divide(county_load_f.MW.sum(level=[0,1,2]))
             )
@@ -73,47 +73,65 @@ class demand_results:
         county_load_f['fraction'] = \
             county_load_f.fraction.astype('float16')
 
-        return county_load_f
-
-    def breakout_fuels_tech_opp(self, county, county_load_f, tech_opp, fuels):
-        """
-        Disaggregate tech opportnity by fuel type. Specify fuel as list.
-        """
-
-        tech_opp_fuels = tech_opp.join(county_load_f[['fraction']])
-
-        tech_opp_fuels['MW'].update(
-            tech_opp_fuels.MW.multiply(tech_opp_fuels.fraction)
+        county_neeu = np.stack(
+            [county_load_f.index_get_level_values(n).values for n in range(0,3)],
+            axis=1
             )
 
-        tech_opp_fuels = tech_opp_fuels.drop(['fraction'], axis=1).reset_index()
+        county_neeu = pd.DataFrame(county_neeu,
+                                   columns=['naics', 'Emp_Size','End_use'])
 
-        MECS_region = self.mecs_fips_dict.xs(county)[0]
+        # These will not sum to 1 b/c not all "other" fuel types are included
+        county_neeu = county_neeu.drop_duplicates()
+
+        county_neeu.loc[:, 'MECS_region'] = self.mecs_fips_dict.xs(county)[0]
+
+        fuel_dfs = pd.merge(county_neeu, self.mecs_fuel_intensity,
+                            on=['MECS_Region', 'naics', 'Emp_Size','End_use'],
+                            how='inner')
+
+        fuels_df.drop('MECS_region', axis=1, inplace=True)
+
+        # county_load_f['MW'].update(
+        #     tech_opp_fuels.MW.multiply(tech_opp_fuels.fraction)
+        #     )
+        #
+        # tech_opp_fuels = tech_opp_fuels.drop(['fraction'], axis=1).reset_index()
 
         # Make sure county has GHGRP facilities
         if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
 
             fuel_dfs = pd.concat(
-                [self.mecs_fuel_intensity.set_index(
-                    ['MECS_Region', 'naics', 'Emp_Size','End_use']
-                    ).xs(MECS_region, level='MECS_Region'),
-                self.ghgrp_fuel_intensity.set_index(
+                [fuels_df, self.ghgrp_fuel_intensity.set_index(
                     ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
                     ).xs(county, level='COUNTY_FIPS')],
                 axis=0, ignore_index=False, sort=True
                 )
 
-        else:
-
-            fuel_dfs = self.mecs_fuel_intensity.set_index(
-                    ['MECS_Region', 'naics', 'Emp_Size','End_use']
-                    ).xs(MECS_region, level='MECS_Region')
-
-        fuel_dfs = pd.concat(
-            [fuel_dfs[fuel_dfs[col].isin(fuels)] for col in ['MECS_FT',
-                                                            'MECS_FT_byp']],
-            axis=0,
+        fuel_dfs = pd.pivot_table(
+            fuel_dfs, index=['naics','Emp_Size','End_use'],
+            columns='MECS_FT_byp', values='MMBtu_fraction', aggfunc=np.mean,
+            fill_value=0
             )
+
+        for f in fuels:
+
+            if f not in fuels_df.columns:
+
+                fuels_df.loc[:, f] = 0
+
+            else:
+                continue
+
+        # fuel_dfs = pd.concat(
+        #     [fuel_dfs[fuel_dfs[col].isin(fuels)] for col in ['MECS_FT',
+        #                                                     'MECS_FT_byp']],
+        #     axis=0,
+        #     )
+
+        # These will not sum to 1 for all naics-emp size-end use combinations
+        # b/c not all "other" fuel types are included (e.g., biomass)
+        county_load_f = county_neeu.multiply(county_load_f.fraction, axis=0)
 
         if fuel_dfs.empty:
 
@@ -138,6 +156,72 @@ class demand_results:
             tech_opp_fuels['MW'].update(
                 tech_opp_fuels.MW.multiply(tech_opp_fuels.MMBtu_fraction)
                 )
+
+        return county_load_f
+
+    def breakout_fuels_tech_opp(self, county, county_load_f, tech_opp):
+        """
+        Disaggregate tech opportunity by fuel type. Specify fuel as list.
+        """
+
+        tech_opp_fuels = tech_opp.join(county_load_f[['fraction']])
+
+        # tech_opp_fuels['MW'].update(
+        #     tech_opp_fuels.MW.multiply(tech_opp_fuels.fraction)
+        #     )
+        #
+        # tech_opp_fuels = tech_opp_fuels.drop(['fraction'], axis=1).reset_index()
+        #
+        # MECS_region = self.mecs_fips_dict.xs(county)[0]
+        #
+        # # Make sure county has GHGRP facilities
+        # if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
+        #
+        #     fuel_dfs = pd.concat(
+        #         [self.mecs_fuel_intensity.set_index(
+        #             ['MECS_Region', 'naics', 'Emp_Size','End_use']
+        #             ).xs(MECS_region, level='MECS_Region'),
+        #         self.ghgrp_fuel_intensity.set_index(
+        #             ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
+        #             ).xs(county, level='COUNTY_FIPS')],
+        #         axis=0, ignore_index=False, sort=True
+        #         )
+        #
+        # else:
+        #
+        #     fuel_dfs = self.mecs_fuel_intensity.set_index(
+        #             ['MECS_Region', 'naics', 'Emp_Size','End_use']
+        #             ).xs(MECS_region, level='MECS_Region')
+        #
+        # fuel_dfs = pd.concat(
+        #     [fuel_dfs[fuel_dfs[col].isin(fuels)] for col in ['MECS_FT',
+        #                                                     'MECS_FT_byp']],
+        #     axis=0,
+        #     )
+        #
+        # if fuel_dfs.empty:
+        #
+        #     tech_opp_fuels['MW'] = 0
+        #
+        # else:
+        #
+        #     # Drop duplicates.
+        #     fuel_dfs = fuel_dfs.set_index('MECS_FT_byp', append=True)
+        #
+        #     fuel_dfs = fuel_dfs[~fuel_dfs.index.duplicated()]
+        #
+        #     fuel_dfs.reset_index('MECS_FT_byp', drop=False, inplace=True)
+        #
+        #     tech_opp_fuels = tech_opp_fuels.set_index(
+        #         ['naics', 'Emp_Size', 'End_use']
+        #         )
+        #
+        #     tech_opp_fuels = tech_opp_fuels.join(fuel_dfs,
+        #                                          how='left').reset_index()
+        #
+        #     tech_opp_fuels['MW'].update(
+        #         tech_opp_fuels.MW.multiply(tech_opp_fuels.MMBtu_fraction)
+        #         )
 
         if len(fuels) <= 1:
 
