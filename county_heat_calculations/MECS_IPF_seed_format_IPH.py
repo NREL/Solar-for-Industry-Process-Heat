@@ -13,18 +13,14 @@ class IPF_seed:
 
         self.year = year
 
-        self.filepath = os.path.join('../', 'calculation_data/')
+        self.filepath = os.path.join('./', 'calculation_data/')
 
         if self.year == 2014:
-
             file_extension = '.xlsx'
-
             skipfooter = 12
 
         if self.year == 2010:
-
             file_extension = '.xls'
-
             skipfooter = 46
 
         self.url_3_2 =\
@@ -62,15 +58,16 @@ class IPF_seed:
                    336: [336111, 336112, 3364], 3364: [336411]}
             }
 
-        def create_unformatted_tables():
+
+        def create_unformatted_tables(self):
 
             table3_2 = pd.read_excel(
-                self.url_3_2, sheet_name='Table 3.2', index_col=None, skiprows=10,
+                self.url_3_2, sheet_name='table 3.2', index_col=None, skiprows=10,
                 skipfooter=skipfooter
                 )
 
             table3_3 = pd.read_excel(
-                self.url_3_3, sheet_name='Table 3.3', index_col=None, skiprows=10,
+                self.url_3_3, sheet_name='table 3.3', index_col=None, skiprows=10,
                 skipfooter=skipfooter
                 )
 
@@ -189,6 +186,7 @@ class IPF_seed:
                               na_rep='NaN')
 
             writer.save()
+
 
         # First check if "MECS2014_unformatted.xlsx" exists in filepath.
         # If not, proceed with creating it.

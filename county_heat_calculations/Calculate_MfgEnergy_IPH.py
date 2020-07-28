@@ -28,30 +28,21 @@ class Manufacturing_energy:
             self.naics_column = 'PRIMARY_NAICS_CODE'
 
         self.file_dir = './calculation_data/'
-
         self.fuelxwalk_file = 'MECS_FT_IPF.csv'
-
         self.naics_2012_file = 'mecs_naics_2012.csv'
-
         self.naics_old_file = 'mecs_naics.csv'
-
         self.ipf_results_file = 'mecs_'+str(self.year)+\
             '_ipf_results_naics_employment.csv'
 
         self.mecs_naics = pd.DataFrame()
-
         self.end_use_file = 'table5_2_' + str(self.year) + '_formatted.csv'
 
         for file in [self.naics_2012_file, self.naics_old_file]:
-
             mdf = pd.read_csv(os.path.join(self.file_dir, file))
 
             if file == 'mecs_naics.csv':
-
                 mdf['vintage'] = 2010
-
             else:
-
                 mdf['vintage'] = 2012
 
             self.mecs_naics = self.mecs_naics.append(mdf, ignore_index=True)
@@ -307,14 +298,6 @@ class Manufacturing_energy:
 
         mecs_intensities.replace(np.inf, 0, inplace=True)
 
-        #Create tuples of fuel type and employment size for future matching
-#        mecs_intensities["FT_Emp"] = [
-#            z for z in zip(
-#                mecs_intensities.MECS_FT.values, \
-#                    mecs_intensities.Emp_Size.values
-#                )
-#            ]
-
         return mecs_intensities
 
     def combfuel_calc(self, cbp_corrected, mecs_intensities):
@@ -336,24 +319,31 @@ class Manufacturing_energy:
                 var_name=['Emp_Size'], value_name='est_count'
                 )
 
-        # Need to set mecs_intensities index to include MECS_FT? Then reindex
-        # energy_nonghgrp?
+        # Drop est_count == 0
+        energy_nonghgrp = \
+            energy_nonghgrp.where(energy_nonghgrp.est_count!=0).dropna()
 
-        # Drop MECS_NAICS_dummies == np.nan. These are non-manufacturing
-        # industrial naics codes (i.e., ag, mining, and construction)
-        energy_nonghgrp.dropna(subset=['MECS_NAICS_dummies'], inplace=True)
+        energy_nonghgrp.set_index(['MECS_Region','MECS_NAICS_dummies',
+                                   'Emp_Size'], inplace=True)
+        mecs_intensities = mecs_intensities[
+            mecs_intensities.MECS_FT!='Net_electricity'
+            ].where(
+                mecs_intensities.intensity>0
+                ).dropna().set_index(['MECS_Region','MECS_NAICS_dummies',
+                                      'Emp_Size','MECS_FT'])
 
-        energy_nonghgrp = dd.merge(
-            energy_nonghgrp.set_index(
-                ['MECS_NAICS_dummies']
-                ), mecs_intensities[
-                    mecs_intensities.MECS_FT != 'Net_electricity'
-                    ].set_index(
-                        ['MECS_NAICS_dummies']
-                        ), on=['MECS_NAICS_dummies','MECS_Region','Emp_Size'],
-            how='inner'
-            )
+        energy_nonghgrp = energy_nonghgrp.join(mecs_intensities, how='inner')
 
+        # energy_nonghgrp = dd.merge(
+        #     energy_nonghgrp.set_index(
+        #         ['MECS_NAICS_dummies']
+        #         ), mecs_intensities[
+        #             mecs_intensities.MECS_FT != 'Net_electricity'
+        #             ].set_index(
+        #                 ['MECS_NAICS_dummies']
+        #                 ), on=['MECS_NAICS_dummies','MECS_Region','Emp_Size'],
+        #     how='inner'
+        #     )
 
 #        energy_nonghgrp = pd.merge(
 #            energy_nonghgrp.set_index(
@@ -365,21 +355,17 @@ class Manufacturing_energy:
 #                        ), left_index=True, right_index=True, how='inner'
 #            )
 
-        energy_nonghgrp.reset_index(inplace=True)
+        energy_nonghgrp['MMBtu_TOTAL'] = \
+            energy_nonghgrp.est_count.multiply(energy_nonghgrp.intensity)*10**6
 
-        energy_nonghgrp['MMBtu_TOTAL'] = energy_nonghgrp.est_count.multiply(
-                energy_nonghgrp.intensity, fill_value=0
-                )*10**6
-
-        #energy_nonghgrp.drop(['fips_matching'], axis=1, inplace=True)
-
-        energy_nonghgrp['COUNTY_FIPS'] = \
-            energy_nonghgrp.COUNTY_FIPS.astype(int)
+        energy_nonghgrp['COUNTY_FIPS'] = energy_nonghgrp.COUNTY_FIPS.astype(int)
 
 #        energy_nonghgrp = energy_nonghgrp.groupby(
 #                ['MECS_Region', 'COUNTY_FIPS', 'naics', 'MECS_NAICS',
 #                 'MECS_FT', 'Emp_Size'], as_index=False
 #                )[['MMBtu_TOTAL', 'est_count']].sum()
+
+        energy_nonghgrp = energy_nonghgrp.reset_index()
 
         energy_nonghgrp = energy_nonghgrp.groupby(
             ['MECS_Region', 'COUNTY_FIPS', 'naics', 'MECS_NAICS',
@@ -402,14 +388,14 @@ class Manufacturing_energy:
 
         energy_ghgrp_y['est_count'] = np.nan
 
-        # County GHGRP facilities
-        est_count_ghgrp = energy_ghgrp_y.groupby(
+        # Count GHGRP facilities
+        est_count_ghgrp = self.energy_ghgrp_y.groupby(
             ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE']
-             ).FACILITY_ID.count()
+             ).apply(lambda x: np.size(x.FACILITY_ID.unique()))
 
         est_count_ghgrp.name = 'est_count'
 
-        energy_ghgp_y.set_index(
+        energy_ghgrp_y.set_index(
             ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE'], inplace=True
             )
 
@@ -429,18 +415,14 @@ class Manufacturing_energy:
         def match_countyfips(county_fips, fips_dict, fips_cat):
 
             if county_fips in fips_dict.keys():
-
                 return fips_dict[county_fips][fips_cat]
 
             else:
-
                 fips_len = len(str(county_fips))
-
                 missing_dict = {
                         'fipstate': int(str(county_fips)[0:fips_len-3]),
                         'fipscty': int(str(county_fips)[fips_len-3:])
                         }
-
                 return missing_dict[fips_cat]
 
         energy_ghgrp_y['fipscty'] = energy_ghgrp_y.COUNTY_FIPS.apply(
@@ -451,18 +433,23 @@ class Manufacturing_energy:
                 lambda x: match_countyfips(x, fips_dict, 'fipstate')
                 )
 
-        county_combustion_energy_dd = dd.from_pandas(energy_nonghgrp.append(
-                energy_ghgrp_y, ignore_index=True, sort=True
-                ).set_index('MECS_NAICS'),
-                npartitions=len(self.mecs_naics.MECS_NAICS.unique()
-                ))
+        county_combustion_energy = pd.concat([energy_nonghgrp, energy_ghgrp_y],
+                                             ignore_index=True, axis=0,
+                                             sort=True)
+        county_combustion_energy['naics'] = \
+            county_combustion_energy.naics.astype(int)
+        # county_combustion_energy_dd = dd.from_pandas(energy_nonghgrp.append(
+        #         energy_ghgrp_y, ignore_index=True, sort=True
+        #         ).set_index('MECS_NAICS'),
+        #         npartitions=len(self.mecs_naics.MECS_NAICS.unique()
+        #         ))
+        #
+        # county_combustion_energy_dd['naics'] =\
+        #         county_combustion_energy_dd.naics.astype('int')
+        #
+        # county_combustion_energy_dd = county_combustion_energy_dd.compute()
 
-        county_combustion_energy_dd['naics'] =\
-                county_combustion_energy_dd.naics.astype('int')
-
-        county_combustion_energy_dd = county_combustion_energy_dd.compute()
-
-        return county_combustion_energy_dd
+        return county_combustion_energy
 
     def calc_enduse(self, eu_fraction_dict, county_energy_dd, temps=False):
         """
@@ -528,21 +515,13 @@ class Manufacturing_energy:
             enduse = re.match('(\w+) \(', unit_type)
 
             if enduse != None:
-
                 enduse = re.match('(\w+)', enduse.group())[0]
-
                 if enduse in unittype_eu_df.index:
-
                     enduse = unittype_eu_df.loc[enduse, 'end_use']
-
                 else:
-
                     enduse = np.nan
-
             else:
-
                 if unit_type in unittype_eu_df.index:
-
                     enduse = unittype_eu_df.loc[unit_type, 'end_use']
 
             return enduse
@@ -554,26 +533,18 @@ class Manufacturing_energy:
             """
 
             for i in unitname_eu_df.index:
-
                 enduse = re.search(i, unit_name.lower())
-
                 if enduse == None:
-
                     continue
-
                 else:
-
                     enduse = unitname_eu_df.loc[i, 'end_use']
-
                     return enduse
 
             enduse = np.nan
 
             return enduse
 
-
         unittype_eu_df = eu_dict_to_df(unittype_eu_dict)
-
         unitname_eu_df = eu_dict_to_df(unitname_eu_dict)
 
         # Base ghgrp energy end use disaggregation on reported unit type and
@@ -589,9 +560,7 @@ class Manufacturing_energy:
         type_match = list()
 
         for utype in unit_types:
-
             enduse = eu_unit_type(utype, unittype_eu_df)
-
             type_match.append([utype, enduse])
 
         type_match = pd.DataFrame(type_match,
@@ -645,20 +614,22 @@ class Manufacturing_energy:
                 right_index=True, how='left'
                 )
 
-        for eu in enduses:
+        eu_ghgrp_notmatched.reset_index(inplace=True)
 
-            eu_ghgrp_notmatched[eu] = \
-                eu_ghgrp_notmatched.MMBtu_TOTAL.multiply(
-                        eu_ghgrp_notmatched[eu], fill_value=0
-                        )
+        # for eu in enduses:
+        eu_ghgrp_notmatched.loc[:, enduses] = \
+            eu_ghgrp_notmatched[enduses].multiply(
+                eu_ghgrp_notmatched.MMBtu_TOTAL, axis=0,
+                )
 
         agg_cols = [x for x in itools.product(enduses, ['sum'])]
 
         agg_cols.append(('FACILITY_ID', 'count'))
 
-        eu_ghgrp_notmatched = eu_ghgrp_notmatched.reset_index().groupby(
-                ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE', 'MECS_NAICS',
-                 'MECS_FT',], as_index=False).agg(dict(agg_cols))
+        eu_ghgrp_notmatched = eu_ghgrp_notmatched.groupby(
+                ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
+                'MECS_NAICS','MECS_FT'], as_index=False
+                ).agg(dict(agg_cols))
 
         eu_ghgrp_notmatched.set_index('MECS_NAICS', inplace=True)
 
@@ -668,52 +639,70 @@ class Manufacturing_energy:
                 )
 
         for df in [eu_ghgrp_matched, eu_ghgrp_notmatched]:
-
             df.rename(columns={'PRIMARY_NAICS_CODE':'naics',
                                'FACILITY_ID': 'est_count'}, inplace=True)
-
             df['Emp_Size'] = 'ghgrp'
-
             df['data_source'] = 'ghgrp'
-
 
         # Calculate end use of energy estimated from MECS data with MECS end
         # use.
         enduses = eu_fraction_dict['nonGHGRP'].columns.values
 
-        eu_energy_dd = dd.merge(
-                county_energy_dd[county_energy_dd.data_source=='mecs_ipf'],
-                eu_fraction_dict['nonGHGRP'].reset_index('MECS_FT'),
-                on=['MECS_NAICS', 'MECS_FT'], how='left'
+        eu_energy = county_energy_dd[
+            county_energy_dd.data_source=='mecs_ipf'
+            ].set_index(['MECS_NAICS', 'MECS_FT']).join(
+                eu_fraction_dict['nonGHGRP'], how='inner'
                 )
 
-        for eu in enduses:
+        eu_energy.reset_index(inplace=True)
+        eu_energy.loc[:, enduses] = \
+            eu_energy[enduses].multiply(eu_energy.MMBtu_TOTAL, axis=0)
+        eu_energy.set_index('MECS_NAICS', inplace=True)
 
-            eu_energy_dd[eu] = \
-                eu_energy_dd.MMBtu_TOTAL.mul(eu_energy_dd[eu],
-                                             fill_value=0)
+        # eu_energy_dd = dd.merge(
+        #         county_energy_dd[county_energy_dd.data_source=='mecs_ipf'],
+        #         eu_fraction_dict['nonGHGRP'].reset_index('MECS_FT'),
+        #         on=['MECS_NAICS', 'MECS_FT'], how='left'
+        #         )
+        #
+        # for eu in enduses:
+        #     eu_energy_dd[eu] = \
+        #         eu_energy_dd.MMBtu_TOTAL.mul(eu_energy_dd[eu],
+        #                                      fill_value=0)
 
         # This throws FutureWanring related to sorting for pandas concat,
         # but currently there's no option to address this in dd.concat
-        eu_energy_dd = dd.concat(
-                [df for df in [eu_energy_dd, eu_ghgrp_matched,
-                               eu_ghgrp_notmatched]], axis='index',
-                join='outer', interleave_partitions=True)
+        # eu_energy_dd = dd.concat(
+        #         [df for df in [eu_energy_dd, eu_ghgrp_matched,
+        #                        eu_ghgrp_notmatched]], axis='index',
+        #         join='outer', interleave_partitions=True)
 
+        eu_energy = pd.concat(
+            [x for x in [eu_energy,eu_ghgrp_matched,eu_ghgrp_notmatched]],
+            axis=0, ignore_index=False, sort=True
+            )
 
-        eu_energy_dd_final = dd.melt(
-                eu_energy_dd.reset_index(), value_vars=enduses.tolist(),
-                id_vars=['MECS_NAICS', 'COUNTY_FIPS', 'Emp_Size', 'MECS_FT',
-                         'MECS_Region', 'data_source', 'est_count', 'fipscty',
-                         'fipstate', 'naics'], var_name='End_use',
-                value_name='MMBtu'
+        # eu_energy_dd_final = dd.melt(
+        #         eu_energy_dd.reset_index(), value_vars=enduses.tolist(),
+        #         id_vars=['MECS_NAICS', 'COUNTY_FIPS', 'Emp_Size', 'MECS_FT',
+        #                  'MECS_Region', 'data_source', 'est_count', 'fipscty',
+        #                  'fipstate', 'naics'], var_name='End_use',
+        #         value_name='MMBtu'
+        #         )
+        eu_energy = pd.melt(
+            eu_energy.reset_index(), value_vars=enduses.tolist(),
+            id_vars=['MECS_NAICS','COUNTY_FIPS','Emp_Size','MECS_FT',
+                     'MECS_Region','data_source','est_count','fipscty',
+                     'fipstate','naics'], var_name='End_use',value_name='MMBtu'
                 )
 
         # clean up by removing MMBtu values == 0..
-        eu_energy_dd_final = \
-            eu_energy_dd_final[eu_energy_dd_final.MMBtu !=0]
+        # eu_energy_dd_final = \
+        #     eu_energy_dd_final[eu_energy_dd_final.MMBtu !=0]
+        eu_energy = eu_energy.where(eu_energy.MMBtu>0).dropna()
 
-        eu_energy_dd_final = eu_energy_dd_final.set_index('MECS_NAICS')
+        # eu_energy_dd_final = eu_energy_dd_final.set_index('MECS_NAICS')
+        eu_energy = eu_energy.set_index('MECS_NAICS')
 
         def final_formatting(df):
             """
@@ -721,18 +710,14 @@ class Manufacturing_energy:
             """
 
             df['COUNTY_FIPS'] = df.COUNTY_FIPS.astype(int)
-
             df['naics'] = df.naics.astype(int)
 
             def fips_fix(fipstate):
-
+                """ """
                 try:
-
                     new_fipstate = \
                         int(str(fipstate)[0:len(str(int(fipstate)))-3])
-
                 except ValueError:
-
                     new_fipstate = fipstate
 
                 return new_fipstate
@@ -742,35 +727,28 @@ class Manufacturing_energy:
             df = df.drop(['fipscty'], axis=1)
 
             if 'Temp_C' in df.columns:
-
                 df.drop(['MMBtu','Fraction','Heat_type'], axis=1, inplace=True)
-
                 df.rename(columns={'MMBtu_Temp': 'MMBtu'}, inplace=True)
 
             return df
 
-        if temps == True:
-
+        if temps:
             temp_methods = enduse_temps_IPH.process_temps()
-
             MECS_NAICS = eu_fraction_dict[
                     'nonGHGRP'
                     ].index.get_level_values(0).unique().values
+            eu_energy_final_temps = temp_methods.temp_mapping(MECS_NAICS,
+                                                              eu_energy)
+            eu_energy_final_temps = \
+                final_formatting(eu_energy_final_temps)
 
-            eu_energy_dd_final_temps = temp_methods.temp_mapping(MECS_NAICS,
-                                                           eu_energy_dd_final)
-
-            eu_energy_dd_final_temps = \
-                final_formatting(eu_energy_dd_final_temps)
-
-            return eu_energy_dd_final_temps
+            return eu_energy_final_temps
 
 
         else:
+            eu_energy = final_formatting(eu_energy)
 
-            eu_energy_dd_final = final_formatting(eu_energy_dd_final)
-
-            return eu_energy_dd_final
+            return eu_energy
 
 
 

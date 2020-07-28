@@ -57,8 +57,8 @@ mecs_intensities = tcmfg.calc_intensities(cbp.cbp_matching)
 # column.
 mfg_energy = tcmfg.combfuel_calc(cbp_corrected, mecs_intensities)
 
-mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
-                      engine='pyarrow', compression='gzip')
+# mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
+#                       engine='pyarrow', compression='gzip')
 
 enduse_methods = mecs_table5_2_formatting.table5_2(2014)
 
@@ -68,15 +68,17 @@ enduse_fraction = enduse_methods.calculate_eu_share()
 # This returns a dask dataframe.
 mfg_energy_enduse = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                       temps=False)
-
+mfg_energy_enduse.to_parquet('../results/mfg_eu_'+today+'.parquet.gzip',
+                             index=True,engine='pyarrow',compression='gzip')
 # Save as parquet
-os.mkdir('../results/mfg_eu_'+today)
+# os.mkdir('../results/mfg_eu_'+today)
 
-dd.to_parquet(
-        mfg_energy_enduse,
-        '../results/mfg_eu_'+today,
-        write_index=True, engine='pyarrow', compression='gzip'
-        )
+
+# dd.to_parquet(
+#         mfg_energy_enduse,
+#         '../results/mfg_eu_'+today,
+#         write_index=True, engine='pyarrow', compression='gzip'
+#         )
 
 # Enduse breakdown with temperatures; Returns only process heating end uses
 # with defined temperatures.

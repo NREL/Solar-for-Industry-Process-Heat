@@ -14,21 +14,14 @@ class County_matching:
     def __init__(self, year):
 
         self.year = year
-
         self.data_dir = 'calculation_data'
-
         self.mecs2010_naics_file = '/mecs_naics.csv'
-
         self.mecs2014_naics_file = '/mecs_naics_2012.csv'
-
         self.fips_file = '/US_FIPS_Codes.csv'
 
         if self.year > 2011:
-
             mecs_naics_file = self.mecs2014_naics_file
-
         else:
-
             mecs_naics_file = self.mecs2010_naics_file
 
         self.mecs_naics = pd.read_csv(
@@ -145,19 +138,14 @@ class County_matching:
             ghgrp_matching.set_index('FACILITY_ID', inplace=True)
 
             ghgrp_matching.loc[1003006, 'PRIMARY_NAICS_CODE'] = 424710
-
             ghgrp_matching.loc[1004861, 'PRIMARY_NAICS_CODE'] = 325193
-
             ghgrp_matching.loc[1005954, 'PRIMARY_NAICS_CODE'] = 311211
-
             ghgrp_matching.loc[1004098, 'PRIMARY_NAICS_CODE'] = 322121
-
             ghgrp_matching.loc[1005445, 'PRIMARY_NAICS_CODE'] = 331524
 
             ghgrp_matching.reset_index(inplace=True)
 
             for c in ['PRIMARY_NAICS_CODE', 'SECONDARY_NAICS_CODE']:
-
                 naics_column = c + '_12'
 
 #                ghgrp_matching[naics_column] = ghgrp_matching[c].map(
@@ -177,15 +165,10 @@ class County_matching:
         else:
 
             ghgrp_matching.set_index('FACILITY_ID', inplace=True)
-
             ghgrp_matching.loc[1003006, 'PRIMARY_NAICS_CODE'] = 424710
-
             ghgrp_matching.loc[1004861, 'PRIMARY_NAICS_CODE'] = 325193
-
             ghgrp_matching.loc[1005954, 'PRIMARY_NAICS_CODE'] = 311211
-
             ghgrp_matching.loc[1004098, 'PRIMARY_NAICS_CODE'] = 322121
-
             ghgrp_matching.loc[1005445, 'PRIMARY_NAICS_CODE'] = 331524
 
             ghgrp_matching.reset_index(inplace=True)
@@ -234,10 +217,8 @@ class County_matching:
 
             ghgrp_matching['pn_in_cbp']  = \
                 ghgrp_matching.PRIMARY_NAICS_CODE.isin(cbp_matching.naics)
-
             ghgrp_matching['sn_in_cbp']  = \
                 ghgrp_matching.SECONDARY_NAICS_CODE.isin(cbp_matching.naics)
-
             ghgrp_missing = pd.DataFrame(
                 ghgrp_matching[(ghgrp_matching.pn_in_cbp == False) &
                                (ghgrp_matching.sn_in_cbp == False)][[
@@ -259,11 +240,9 @@ class County_matching:
                 )
 
         if self.year > 2011:
-
             ghgrp_manual['pn_4n'] = ghgrp_manual.PRIMARY_NAICS_CODE_12.apply(
                 lambda x: int(str(x)[0:4])
                 )
-
             ghgrp_manual['sn_4n'] = ghgrp_manual.SECONDARY_NAICS_CODE_12.apply(
                 lambda x: int(str(x)[0:4])
                 )
@@ -273,7 +252,6 @@ class County_matching:
             ghgrp_manual['pn_4n'] = ghgrp_manual.PRIMARY_NAICS_CODE.apply(
                 lambda x: int(str(x)[0:4])
                 )
-
             ghgrp_manual['sn_4n'] = ghgrp_manual.SECONDARY_NAICS_CODE.apply(
                 lambda x: int(str(x)[0:4])
                 )
@@ -298,9 +276,7 @@ class County_matching:
 
         #Select NAICS that corresponds to CBP data.
         if self.year > 2011:
-
             ghgrp_matching['NAICS_MATCHED'] = np.nan
-
             ghgrp_matching['NAICS_MATCHED'].update(
                     ghgrp_matching.where(
                             ghgrp_matching.pn12_in_cbp == True
@@ -318,11 +294,8 @@ class County_matching:
                     )
 
             ghgrp_matching.set_index('FACILITY_ID', inplace=True)
-
             ghgrp_matching['NAICS_MATCHED'].update(ghgrp_manual_matched.naics)
-
             ghgrp_matching.reset_index(inplace=True)
-
             ghgrp_matching['FIPS_NAICS_MATCHED'] = [
                     i for i in zip(ghgrp_matching['COUNTY_FIPS'],
                                    ghgrp_matching['NAICS_MATCHED'])
@@ -345,9 +318,7 @@ class County_matching:
 #                            ]
 
         else:
-
             ghgrp_matching['NAICS_MATCHED'] = np.nan
-
             ghgrp_matching['NAICS_MATCHED'].update(
                     ghgrp_matching.where(
                             ghgrp_matching.pn_in_cbp == True
@@ -365,11 +336,8 @@ class County_matching:
                     )
 
             ghgrp_matching.set_index('FACILITY_ID', inplace=True)
-
             ghgrp_matching['NAICS_MATCHED'].update(ghgrp_manual_matched.naics)
-
             ghgrp_matching.reset_index(inplace=True)
-
             ghgrp_matching['FIPS_NAICS_MATCHED'] = \
                 [i for i in zip(ghgrp_matching.loc[:,'COUNTY_FIPS'],
                                 ghgrp_matching.loc[:, 'NAICS_MATCHED'])]
@@ -391,7 +359,7 @@ class County_matching:
         Identify which NAICS codes in the Census data are covered in MECS
         Begin by importing MECS data. Note that CBP data after 2011 use 2012
         NAICS. MECS data are based on 2007 NAICS. Most significant difference is
-        aggregationof Alkalies and Chlorine Manufacturing,
+        aggregation of Alkalies and Chlorine Manufacturing,
         Carbon Black Manufacturing, and
         All other Basic Inorganic Chemical Manufacturing into a single
         NAICS code.
@@ -536,7 +504,6 @@ class County_matching:
                 )
 
         cbp_matching.reset_index(inplace=True, drop=False)
-
         cbp_matching.rename(columns={'index': 'fipstate'}, inplace=True)
 
         # Change cement facilities from in_ghgrp == True to in_ghgrp == False
@@ -545,9 +512,7 @@ class County_matching:
         cement_facs = cbp_matching[cbp_matching.naics==327310].copy(deep=False)
 
         cement_facs.loc[:, 'in_ghgrp'] = False
-
         cement_facs.loc[:, 'ghgrp_fac'] = 0
-
         cbp_matching.update(cement_facs)
 
         return cbp_matching
@@ -623,9 +588,7 @@ class County_matching:
             """
 
             large = ['n50_99', 'n100_249', 'n250_499', 'n500_999', 'n1000']
-
             small = ['n1_4', 'n5_9', 'n10_19', 'n20_49']
-
             ghgrp_fac_count = df.loc[index, 'ghgrp_fac']
 
 #            fac_count_large = df.loc[index, 'est_large']
@@ -635,22 +598,17 @@ class County_matching:
             fac_count_total = df.loc[index, 'est']
 
             if ghgrp_fac_count <= fac_count_total:
-
                 n = ghgrp_fac_count
 
             else:
-
                 n = fac_count_total
 
             while n > 0:
-
                 maxsize = [c for c in itools.compress(small + large, df.loc[
                         index, ('n1_4'):('n1000')
                     ].values)][-1]
-
                 df.loc[index, maxsize] = df.loc[index, maxsize] - 1
-
-                n = n - 1
+                n -=1
 
             df.loc[index, 'est_large_corrected'] = df.loc[
                 index, ('n50_99'):('n1000')
@@ -677,9 +635,7 @@ class County_matching:
         cbp_corrected = cbp_matching.copy(deep=True)
 
         cbp_corrected['est_small_corrected'] = cbp_corrected.est_small
-
         cbp_corrected['est_large_corrected'] = cbp_corrected.est_large
-
         cbp_corrected.update(cbp_ghgrp)
 
         return cbp_corrected

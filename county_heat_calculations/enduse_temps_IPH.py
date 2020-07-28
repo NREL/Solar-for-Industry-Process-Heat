@@ -349,7 +349,7 @@ class process_temps:
         # and process heating end uses.
         # Does not address industries that were not matched to a 3-digit NAICS
         eu_naics = pd.DataFrame(
-                eu_energy_temp_dd['naics'].drop_duplicates().compute()
+                eu_energy_temp_dd['naics'].drop_duplicates()
                 )
 
         eu_naics.rename(columns={'naics':'NAICS12'}, inplace=True)
@@ -397,7 +397,6 @@ class process_temps:
 
         tn_match_fraction.reset_index(inplace=True)
 
-
 #        tn_match_fraction = pd.merge(
 #                tn_match_fraction, naics_to_temp[['TN_Match', 'MECS_NAICS']],
 #                on='TN_Match', how='left'
@@ -432,19 +431,19 @@ class process_temps:
 #                )
 
         def map_eu(mecs_eu):
-
             if mecs_eu in self.eu_map.keys():
-
                 temp_use = self.eu_map[mecs_eu]
 
             else:
-
                 temp_use = np.nan
 
             return temp_use
 
+        # eu_energy_temp_dd['Heat_type'] = eu_energy_temp_dd.End_use.apply(
+        #         lambda x: map_eu(x), meta=('Heat_type', str)
+        #         )
         eu_energy_temp_dd['Heat_type'] = eu_energy_temp_dd.End_use.apply(
-                lambda x: map_eu(x), meta=('Heat_type', str)
+                lambda x: map_eu(x)
                 )
 
         # Drop all enduses not related to heat
@@ -454,9 +453,10 @@ class process_temps:
         def f(df, name):
             df.index.name=name
             return df
-        eu_energy_temp_dd.map_partitions(f, 'MECS_NAICS')
 
-        eu_energy_temp_dd = eu_energy_temp_dd.compute()
+        # eu_energy_temp_dd.map_partitions(f, 'MECS_NAICS')
+        #
+        # eu_energy_temp_dd = eu_energy_temp_dd.compute()
 
         # Before merging, need to reindex so that heat types that have
         # multiple temperatures are included.

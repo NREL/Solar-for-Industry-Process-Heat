@@ -484,7 +484,17 @@ class table5_2:
 
             df = pd.DataFrame(df[df.region == 'us'])
 
-            df['naics'].replace({'31-33': 31}, inplace=True)
+            def replace_3133(naics):
+
+                if str(naics):
+
+                    if naics == '31-33':
+
+                        naics = 31
+
+                return naics
+
+            df['naics'] = df.naics.apply(lambda x: replace_3133(x))
 
             for c in df.columns:
 
