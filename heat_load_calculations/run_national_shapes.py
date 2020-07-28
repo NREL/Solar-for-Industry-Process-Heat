@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     naics_emp = pd.read_parquet(
         'c:/users/cmcmilla/solar-for-industry-process-heat/results/'+\
-        'mfg_eu_temps_20191031_2322.parquet.gzip',
+        'mfg_eu_temps_20200728_0810.parquet.gzip',
         columns=['naics', 'Emp_Size']
         )
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
         pool_ls['enduse'] = enduse
 
-        pool_ls.to_csv('../results/all_load_shapes_'+enduse+'.gzip',
+        pool_ls.to_csv('../results/all_load_shapes_'+enduse+'20200728.gzip',
                        compression='gzip', index=False)
 
     logger.info('Formatting boiler results')

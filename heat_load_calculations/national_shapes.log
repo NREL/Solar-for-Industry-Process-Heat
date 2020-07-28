@@ -1,7 +1,7 @@
-2020-02-20 11:16:13,723 - __main__ - INFO - Starting boiler shapes pool
-2020-02-20 12:22:14,963 - __main__ - INFO - Boiler pool done.
-2020-02-20 12:22:14,970 - __main__ - INFO - Starting process heat shapes pool
-2020-02-20 13:32:40,601 - __main__ - INFO - Process heat pool done.
-2020-02-20 13:32:40,608 - __main__ - INFO - Formatting boiler results
-2020-02-20 13:33:22,020 - __main__ - INFO - Formatting process heat results
-2020-02-20 13:34:04,464 - __main__ - INFO - Shapes complete.
+2020-07-28 09:48:08,764 - __main__ - INFO - Starting boiler shapes pool
+2020-07-28 11:13:04,288 - __main__ - INFO - Boiler pool done.
+2020-07-28 11:13:04,292 - __main__ - INFO - Starting process heat shapes pool
+2020-07-28 12:49:20,372 - __main__ - INFO - Process heat pool done.
+2020-07-28 12:49:20,375 - __main__ - INFO - Formatting boiler results
+2020-07-28 12:50:00,597 - __main__ - INFO - Formatting process heat results
+2020-07-28 12:50:41,509 - __main__ - INFO - Shapes complete.
