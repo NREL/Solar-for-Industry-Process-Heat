@@ -57,8 +57,8 @@ mecs_intensities = tcmfg.calc_intensities(cbp.cbp_matching)
 # column.
 mfg_energy = tcmfg.combfuel_calc(cbp_corrected, mecs_intensities)
 
-# mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
-#                       engine='pyarrow', compression='gzip')
+mfg_energy.to_parquet('../results/mfg_energy_total_'+today+'.parquet.gzip',
+                      engine='pyarrow', compression='gzip')
 
 enduse_methods = mecs_table5_2_formatting.table5_2(2014)
 

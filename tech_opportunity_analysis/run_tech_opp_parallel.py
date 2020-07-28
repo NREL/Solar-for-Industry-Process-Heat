@@ -13,11 +13,11 @@ from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'swh'
-demand_filepath= 'fpc_hw_process_energy.csv.gz'
+tech_package = 'dsg_lf'
+demand_filepath= 'LF_process_energy.csv.gz'
 # tech_package = 'swh'
 # demand_filepath= 'fpc_hw_process_energy.csv.gz'
-rev_output_filepath ='rev_output/swh/swh_sc0_t0_or0_d0_gen_2014.h5'
+rev_output_filepath ='rev_output/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5'
 
 ## Dictionary by tech package of all solar gen and process energy inputs
 #  tech_opp_inputs = {

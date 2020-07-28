@@ -83,20 +83,19 @@ def create_h5(target_file_path, tech_opp_results):
     f.create_dataset('time_index', data=time_index, dtype='S19')
 
     for op_h in ophours:
-
         f.create_dataset(op_h+'/tech_opp', data=tech_opp[op_h]['tech_opp'])
         f[op_h+'/tech_opp'].attrs.create('units', 'MW solar gen/MW demand')
-        f.create_dataset(op_h+'/total_load', data=total_load[op_h]['total_load'])
+        f.create_dataset(op_h+'/total_load',
+                         data=total_load[op_h]['total_load'])
         f[op_h+'/total_load'].attrs.create('units', 'MW')
         f.create_dataset(op_h+'/land_use', data=tech_opp_land[op_h])
         f[op_h+'/land_use'].attrs.create('units', 'km2')
 
         for fuel in fuels:
-
             f.create_dataset(op_h+'/'+fuel, data=tech_opp[op_h][fuel])
             f[op_h+'/'+fuel].attrs.create('desc',
-                                          'MW of {} displaced'.format(fuel))
-            f[op_h+'/'+fuel].attrs.create('units', 'MW')
+                                          'Fraction of {} displaced'.format(fuel))
+            f[op_h+'/'+fuel].attrs.create('units', 'fraction')
 
     f['ophours_mean'].attrs.create('desc', 'mean weekly operating hours')
     f['ophours_low'].attrs.create('desc','low weekly operating hours')

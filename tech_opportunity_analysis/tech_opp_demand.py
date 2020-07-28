@@ -9,17 +9,13 @@ class demand_results:
     def __init__(self, demand_file):
 
         self.demand_data = pd.read_csv(demand_file, index_col=0)
-
         # Filter out non-CONUS counties
         self.demand_data = \
             self.demand_data[~self.demand_data.fipstate.isin([15,2])]
-
         self.demand_data.drop(['MMBtu', 'fipstate'], axis=1, inplace=True)
-
         self.demand_data.rename(columns={'proc_MMBtu': 'MMBtu'}, inplace=True)
 
         self.data_dir = './calculation_data'
-
         # Calculated using heat_load_calculations.ghg.py
         self.mecs_fuel_intensity = pd.read_csv(
             os.path.join(self.data_dir, 'mecs_fuel_intensity.csv')
@@ -56,11 +52,8 @@ class demand_results:
         """
 
         if type(county_8760) == pd.core.frame.DataFrame:
-
             county_load_f = county_8760.copy(deep=True)
-
         else:
-
             county_load_f = pd.read_parquet(county_8760)
 
         # self.county_load = self.county_load.set_index(0, inplace=True)
@@ -70,10 +63,8 @@ class demand_results:
         county_load_f.fraction.update(
             county_load_f.MW.divide(county_load_f.MW.sum(level=3))
             )
-
         county_load_f['fraction'] = \
             county_load_f.fraction.astype('float16')
-
         county_neeu = np.stack(
             [county_load_f.index.get_level_values(n).values for n in range(0,3)],
             axis=1
@@ -84,20 +75,17 @@ class demand_results:
 
         # These will not sum to 1 b/c not all "other" fuel types are included
         county_neeu = county_neeu.drop_duplicates()
-
         county_neeu.loc[:, 'MECS_Region'] = self.mecs_fips_dict.xs(county)[0]
-
-        fuel_dfs = pd.merge(county_neeu, self.mecs_fuel_intensity,
-                            on=['MECS_Region', 'naics', 'Emp_Size','End_use'],
-                            how='inner')
-
+        fuel_dfs = pd.merge(
+            county_neeu, self.mecs_fuel_intensity[
+                self.mecs_fuel_intensity.MECS_FT_byp.isin(fuels)
+                ],on=['MECS_Region', 'naics', 'Emp_Size','End_use'],how='inner'
+                )
         fuel_dfs.drop('MECS_Region', axis=1, inplace=True)
-
         fuel_dfs.set_index(['naics', 'Emp_Size', 'End_use'], inplace=True)
 
         # Make sure county has GHGRP facilities before concatenating fuel mix
         if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
-
             fuel_dfs = pd.concat(
                 [fuel_dfs, self.ghgrp_fuel_intensity.set_index(
                     ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
@@ -112,18 +100,14 @@ class demand_results:
             )
 
         for f in fuels:
-
             if f not in fuel_dfs.columns:
-
                 fuel_dfs.loc[:, f] = 0
-
             else:
                 continue
 
         # These will not sum to 1 for all naics-emp size-end use combinations
         # b/c not all "other" fuel types are included (e.g., some biomass types)
         county_load_f = fuel_dfs.multiply(county_load_f.fraction, axis=0)
-
         # Sum back to hourly, total county load, now split out into fuel types,
         county_load_f = county_load_f.sum(level=3)
 
@@ -139,10 +123,8 @@ class demand_results:
         tech_opp_fuels = county_load_f.multiply(
             tech_opp.where(tech_opp.MW <1, 1).MW, axis=0
             )
-
         # Make sure index is sorted correctly as ascending datetime
         tech_opp_fuels = tech_opp_fuels.sort_index(ascending=True)
-
         # Send results to numpy record array
         tech_opp_fuels = tech_opp_fuels.to_records(index=False)
 
@@ -154,72 +136,27 @@ class demand_results:
         Creates an array of all 3-digit NAICS codes in county.
         """
         if type(county_8760) == pd.core.frame.DataFrame:
-
             county_ind = county_8760.copy(deep=True)
 
         else:
-
             county_ind = pd.read_parquet(county_8760)
 
         county_ind.reset_index(inplace=True)
 
         try:
-
             nlen = \
                 all([len(str(x))==3 for x in county_ind['naics_sub'].unique()])
 
         except KeyError:
-
             naics_3d = np.array(
                 [int(str(x)[0:3]) for x in county_ind.naics.unique()]
                 )
 
         else:
-
             if nlen:
-
                 naics_3d = county_ind['naics_sub'].unique()
 
-        # county_ind = county_ind.groupby(
-        #     ['index', naics_col]
-        #     )[['MW', 'fraction']].sum()
-        #
-        # county_ind.fraction.update(
-        #     county_ind.MW.divide(county_ind.MW.sum(level=0))
-        #     )
-        #
-        # county_ind.drop(['MW'], axis=1, inplace=True)
-
         return naics_3d
-
-
-    # @staticmethod
-    # def breakout_ind_tech_opp(tech_opp, county_ind):
-    #     """
-    #     Creates a MultiIndex for the tech_opp dataframe, adding
-    #     an index of 3-digit NAICS code to existing datetime index.
-    #     Returns a structured array
-    #     """
-    #
-    #     naics_index = county_ind.index.get_level_values(1)
-    #
-    #     naics_number = len(naics_index.unique())
-    #
-    #     tech_opp_ind = tech_opp.reindex(
-    #         index=np.repeat(tech_opp.index, naics_number)
-    #         )
-    #
-    #     tech_opp_ind[naics_index.name] = naics_index
-    #
-    #     tech_opp_ind.sort_index(ascending=True, inplace=True)
-    #
-    #     tech_opp_ind = pd.pivot(tech_opp_ind, columns=naics_index.name)
-    #
-    #     # tech_opp_ind.set_index([naics_index.name], append=True, inplace=True)
-    #
-    #     tech_opp_ind_array = tech_opp_ind.to_records(index=False)
-    #
-    #     return tech_opp_ind_array
 
 
     # This should be a separate file and class.
