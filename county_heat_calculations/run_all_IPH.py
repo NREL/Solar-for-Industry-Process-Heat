@@ -65,7 +65,6 @@ enduse_methods = mecs_table5_2_formatting.table5_2(2014)
 enduse_fraction = enduse_methods.calculate_eu_share()
 
 # Enduse breakdown without temperatures.
-# This returns a dask dataframe.
 mfg_energy_enduse = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                       temps=False)
 mfg_energy_enduse.to_parquet('../results/mfg_eu_'+today+'.parquet.gzip',
