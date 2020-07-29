@@ -101,7 +101,7 @@ class demand_results:
 
         for f in fuels:
             if f not in fuel_dfs.columns:
-                fuel_dfs.loc[:, f] = 0
+                fuel_dfs[f] = 0
             else:
                 continue
 
@@ -137,7 +137,6 @@ class demand_results:
         """
         if type(county_8760) == pd.core.frame.DataFrame:
             county_ind = county_8760.copy(deep=True)
-
         else:
             county_ind = pd.read_parquet(county_8760)
 
@@ -146,15 +145,16 @@ class demand_results:
         try:
             nlen = \
                 all([len(str(x))==3 for x in county_ind['naics_sub'].unique()])
-
         except KeyError:
             naics_3d = np.array(
                 [int(str(x)[0:3]) for x in county_ind.naics.unique()]
                 )
-
         else:
             if nlen:
                 naics_3d = county_ind['naics_sub'].unique()
+
+        #Keep only unique values
+        naics_3d = np.unique(naics_3d)
 
         return naics_3d
 
