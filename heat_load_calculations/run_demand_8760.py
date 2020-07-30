@@ -43,13 +43,13 @@ class demand_hourly_load:
         # Import load shapes (defined by naics and employment size class)
         self.boiler_ls = pd.read_csv(
             'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
-            'all_load_shapes_boiler.gzip', compression='gzip',
+            'all_load_shapes_boiler_20200728.gzip', compression='gzip',
             index_col=['naics', 'Emp_Size']
             )
 
         self.ph_ls = pd.read_csv(
             'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
-            'all_load_shapes_process_heat.gzip', compression='gzip',
+            'all_load_shapes_process_heat_20200728.gzip', compression='gzip',
             index_col=['naics', 'Emp_Size']
             )
 
