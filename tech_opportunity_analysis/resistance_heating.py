@@ -97,6 +97,9 @@ class resistance_htg:
         
         res_process_energy = pd.concat([ph_energy, boiler_energy, chp_energy], ignore_index=False, sort=True).sort_index()
         
+        #remove lines that have no proces heat demand
+        res_process_energy = res_process_energy.loc[res_process_energy['proc_MMBtu']>0].copy()
+        
         return res_process_energy
 
 
