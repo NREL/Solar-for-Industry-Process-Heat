@@ -1,4 +1,4 @@
-import pandas as pd
+
 import numpy as np
 import os
 import sys
@@ -13,13 +13,13 @@ from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'dsg_lf'
-demand_filepath= 'LF_process_energy.csv.gz'
-# tech_package = 'swh'
-# demand_filepath= 'fpc_hw_process_energy.csv.gz'
-rev_output_filepath ='rev_output/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5'
+tech_package = 'ptc_notes'
+demand_filepath = 'ptc_process_energy.csv.gz'
 
-## Dictionary by tech package of all solar gen and process energy inputs
+rev_output_filepath = \
+    'rev_output/ptc_notes/ptc_notes_sc0_t0_or0_d0_gen_2014.h5'
+
+# Dictionary by tech package of all solar gen and process energy inputs
 #  tech_opp_inputs = {
 #   'dsg_lf': {'supply': 'dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
 #              'demand': 'LF_process_energy.csv.gz'},
@@ -30,13 +30,17 @@ rev_output_filepath ='rev_output/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5'
 #    'pv_resist': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
 #                  'demand': ''}
 #    'pv_whrhp': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
-#                 'demand': ''}}
+#                 'demand': ''},
+#    'ptc_tes': {'supply': 'ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5',
+#               'demand': 'ptc_process_energy.csv.gz'},
+#    'ptc_notes': {'supply': 'ptc_notes_sc0_t0_or0_d0_gen_2014.h5',
+#               'demand': 'ptc_process_energy.csv.gz'}}
 #
 
 # rev_output_filepath ='rev_output/{}/{}_sc0_t0_or0_d0_gen_2014.h5'.format(
 #     tech_package, tech_package
 #     )
-sizing_month = 6
+sizing_month = 12
 
 # Time stamp (in UTC) for h5 file.
 time_stamp = time.strftime('%Y%m%d_%H%M', time.gmtime())
@@ -47,7 +51,8 @@ pickle_results = False
 start = time.time()
 
 tech_opp_methods = tech_opportunity(tech_package,
-                                    os.path.join(data_dir, rev_output_filepath),
+                                    os.path.join(data_dir,
+                                                 rev_output_filepath),
                                     sizing_month=sizing_month)
 
 # Instantiate process demand data (annual MMBtu) and methods
@@ -55,6 +60,7 @@ process_demand = demand_results(os.path.join(data_dir, demand_filepath))
 
 # Instantiate methods for creating hourly loads (in MW)
 hourly_demand = demand_hourly_load(2014, process_demand.demand_data)
+
 
 def check_county(process_counties):
     """
@@ -68,6 +74,7 @@ def check_county(process_counties):
         )
 
     return list(checked)
+
 
 def calc_county(county):
     # Calculate hourly load for annual demand (in MW). Calculate December and
@@ -110,30 +117,19 @@ def calc_county(county):
         county_sum = county_8760_ophours.sum(level=3).values
 
         if first:
-
             names = np.array((op_h,))
-
             county_total_load = county_sum
-
             county_tech_opp = tech_opp
-
             county_tech_opp_fuels = tech_opp_fuels
-
             county_tech_opp_land = tech_opp_land
-
             first = False
 
         else:
-
             names = np.vstack([names, np.array((op_h,))])
-
             county_total_load = np.hstack([county_total_load, county_sum])
-
             county_tech_opp = np.hstack([county_tech_opp, tech_opp])
-
             county_tech_opp_fuels = np.vstack([county_tech_opp_fuels,
                                                tech_opp_fuels])
-
             county_tech_opp_land = np.vstack([county_tech_opp_land,
                                               tech_opp_land])
 
@@ -155,12 +151,10 @@ if __name__ == "__main__":
                                                      sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=5) as pool:
-
+    with multiprocessing.Pool(processes=7) as pool:
         results = pool.map(calc_county, counties)
 
     if pickle_results:
-
         pickle_file = open('tech_opps.pkl', 'wb')
         pickle.dump(results, pickle_file)
         pickle_file.close()
@@ -170,5 +164,5 @@ if __name__ == "__main__":
     # End timer
     end = (time.time()-start)
     print('---------')
-    print("it took {} seconds to run.".format(np.round(end,0)))
+    print("it took {} seconds to run.".format(np.round(end, 0)))
     print('---------')

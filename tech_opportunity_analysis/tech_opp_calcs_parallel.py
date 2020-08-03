@@ -19,39 +19,47 @@ class tech_opportunity(rev_postprocessing):
         # The details of tech packages (temp_range, end_uses, industris)
         # aren't currently used.
         self.tech_package_default = {
-            'pv_hp': {'temp_range':[0,90],
-                      'enduses':['Conventional Boiler Use'],
+            'pv_hp': {'temp_range': [0, 90],
+                      'enduses': ['Conventional Boiler Use'],
                       'industries': ['all'],
                       'rev_solar_tech': 'pv_ac'},
-            'swh': {'temp_range':[0,90],
-                    'enduses':['Conventional Boiler Use',
-                               'CHP and/or Cogeneration Use'],
-                    'industries':['all'],
+            'swh': {'temp_range': [0, 90],
+                    'enduses': ['Conventional Boiler Use',
+                                'CHP and/or Cogeneration Use'],
+                    'industries': ['all'],
                     'rev_solar_tech': 'swh'},
-            'pv_boiler': {'temp_range':[0,450],
-                          'enduses':['Conventional Boiler Use',
-                                     'CHP and/or Cogeneration Use'],
+            'pv_boiler': {'temp_range': [0, 450],
+                          'enduses': ['Conventional Boiler Use',
+                                      'CHP and/or Cogeneration Use'],
                           'industries': ['all'],
                           'rev_solar_tech': 'pv_ac'},
-            'pv_resist': {'temp_range': [0, 800], 'enduses':['Process Heat'],
+            'pv_resist': {'temp_range': [0, 800], 'enduses': ['Process Heat'],
                           'industries': ['all'],
                           'rev_solar_tech': 'pv_dc'},
-            'pv_whrhp':{'temp_range':[0,160],
-                        'enduses':['Conventional Boiler Use',
-                                   'CHP and/or Cogeneration Use',
-                                   'Process Heat'],
+            'pv_whrhp': {'temp_range': [0, 160],
+                         'enduses': ['Conventional Boiler Use',
+                                     'CHP and/or Cogeneration Use',
+                                     'Process Heat'],
                          'industries': ['all'],
                          'rev_solar_tech': 'pv_ac'},
-            'dsg_lf': {'temp_range':[0,250],
-                       'enduses':['Conventional Boiler Use',
-                                  'CHP and/or Cogeneration Use','Process Heat'],
-                         'industries': ['all'],
-                         'rev_solar_tech': 'dsg_lf'},
-            'ptc': {'temp_range': [0,400],
-                    'enduses':['Conventional Boiler Use',
-                               'CHP and/or Cogeneration Use','Process Heat'],
-                     'industries': ['all'],
-                     'rev_solar_tech':'ptc_tes'}
+            'dsg_lf': {'temp_range': [0, 250],
+                       'enduses': ['Conventional Boiler Use',
+                                   'CHP and/or Cogeneration Use',
+                                   'Process Heat'],
+                       'industries': ['all'],
+                       'rev_solar_tech': 'dsg_lf'},
+            'ptc_tes': {'temp_range': [0, 400],
+                        'enduses': ['Conventional Boiler Use',
+                                    'CHP and/or Cogeneration Use',
+                                    'Process Heat'],
+                        'industries': ['all'],
+                        'rev_solar_tech': 'ptc_tes'},
+            'ptc_notes': {'temp_range': [0, 400],
+                          'enduses': ['Conventional Boiler Use',
+                                      'CHP and/or Cogeneration Use',
+                                      'Process Heat'],
+                          'industries': ['all'],
+                          'rev_solar_tech': 'ptc_notes'}
             }
 
         self.tech_package = self.tech_package_default[tech_package_name]
@@ -86,51 +94,46 @@ class tech_opportunity(rev_postprocessing):
         # Specify operating hour ranges.
         self.op_hours = ['ophours_low', 'ophours_mean', 'ophours_high']
 
-    def set_package_info(name, temp_range, enduses, industries):
+    def set_package_info(self, name, temp_range, enduses, industries):
         """
         Define package info.
         """
 
-        new_info = {name: {'temp_range':temp_range, 'enduses':enduses,
-                           'industries':industries}}
+        new_info = {name: {'temp_range': temp_range, 'enduses': enduses,
+                           'industries': industries}}
 
         self.tech_package[name] = new_info[name]
 
         print('Set', self.tech_package[name])
 
-
-    def filter_county_data(self, mfg_heat_data):
-        """
-        Select county data based on a single specified technology package.
-        Result is then passed to unit process calcuations.
-        """
-
-        enduses = self.tech_pacakge[tech_pacakge]['enduses']
-
-        temp_range = self.tech_pacakge[tech_pacakge]['temp_range']
-
-        industries = self.tech_pacakge[tech_pacakge]['industries']
-
-        if industries == ['all']:
-
-            selection = mfg_heat_data[
-                (mfg_heat_data.End_use.isin(enduses)) &
-                (mfg_heat_data.Temp_c.between(temp_range))
-                ]
-        else:
-
-            selection = mfg_heat_data[
-                (mfg_heat_data.End_use.isin(enduses)) &
-                (mfg_heat_data.Temp_c.between(temp_range)) &
-                (mfg_heat_data.naics.isin(industries))
-                ]
-
-        selection = selection.groupby(
-            ['MECS_Region', 'COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use'],
-            as_index=False
-            ).MMBtu.sum()
-
-        return selection
+    # def filter_county_data(self, mfg_heat_data):
+    #     """
+    #     Select county data based on a single specified technology package.
+    #     Result is then passed to unit process calcuations.
+    #     """
+    #
+    #     enduses = self.tech_pacakge[tech_pacakge]['enduses']
+    #     temp_range = self.tech_pacakge[tech_pacakge]['temp_range']
+    #     industries = self.tech_pacakge[tech_pacakge]['industries']
+    #
+    #     if industries == ['all']:
+    #         selection = mfg_heat_data[
+    #             (mfg_heat_data.End_use.isin(enduses)) &
+    #             (mfg_heat_data.Temp_c.between(temp_range))
+    #             ]
+    #     else:
+    #         selection = mfg_heat_data[
+    #             (mfg_heat_data.End_use.isin(enduses)) &
+    #             (mfg_heat_data.Temp_c.between(temp_range)) &
+    #             (mfg_heat_data.naics.isin(industries))
+    #             ]
+    #
+    #     selection = selection.groupby(
+    #         ['MECS_Region', 'COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use'],
+    #         as_index=False
+    #         ).MMBtu.sum()
+    #
+    #     return selection
 
     def get_county_info(self, county, county_ind):
         """
@@ -141,7 +144,8 @@ class tech_opportunity(rev_postprocessing):
             'County Available area km2'
             ].astype('float32')
 
-        timezone = self.rev_output.county_info.xs(county).timezone.astype('int')
+        timezone = \
+            self.rev_output.county_info.xs(county).timezone.astype('int')
 
         county_meta = pd.DataFrame(
             [[county, avail_land, timezone, county_ind]],
@@ -158,7 +162,7 @@ class tech_opportunity(rev_postprocessing):
         a dictionary with values for the low/mean/high range of operating
         hours, as well as county information.
         """
-        time_index = self.rev_output.gen_kW.index.values.astype(bytes)
+        # time_index = self.rev_output.gen_kW.index.values.astype(bytes)
 
         # Scale base-unit solar generation by peak demand
         # Returns the amount of land area used (in km2)
@@ -175,10 +179,6 @@ class tech_opportunity(rev_postprocessing):
         county_8760 = county_8760.groupby(county_8760.index).MW.sum()
 
         tech_opp = pd.DataFrame(scaled_generation.MW.divide(county_8760))
-        ## Cap tech opp at 1?
-        # tech_opp = pd.DataFrame(
-        #     tech_opp.where(tech_opp < 1).fillna(1)
-        #     ).sort_index(ascending=True)
 
         tech_opp_land = np.array([[used_area_abs]])
 
