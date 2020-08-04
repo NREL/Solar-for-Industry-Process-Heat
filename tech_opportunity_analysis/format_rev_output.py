@@ -35,9 +35,6 @@ class rev_postprocessing:
             os.path.join(self.data_dir, county_avail_area_file),
             index_col=['County FIPS']
             )
-        # Process demand data use 2014 FIPS. Need to change Oglala Lakota
-        # County back to Shannon County
-        self.area_avail.replace(index={46102: 46113}, inplace=True)
 
         # Footprints in m2
         generation_groups = {
