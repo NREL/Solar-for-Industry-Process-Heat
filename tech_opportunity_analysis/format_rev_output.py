@@ -65,9 +65,6 @@ class rev_postprocessing:
 
         self.county_info = pd.merge(county_info, gid_to_fips, on=['gid'],
                                     how='left').set_index('COUNTY_FIPS')
-        # Process demand data use 2014 FIPS. Need to change Oglala Lakota
-        # County back to Shannon County
-        self.county_info.replace(index={46102: 46113}, inplace=True)
 
         time_index = pd.DataFrame(file['time_index'], dtype=str)
 

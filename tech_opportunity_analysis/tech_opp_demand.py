@@ -1,8 +1,9 @@
 
 import pandas as pd
-import ghg
+# import ghg
 import os
 import numpy as np
+
 
 class demand_results:
 
@@ -11,9 +12,21 @@ class demand_results:
         self.demand_data = pd.read_csv(demand_file, index_col=0)
         # Filter out non-CONUS counties
         self.demand_data = \
-            self.demand_data[~self.demand_data.fipstate.isin([15,2])]
+            self.demand_data[~self.demand_data.fipstate.isin([15, 2])]
         self.demand_data.drop(['MMBtu', 'fipstate'], axis=1, inplace=True)
         self.demand_data.rename(columns={'proc_MMBtu': 'MMBtu'}, inplace=True)
+
+        # Map county FIPS from 2014 vintage to later vintage used by reV.
+        self.demand_data.replace({'COUNTY_FIPS': {46113: 46102, 51515: 51019,
+                                                  51595: 51081, 51690: 51089}},
+                                 inplace=True)
+
+        # Need to aggregate data due to introducing duplicate FIPS from
+        # counties that were collapsed into other counties (e.g., 51595 >51081)
+        self.demand_data = self.demand_data.groupby(
+            ['COUNTY_FIPS', 'MECS_Region', 'naics', 'naics_sub', 'Emp_Size',
+             'End_use', 'MECS_FT', 'Temp_C', 'data_source'], as_index=False
+            )[['est_count', 'MMBtu']].sum()
 
         self.data_dir = './calculation_data'
         # Calculated using heat_load_calculations.ghg.py
@@ -35,7 +48,7 @@ class demand_results:
 
         self.ghgrp_fuel_intensity = pd.DataFrame(
             self.ghgrp_fuel_intensity.divide(
-                self.ghgrp_fuel_intensity.sum(level=[0,1,2,3])
+                self.ghgrp_fuel_intensity.sum(level=[0, 1, 2, 3])
                 )
             ).reset_index()
 
@@ -71,7 +84,7 @@ class demand_results:
             )
 
         county_neeu = pd.DataFrame(county_neeu,
-                                   columns=['naics', 'Emp_Size','End_use'])
+                                   columns=['naics', 'Emp_Size', 'End_use'])
 
         # These will not sum to 1 b/c not all "other" fuel types are included
         county_neeu = county_neeu.drop_duplicates()
@@ -79,7 +92,8 @@ class demand_results:
         fuel_dfs = pd.merge(
             county_neeu, self.mecs_fuel_intensity[
                 self.mecs_fuel_intensity.MECS_FT_byp.isin(fuels)
-                ],on=['MECS_Region', 'naics', 'Emp_Size','End_use'],how='inner'
+                ], on=['MECS_Region', 'naics', 'Emp_Size', 'End_use'],
+            how='inner'
                 )
         fuel_dfs.drop('MECS_Region', axis=1, inplace=True)
         fuel_dfs.set_index(['naics', 'Emp_Size', 'End_use'], inplace=True)
@@ -94,7 +108,7 @@ class demand_results:
                 )
 
         fuel_dfs = pd.pivot_table(
-            fuel_dfs, index=['naics','Emp_Size','End_use'],
+            fuel_dfs, index=['naics', 'Emp_Size', 'End_use'],
             columns='MECS_FT_byp', values='MMBtu_fraction', aggfunc=np.mean,
             fill_value=0
             )
@@ -106,7 +120,7 @@ class demand_results:
                 continue
 
         # These will not sum to 1 for all naics-emp size-end use combinations
-        # b/c not all "other" fuel types are included (e.g., some biomass types)
+        # b/c not all "other" fuel types are included (e.g. some biomass types)
         county_load_f = fuel_dfs.multiply(county_load_f.fraction, axis=0)
         # Sum back to hourly, total county load, now split out into fuel types,
         county_load_f = county_load_f.sum(level=3)
@@ -121,7 +135,7 @@ class demand_results:
         # Tech_opp is the ratio of solar gen:demand, so value can be >1.
         # Constrain tech opportunity to 1 for fuel disaggregation
         tech_opp_fuels = county_load_f.multiply(
-            tech_opp.where(tech_opp.MW <1, 1).MW, axis=0
+            tech_opp.where(tech_opp.MW < 1, 1).MW, axis=0
             )
         # Make sure index is sorted correctly as ascending datetime
         tech_opp_fuels = tech_opp_fuels.sort_index(ascending=True)
@@ -143,8 +157,9 @@ class demand_results:
         county_ind.reset_index(inplace=True)
 
         try:
-            nlen = \
-                all([len(str(x))==3 for x in county_ind['naics_sub'].unique()])
+            nlen = all(
+                [len(str(x)) == 3 for x in county_ind['naics_sub'].unique()]
+                )
         except KeyError:
             naics_3d = np.array(
                 [int(str(x)[0:3]) for x in county_ind.naics.unique()]
@@ -153,30 +168,7 @@ class demand_results:
             if nlen:
                 naics_3d = county_ind['naics_sub'].unique()
 
-        #Keep only unique values
+        # Keep only unique values
         naics_3d = np.unique(naics_3d)
 
         return naics_3d
-
-
-    # This should be a separate file and class.
-    # Need to pull out tech opp 8760, then calculate savings
-    def calc_net_ghgs(self, tech_opp, county):
-
-        # Sum fuel use to annual and by fuel and Emp_Size.
-        # Separate calculations for ghgrp and non-ghgrp
-        ##
-        opp_ghgs = tech_opp.multiply(
-            tech_self.load_fraction.reset_index().groupby(
-                ['index','naics', 'Emp_Size']
-                ).fraction.sum()
-            )
-
-        opp_ghgs = pd.DataFrame(opp_ghgs.sum(level=[1,2]))
-
-        # Also NEED MECS REGION
-        opp_ghgs['COUNTY_FIPS'] = self.county
-
-        opp_
-
-        return
