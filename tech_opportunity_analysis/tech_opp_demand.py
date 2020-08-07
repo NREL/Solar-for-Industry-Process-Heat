@@ -89,23 +89,41 @@ class demand_results:
         # These will not sum to 1 b/c not all "other" fuel types are included
         county_neeu = county_neeu.drop_duplicates()
         county_neeu.loc[:, 'MECS_Region'] = self.mecs_fips_dict.xs(county)[0]
-        fuel_dfs = pd.merge(
-            county_neeu, self.mecs_fuel_intensity[
-                self.mecs_fuel_intensity.MECS_FT_byp.isin(fuels)
-                ], on=['MECS_Region', 'naics', 'Emp_Size', 'End_use'],
-            how='inner'
-                )
+
+        if fuels == 'all':
+            fuel_dfs = pd.merge(county_neeu, self.mecs_fuel_intensity,
+                                on=['MECS_Region', 'naics', 'Emp_Size',
+                                    'End_use'], how='inner')
+            # Make sure county has GHGRP facilities before concatenating fuel
+            # mix
+            if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
+                fuel_dfs = pd.concat(
+                    [fuel_dfs, self.ghgrp_fuel_intensity.set_index(
+                        ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
+                        ).xs(county, level='COUNTY_FIPS')],
+                    axis=0, ignore_index=False, sort=True
+                    )
+        else:
+            fuel_dfs = pd.merge(
+                county_neeu, self.mecs_fuel_intensity[
+                    self.mecs_fuel_intensity.MECS_FT_byp.isin(fuels)
+                    ], on=['MECS_Region', 'naics', 'Emp_Size', 'End_use'],
+                how='inner'
+                    )
+            # Make sure county has GHGRP facilities before concatenating fuel
+            # mix
+            if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
+                fuel_dfs = pd.concat(
+                    [fuel_dfs, self.ghgrp_fuel_intensity[
+                        self.ghgrp_fuel_intensity.MECS_FT_byp.isin(fuels)
+                    ].set_index(
+                        ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
+                        ).xs(county, level='COUNTY_FIPS')],
+                    axis=0, ignore_index=False, sort=True
+                    )
+
         fuel_dfs.drop('MECS_Region', axis=1, inplace=True)
         fuel_dfs.set_index(['naics', 'Emp_Size', 'End_use'], inplace=True)
-
-        # Make sure county has GHGRP facilities before concatenating fuel mix
-        if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
-            fuel_dfs = pd.concat(
-                [fuel_dfs, self.ghgrp_fuel_intensity.set_index(
-                    ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
-                    ).xs(county, level='COUNTY_FIPS')],
-                axis=0, ignore_index=False, sort=True
-                )
 
         fuel_dfs = pd.pivot_table(
             fuel_dfs, index=['naics', 'Emp_Size', 'End_use'],
@@ -113,11 +131,12 @@ class demand_results:
             fill_value=0
             )
 
-        for f in fuels:
-            if f not in fuel_dfs.columns:
-                fuel_dfs[f] = 0
-            else:
-                continue
+        if fuels != 'all':
+            for f in fuels:
+                if f not in fuel_dfs.columns:
+                    fuel_dfs[f] = 0
+                else:
+                    continue
 
         # These will not sum to 1 for all naics-emp size-end use combinations
         # b/c not all "other" fuel types are included (e.g. some biomass types)
@@ -127,22 +146,30 @@ class demand_results:
 
         return county_load_f
 
-    def breakout_fuels_tech_opp(self, county_load_f, tech_opp):
+    def calc_fuel_displaced(self, county_load_f, tech_opp, county_8760):
         """
-        Disaggregate tech opportunity by fuel type.
+        Disaggregate tech opportunity by fuel type. Output is the monthly
+        sum of fuel displaced by solar technology in MWh.
         """
 
         # Tech_opp is the ratio of solar gen:demand, so value can be >1.
         # Constrain tech opportunity to 1 for fuel disaggregation
-        tech_opp_fuels = county_load_f.multiply(
+        fuel_displaced = county_load_f.multiply(
             tech_opp.where(tech_opp.MW < 1, 1).MW, axis=0
             )
         # Make sure index is sorted correctly as ascending datetime
-        tech_opp_fuels = tech_opp_fuels.sort_index(ascending=True)
-        # Send results to numpy record array
-        tech_opp_fuels = tech_opp_fuels.to_records(index=False)
+        fuel_displaced = fuel_displaced.sort_index(ascending=True)
 
-        return tech_opp_fuels
+        # Multiply by total county hourly load (MW)
+        fuel_displaced = fuel_displaced.multiply(county_8760.MW.sum(level=3),
+                                                 axis=0)
+
+        # Sum by month (MWh)
+        fuel_displaced = fuel_displaced.resample('M').sum()
+        # Send results to numpy record array
+        fuel_displaced = fuel_displaced.to_records(index=False)
+
+        return fuel_displaced
 
     @staticmethod
     def breakout_county_ind(county_8760):

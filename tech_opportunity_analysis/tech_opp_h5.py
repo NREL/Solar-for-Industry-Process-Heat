@@ -4,6 +4,7 @@ import numpy as np
 import datetime
 import itertools
 
+
 def create_h5(target_file_path, tech_opp_results):
     """
     Creates and saves h5 file of tech opportunity results.
@@ -43,18 +44,18 @@ def create_h5(target_file_path, tech_opp_results):
     for op_h in ophours:
 
         ophours_index[op_h] = \
-            np.where(tech_opp_results[0][2]==op_h)[0][0]
+            np.where(tech_opp_results[0][2] == op_h)[0][0]
 
         tech_opp[op_h] = {d: {} for d in op_list}
 
         tech_opp[op_h]['tech_opp'] = np.stack(
-            [a[3][:,ophours_index[op_h]] for a in tech_opp_results], axis=1
+            [a[3][:, ophours_index[op_h]] for a in tech_opp_results], axis=1
             )
 
         total_load[op_h] = {d: {} for d in op_list}
 
         total_load[op_h]['total_load'] = np.stack(
-            [a[6][:,ophours_index[op_h]] for a in tech_opp_results], axis=1
+            [a[6][:, ophours_index[op_h]] for a in tech_opp_results], axis=1
             )
 
         for fuel in fuels:
@@ -76,11 +77,13 @@ def create_h5(target_file_path, tech_opp_results):
     f = h5py.File(target_file_path, 'w')
 
     f.attrs.create('timestamp',
-                    datetime.datetime.today().strftime('%Y%m%d_%H%M'))
+                   datetime.datetime.today().strftime('%Y%m%d_%H%M'))
     f.attrs.create('h5py_version', h5py.version.version)
 
     # Include datetime
     f.create_dataset('time_index', data=time_index, dtype='S19')
+    f.create_dataset('fuel_displaced_index', data=range(1, 13), dtype='int')
+    f['fuel_displaced_index'].attrs.create('desc', 'Month (Jan=1)')
 
     for op_h in ophours:
         f.create_dataset(op_h+'/tech_opp', data=tech_opp[op_h]['tech_opp'])
@@ -93,13 +96,14 @@ def create_h5(target_file_path, tech_opp_results):
 
         for fuel in fuels:
             f.create_dataset(op_h+'/'+fuel, data=tech_opp[op_h][fuel])
-            f[op_h+'/'+fuel].attrs.create('desc',
-                                          'Fraction of {} displaced'.format(fuel))
-            f[op_h+'/'+fuel].attrs.create('units', 'fraction')
+            f[op_h+'/'+fuel].attrs.create(
+                'desc', 'Monthly MWh of {} displaced'.format(fuel)
+                )
+            f[op_h+'/'+fuel].attrs.create('units', 'MWh')
 
     f['ophours_mean'].attrs.create('desc', 'mean weekly operating hours')
-    f['ophours_low'].attrs.create('desc','low weekly operating hours')
-    f['ophours_high'].attrs.create('desc','high weekly operating hours')
+    f['ophours_low'].attrs.create('desc', 'low weekly operating hours')
+    f['ophours_high'].attrs.create('desc', 'high weekly operating hours')
 
     # Write county info
     f.create_dataset(

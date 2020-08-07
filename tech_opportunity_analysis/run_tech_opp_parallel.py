@@ -55,6 +55,9 @@ tech_opp_methods = tech_opportunity(tech_package,
                                                  rev_output_filepath),
                                     sizing_month=sizing_month)
 
+# Set to break out all fuels
+tech_opp_methods.fuels_breakout = 'all'
+
 # Instantiate process demand data (annual MMBtu) and methods
 process_demand = demand_results(os.path.join(data_dir, demand_filepath))
 
@@ -96,7 +99,7 @@ def calc_county(county):
 
         # Assign breakouts by fuel and other characteristics
         county_fuel_fraction = process_demand.county_load_fuel_fraction(
-            county, county_8760_ophours, tech_opp_methods.fuels_breakout
+            county, county_8760_ophours, fuels=tech_opp_methods.fuels_breakout
             )
 
         peak_demand = county_peak.xs(op_h)[0]
@@ -106,8 +109,9 @@ def calc_county(county):
             tech_opp_methods.tech_opp_county(county, county_8760_ophours,
                                              peak_demand)
 
-        tech_opp_fuels = process_demand.breakout_fuels_tech_opp(
-            county_fuel_fraction, tech_opp,
+        # Monthly fuel displaced (in MWh)
+        fuels_displaced = process_demand.calc_fuel_displaced(
+            county_fuel_fraction, tech_opp, county_8760_ophours
             )
 
         tech_opp = tech_opp.values
@@ -120,7 +124,7 @@ def calc_county(county):
             names = np.array((op_h,))
             county_total_load = county_sum
             county_tech_opp = tech_opp
-            county_tech_opp_fuels = tech_opp_fuels
+            county_fuels_displaced = fuels_displaced
             county_tech_opp_land = tech_opp_land
             first = False
 
@@ -128,15 +132,15 @@ def calc_county(county):
             names = np.vstack([names, np.array((op_h,))])
             county_total_load = np.hstack([county_total_load, county_sum])
             county_tech_opp = np.hstack([county_tech_opp, tech_opp])
-            county_tech_opp_fuels = np.vstack([county_tech_opp_fuels,
-                                               tech_opp_fuels])
+            county_fuels_displaced = np.vstack([county_fuels_displaced,
+                                                fuels_displaced])
             county_tech_opp_land = np.vstack([county_tech_opp_land,
                                               tech_opp_land])
 
     tech_opp_meta = tech_opp_methods.get_county_info(county, county_ind)
 
     return [tech_opp_meta, time_index, names, county_tech_opp,
-            county_tech_opp_fuels, county_tech_opp_land, county_total_load]
+            county_fuels_displaced, county_tech_opp_land, county_total_load]
 
 
 if __name__ == "__main__":
@@ -151,8 +155,8 @@ if __name__ == "__main__":
                                                      sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=7) as pool:
-        results = pool.map(calc_county, counties)
+    with multiprocessing.Pool(processes=6) as pool:
+        results = pool.map(calc_county, counties[0:3])
 
     if pickle_results:
         pickle_file = open('tech_opps.pkl', 'wb')
