@@ -29,12 +29,12 @@ class demand_results:
             )[['est_count', 'MMBtu']].sum()
 
         self.data_dir = './calculation_data'
-        # Calculated using heat_load_calculations.ghg.py
+        # Calculated using county_heat_calculations.ghg.py
         self.mecs_fuel_intensity = pd.read_csv(
             os.path.join(self.data_dir, 'mecs_fuel_intensity.csv')
             )
 
-        # Calculated using heat_load_calculations.ghg.py
+        # Calculated using county_heat_calculations.ghg.py
         self.ghgrp_fuel_intensity = pd.read_csv(
             os.path.join(self.data_dir, 'ghgrp_fuel_disagg_2014.csv')
             )
@@ -90,6 +90,8 @@ class demand_results:
         county_neeu = county_neeu.drop_duplicates()
         county_neeu.loc[:, 'MECS_Region'] = self.mecs_fips_dict.xs(county)[0]
 
+        all_fuels = self.mecs_fuel_intensity.MECS_FT_byp.unique()
+
         if fuels == 'all':
             fuel_dfs = pd.merge(county_neeu, self.mecs_fuel_intensity,
                                 on=['MECS_Region', 'naics', 'Emp_Size',
@@ -131,12 +133,9 @@ class demand_results:
             fill_value=0
             )
 
-        if fuels != 'all':
-            for f in fuels:
-                if f not in fuel_dfs.columns:
-                    fuel_dfs[f] = 0
-                else:
-                    continue
+        # Ensure final dataframe contains all fuels
+        fuel_dfs = pd.DataFrame(fuel_dfs, columns=all_fuels)
+        fuel_dfs.fillna(0, inplace=True)
 
         # These will not sum to 1 for all naics-emp size-end use combinations
         # b/c not all "other" fuel types are included (e.g. some biomass types)

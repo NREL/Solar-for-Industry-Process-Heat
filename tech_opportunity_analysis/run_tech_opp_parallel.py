@@ -155,8 +155,8 @@ if __name__ == "__main__":
                                                      sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=6) as pool:
-        results = pool.map(calc_county, counties[0:3])
+    with multiprocessing.Pool() as pool:
+        results = pool.map(calc_county, counties)
 
     if pickle_results:
         pickle_file = open('tech_opps.pkl', 'wb')
