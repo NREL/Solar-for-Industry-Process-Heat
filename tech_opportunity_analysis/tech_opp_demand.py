@@ -78,6 +78,7 @@ class demand_results:
             )
         county_load_f['fraction'] = \
             county_load_f.fraction.astype('float16')
+
         county_neeu = np.stack(
             [county_load_f.index.get_level_values(n).values for n in range(0,3)],
             axis=1
@@ -93,16 +94,18 @@ class demand_results:
         all_fuels = self.mecs_fuel_intensity.MECS_FT_byp.unique()
 
         if fuels == 'all':
+            # There are counties that do not have any small establishments,
+            # only GHGRP-reporting facilities
             fuel_dfs = pd.merge(county_neeu, self.mecs_fuel_intensity,
                                 on=['MECS_Region', 'naics', 'Emp_Size',
-                                    'End_use'], how='inner')
+                                    'End_use'], how='left')
             # Make sure county has GHGRP facilities before concatenating fuel
             # mix
             if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
                 fuel_dfs = pd.concat(
                     [fuel_dfs, self.ghgrp_fuel_intensity.set_index(
                         ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
-                        ).xs(county, level='COUNTY_FIPS')],
+                        ).xs(county, level='COUNTY_FIPS').reset_index()],
                     axis=0, ignore_index=False, sort=True
                     )
         else:
@@ -110,36 +113,47 @@ class demand_results:
                 county_neeu, self.mecs_fuel_intensity[
                     self.mecs_fuel_intensity.MECS_FT_byp.isin(fuels)
                     ], on=['MECS_Region', 'naics', 'Emp_Size', 'End_use'],
-                how='inner'
-                    )
+                how='left'
+                )
             # Make sure county has GHGRP facilities before concatenating fuel
             # mix
             if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
                 fuel_dfs = pd.concat(
                     [fuel_dfs, self.ghgrp_fuel_intensity[
-                        self.ghgrp_fuel_intensity.MECS_FT_byp.isin(fuels)
+                        self.ghgrp_fuel_intensgity.MECS_FT_byp.isin(fuels)
                     ].set_index(
                         ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
-                        ).xs(county, level='COUNTY_FIPS')],
+                        ).xs(county, level='COUNTY_FIPS').reset_index()],
                     axis=0, ignore_index=False, sort=True
                     )
 
-        fuel_dfs.drop('MECS_Region', axis=1, inplace=True)
+        fuel_dfs.drop(['MECS_FT', 'MECS_Region'], axis=1, inplace=True)
+        # Drop any na values for instances where there are no small facilitiy
+        # data from self.mecs_fuel_intensity
+        fuel_dfs.dropna(inplace=True)
         fuel_dfs.set_index(['naics', 'Emp_Size', 'End_use'], inplace=True)
+        #  Now getting IndexError: cannot do a non-empty take from an empty
+        # axis
+        try:
+            fuel_dfs = pd.pivot_table(
+                fuel_dfs, index=['naics', 'Emp_Size', 'End_use'],
+                columns='MECS_FT_byp', values='MMBtu_fraction', aggfunc=np.mean
+                )
 
-        fuel_dfs = pd.pivot_table(
-            fuel_dfs, index=['naics', 'Emp_Size', 'End_use'],
-            columns='MECS_FT_byp', values='MMBtu_fraction', aggfunc=np.mean,
-            fill_value=0
-            )
+        except IndexError as e:
+            print("EXCEPTION:{}, in {}".format(e, county))
+            fuel_dfs.reset_index().to_csv('fuel_dfs_{}.csv'.format(county))
+            county_load_f.reset_index().to_csv(
+                'county_load_f_{}.csv'.format(county)
+                )
+        else:
+            # Ensure final dataframe contains all fuels
+            fuel_dfs = pd.DataFrame(fuel_dfs, columns=all_fuels)
+            fuel_dfs.fillna(0, inplace=True)
 
-        # Ensure final dataframe contains all fuels
-        fuel_dfs = pd.DataFrame(fuel_dfs, columns=all_fuels)
-        fuel_dfs.fillna(0, inplace=True)
-
-        # These will not sum to 1 for all naics-emp size-end use combinations
-        # b/c not all "other" fuel types are included (e.g. some biomass types)
-        county_load_f = fuel_dfs.multiply(county_load_f.fraction, axis=0)
+            # These will not sum to 1 for all naics-emp size-end use combinations
+            # b/c not all "other" fuel types are included (e.g. some biomass types)
+            county_load_f = fuel_dfs.multiply(county_load_f.fraction, axis=0)
         # Sum back to hourly, total county load, now split out into fuel types,
         county_load_f = county_load_f.sum(level=3)
 
