@@ -13,7 +13,7 @@ class FormatMaker:
     def __init__(self):
     
         self.invest = ['REPLACE', 'GREENFIELD', 'EXTENSION']
-        self.tech = ['FPC', 'CSP', 'PVB', 'PVR', 'PVI',
+        self.tech = ['DSGLF', 'PTC', 'PTCTES', 'SWH', 'PVEB', 'PVRH', 'PVWHR',
                      'PVHP', 'BOILER', 'CHP', 'FURNACE', 'KILN', 'OVEN']
         #self.iter_var = ['INVESTMENT', 'FUELPRICE']
         self.param = ""

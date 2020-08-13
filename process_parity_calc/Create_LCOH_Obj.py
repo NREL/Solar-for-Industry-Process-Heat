@@ -11,8 +11,8 @@ import get_API_params as gap
 import datetime
 import pandas as pd
 import models 
-import dask.dataframe as dd
 import numpy as np
+import json
 
 #This abstract class defines all methods that are used externally in run file
 class LCOH(metaclass=ABCMeta):
@@ -31,34 +31,20 @@ class LCOH(metaclass=ABCMeta):
         # format processing
         self.sim = False
         self.iter_name = None
-        read_csv = False
+        read_csv = True
         
         self.invest_type, self.tech_type, self.load_avg, self.county = form
         self.peak_load = self.load_avg
         self.load_8760 = [self.load_avg for i in range(0,8760)]
         self.fuel_type = "NG" # should add ability to import the fuel type in the future for tool
         
-                # option to turn on just reading from csv of heat load shape 
+        # Assume in kW
         if (read_csv):   
-            parqfilename = "c635575b8d2249cb8417eca62d9284d3.parquet"
-            name_dict = {"NG": "Natural_gas", "COAL": "Coal", "PETRO": "Residual_fuel_oil"}
-            df = dd.read_parquet(os.path.join(LCOH.path, self.county, parqfilename))
-
-            self.naics = 339112
-            self.enduse = "Conventional Boiler Use"
-            self.empsize = "n500_999"
-            self.temp = 190.846625
-            
-            mask1 = df["naics"] == self.naics
-            mask2 = df["End_use"] == self.enduse
-            mask3 = df["MECS_FT"] == name_dict[self.fuel_type]
-            mask4 = df["Emp_Size"] == self.empsize
-            mask5 = df["Temp_C"] == self.temp
-            df = df[mask1 & mask2 & mask3 & mask4 & mask5]
-            
-            self.load_8760 = df["load_MMBtu_per_hour"].values.compute() * 293.07103866
-            self.load_avg = df["load_MMBtu_per_hour"].mean().compute() * 293.07103866
-            self.peak_load = df["load_MMBtu_per_hour"].max().compute() * 293.07103866 
+            df = pd.read_csv(os.path.join(LCOH.path, "county_loads_8760.csv"))
+            self.fe_load_8760 = df.loc[df["FIPS"] == self.county]["eload"]
+            self.load_8760 = df.loc[df["FIPS"] == self.county]["load"]
+            self.load_avg = np.mean(self.load_8760)
+            self.peak_load = max(self.load_8760)
 
         self.state_name = LCOH.fips_data.loc[LCOH.fips_data['COUNTY_FIPS'] == self.county,
                                         'State'].values[0].strip()
@@ -68,6 +54,10 @@ class LCOH(metaclass=ABCMeta):
         
         self.fuel_price, self.fuel_year = gap.UpdateParams.get_fuel_price(
                                             self.state_abbr, self.fuel_type)
+        with open('./calculation_data/elec_curve.json') as f:
+            elec_curves = json.load(f)
+            
+        self.pd_curve = [elec_curves[self.state_abbr]]
 
         self.fp_range = gap.UpdateParams.get_max_fp(self.state_abbr, self.fuel_type) - self.fuel_price
 
@@ -115,7 +105,7 @@ class LCOH(metaclass=ABCMeta):
             return 0     
 
     @classmethod
-    def get_subsidies(cls, tech_type):
+    def get_subsidies(cls, tech_type, state):
 
         """
         Dsire database filters: financial incentive, excluding sir, 
@@ -220,6 +210,14 @@ class Greenfield(LCOH):
                      (self.peak_load, self.load_8760), 
                      (self.fuel_price,self.fuel_type)
                     )
+        try:
+            if sum(self.model.load_remain) > 0.3 * sum(self.load_8760):
+                print("Should Reconsider Greenfield Investment")
+            else:
+                #for now assume no storage
+                self.model.gf_size()
+        except AttributeError:
+            pass
 
         self.model.om()
         self.model.capital()
@@ -228,7 +226,7 @@ class Greenfield(LCOH):
 
             self.corp_tax = LCOH.get_corptax(self.state_name)
             
-            self.subsidies = LCOH.get_subsidies(self.tech_type)
+            self.subsidies = LCOH.get_subsidies(self.tech_type, self.state_abbr)
     
             self.depreciation = LCOH.get_dep_value
     
@@ -249,12 +247,22 @@ class Greenfield(LCOH):
                 
                 #
                 self.fc = self.model.fc * (self.fuel_price + fmp) * (1 + self.fuel_esc)**t
-                self.ec = self.model.ec * 0.064 *(1 + self.elec_esc)**t
+                def get_elec_cost():
+                    
+                    diff = self.model.elec_gen - self.fe_load_8760
+                    mit_cost = sum(self.model.elec_gen[diff <= 0] * self.pd_curve[0][diff <=0]) \
+                                + sum(self.fe_load_8760[diff >0] *self.pd_curve[0][diff >0])
+                    sell_cost = sum(diff[diff > 0] * self.pd_curve[1][diff > 0])
+                    
+                    return mit_cost + sell_cost
+                    
+                self.ec = get_elec_cost() *(1 + self.elec_esc)**t
+                self.em_costs = self.model.em_costs
 
-                return np.array([self.model.om_val * omp * (1 + self.OM_esc) ** t + self.fc + self.ec]).flatten()
+                return np.array([self.model.om_val * omp * (1 + self.OM_esc) ** t + self.fc + self.ec + self.em_costs]).flatten()
                 
             self.OM = get_OM
-
+        
             def get_capital():
                 
                 try:
@@ -297,12 +305,12 @@ class Greenfield(LCOH):
                 
                 total_d_cost[ind] += d_cost
 
-                energy_yield = self.load_avg * 31536000 / (1 + self.discount_rate[ind]) ** i
+                energy_yield = self.load_avg * 8760 / (1 + self.discount_rate[ind]) ** i
                 t_energy_yield[ind] += energy_yield * (1-self.corp_tax)
                 
             total_d_cost[ind] += self.model.decomm / (1+self.discount_rate[ind]) ** p_time
         # convert to cents USD/kwh  
-        return (undiscounted + total_d_cost)/t_energy_yield * 3600 * 100
+        return (undiscounted + total_d_cost)/t_energy_yield * 100
 
                      
     def simulate(self, a_type, no_sims = 1000):
@@ -378,23 +386,21 @@ class Replace(LCOH):
         LCOH.__init__(self, form) 
         # add assertion
         self.lr = 0.5
-        dload = [(1-self.lr) * load for load in self.load_8760]
         sload = [(self.lr) * load for load in self.load_8760]
         # import the relevant tech to financial parameter model object
         # default model
-        self.dmodel = models.TechFactory.create_tech(
-                     "CHP", self.county,
-                     (self.peak_load, dload), 
-                     (self.fuel_price,self.fuel_type)
-                    )
-        
-        
         self.smodel = models.TechFactory.create_tech(
                      self.tech_type, self.county,
                      (self.peak_load * self.lr, sload), 
                      (self.fuel_price,self.fuel_type)
                     )
         
+        self.dmodel = models.TechFactory.create_tech(
+                     "CHP", self.county,
+                     (self.peak_load, self.smodel.load_remain), 
+                     (self.fuel_price,self.fuel_type)
+                    )
+
         # intialize om because all model inputs have been determined already
         self.dmodel.om()
         self.smodel.om()
@@ -431,7 +437,7 @@ class Replace(LCOH):
                 
                 #
                 self.fc = (self.smodel.fc + self.dmodel.fc) * (self.fuel_price + fmp) * (1 + self.fuel_esc)**t
-                self.ec = (self.smodel.ec + self.dmodel.ec) * 0.064 *(1 + self.elec_esc)**t
+                self.ec = sum((self.smodel.elec_gen + self.dmodel.elec_gen) * self.pd_curve) *(1 + self.elec_esc)**t
     
                 #  fuel price - multiply to convert the kW to total energy in a year (kW)
                 #  divided by appropriate heating value 
@@ -571,8 +577,21 @@ class LCOHFactory():
             
 if __name__ == "__main__":
     
-    load = 12000
-    test = LCOHFactory().create_LCOH(('GREENFIELD', 'Boiler', load, '6085'))
-    print(test.model.peak_load)
-    print(test.calculate_LCOH())
+    load = 30000
+    test1 = LCOHFactory().create_LCOH(('GREENFIELD', 'PTC', load, '6085'))
+# =============================================================================
+#     print(test1.calculate_LCOH())
+#     print(test1.em_costs)
+#     print(test1.em_costs/test1.OM(0) * 100) 
+# =============================================================================
+# =============================================================================
+#     print(test.model.em_costs)
+#     print(test.model.em_costs/test.model.om_val * 100) 
+#     print(test.model.em_t)
+# =============================================================================
 
+# =============================================================================
+#     test = LCOHFactory().create_LCOH(('GREENFIELD', 'PVHP', load, '6085'))
+#     print(test.calculate_LCOH())
+#     print(test.model.om_val)
+# =============================================================================

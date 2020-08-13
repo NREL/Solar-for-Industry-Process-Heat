@@ -90,5 +90,34 @@ state_costs = \
 federal_costs = 53.81
 
 # add in emission per heat input rate limits based off word doc
-emission_limits = \
-{}
+# (lower input fuel, upper input fuel, fuel type, emission type, emission limit (ng/J), amount of fuel)
+#LOW = <0.3 coal, mixed is above <0.9 coal, pure is pure fuel ANY is any amount -> only specified for coal
+# just assume wood to be 43 now -> can add more detail if we're really analyzing pulp industry
+#(250,9999999, "NG or OIL", "SO2", 26), #if this condition is met PM EXEMPT ELSE
+
+# =============================================================================
+# emission_limits = \
+# [(0,9999999, "COAL", "PM", 22, "PURE"), 
+#  (0,9999999, "COAL", "PM", 43, "MIXED"), 
+#  (0,99, "COAL", "PM", 43, "LOW"), 
+#  (100,9999999, "COAL", "PM", 86, "LOW"), 
+#  (0,9999999, "WOOD", "PM", 43), 
+#  (250,9999999, "NG", "PM", 13),
+#  (250,9999999, "OIL", "PM", 13),
+#  (100,9999999, "NG", "NOX", 86),
+#  (100,9999999, "COAL", "NOX", 300),
+#  (100,9999999, "OIL", "NOX", 129),
+#  (0,250, "COAL", "SO2", 87, "ANY"),
+#  (251,9999999, "COAL", "SO2", 65, "ANY"),
+#  (0,99, "OIL", "SO2", 215)
+#  (100, 250, "OIL", "SO2", 87),
+#  (251,9999999, "OIL", "SO2", 86),
+#  (250,9999999, "NG", "SO2", 86)]
+# =============================================================================
+
+# =============================================================================
+# emission_fac = \
+# {"COAL": {[(0,99,{})}}
+# =============================================================================
+
+ 

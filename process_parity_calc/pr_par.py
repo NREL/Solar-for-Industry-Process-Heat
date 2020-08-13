@@ -20,22 +20,22 @@ class PrPar:
     
     def __init__(self, new_obj = True):
         """ solar_tech, comb_tech should be appropriate factory objects"""
-        #county_list = [1133, 5149, 4027, 6115, 8125, 9015, 11031, 10005, 12133, 13321, 19197, 16087, 17203,
-                       #18183, 20209, 21239, 22127, 25027, 24510, 23031, 26165, 27173, 29510, 28163, 30111, 37199, 38105,
-                       #31185, 33019, 34041, 35061, 32510, 36123, 39175, 40153, 41071, 42133, 44009, 45091, 46137, 47189,
-                       #48507, 49057, 51840, 50027, 53077, 55141, 54109, 56045]
+        county_list = [1133, 5149, 4027, 6115, 8125, 9015, 10005, 12133, 13321, 19197, 16087, 17203,
+                       18183, 20209, 21239, 22127, 25027, 24510, 23031, 26165, 27173, 29510, 28163, 30111, 37199, 38105,
+                       31185, 33019, 34041, 35061, 32510, 36123, 39175, 40153, 41071, 42133, 44009, 45091, 46137, 47189,
+                       48507, 49057, 51840, 50027, 53077, 55141, 54109, 56045]
 
-        county_list = [6085, 6085, 6085]
-        heat_list = [5000,10000, 20000]
+        #county_list = [6085, 6085, 6085, 6085, 6085, 6085]
+        #heat_list = [5000,10000, 15000, 20000, 25000, 30000]
         #solar_tech = ["PVHP", "PVHP"]
         #comb_tech = ["BOILER", "CHP"]
         if new_obj:
 
             print("\nCreating solar object")
-            self.s_form = FormatMaker().create_format({"county": county_list, "heat": heat_list})
+            self.s_form = FormatMaker().create_format({"county": county_list})
                 
             print("\nCreating combustion object")  
-            self.c_form = FormatMaker().create_format({"heat": heat_list, "county": county_list})
+            self.c_form = FormatMaker().create_format({"county": county_list})
             
         #this node is executed by default when the object is reseting
             
@@ -288,25 +288,19 @@ class PrPar:
         self.reset()
 
 if __name__ == "__main__":
+    
+    import pandas as pd
     test_obj = PrPar()
-    print(test_obj.solar[1].peak_load)
-    #test_obj.to_analysis(1)
-# =============================================================================
-# 
-#     state_abbr =[]
-#     solar_lcoh = []
-#     comb_lcoh = []
-#     
-#     for i in test_obj.solar:
-#         state_abbr.append(i.state_abbr)
-#         solar_lcoh.append(i.calculate_LCOH()[0])
-#     for i in test_obj.comb:
-#         comb_lcoh.append(i.calculate_LCOH()[0])
-# 
-#     results = pd.DataFrame()
-#     results["STUSPS"] = state_abbr
-#     results["solarlcoh"] = solar_lcoh
-#     results["comblcoh"] = comb_lcoh
-#     
-#     results.to_csv("state_lcoh.csv")
-# =============================================================================
+
+    state_abbr =[]
+    comb_lcoh = []
+    
+    for i in test_obj.comb:
+        comb_lcoh.append(i.em_costs)
+        state_abbr.append(i.state_abbr)
+
+    results = pd.DataFrame()
+    results["STUSPS"] = state_abbr
+    results["comblcoh"] = comb_lcoh
+    
+    results.to_csv("state_lcoh_em.csv")
