@@ -13,34 +13,29 @@ from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'ptc_notes'
-demand_filepath = 'ptc_process_energy.csv.gz'
-
-rev_output_filepath = \
-    'rev_output/ptc_notes/ptc_notes_sc0_t0_or0_d0_gen_2014.h5'
+tech_package = 'ptc_tes'
+sizing_month = 6
 
 # Dictionary by tech package of all solar gen and process energy inputs
-#  tech_opp_inputs = {
-#   'dsg_lf': {'supply': 'dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
-#              'demand': 'LF_process_energy.csv.gz'},
-#    'swh': {'supply': 'swh/swh_sc0_t0_or0_d0_gen_2014.h5',
-#            'demand': 'fpc_hw_process_energy.csv.gz'}
-#    'pv_boiler': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
-#                  'demand': 'eboiler_process_energy.csv.gz'},
-#    'pv_resist': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
-#                  'demand': ''}
-#    'pv_whrhp': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5'
-#                 'demand': ''},
-#    'ptc_tes': {'supply': 'ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5',
-#               'demand': 'ptc_process_energy.csv.gz'},
-#    'ptc_notes': {'supply': 'ptc_notes_sc0_t0_or0_d0_gen_2014.h5',
-#               'demand': 'ptc_process_energy.csv.gz'}}
-#
+tech_opp_inputs = {
+    'dsg_lf': {'supply': 'dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
+               'demand': 'LF_process_energy.csv.gz'},
+    'swh': {'supply': 'swh/swh_sc0_t0_or0_d0_gen_2014.h5',
+            'demand': 'fpc_hw_process_energy.csv.gz'},
+    'pv_boiler': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+                  'demand': 'eboiler_process_energy.csv.gz'},
+    'pv_resist': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+                  'demand': 'resistance_process_energy.csv.gz'},
+    'pv_whrhp': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+                 'demand': 'whr_hp_process_energy.csv.gz'},
+    'ptc_tes': {'supply': '/ptc_tes/ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5',
+                'demand': 'ptc_process_energy.csv.gz'},
+    'ptc_notes': {'supply': '/ptc_notes/ptc_notes_sc0_t0_or0_d0_gen_2014.h5',
+                  'demand': 'ptc_process_energy.csv.gz'}
+    }
 
-# rev_output_filepath ='rev_output/{}/{}_sc0_t0_or0_d0_gen_2014.h5'.format(
-#     tech_package, tech_package
-#     )
-sizing_month = 12
+demand_filepath = tech_opp_inputs[tech_package]['demand']
+rev_output_filepath = 'rev_output'+tech_opp_inputs[tech_package]['supply']
 
 # Time stamp (in UTC) for h5 file.
 time_stamp = time.strftime('%Y%m%d_%H%M', time.gmtime())
@@ -138,6 +133,10 @@ def calc_county(county):
                                               tech_opp_land])
 
     tech_opp_meta = tech_opp_methods.get_county_info(county, county_ind)
+    #
+    # results_list = [tech_opp_meta, time_index, names, county_tech_opp,
+    #                 county_fuels_displaced, county_tech_opp_land,
+    #                 county_total_load]
 
     return [tech_opp_meta, time_index, names, county_tech_opp,
             county_fuels_displaced, county_tech_opp_land, county_total_load]
@@ -154,8 +153,11 @@ if __name__ == "__main__":
     target_file_path = '{}_sizing_{}_{}.hdf5'.format(tech_package,
                                                      sizing_month, time_stamp)
 
+    # test_counties = [16059, 47059, 6101, 47061, 6103, 47063, 6105, 47065,
+                       # 6107,
+    #                  6109, 47069, 6111, 47071, 6113, 47073,  6115]
     # Run calculations in parallel
-    with multiprocessing.Pool() as pool:
+    with multiprocessing.Pool(processes=7) as pool:
         results = pool.map(calc_county, counties)
 
     if pickle_results:

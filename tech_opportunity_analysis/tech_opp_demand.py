@@ -120,7 +120,7 @@ class demand_results:
             if county in self.ghgrp_fuel_intensity.COUNTY_FIPS.unique():
                 fuel_dfs = pd.concat(
                     [fuel_dfs, self.ghgrp_fuel_intensity[
-                        self.ghgrp_fuel_intensgity.MECS_FT_byp.isin(fuels)
+                        self.ghgrp_fuel_intensity.MECS_FT_byp.isin(fuels)
                     ].set_index(
                         ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use']
                         ).xs(county, level='COUNTY_FIPS').reset_index()],
