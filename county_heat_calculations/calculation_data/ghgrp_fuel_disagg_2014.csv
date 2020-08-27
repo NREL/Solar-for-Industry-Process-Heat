@@ -1,7 +1,7 @@
 COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1001,322130,Coal,Conventional Boiler Use,Coal,1.0
 1001,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.005927548577956573
-1001,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.7277587944700501
+1001,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.72775879447005
 1001,322130,Natural_gas,Process Heating,Natural_gas,0.2663136569519933
 1001,322130,Other,Conventional Boiler Use,Biomass,0.2710044395340436
 1001,322130,Other,Conventional Boiler Use,Petroleum_coke,0.005232290456738926
@@ -28,9 +28,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1025,322121,Diesel,CHP and/or Cogeneration Process,Diesel,0.17136907569575707
 1025,322121,Diesel,Conventional Boiler Use,Diesel,0.8269172335472853
 1025,322121,Diesel,Process Heating,Diesel,0.0017136907569575705
-1025,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.07104732189300998
+1025,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.07104732189301
 1025,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.8825350944702235
-1025,322121,Natural_gas,Process Heating,Natural_gas,0.046417583636766534
+1025,322121,Natural_gas,Process Heating,Natural_gas,0.04641758363676654
 1025,322121,Other,Conventional Boiler Use,Biomass,0.31275872873160343
 1025,322121,Other,Process Heating,Biomass,0.6872412712683965
 1033,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.539568345323741
@@ -58,9 +58,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1047,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11545623836126627
 1047,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.042830540037243944
 1047,331110,Natural_gas,Process Heating,Natural_gas,0.8417132216014898
-1053,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1083154668906315
+1053,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.10831546689063148
 1053,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.8579469286680242
-1053,322130,Natural_gas,Process Heating,Natural_gas,0.033737604441344236
+1053,322130,Natural_gas,Process Heating,Natural_gas,0.03373760444134423
 1053,322130,Other,Conventional Boiler Use,Biomass,0.31797107457941554
 1053,322130,Other,Process Heating,Biomass,0.6820289254205844
 1053,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.5988023952095809
@@ -74,12 +74,12 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1053,324110,Other,Process Heating,Waste_gas,0.058919803600654644
 1055,311615,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 1055,311615,Other,Conventional Boiler Use,Biomass,1.0
-1071,322121,Diesel,CHP and/or Cogeneration Process,Diesel,0.002650491447849118
+1071,322121,Diesel,CHP and/or Cogeneration Process,Diesel,0.0026504914478491176
 1071,322121,Diesel,Conventional Boiler Use,Diesel,0.9973230036376725
-1071,322121,Diesel,Process Heating,Diesel,2.650491447849118e-05
-1071,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.02813549567722782
+1071,322121,Diesel,Process Heating,Diesel,2.6504914478491178e-05
+1071,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.028135495677227822
 1071,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.9534826471469833
-1071,322121,Natural_gas,Process Heating,Natural_gas,0.018381857175788843
+1071,322121,Natural_gas,Process Heating,Natural_gas,0.018381857175788847
 1071,322121,Other,Conventional Boiler Use,Biomass,0.7729765752961543
 1071,322121,Other,Process Heating,Biomass,0.22702342470384573
 1071,327420,Natural_gas,Process Heating,Natural_gas,1.0
@@ -97,7 +97,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1073,331110,Natural_gas,Process Heating,Natural_gas,0.8319760563790851
 1073,331110,Other,CHP and/or Cogeneration Process,Blast_furnace_coke_oven_gases,0.1963337881641193
 1073,331110,Other,Conventional Boiler Use,Blast_furnace_coke_oven_gases,0.5841888871479344
-1073,331110,Other,Process Heating,Blast_furnace_coke_oven_gases,0.21947732468794623
+1073,331110,Other,Process Heating,Blast_furnace_coke_oven_gases,0.21947732468794626
 1073,331210,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.049999999999999996
 1073,331210,Natural_gas,Conventional Boiler Use,Natural_gas,0.09999999999999999
 1073,331210,Natural_gas,Process Heating,Natural_gas,0.8500000000000001
@@ -137,7 +137,6 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1091,327310,Coal,Process Heating,Coal,1.0
 1091,327310,Natural_gas,Process Heating,Natural_gas,1.0
 1091,327310,Other,Process Heating,Biomass,0.07216304959800295
-1091,327310,Other,Process Heating,Other,0.0
 1091,327310,Other,Process Heating,Waste_gas,0.020098746520250597
 1091,327310,Other,Process Heating,Waste_oils_tars_waste_materials,0.9077382038817464
 1093,326113,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.32307692307692304
@@ -158,24 +157,24 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1097,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.08469721767594107
 1097,324110,Other,Conventional Boiler Use,Waste_gas,0.8563829787234042
 1097,324110,Other,Process Heating,Waste_gas,0.05891980360065465
-1097,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.27206472095105483
-1097,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.19817211476218946
-1097,325180,Natural_gas,Process Heating,Natural_gas,0.5297631642867558
+1097,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2720647209510548
+1097,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.19817211476218943
+1097,325180,Natural_gas,Process Heating,Natural_gas,0.5297631642867557
 1097,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4574132492113564
 1097,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.26498422712933756
 1097,325199,Natural_gas,Process Heating,Natural_gas,0.277602523659306
 1097,325220,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.40885860306643945
 1097,325220,Natural_gas,Conventional Boiler Use,Natural_gas,0.18909710391822832
 1097,325220,Natural_gas,Process Heating,Natural_gas,0.4020442930153322
-1097,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.03308667456266805
-1097,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.012274088950667181
-1097,331110,Natural_gas,Process Heating,Natural_gas,0.9546392364866648
+1097,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.03308667456266804
+1097,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.012274088950667178
+1097,331110,Natural_gas,Process Heating,Natural_gas,0.9546392364866647
 1097,331410,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.12398921832884098
 1097,331410,Natural_gas,Conventional Boiler Use,Natural_gas,0.09433962264150944
 1097,331410,Natural_gas,Process Heating,Natural_gas,0.7816711590296496
-1099,322110,Diesel,CHP and/or Cogeneration Process,Diesel,0.010610719629784219
+1099,322110,Diesel,CHP and/or Cogeneration Process,Diesel,0.010610719629784217
 1099,322110,Diesel,Conventional Boiler Use,Diesel,0.7771748877745315
-1099,322110,Diesel,Process Heating,Diesel,0.2122143925956844
+1099,322110,Diesel,Process Heating,Diesel,0.21221439259568434
 1099,322110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.43275870793343985
 1099,322110,Natural_gas,Conventional Boiler Use,Natural_gas,0.1633331646620163
 1099,322110,Natural_gas,Process Heating,Natural_gas,0.4039081274045439
@@ -193,8 +192,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1103,325110,Natural_gas,Process Heating,Natural_gas,0.7
 1103,325110,Other,CHP and/or Cogeneration Process,Biomass,0.031505063269309325
 1103,325110,Other,CHP and/or Cogeneration Process,Waste_gas,0.8358023091285691
-1103,325110,Other,Conventional Boiler Use,Biomass,0.0048200785108257265
-1103,325110,Other,Conventional Boiler Use,Waste_gas,0.1278725490912958
+1103,325110,Other,Conventional Boiler Use,Biomass,0.004820078510825727
+1103,325110,Other,Conventional Boiler Use,Waste_gas,0.12787254909129583
 1103,325120,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 1103,325199,Coal,CHP and/or Cogeneration Process,Coal,0.9782608695652175
 1103,325199,Coal,Conventional Boiler Use,Coal,0.021739130434782608
@@ -219,8 +218,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 1113,322121,Diesel,Process Heating,Diesel,1.0
 1113,322121,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.5
 1113,322121,LPG_NGL,Process Heating,LPG_NGL,0.5
-1113,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4978776249207177
-1113,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.21415772223211607
+1113,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4978776249207178
+1113,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.21415772223211613
 1113,322121,Natural_gas,Process Heating,Natural_gas,0.2879646528471662
 1113,322121,Other,CHP and/or Cogeneration Process,Biomass,0.02252137311523756
 1113,322121,Other,Conventional Boiler Use,Biomass,0.3957453779090774
@@ -300,12 +299,12 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 2090,324110,Diesel,Conventional Boiler Use,Diesel,0.8230349676432585
 2090,324110,Diesel,Process Heating,Diesel,0.16865154783509248
 2090,324110,LPG_NGL,Process Heating,LPG_NGL,1.0
-2090,324110,Other,CHP and/or Cogeneration Process,Other,0.015213071715681028
-2090,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.019036641643739697
-2090,324110,Other,Conventional Boiler Use,Other,0.15382105845855262
-2090,324110,Other,Conventional Boiler Use,Waste_gas,0.19248159884225693
-2090,324110,Other,Process Heating,Other,0.27514686357696
-2090,324110,Other,Process Heating,Waste_gas,0.3443007657628098
+2090,324110,Other,CHP and/or Cogeneration Process,Other,0.01521307171568103
+2090,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.0190366416437397
+2090,324110,Other,Conventional Boiler Use,Other,0.15382105845855265
+2090,324110,Other,Conventional Boiler Use,Waste_gas,0.19248159884225696
+2090,324110,Other,Process Heating,Other,0.2751468635769599
+2090,324110,Other,Process Heating,Waste_gas,0.3443007657628097
 2122,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.009900990099009903
 2122,324110,Diesel,Conventional Boiler Use,Diesel,0.9801980198019803
 2122,324110,Diesel,Process Heating,Diesel,0.009900990099009905
@@ -453,7 +452,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 5131,327992,Natural_gas,Process Heating,Natural_gas,0.953405017921147
 5131,331110,Natural_gas,Process Heating,Natural_gas,1.0
 5139,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.20904463896141534
-5139,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.2166514149763951
+5139,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.21665141497639503
 5139,324110,Natural_gas,Process Heating,Natural_gas,0.5743039460621896
 5139,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.08469721767594106
 5139,324110,Other,Conventional Boiler Use,Waste_gas,0.8563829787234043
@@ -463,7 +462,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 5139,325120,Natural_gas,Process Heating,Natural_gas,0.5833333333333334
 5139,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.24565155762249677
 5139,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.48497027667627823
-5139,325180,Natural_gas,Process Heating,Natural_gas,0.2693781657012251
+5139,325180,Natural_gas,Process Heating,Natural_gas,0.269378165701225
 5139,325180,Other,Conventional Boiler Use,Waste_gas,1.0
 5139,325311,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17266187050359716
 5139,325311,Natural_gas,Conventional Boiler Use,Natural_gas,0.08633093525179858
@@ -484,8 +483,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6013,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.12439597759758075
 6013,324110,Other,Conventional Boiler Use,Other,5.85648500478525e-06
 6013,324110,Other,Conventional Boiler Use,Waste_gas,0.6460537174439536
-6013,324110,Other,Process Heating,Other,2.0807942031869955e-06
-6013,324110,Other,Process Heating,Waste_gas,0.22954124002816967
+6013,324110,Other,Process Heating,Other,2.080794203186995e-06
+6013,324110,Other,Process Heating,Waste_gas,0.2295412400281696
 6013,325199,Diesel,CHP and/or Cogeneration Process,Diesel,0.3333333333333333
 6013,325199,Diesel,Conventional Boiler Use,Diesel,0.3333333333333333
 6013,325199,Diesel,Process Heating,Diesel,0.3333333333333333
@@ -539,14 +538,14 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6029,311991,Natural_gas,Conventional Boiler Use,Natural_gas,0.2987804878048781
 6029,311991,Natural_gas,Process Heating,Natural_gas,0.3292682926829268
 6029,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3977932251878681
-6029,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.24562748349135513
+6029,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.24562748349135508
 6029,324110,Natural_gas,Process Heating,Natural_gas,0.35657929132077687
-6029,324110,Other,CHP and/or Cogeneration Process,Biomass,3.196724683938544e-05
-6029,324110,Other,CHP and/or Cogeneration Process,Other,8.64079317628511e-05
-6029,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.005728449333239115
-6029,324110,Other,Conventional Boiler Use,Biomass,0.0007789215597127158
-6029,324110,Other,Conventional Boiler Use,Other,0.002105436271019322
-6029,324110,Other,Conventional Boiler Use,Waste_gas,0.1395807625161022
+6029,324110,Other,CHP and/or Cogeneration Process,Biomass,3.196724683938543e-05
+6029,324110,Other,CHP and/or Cogeneration Process,Other,8.640793176285108e-05
+6029,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.005728449333239114
+6029,324110,Other,Conventional Boiler Use,Biomass,0.0007789215597127156
+6029,324110,Other,Conventional Boiler Use,Other,0.0021054362710193216
+6029,324110,Other,Conventional Boiler Use,Waste_gas,0.13958076251610219
 6029,324110,Other,Process Heating,Biomass,0.004656565668033785
 6029,324110,Other,Process Heating,Other,0.012586764525400517
 6029,324110,Other,Process Heating,Waste_gas,0.8344447249478901
@@ -567,7 +566,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6037,324110,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.057142857142857134
 6037,324110,LPG_NGL,Conventional Boiler Use,LPG_NGL,0.0857142857142857
 6037,324110,LPG_NGL,Process Heating,LPG_NGL,0.8571428571428571
-6037,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2744540754263669
+6037,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.27445407542636696
 6037,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12610722031377813
 6037,324110,Natural_gas,Process Heating,Natural_gas,0.5994387042598549
 6037,324110,Other,CHP and/or Cogeneration Process,Other,4.3753930140350146e-06
@@ -624,8 +623,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6059,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.10791366906474817
 6059,322121,Natural_gas,Process Heating,Natural_gas,0.3525179856115107
 6059,325412,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.7768223253049016
-6059,325412,Natural_gas,Conventional Boiler Use,Natural_gas,0.22187071241887926
-6059,325412,Natural_gas,Process Heating,Natural_gas,0.0013069622762191529
+6059,325412,Natural_gas,Conventional Boiler Use,Natural_gas,0.22187071241887932
+6059,325412,Natural_gas,Process Heating,Natural_gas,0.001306962276219153
 6065,324121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1388888888888889
 6065,324121,Natural_gas,Conventional Boiler Use,Natural_gas,0.027777777777777776
 6065,324121,Natural_gas,Process Heating,Natural_gas,0.8333333333333334
@@ -655,9 +654,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6073,333611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3125
 6073,333611,Natural_gas,Conventional Boiler Use,Natural_gas,0.12499999999999999
 6073,333611,Natural_gas,Process Heating,Natural_gas,0.5625
-6077,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.24190685249722052
+6077,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.24190685249722055
 6077,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.747967190325455
-6077,311221,Natural_gas,Process Heating,Natural_gas,0.010125957177324426
+6077,311221,Natural_gas,Process Heating,Natural_gas,0.010125957177324427
 6077,311230,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.8147985055023824
 6077,311230,Natural_gas,Conventional Boiler Use,Natural_gas,0.10894205558683387
 6077,311230,Natural_gas,Process Heating,Natural_gas,0.0762594389107837
@@ -724,7 +723,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 6107,321113,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 6107,321113,Other,Conventional Boiler Use,Biomass,1.0
 6111,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.6780385049763309
-6111,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.07857574082727592
+6111,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.0785757408272759
 6111,322121,Natural_gas,Process Heating,Natural_gas,0.24338575419639313
 6111,325414,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.475
 6111,325414,Natural_gas,Conventional Boiler Use,Natural_gas,0.425
@@ -820,12 +819,12 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 9007,336412,Natural_gas,Conventional Boiler Use,Natural_gas,0.07722796609685145
 9009,325412,Diesel,Conventional Boiler Use,Diesel,1.0
 9009,325412,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.8092186120801984
-9009,325412,Natural_gas,Conventional Boiler Use,Natural_gas,0.1900023818530817
-9009,325412,Natural_gas,Process Heating,Natural_gas,0.000779006066719908
+9009,325412,Natural_gas,Conventional Boiler Use,Natural_gas,0.19000238185308166
+9009,325412,Natural_gas,Process Heating,Natural_gas,0.0007790060667199079
 9011,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,1.0
-9011,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0020821305704423697
+9011,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0020821305704423693
 9011,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.997269336956797
-9011,322130,Natural_gas,Process Heating,Natural_gas,0.000648532472760738
+9011,322130,Natural_gas,Process Heating,Natural_gas,0.0006485324727607378
 9011,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 9015,311919,LPG_NGL,Process Heating,LPG_NGL,1.0
 9015,311919,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.49920595521241623
@@ -834,8 +833,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 10003,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2661195779601407
 10003,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.123094958968347
 10003,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
-10003,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.031555969573999566
-10003,324110,Other,Conventional Boiler Use,Waste_gas,0.3190659145815512
+10003,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.03155596957399955
+10003,324110,Other,Conventional Boiler Use,Waste_gas,0.3190659145815511
 10003,324110,Other,Process Heating,Waste_gas,0.6493781158444493
 10003,325130,Diesel,CHP and/or Cogeneration Process,Diesel,0.6006006006006006
 10003,325130,Diesel,Conventional Boiler Use,Diesel,0.3003003003003003
@@ -893,7 +892,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 12031,331110,Natural_gas,Process Heating,Natural_gas,0.8417132216014898
 12033,322121,Coal,Conventional Boiler Use,Coal,1.0
 12033,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0060769677560534975
-12033,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.6129991359071092
+12033,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.6129991359071093
 12033,322121,Natural_gas,Process Heating,Natural_gas,0.3809238963368372
 12033,322121,Other,Conventional Boiler Use,Biomass,0.28029233773515594
 12033,322121,Other,Process Heating,Biomass,0.7197076622648441
@@ -980,7 +979,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 13021,322130,Other,Conventional Boiler Use,Biomass,0.4819825480912793
 13021,322130,Other,Process Heating,Biomass,0.5180174519087207
 13021,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.4452493850794671
-13021,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.25791769153422156
+13021,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.2579176915342216
 13021,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.2968329233863114
 13021,327120,Diesel,Process Heating,Diesel,1.0
 13021,327120,LPG_NGL,Process Heating,LPG_NGL,1.0
@@ -1073,25 +1072,25 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 13103,322121,Diesel,Conventional Boiler Use,Diesel,0.9782299179938955
 13103,322121,Diesel,Process Heating,Diesel,0.00021451141338935537
 13103,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.715047187640159
-13103,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.07260531524327266
+13103,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.07260531524327263
 13103,322121,Natural_gas,Process Heating,Natural_gas,0.21234749711656845
 13103,322121,Other,Conventional Boiler Use,Biomass,0.0070916270448867745
 13103,322121,Other,Conventional Boiler Use,Petroleum_coke,0.8540897735514545
 13103,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.13881859940365862
 13115,322130,Coal,Conventional Boiler Use,Coal,1.0
-13115,322130,Diesel,CHP and/or Cogeneration Process,Diesel,0.5505212900711293
-13115,322130,Diesel,Conventional Boiler Use,Diesel,0.44397349702815936
-13115,322130,Diesel,Process Heating,Diesel,0.005505212900711292
+13115,322130,Diesel,CHP and/or Cogeneration Process,Diesel,0.5505212900711294
+13115,322130,Diesel,Conventional Boiler Use,Diesel,0.4439734970281594
+13115,322130,Diesel,Process Heating,Diesel,0.005505212900711293
 13115,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.436809115710872
-13115,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.4271355859529548
+13115,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.4271355859529549
 13115,322130,Natural_gas,Process Heating,Natural_gas,0.13605529833617325
 13115,322130,Other,Conventional Boiler Use,Biomass,0.402039022722982
 13115,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,6.575236267537641e-06
 13115,322130,Other,Process Heating,Biomass,0.5979446228229439
 13115,322130,Other,Process Heating,Waste_oils_tars_waste_materials,9.779217806609673e-06
-13115,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.2883369239728209
+13115,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.28833692397282085
 13115,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.5194384600452986
-13115,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.19222461598188065
+13115,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.19222461598188062
 13117,311613,Diesel,CHP and/or Cogeneration Process,Diesel,0.9803921568627451
 13117,311613,Diesel,Conventional Boiler Use,Diesel,0.00980392156862745
 13117,311613,Diesel,Process Heating,Diesel,0.00980392156862745
@@ -1197,17 +1196,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 13245,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.45741324921135645
 13245,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.26498422712933756
 13245,325199,Natural_gas,Process Heating,Natural_gas,0.277602523659306
-13245,325199,Other,CHP and/or Cogeneration Process,Other,0.0
 13245,325199,Other,CHP and/or Cogeneration Process,Waste_gas,0.6749603099141377
 13245,325199,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.10443963807323799
-13245,325199,Other,Conventional Boiler Use,Other,0.0
 13245,325199,Other,Conventional Boiler Use,Waste_gas,0.19103963229405752
 13245,325199,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.0295604197185668
 13245,325311,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17266187050359713
 13245,325311,Natural_gas,Conventional Boiler Use,Natural_gas,0.08633093525179857
 13245,325311,Natural_gas,Process Heating,Natural_gas,0.7410071942446044
 13247,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.6159335555433827
-13247,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.1922182878119571
+13247,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.19221828781195707
 13247,322130,Natural_gas,Process Heating,Natural_gas,0.19184815664466015
 13247,322130,Other,Conventional Boiler Use,Biomass,1.0
 13251,313310,Diesel,Conventional Boiler Use,Diesel,1.0
@@ -1356,7 +1353,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17021,322121,Natural_gas,Process Heating,Natural_gas,0.35251798561151076
 17031,311221,Coal,Conventional Boiler Use,Coal,1.0
 17031,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11820650507935497
-17031,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.7551436680499075
+17031,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.7551436680499074
 17031,311221,Natural_gas,Process Heating,Natural_gas,0.12664982687073748
 17031,311821,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.37195121951219506
 17031,311821,Natural_gas,Conventional Boiler Use,Natural_gas,0.2987804878048781
@@ -1372,8 +1369,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17031,325194,Natural_gas,Process Heating,Natural_gas,0.40204429301533223
 17031,325199,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 17031,327213,Natural_gas,Process Heating,Natural_gas,1.0
-17031,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.06226307717923272
-17031,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.023097593147134717
+17031,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.062263077179232726
+17031,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.02309759314713472
 17031,331110,Natural_gas,Process Heating,Natural_gas,0.9146393296736326
 17031,331492,Diesel,Process Heating,Diesel,1.0
 17031,331492,Natural_gas,Process Heating,Natural_gas,1.0
@@ -1399,10 +1396,10 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17033,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
 17033,324110,Other,CHP and/or Cogeneration Process,Other,1.4322801617632717e-06
 17033,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.040156947166973135
-17033,324110,Other,Conventional Boiler Use,Other,1.8678920373456186e-05
-17033,324110,Other,Conventional Boiler Use,Waste_gas,0.5237023025226774
-17033,324110,Other,Process Heating,Other,1.555458532271705e-05
-17033,324110,Other,Process Heating,Waste_gas,0.43610508452449165
+17033,324110,Other,Conventional Boiler Use,Other,1.867892037345619e-05
+17033,324110,Other,Conventional Boiler Use,Waste_gas,0.5237023025226775
+17033,324110,Other,Process Heating,Other,1.555458532271704e-05
+17033,324110,Other,Process Heating,Waste_gas,0.4361050845244914
 17033,324199,Natural_gas,Process Heating,Natural_gas,1.0
 17033,324199,Other,Process Heating,Petroleum_coke,1.0
 17033,325193,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
@@ -1493,11 +1490,11 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17111,332811,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.12213740458015268
 17111,332811,Natural_gas,Conventional Boiler Use,Natural_gas,0.03053435114503817
 17111,332811,Natural_gas,Process Heating,Natural_gas,0.8473282442748092
-17115,311221,Coal,CHP and/or Cogeneration Process,Coal,0.24997572479269795
+17115,311221,Coal,CHP and/or Cogeneration Process,Coal,0.24997572479269797
 17115,311221,Coal,Conventional Boiler Use,Coal,0.7391557654337065
-17115,311221,Coal,Process Heating,Coal,0.010868509773595564
+17115,311221,Coal,Process Heating,Coal,0.010868509773595566
 17115,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.29753597546011645
-17115,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.38367547940404473
+17115,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.3836754794040447
 17115,311221,Natural_gas,Process Heating,Natural_gas,0.318788545135839
 17115,311221,Other,CHP and/or Cogeneration Process,Biomass,0.7638014733275839
 17115,311221,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.1361985266724162
@@ -1515,8 +1512,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17119,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715123
 17119,324110,Other,CHP and/or Cogeneration Process,Other,6.236299497395746e-05
 17119,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.07884185798742198
-17119,324110,Other,Conventional Boiler Use,Other,0.000642716118012763
-17119,324110,Other,Conventional Boiler Use,Waste_gas,0.8125480972129421
+17119,324110,Other,Conventional Boiler Use,Other,0.0006427161180127631
+17119,324110,Other,Conventional Boiler Use,Waste_gas,0.8125480972129422
 17119,324110,Other,Process Heating,Other,8.52841172373136e-05
 17119,324110,Other,Process Heating,Waste_gas,0.10781968156941187
 17119,324199,LPG_NGL,Process Heating,LPG_NGL,1.0
@@ -1532,8 +1529,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17119,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1154562383612663
 17119,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.042830540037243944
 17119,331110,Natural_gas,Process Heating,Natural_gas,0.8417132216014898
-17119,331110,Other,CHP and/or Cogeneration Process,Blast_furnace_coke_oven_gases,0.5216297085158101
-17119,331110,Other,Conventional Boiler Use,Blast_furnace_coke_oven_gases,0.1406118510968154
+17119,331110,Other,CHP and/or Cogeneration Process,Blast_furnace_coke_oven_gases,0.5216297085158103
+17119,331110,Other,Conventional Boiler Use,Blast_furnace_coke_oven_gases,0.14061185109681543
 17119,331110,Other,Process Heating,Blast_furnace_coke_oven_gases,0.3377584403873744
 17119,331420,Natural_gas,Process Heating,Natural_gas,1.0
 17119,331513,Natural_gas,Process Heating,Natural_gas,1.0
@@ -1578,9 +1575,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17161,333111,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3125
 17161,333111,Natural_gas,Conventional Boiler Use,Natural_gas,0.12499999999999999
 17161,333111,Natural_gas,Process Heating,Natural_gas,0.5624999999999999
-17163,324191,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.026012119004133912
-17163,324191,Natural_gas,Conventional Boiler Use,Natural_gas,0.9121271273977997
-17163,324191,Natural_gas,Process Heating,Natural_gas,0.061860753598066365
+17163,324191,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.026012119004133916
+17163,324191,Natural_gas,Conventional Boiler Use,Natural_gas,0.9121271273977996
+17163,324191,Natural_gas,Process Heating,Natural_gas,0.06186075359806637
 17163,325193,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.28613569321533927
 17163,325193,Natural_gas,Conventional Boiler Use,Natural_gas,0.35693215339233036
 17163,325193,Natural_gas,Process Heating,Natural_gas,0.35693215339233036
@@ -1618,10 +1615,10 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 17197,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715123
 17197,324110,Other,CHP and/or Cogeneration Process,Other,2.9986935973091985e-06
 17197,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.07217482687720705
-17197,324110,Other,Conventional Boiler Use,Other,3.162987537725955e-05
-17197,324110,Other,Conventional Boiler Use,Waste_gas,0.761291777709409
-17197,324110,Other,Process Heating,Other,6.9173431334036115e-06
-17197,324110,Other,Process Heating,Waste_gas,0.16649184950127588
+17197,324110,Other,Conventional Boiler Use,Other,3.1629875377259556e-05
+17197,324110,Other,Conventional Boiler Use,Waste_gas,0.7612917777094091
+17197,324110,Other,Process Heating,Other,6.917343133403612e-06
+17197,324110,Other,Process Heating,Waste_gas,0.1664918495012759
 17197,325194,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.00980392156862745
 17197,325194,LPG_NGL,Conventional Boiler Use,LPG_NGL,0.00980392156862745
 17197,325194,LPG_NGL,Process Heating,LPG_NGL,0.9803921568627452
@@ -1688,9 +1685,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 18027,311613,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.48514851485148525
 18027,311613,Natural_gas,Conventional Boiler Use,Natural_gas,0.29702970297029707
 18027,311613,Natural_gas,Process Heating,Natural_gas,0.21782178217821785
-18029,312140,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,3.613707258634168e-07
+18029,312140,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,3.6137072586341673e-07
 18029,312140,Natural_gas,Conventional Boiler Use,Natural_gas,0.9999994996405333
-18029,312140,Natural_gas,Process Heating,Natural_gas,1.3898874071669878e-07
+18029,312140,Natural_gas,Process Heating,Natural_gas,1.3898874071669875e-07
 18029,327213,Natural_gas,Process Heating,Natural_gas,1.0
 18031,336111,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.000832639467110741
 18031,336111,Natural_gas,Conventional Boiler Use,Natural_gas,0.1665278934221482
@@ -1727,7 +1724,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 18069,336112,Natural_gas,Conventional Boiler Use,Natural_gas,0.4359603684340288
 18069,336112,Natural_gas,Process Heating,Natural_gas,0.5237510864541162
 18069,336112,Other,CHP and/or Cogeneration Process,Biomass,0.5092445433788086
-18069,336112,Other,Conventional Boiler Use,Biomass,0.49075545662119135
+18069,336112,Other,Conventional Boiler Use,Biomass,0.4907554566211913
 18073,311224,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.29752066115702475
 18073,311224,Natural_gas,Conventional Boiler Use,Natural_gas,0.4132231404958678
 18073,311224,Natural_gas,Process Heating,Natural_gas,0.2892561983471074
@@ -1748,15 +1745,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 18089,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.009900990099009901
 18089,324110,Diesel,Conventional Boiler Use,Diesel,0.9801980198019803
 18089,324110,Diesel,Process Heating,Diesel,0.009900990099009901
-18089,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1118236409314486
+18089,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11182364093144861
 18089,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.051724591620273576
 18089,324110,Natural_gas,Process Heating,Natural_gas,0.8364517674482778
 18089,324110,Other,CHP and/or Cogeneration Process,Other,2.4062243870639334e-10
 18089,324110,Other,CHP and/or Cogeneration Process,Waste_gas,4.463441644201028e-06
-18089,324110,Other,Conventional Boiler Use,Other,2.4157660372118492e-05
-18089,324110,Other,Conventional Boiler Use,Waste_gas,0.4481140990468802
-18089,324110,Other,Process Heating,Other,2.9748811968579894e-05
-18089,324110,Other,Process Heating,Waste_gas,0.5518275307985127
+18089,324110,Other,Conventional Boiler Use,Other,2.41576603721185e-05
+18089,324110,Other,Conventional Boiler Use,Waste_gas,0.4481140990468803
+18089,324110,Other,Process Heating,Other,2.9748811968579884e-05
+18089,324110,Other,Process Heating,Waste_gas,0.5518275307985124
 18089,324191,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2601092896174863
 18089,324191,Natural_gas,Conventional Boiler Use,Natural_gas,0.12131147540983607
 18089,324191,Natural_gas,Process Heating,Natural_gas,0.6185792349726776
@@ -2072,7 +2069,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 19111,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.2579261765144209
 19111,311221,Natural_gas,Process Heating,Natural_gas,0.18680583518709243
 19113,311221,Coal,CHP and/or Cogeneration Process,Coal,0.3167852377571697
-19113,311221,Coal,Conventional Boiler Use,Coal,0.6694414910359967
+19113,311221,Coal,Conventional Boiler Use,Coal,0.6694414910359968
 19113,311221,Coal,Process Heating,Coal,0.013773271206833469
 19113,311221,Diesel,Conventional Boiler Use,Diesel,0.5
 19113,311221,Diesel,Process Heating,Diesel,0.5
@@ -2080,9 +2077,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 19113,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.29758827356605716
 19113,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.3835671476131674
 19113,311221,Natural_gas,Process Heating,Natural_gas,0.31884457882077555
-19113,311221,Other,CHP and/or Cogeneration Process,Biomass,0.09713688568420918
-19113,311221,Other,CHP and/or Cogeneration Process,Other,5.174300789349135e-05
-19113,311221,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.004352855372207327
+19113,311221,Other,CHP and/or Cogeneration Process,Biomass,0.09713688568420921
+19113,311221,Other,CHP and/or Cogeneration Process,Other,5.1743007893491364e-05
+19113,311221,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.004352855372207328
 19113,311221,Other,Conventional Boiler Use,Biomass,0.859485785131679
 19113,311221,Other,Conventional Boiler Use,Other,0.00045783205268687773
 19113,311221,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.03851489875132411
@@ -2133,8 +2130,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 19139,325199,Natural_gas,Process Heating,Natural_gas,0.27760252365930604
 19139,325199,Other,Conventional Boiler Use,Biomass,1.0
 19139,327215,Natural_gas,Process Heating,Natural_gas,1.0
-19139,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.02970008829370183
-19139,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.011017774689599066
+19139,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.029700088293701833
+19139,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.011017774689599068
 19139,331110,Natural_gas,Process Heating,Natural_gas,0.9592821370166992
 19141,325193,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.28613569321533927
 19141,325193,Natural_gas,Conventional Boiler Use,Natural_gas,0.35693215339233036
@@ -2236,9 +2233,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 20055,325193,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2861356932153392
 20055,325193,Natural_gas,Conventional Boiler Use,Natural_gas,0.35693215339233036
 20055,325193,Natural_gas,Process Heating,Natural_gas,0.35693215339233036
-20057,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2681544138898717
-20057,311611,Natural_gas,Conventional Boiler Use,Natural_gas,0.5495192722881943
-20057,311611,Natural_gas,Process Heating,Natural_gas,0.182326313821934
+20057,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.26815441388987166
+20057,311611,Natural_gas,Conventional Boiler Use,Natural_gas,0.5495192722881944
+20057,311611,Natural_gas,Process Heating,Natural_gas,0.18232631382193398
 20057,311611,Other,Conventional Boiler Use,Biomass,1.0
 20057,325311,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17266187050359713
 20057,325311,Natural_gas,Conventional Boiler Use,Natural_gas,0.08633093525179857
@@ -2252,14 +2249,14 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 20111,311224,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2975206611570248
 20111,311224,Natural_gas,Conventional Boiler Use,Natural_gas,0.4132231404958677
 20111,311224,Natural_gas,Process Heating,Natural_gas,0.2892561983471074
-20113,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.0739819893804848
-20113,324110,Other,Conventional Boiler Use,Waste_gas,0.7697001709981893
+20113,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.07398198938048481
+20113,324110,Other,Conventional Boiler Use,Waste_gas,0.7697001709981894
 20113,324110,Other,Process Heating,Waste_gas,0.15631783962132573
 20113,325110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.23448275862068965
 20113,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.06551724137931035
 20113,325110,Natural_gas,Process Heating,Natural_gas,0.7000000000000001
-20125,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0687542848670481
-20125,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.03180264277991212
+20125,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.06875428486704807
+20125,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.031802642779912106
 20125,324110,Natural_gas,Process Heating,Natural_gas,0.8994430723530399
 20125,324110,Other,Conventional Boiler Use,Waste_gas,0.16110361540835844
 20125,324110,Other,Process Heating,Waste_gas,0.8388963845916415
@@ -2288,9 +2285,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 20167,325193,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2861356932153392
 20167,325193,Natural_gas,Conventional Boiler Use,Natural_gas,0.3569321533923304
 20167,325193,Natural_gas,Process Heating,Natural_gas,0.3569321533923304
-20173,311224,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0008969044965194467
+20173,311224,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0008969044965194465
 20173,311224,Natural_gas,Conventional Boiler Use,Natural_gas,0.9391114049544116
-20173,311224,Natural_gas,Process Heating,Natural_gas,0.05999169054906903
+20173,311224,Natural_gas,Process Heating,Natural_gas,0.05999169054906902
 20173,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.40892281457910656
 20173,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.1890765636360783
 20173,325180,Natural_gas,Process Heating,Natural_gas,0.40200062178481516
@@ -2340,15 +2337,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 21019,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
 21019,324110,Other,CHP and/or Cogeneration Process,Other,5.17181510270708e-07
 21019,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.07327553432549931
-21019,324110,Other,Conventional Boiler Use,Other,5.486349344205419e-06
-21019,324110,Other,Conventional Boiler Use,Waste_gas,0.7773193196380478
-21019,324110,Other,Process Heating,Other,1.054457391809695e-06
-21019,324110,Other,Process Heating,Waste_gas,0.14939808804820676
+21019,324110,Other,Conventional Boiler Use,Other,5.486349344205418e-06
+21019,324110,Other,Conventional Boiler Use,Waste_gas,0.7773193196380477
+21019,324110,Other,Process Heating,Other,1.0544573918096948e-06
+21019,324110,Other,Process Heating,Waste_gas,0.14939808804820673
 21019,325998,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4088586030664395
 21019,325998,Natural_gas,Conventional Boiler Use,Natural_gas,0.1890971039182283
 21019,325998,Natural_gas,Process Heating,Natural_gas,0.40204429301533223
-21019,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.10457172569123123
-21019,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.03879273694997287
+21019,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1045717256912312
+21019,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.03879273694997286
 21019,331110,Natural_gas,Process Heating,Natural_gas,0.8566355373587959
 21019,331110,Other,Conventional Boiler Use,Blast_furnace_coke_oven_gases,0.6453314802418731
 21019,331110,Other,Process Heating,Blast_furnace_coke_oven_gases,0.3546685197581269
@@ -2374,7 +2371,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 21047,325193,Natural_gas,Process Heating,Natural_gas,0.3569321533923304
 21059,311224,Coal,Conventional Boiler Use,Coal,1.0
 21059,311224,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2862881206802402
-21059,311224,Natural_gas,Conventional Boiler Use,Natural_gas,0.43537620643619296
+21059,311224,Natural_gas,Conventional Boiler Use,Natural_gas,0.43537620643619307
 21059,311224,Natural_gas,Process Heating,Natural_gas,0.27833567288356686
 21059,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.539568345323741
 21059,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.10791366906474818
@@ -2515,7 +2512,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22005,325110,Other,Conventional Boiler Use,Waste_gas,0.06920016243842106
 22005,325120,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.9550607683507463
 22005,325120,Natural_gas,Conventional Boiler Use,Natural_gas,0.013923494283788517
-22005,325120,Natural_gas,Process Heating,Natural_gas,0.031015737365465246
+22005,325120,Natural_gas,Process Heating,Natural_gas,0.031015737365465243
 22005,325180,Diesel,CHP and/or Cogeneration Process,Diesel,0.6006006006006006
 22005,325180,Diesel,Conventional Boiler Use,Diesel,0.3003003003003003
 22005,325180,Diesel,Process Heating,Diesel,0.09909909909909911
@@ -2571,9 +2568,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22019,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.0099009900990099
 22019,324110,Diesel,Conventional Boiler Use,Diesel,0.9801980198019803
 22019,324110,Diesel,Process Heating,Diesel,0.009900990099009903
-22019,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.16826189092765145
-22019,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.330716894652059
-22019,324110,Natural_gas,Process Heating,Natural_gas,0.5010212144202896
+22019,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.16826189092765143
+22019,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.33071689465205906
+22019,324110,Natural_gas,Process Heating,Natural_gas,0.5010212144202895
 22019,324110,Other,CHP and/or Cogeneration Process,Other,1.5000995933155783e-05
 22019,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.01412100672887812
 22019,324110,Other,Conventional Boiler Use,Other,0.00045749973478337715
@@ -2599,8 +2596,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22019,325180,Diesel,Conventional Boiler Use,Diesel,0.3003003003003003
 22019,325180,Diesel,Process Heating,Diesel,0.0990990990990991
 22019,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.8916043958880323
-22019,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.034674098145326855
-22019,325180,Natural_gas,Process Heating,Natural_gas,0.07372150596664086
+22019,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.03467409814532687
+22019,325180,Natural_gas,Process Heating,Natural_gas,0.07372150596664089
 22019,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.45741324921135645
 22019,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.26498422712933756
 22019,325199,Natural_gas,Process Heating,Natural_gas,0.277602523659306
@@ -2639,8 +2636,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22033,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.0843543635036506
 22033,324110,Other,Conventional Boiler Use,Other,4.694451040443563e-05
 22033,324110,Other,Conventional Boiler Use,Waste_gas,0.8529163420924671
-22033,324110,Other,Process Heating,Other,3.44959075730663e-06
-22033,324110,Other,Process Heating,Waste_gas,0.06267425743905414
+22033,324110,Other,Process Heating,Other,3.449590757306631e-06
+22033,324110,Other,Process Heating,Waste_gas,0.06267425743905415
 22033,324199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.14285714285714285
 22033,324199,Natural_gas,Conventional Boiler Use,Natural_gas,0.14285714285714285
 22033,324199,Natural_gas,Process Heating,Natural_gas,0.7142857142857143
@@ -2768,11 +2765,11 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22089,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12309495896834699
 22089,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
 22089,324110,Other,CHP and/or Cogeneration Process,Other,2.0874407424875394e-06
-22089,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06097670226870943
+22089,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06097670226870942
 22089,324110,Other,Conventional Boiler Use,Other,2.32076463115115e-05
 22089,324110,Other,Conventional Boiler Use,Waste_gas,0.6779237899746017
-22089,324110,Other,Process Heating,Other,8.937155869050966e-06
-22089,324110,Other,Process Heating,Waste_gas,0.261065275513766
+22089,324110,Other,Process Heating,Other,8.937155869050964e-06
+22089,324110,Other,Process Heating,Waste_gas,0.26106527551376596
 22089,324199,Natural_gas,Process Heating,Natural_gas,1.0
 22089,324199,Other,Process Heating,Petroleum_coke,1.0
 22089,325120,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
@@ -2814,9 +2811,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 22095,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.009900990099009901
 22095,324110,Diesel,Conventional Boiler Use,Diesel,0.9801980198019803
 22095,324110,Diesel,Process Heating,Diesel,0.009900990099009901
-22095,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17826250368366225
+22095,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17826250368366223
 22095,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.41259756495427585
-22095,324110,Natural_gas,Process Heating,Natural_gas,0.40913993136206195
+22095,324110,Natural_gas,Process Heating,Natural_gas,0.4091399313620619
 22095,324110,Other,CHP and/or Cogeneration Process,Other,1.4040384656845378e-06
 22095,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.08469581363747537
 22095,324110,Other,Conventional Boiler Use,Other,1.419638893081033e-05
@@ -2880,9 +2877,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 23005,322121,Natural_gas,Process Heating,Natural_gas,0.3525179856115108
 23005,322121,Other,Conventional Boiler Use,Biomass,0.9999287477284238
 23005,322121,Other,Conventional Boiler Use,Other,7.125227157621791e-05
-23005,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.16521531493213348
+23005,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.16521531493213346
 23005,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.7246411417797776
-23005,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.11014354328808897
+23005,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.11014354328808895
 23007,322121,Diesel,CHP and/or Cogeneration Process,Diesel,0.9314111802075838
 23007,322121,Diesel,Conventional Boiler Use,Diesel,0.059274707990340125
 23007,322121,Diesel,Process Heating,Diesel,0.009314111802075838
@@ -2924,7 +2921,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 23017,322121,Coal,Conventional Boiler Use,Coal,0.06896551724137932
 23017,322121,Coal,Process Heating,Coal,0.03448275862068966
 23017,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.04463868921187694
-23017,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.28867578309040676
+23017,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.2886757830904068
 23017,322121,Natural_gas,Process Heating,Natural_gas,0.6666855276977163
 23017,322121,Other,CHP and/or Cogeneration Process,Biomass,0.28159640345142983
 23017,322121,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.11830872306955077
@@ -2933,7 +2930,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 23017,322121,Other,Process Heating,Biomass,0.3912731307084197
 23017,322121,Other,Process Heating,Waste_oils_tars_waste_materials,0.16438783982382402
 23017,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.03032084894490458
-23017,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.12674669195896324
+23017,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.1267466919589632
 23017,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.8429324590961321
 23019,322110,Diesel,Conventional Boiler Use,Diesel,0.7024351293437875
 23019,322110,Diesel,Process Heating,Diesel,0.2975648706562125
@@ -2954,13 +2951,11 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 23025,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.38088072535343626
 23025,322121,Natural_gas,Process Heating,Natural_gas,0.30524660230519857
 23025,322121,Other,Conventional Boiler Use,Biomass,0.4766132883097807
-23025,322121,Other,Conventional Boiler Use,Other,0.0
 23025,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.02911114635364347
 23025,322121,Other,Process Heating,Biomass,0.4658234532073305
-23025,322121,Other,Process Heating,Other,0.0
 23025,322121,Other,Process Heating,Waste_oils_tars_waste_materials,0.02845211212924528
 23025,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.06890143532643454
-23025,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.48836800640951716
+23025,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.48836800640951705
 23025,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.4427305582640483
 23029,322110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.20447662040505274
 23029,322110,Natural_gas,Conventional Boiler Use,Natural_gas,0.6046785338835647
@@ -2994,9 +2989,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 24045,311119,Natural_gas,Conventional Boiler Use,Natural_gas,0.2987804878048781
 24045,311119,Natural_gas,Process Heating,Natural_gas,0.3292682926829268
 24510,311314,Diesel,CHP and/or Cogeneration Process,Diesel,1.0
-24510,311314,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2624161840594011
+24510,311314,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.26241618405940115
 24510,311314,Natural_gas,Conventional Boiler Use,Natural_gas,0.5735737009034731
-24510,311314,Natural_gas,Process Heating,Natural_gas,0.16401011503712568
+24510,311314,Natural_gas,Process Heating,Natural_gas,0.16401011503712573
 24510,311314,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.5
 24510,311314,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.5
 24510,325180,Diesel,CHP and/or Cogeneration Process,Diesel,0.6006006006006006
@@ -3097,9 +3092,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 26041,322121,Coal,Conventional Boiler Use,Coal,1.0
 26041,322121,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.5000000000000001
 26041,322121,LPG_NGL,Process Heating,LPG_NGL,0.5
-26041,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3101783756951306
-26041,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.48717175218405057
-26041,322121,Natural_gas,Process Heating,Natural_gas,0.20264987212081867
+26041,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.31017837569513074
+26041,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.4871717521840506
+26041,322121,Natural_gas,Process Heating,Natural_gas,0.20264987212081872
 26041,322121,Other,Conventional Boiler Use,Biomass,0.38047223312702294
 26041,322121,Other,Conventional Boiler Use,Other,0.0011882709315397936
 26041,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.018929155939428913
@@ -3122,7 +3117,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 26045,336111,Natural_gas,Conventional Boiler Use,Natural_gas,0.1665278934221482
 26045,336111,Natural_gas,Process Heating,Natural_gas,0.832639467110741
 26049,336112,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.04290332755512562
-26049,336112,Natural_gas,Conventional Boiler Use,Natural_gas,0.39935341422824133
+26049,336112,Natural_gas,Conventional Boiler Use,Natural_gas,0.3993534142282414
 26049,336112,Natural_gas,Process Heating,Natural_gas,0.557743258216633
 26049,336112,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 26063,311313,Coal,CHP and/or Cogeneration Process,Coal,0.6462300035321945
@@ -3275,12 +3270,12 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 26163,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.21488901378632821
 26163,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.29190756690672465
 26163,324110,Natural_gas,Process Heating,Natural_gas,0.49320341930694717
-26163,324110,Other,CHP and/or Cogeneration Process,Other,5.422246473144081e-06
-26163,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.059828529768654125
+26163,324110,Other,CHP and/or Cogeneration Process,Other,5.422246473144079e-06
+26163,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.05982852976865411
 26163,324110,Other,Conventional Boiler Use,Other,6.45304490247206e-05
 26163,324110,Other,Conventional Boiler Use,Waste_gas,0.7120225739612048
-26163,324110,Other,Process Heating,Other,2.0668871196797645e-05
-26163,324110,Other,Process Heating,Waste_gas,0.2280582747034463
+26163,324110,Other,Process Heating,Other,2.066887119679764e-05
+26163,324110,Other,Process Heating,Waste_gas,0.22805827470344625
 26163,324199,Other,Process Heating,Blast_furnace_coke_oven_gases,1.0
 26163,327410,Coal,Process Heating,Coal,1.0
 26163,327410,Natural_gas,Process Heating,Natural_gas,1.0
@@ -3549,12 +3544,12 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 28047,325130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4088586030664395
 28047,325130,Natural_gas,Conventional Boiler Use,Natural_gas,0.1890971039182283
 28047,325130,Natural_gas,Process Heating,Natural_gas,0.40204429301533223
-28047,325130,Other,CHP and/or Cogeneration Process,Biomass,0.04926958092969214
-28047,325130,Other,CHP and/or Cogeneration Process,Petroleum_coke,0.0041365773919660375
+28047,325130,Other,CHP and/or Cogeneration Process,Biomass,0.04926958092969213
+28047,325130,Other,CHP and/or Cogeneration Process,Petroleum_coke,0.004136577391966036
 28047,325130,Other,Conventional Boiler Use,Biomass,0.8634214392369904
 28047,325130,Other,Conventional Boiler Use,Petroleum_coke,0.07249117077701982
-28047,325130,Other,Process Heating,Biomass,0.009853916185938429
-28047,325130,Other,Process Heating,Petroleum_coke,0.0008273154783932074
+28047,325130,Other,Process Heating,Biomass,0.009853916185938427
+28047,325130,Other,Process Heating,Petroleum_coke,0.0008273154783932072
 28049,311613,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.48514851485148514
 28049,311613,Natural_gas,Conventional Boiler Use,Natural_gas,0.29702970297029696
 28049,311613,Natural_gas,Process Heating,Natural_gas,0.21782178217821782
@@ -3625,8 +3620,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 28111,322110,Natural_gas,Process Heating,Natural_gas,0.33977281510218893
 28111,322110,Other,CHP and/or Cogeneration Process,Biomass,0.021454828224201975
 28111,322110,Other,CHP and/or Cogeneration Process,Petroleum_coke,0.0005373977830605722
-28111,322110,Other,Conventional Boiler Use,Biomass,0.1957070346407248
-28111,322110,Other,Conventional Boiler Use,Petroleum_coke,0.004902044679464968
+28111,322110,Other,Conventional Boiler Use,Biomass,0.19570703464072486
+28111,322110,Other,Conventional Boiler Use,Petroleum_coke,0.004902044679464969
 28111,322110,Other,Process Heating,Biomass,0.758402330460337
 28111,322110,Other,Process Heating,Petroleum_coke,0.018996364212210615
 28113,311615,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.007633587786259542
@@ -3726,7 +3721,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 29163,325311,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 29183,336111,Coal,Conventional Boiler Use,Coal,1.0
 29183,336111,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.000751347878528168
-29183,336111,Natural_gas,Conventional Boiler Use,Natural_gas,0.24790077359330387
+29183,336111,Natural_gas,Conventional Boiler Use,Natural_gas,0.2479007735933039
 29183,336111,Natural_gas,Process Heating,Natural_gas,0.751347878528168
 29186,327410,Coal,Process Heating,Coal,1.0
 29186,327410,Diesel,Process Heating,Diesel,1.0
@@ -3834,9 +3829,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 31019,325193,Natural_gas,Process Heating,Natural_gas,0.35693215339233036
 31025,327310,Diesel,Process Heating,Diesel,1.0
 31025,327310,Natural_gas,Process Heating,Natural_gas,1.0
-31037,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.09177134521971875
+31037,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.09177134521971873
 31037,311611,Natural_gas,Conventional Boiler Use,Natural_gas,0.7477270474275276
-31037,311611,Natural_gas,Process Heating,Natural_gas,0.16050160735275376
+31037,311611,Natural_gas,Process Heating,Natural_gas,0.16050160735275373
 31037,311611,Other,Conventional Boiler Use,Biomass,1.0
 31043,311611,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 31043,311611,Other,Conventional Boiler Use,Biomass,1.0
@@ -4115,9 +4110,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 36031,322121,Other,Conventional Boiler Use,Other,1.7182946439102124e-05
 36031,322121,Other,Process Heating,Biomass,0.892655263862548
 36031,322121,Other,Process Heating,Other,0.00014310329158684132
-36031,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.038070596023668565
+36031,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.03807059602366856
 36031,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.936549006627219
-36031,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.02538039734911237
+36031,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.025380397349112366
 36037,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.539568345323741
 36037,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.10791366906474821
 36037,322121,Natural_gas,Process Heating,Natural_gas,0.3525179856115108
@@ -4318,14 +4313,14 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 37081,325199,Natural_gas,Process Heating,Natural_gas,0.2769735903650848
 37083,322121,Coal,Conventional Boiler Use,Coal,1.0
 37083,322121,Diesel,Conventional Boiler Use,Diesel,1.0
-37083,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3660996173323007
+37083,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3660996173323006
 37083,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.3947152993439297
-37083,322121,Natural_gas,Process Heating,Natural_gas,0.23918508332376973
+37083,322121,Natural_gas,Process Heating,Natural_gas,0.2391850833237697
 37083,322121,Other,Conventional Boiler Use,Biomass,0.09877367397689012
 37083,322121,Other,Process Heating,Biomass,0.9012263260231099
-37083,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.19886472151397905
+37083,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.19886472151397902
 37083,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.6685587974767017
-37083,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.13257648100931937
+37083,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.13257648100931935
 37087,322110,Coal,Conventional Boiler Use,Coal,1.0
 37087,322110,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.06984948259642522
 37087,322110,LPG_NGL,Process Heating,LPG_NGL,0.9301505174035747
@@ -4616,7 +4611,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 39061,325311,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 39061,325611,Coal,Conventional Boiler Use,Coal,1.0
 39061,325611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.003986023477344621
-39061,325611,Natural_gas,Conventional Boiler Use,Natural_gas,0.24549013484052515
+39061,325611,Natural_gas,Conventional Boiler Use,Natural_gas,0.24549013484052512
 39061,325611,Natural_gas,Process Heating,Natural_gas,0.7505238416821303
 39061,336350,Diesel,Process Heating,Diesel,1.0
 39061,336350,Natural_gas,Process Heating,Natural_gas,1.0
@@ -4667,8 +4662,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 39093,336111,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.000832639467110741
 39093,336111,Natural_gas,Conventional Boiler Use,Natural_gas,0.1665278934221482
 39093,336111,Natural_gas,Process Heating,Natural_gas,0.832639467110741
-39095,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2627767460109362
-39095,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12154871511519073
+39095,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.26277674601093626
+39095,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12154871511519075
 39095,324110,Natural_gas,Process Heating,Natural_gas,0.615674538873873
 39095,324110,Other,CHP and/or Cogeneration Process,Other,3.6764184895687887e-06
 39095,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06080718411694239
@@ -4701,9 +4696,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 39113,311221,Coal,Conventional Boiler Use,Coal,1.0
 39113,311221,Diesel,Conventional Boiler Use,Diesel,0.5
 39113,311221,Diesel,Process Heating,Diesel,0.5
-39113,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.13138079111565323
-39113,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.7278540755461468
-39113,311221,Natural_gas,Process Heating,Natural_gas,0.1407651333381999
+39113,311221,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.1313807911156532
+39113,311221,Natural_gas,Conventional Boiler Use,Natural_gas,0.7278540755461469
+39113,311221,Natural_gas,Process Heating,Natural_gas,0.14076513333819987
 39113,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.3629036709908916
 39113,322121,Natural_gas,Process Heating,Natural_gas,0.6370963290091085
 39113,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4574132492113564
@@ -4875,10 +4870,10 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 40049,324110,Other,Process Heating,Waste_gas,0.05891980360065468
 40065,327420,Natural_gas,Process Heating,Natural_gas,1.0
 40071,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.010657783388050183
-40071,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5767586874162783
-40071,324110,Natural_gas,Process Heating,Natural_gas,0.41258352919567154
+40071,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5767586874162784
+40071,324110,Natural_gas,Process Heating,Natural_gas,0.4125835291956715
 40071,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.01734984509571052
-40071,324110,Other,Conventional Boiler Use,Waste_gas,0.39525913833752685
+40071,324110,Other,Conventional Boiler Use,Waste_gas,0.3952591383375266
 40071,324110,Other,Process Heating,Waste_gas,0.5873910165667627
 40071,325180,Natural_gas,Process Heating,Natural_gas,1.0
 40089,311615,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
@@ -4915,9 +4910,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 40097,327310,Natural_gas,Process Heating,Natural_gas,1.0
 40097,327310,Other,Process Heating,Waste_oils_tars_waste_materials,1.0
 40101,322121,Coal,Conventional Boiler Use,Coal,1.0
-40101,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.42319456030334673
-40101,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.3003183269651335
-40101,322121,Natural_gas,Process Heating,Natural_gas,0.2764871127315199
+40101,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4231945603033466
+40101,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.30031832696513355
+40101,322121,Natural_gas,Process Heating,Natural_gas,0.2764871127315198
 40101,327120,Natural_gas,Process Heating,Natural_gas,1.0
 40101,327213,Natural_gas,Process Heating,Natural_gas,1.0
 40111,311999,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
@@ -4963,9 +4958,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 41003,327993,Natural_gas,Process Heating,Natural_gas,0.9988249118683902
 41005,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.9150372745517111
 41005,322121,Natural_gas,Process Heating,Natural_gas,0.0849627254482888
-41009,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.044018613735164684
+41009,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.04401861373516469
 41009,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.32937274967597596
-41009,322121,Natural_gas,Process Heating,Natural_gas,0.6266086365888593
+41009,322121,Natural_gas,Process Heating,Natural_gas,0.6266086365888595
 41009,322121,Other,Conventional Boiler Use,Biomass,0.2537362188992654
 41009,322121,Other,Process Heating,Biomass,0.7462637811007347
 41009,325311,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.17266187050359713
@@ -4993,9 +4988,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 41041,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.8672749864781503
 41041,322130,Natural_gas,Process Heating,Natural_gas,0.13272501352184982
 41041,322130,Other,Conventional Boiler Use,Biomass,0.17111984663891142
-41041,322130,Other,Conventional Boiler Use,Other,0.0
 41041,322130,Other,Process Heating,Biomass,0.8288801533610887
-41041,322130,Other,Process Heating,Other,0.0
 41043,322110,Natural_gas,Conventional Boiler Use,Natural_gas,0.4993482378660221
 41043,322110,Natural_gas,Process Heating,Natural_gas,0.5006517621339779
 41043,322110,Other,Process Heating,Biomass,1.0
@@ -5037,9 +5030,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42003,325211,Natural_gas,Conventional Boiler Use,Natural_gas,0.07062146892655366
 42003,325211,Natural_gas,Process Heating,Natural_gas,0.2033898305084746
 42003,327211,Natural_gas,Process Heating,Natural_gas,1.0
-42003,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.09258767497696523
-42003,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.0343470407172613
-42003,331110,Natural_gas,Process Heating,Natural_gas,0.8730652843057736
+42003,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.09258767497696518
+42003,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.03434704071726129
+42003,331110,Natural_gas,Process Heating,Natural_gas,0.8730652843057735
 42003,331110,Other,CHP and/or Cogeneration Process,Blast_furnace_coke_oven_gases,0.6179319336279262
 42003,331110,Other,Conventional Boiler Use,Blast_furnace_coke_oven_gases,0.34954533302323554
 42003,331110,Other,Process Heating,Blast_furnace_coke_oven_gases,0.03252273334883823
@@ -5064,7 +5057,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42013,322121,Coal,Conventional Boiler Use,Coal,1.0
 42013,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2312028567885622
 42013,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.054840568123568266
-42013,322121,Natural_gas,Process Heating,Natural_gas,0.7139565750878695
+42013,322121,Natural_gas,Process Heating,Natural_gas,0.7139565750878696
 42013,322121,Other,Conventional Boiler Use,Biomass,0.3114111723416375
 42013,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.03247783974518622
 42013,322121,Other,Process Heating,Biomass,0.5941460318618328
@@ -5143,9 +5136,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42045,324110,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.05714285714285714
 42045,324110,LPG_NGL,Conventional Boiler Use,LPG_NGL,0.08571428571428572
 42045,324110,LPG_NGL,Process Heating,LPG_NGL,0.8571428571428571
-42045,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.13977277721683676
+42045,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.13977277721683673
 42045,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.539427148201789
-42045,324110,Natural_gas,Process Heating,Natural_gas,0.3208000745813742
+42045,324110,Natural_gas,Process Heating,Natural_gas,0.32080007458137416
 42045,324110,Other,CHP and/or Cogeneration Process,Other,3.4109600483351834e-07
 42045,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.020766850997750073
 42045,324110,Other,Conventional Boiler Use,Other,9.607522369916104e-06
@@ -5156,7 +5149,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42045,325180,Diesel,Conventional Boiler Use,Diesel,0.30030030030030036
 42045,325180,Diesel,Process Heating,Diesel,0.09909909909909909
 42045,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.182033601046907
-42045,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.13118896799479715
+42045,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.13118896799479712
 42045,325180,Natural_gas,Process Heating,Natural_gas,0.6867774309582958
 42045,336411,Diesel,Conventional Boiler Use,Diesel,0.5
 42045,336411,Diesel,Process Heating,Diesel,0.5
@@ -5252,7 +5245,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42091,311613,Other,CHP and/or Cogeneration Process,Biomass,0.9
 42091,311613,Other,Conventional Boiler Use,Biomass,0.1
 42091,325412,Diesel,Conventional Boiler Use,Diesel,1.0
-42091,325412,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.723410742861279
+42091,325412,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.7234107428612789
 42091,325412,Natural_gas,Conventional Boiler Use,Natural_gas,0.2748478864874177
 42091,325412,Natural_gas,Process Heating,Natural_gas,0.0017413706513033052
 42091,325412,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
@@ -5269,16 +5262,16 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42095,332111,Natural_gas,Process Heating,Natural_gas,1.0
 42097,311422,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 42101,322130,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
-42101,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.027564430810701795
-42101,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.06713607504096471
+42101,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.02756443081070179
+42101,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.0671360750409647
 42101,324110,Natural_gas,Process Heating,Natural_gas,0.9052994941483334
 42101,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.001100931790284395
-42101,324110,Other,Conventional Boiler Use,Waste_gas,0.33395786872025335
+42101,324110,Other,Conventional Boiler Use,Waste_gas,0.3339578687202534
 42101,324110,Other,Process Heating,Waste_gas,0.6649411994894622
 42101,325194,Diesel,Conventional Boiler Use,Diesel,1.0
-42101,325194,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.01506313127494187
+42101,325194,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.015063131274941867
 42101,325194,Natural_gas,Conventional Boiler Use,Natural_gas,0.970124789638032
-42101,325194,Natural_gas,Process Heating,Natural_gas,0.014812079087026173
+42101,325194,Natural_gas,Process Heating,Natural_gas,0.014812079087026172
 42101,325194,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 42107,331318,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.3333333333333333
 42107,331318,LPG_NGL,Conventional Boiler Use,LPG_NGL,0.3333333333333333
@@ -5295,15 +5288,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42119,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.5395683453237411
 42119,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.10791366906474818
 42119,322121,Natural_gas,Process Heating,Natural_gas,0.35251798561151076
-42123,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.0029460556972628602
+42123,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.00294605569726286
 42123,324110,Diesel,Conventional Boiler Use,Diesel,0.9941078886054742
-42123,324110,Diesel,Process Heating,Diesel,0.0029460556972628607
-42123,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.23764609157131683
+42123,324110,Diesel,Process Heating,Diesel,0.0029460556972628602
+42123,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2376460915713169
 42123,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.21691948680464745
 42123,324110,Natural_gas,Process Heating,Natural_gas,0.5454344216240357
-42123,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06830440281241017
+42123,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06830440281241015
 42123,324110,Other,Conventional Boiler Use,Waste_gas,0.8841794908833045
-42123,324110,Other,Process Heating,Waste_gas,0.047516106304285335
+42123,324110,Other,Process Heating,Waste_gas,0.04751610630428532
 42123,324110,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.3333333333333332
 42123,324110,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.6666666666666667
 42123,331110,Coke_and_breeze,Process Heating,Coke_and_breeze,1.0
@@ -5349,8 +5342,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 42133,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.00611858760511748
 42133,322121,Other,Process Heating,Biomass,0.7085120805759246
 42133,322121,Other,Process Heating,Waste_oils_tars_waste_materials,0.01609943513032456
-42133,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.006366018009378062
-42133,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.06332849914995428
+42133,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.006366018009378061
+42133,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.06332849914995427
 42133,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.9303054828406677
 42133,327120,Coal,Process Heating,Coal,1.0
 42133,327120,Coke_and_breeze,Process Heating,Coke_and_breeze,1.0
@@ -5372,9 +5365,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 45003,325180,Diesel,CHP and/or Cogeneration Process,Diesel,0.030316619080809588
 45003,325180,Diesel,Conventional Boiler Use,Diesel,0.9646811387708568
 45003,325180,Diesel,Process Heating,Diesel,0.005002242148333582
-45003,325180,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.0029455081001472758
+45003,325180,LPG_NGL,CHP and/or Cogeneration Process,LPG_NGL,0.0029455081001472753
 45003,325180,LPG_NGL,Conventional Boiler Use,LPG_NGL,0.7025036818851252
-45003,325180,LPG_NGL,Process Heating,LPG_NGL,0.2945508100147276
+45003,325180,LPG_NGL,Process Heating,LPG_NGL,0.29455081001472755
 45003,325180,Other,CHP and/or Cogeneration Process,Biomass,0.04583032761150907
 45003,325180,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,0.0014524593611581651
 45003,325180,Other,Conventional Boiler Use,Biomass,0.9142850419474632
@@ -5405,9 +5398,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 45015,325211,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.6758258407716511
 45015,325211,Natural_gas,Conventional Boiler Use,Natural_gas,0.13483773691099923
 45015,325211,Natural_gas,Process Heating,Natural_gas,0.18933642231734973
-45015,325211,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.18700586067503286
+45015,325211,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.1870058606750329
 45015,325211,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.6259882786499342
-45015,325211,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.18700586067503286
+45015,325211,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.1870058606750329
 45015,331110,Diesel,CHP and/or Cogeneration Process,Diesel,0.00980392156862745
 45015,331110,Diesel,Conventional Boiler Use,Diesel,0.00980392156862745
 45015,331110,Diesel,Process Heating,Diesel,0.9803921568627451
@@ -5460,7 +5453,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 45031,313310,Natural_gas,Process Heating,Natural_gas,0.48000000000000004
 45031,322130,Coal,Conventional Boiler Use,Coal,1.0
 45031,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.5312124234442362
-45031,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.19172653870495832
+45031,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.1917265387049583
 45031,322130,Natural_gas,Process Heating,Natural_gas,0.27706103785080544
 45031,322130,Other,Conventional Boiler Use,Biomass,0.8235988803212932
 45031,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.160009285485825
@@ -5648,15 +5641,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 45091,322121,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.32862354533748245
 45091,322121,Natural_gas,Conventional Boiler Use,Natural_gas,0.45667573837536235
 45091,322121,Natural_gas,Process Heating,Natural_gas,0.21470071628715517
-45091,322121,Other,CHP and/or Cogeneration Process,Biomass,0.000901358326961091
-45091,322121,Other,CHP and/or Cogeneration Process,Other,9.288438822909794e-07
-45091,322121,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,1.2021034337935228e-05
+45091,322121,Other,CHP and/or Cogeneration Process,Biomass,0.0009013583269610911
+45091,322121,Other,CHP and/or Cogeneration Process,Other,9.288438822909795e-07
+45091,322121,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,1.202103433793523e-05
 45091,322121,Other,Conventional Boiler Use,Biomass,0.3255239533103788
 45091,322121,Other,Conventional Boiler Use,Other,0.0003354503126308521
 45091,322121,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.004341375126313563
-45091,322121,Other,Process Heating,Biomass,0.6594111074751211
-45091,322121,Other,Process Heating,Other,0.0006795188492438758
-45091,322121,Other,Process Heating,Waste_oils_tars_waste_materials,0.008794286721130501
+45091,322121,Other,Process Heating,Biomass,0.6594111074751212
+45091,322121,Other,Process Heating,Other,0.0006795188492438759
+45091,322121,Other,Process Heating,Waste_oils_tars_waste_materials,0.008794286721130503
 45091,322121,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.17204553746015686
 45091,322121,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.7132574375664053
 45091,322121,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.11469702497343788
@@ -5695,9 +5688,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 46083,325193,Natural_gas,Conventional Boiler Use,Natural_gas,0.35693215339233036
 46083,325193,Natural_gas,Process Heating,Natural_gas,0.35693215339233036
 46099,311611,Diesel,Conventional Boiler Use,Diesel,1.0
-46099,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0008970730047242409
+46099,311611,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0008970730047242408
 46099,311611,Natural_gas,Conventional Boiler Use,Natural_gas,0.9646251031608171
-46099,311611,Natural_gas,Process Heating,Natural_gas,0.034477823834458764
+46099,311611,Natural_gas,Process Heating,Natural_gas,0.03447782383445876
 46099,311611,Other,Conventional Boiler Use,Biomass,1.0
 46099,311611,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 46103,327410,Coal,Process Heating,Coal,1.0
@@ -5766,7 +5759,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 47071,322130,Coal,Conventional Boiler Use,Coal,1.0
 47071,322130,Diesel,Conventional Boiler Use,Diesel,1.0
 47071,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,2.4561792762786634e-05
-47071,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5729418858922453
+47071,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5729418858922452
 47071,322130,Natural_gas,Process Heating,Natural_gas,0.4270335523149921
 47071,322130,Other,Conventional Boiler Use,Biomass,0.4228090341791829
 47071,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.01809336660489559
@@ -5779,9 +5772,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 47073,325920,Other,Process Heating,Other,0.15254237288135594
 47073,327211,Natural_gas,Process Heating,Natural_gas,1.0
 47085,322130,Diesel,Conventional Boiler Use,Diesel,1.0
-47085,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.14447538808731675
+47085,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.14447538808731672
 47085,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.8105240811969617
-47085,322130,Natural_gas,Process Heating,Natural_gas,0.045000530715721604
+47085,322130,Natural_gas,Process Heating,Natural_gas,0.0450005307157216
 47085,322130,Other,Conventional Boiler Use,Biomass,0.9580059468042301
 47085,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.04199405319576995
 47085,325130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4088586030664395
@@ -5963,7 +5956,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48035,327410,Other,Process Heating,Petroleum_coke,1.0
 48039,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.015792537666384176
 48039,324110,Other,Conventional Boiler Use,Waste_gas,0.1596801030712178
-48039,324110,Other,Process Heating,Waste_gas,0.8245273592623981
+48039,324110,Other,Process Heating,Waste_gas,0.8245273592623982
 48039,325110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4933585622167532
 48039,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.03944879734872619
 48039,325110,Natural_gas,Process Heating,Natural_gas,0.4671926404345206
@@ -5975,7 +5968,6 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48039,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.45741324921135645
 48039,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.26498422712933756
 48039,325199,Natural_gas,Process Heating,Natural_gas,0.277602523659306
-48039,325199,Other,Process Heating,Other,0.0
 48039,325199,Other,Process Heating,Waste_gas,1.0
 48039,325211,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.9057960407614192
 48039,325211,Natural_gas,Conventional Boiler Use,Natural_gas,0.024045261297654726
@@ -6024,11 +6016,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48071,325194,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.40885860306643945
 48071,325194,Natural_gas,Conventional Boiler Use,Natural_gas,0.1890971039182283
 48071,325194,Natural_gas,Process Heating,Natural_gas,0.40204429301533223
-48071,325194,Other,CHP and/or Cogeneration Process,Other,0.0
 48071,325194,Other,CHP and/or Cogeneration Process,Waste_gas,0.7627118644067796
-48071,325194,Other,Conventional Boiler Use,Other,0.0
 48071,325194,Other,Conventional Boiler Use,Waste_gas,0.0847457627118644
-48071,325194,Other,Process Heating,Other,0.0
 48071,325194,Other,Process Heating,Waste_gas,0.15254237288135594
 48071,325211,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.7259887005649718
 48071,325211,Natural_gas,Conventional Boiler Use,Natural_gas,0.07062146892655366
@@ -6059,18 +6048,18 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48139,326140,Natural_gas,Process Heating,Natural_gas,0.35384615384615387
 48139,327310,Diesel,Process Heating,Diesel,1.0
 48139,327310,Natural_gas,Process Heating,Natural_gas,1.0
-48139,327993,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.0004901007744056219
-48139,327993,Natural_gas,Conventional Boiler Use,Natural_gas,0.0004901007744056219
+48139,327993,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.000490100774405622
+48139,327993,Natural_gas,Conventional Boiler Use,Natural_gas,0.000490100774405622
 48139,327993,Natural_gas,Process Heating,Natural_gas,0.9990197984511887
-48139,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.079078108962554
-48139,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.029335427518366805
+48139,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.07907810896255402
+48139,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.029335427518366812
 48139,331110,Natural_gas,Process Heating,Natural_gas,0.8915864635190791
 48141,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.26611957796014063
 48141,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.123094958968347
 48141,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
-48141,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.0671896837689439
-48141,324110,Other,Conventional Boiler Use,Waste_gas,0.6793623581082109
-48141,324110,Other,Process Heating,Waste_gas,0.25344795812284526
+48141,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06718968376894388
+48141,324110,Other,Conventional Boiler Use,Waste_gas,0.6793623581082108
+48141,324110,Other,Process Heating,Waste_gas,0.2534479581228453
 48141,327120,Natural_gas,Process Heating,Natural_gas,1.0
 48141,331110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11545623836126627
 48141,331110,Natural_gas,Conventional Boiler Use,Natural_gas,0.042830540037243944
@@ -6085,14 +6074,14 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48167,324110,Natural_gas,Process Heating,Natural_gas,0.6107854630715124
 48167,324110,Other,CHP and/or Cogeneration Process,Other,3.1718516138093787e-06
 48167,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.05398716225760091
-48167,324110,Other,Conventional Boiler Use,Other,3.758773289433737e-05
-48167,324110,Other,Conventional Boiler Use,Waste_gas,0.6397698510949033
+48167,324110,Other,Conventional Boiler Use,Other,3.7587732894337366e-05
+48167,324110,Other,Conventional Boiler Use,Waste_gas,0.6397698510949031
 48167,324110,Other,Process Heating,Other,1.7988924204416076e-05
 48167,324110,Other,Process Heating,Waste_gas,0.3061842381387833
 48167,325110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.09298167971797072
-48167,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5338131885908537
+48167,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5338131885908536
 48167,325110,Natural_gas,Process Heating,Natural_gas,0.37320513169117564
-48167,325110,Other,CHP and/or Cogeneration Process,Waste_gas,0.04310445205479452
+48167,325110,Other,CHP and/or Cogeneration Process,Waste_gas,0.04310445205479451
 48167,325110,Other,Conventional Boiler Use,Waste_gas,0.9568955479452055
 48167,325120,Natural_gas,Process Heating,Natural_gas,1.0
 48167,325194,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.40885860306643945
@@ -6139,18 +6128,18 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48201,324110,Diesel,CHP and/or Cogeneration Process,Diesel,0.009900990099009903
 48201,324110,Diesel,Conventional Boiler Use,Diesel,0.9801980198019803
 48201,324110,Diesel,Process Heating,Diesel,0.009900990099009901
-48201,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4582160544751899
-48201,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12094841643193639
-48201,324110,Natural_gas,Process Heating,Natural_gas,0.42083552909287364
-48201,324110,Other,CHP and/or Cogeneration Process,Other,6.104070333149904e-07
-48201,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.056170027471736626
+48201,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.45821605447519
+48201,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.12094841643193638
+48201,324110,Natural_gas,Process Heating,Natural_gas,0.4208355290928736
+48201,324110,Other,CHP and/or Cogeneration Process,Other,6.104070333149905e-07
+48201,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.05617002747173663
 48201,324110,Other,Conventional Boiler Use,Other,6.887472103237292e-06
 48201,324110,Other,Conventional Boiler Use,Waste_gas,0.6337893833703925
-48201,324110,Other,Process Heating,Other,3.369133529965746e-06
-48201,324110,Other,Process Heating,Waste_gas,0.31002972214520436
+48201,324110,Other,Process Heating,Other,3.369133529965747e-06
+48201,324110,Other,Process Heating,Waste_gas,0.31002972214520447
 48201,325110,LPG_NGL,Process Heating,LPG_NGL,1.0
 48201,325110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2973302427010124
-48201,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.20534170162948437
+48201,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.2053417016294844
 48201,325110,Natural_gas,Process Heating,Natural_gas,0.49732805566950333
 48201,325110,Other,Conventional Boiler Use,Waste_gas,0.09378379129535876
 48201,325110,Other,Process Heating,Waste_gas,0.9062162087046413
@@ -6162,7 +6151,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48201,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.04070953925674581
 48201,325180,Natural_gas,Process Heating,Natural_gas,0.08655361499632441
 48201,325194,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.3883487504378319
-48201,325194,Natural_gas,Conventional Boiler Use,Natural_gas,0.22977497829830004
+48201,325194,Natural_gas,Conventional Boiler Use,Natural_gas,0.22977497829830007
 48201,325194,Natural_gas,Process Heating,Natural_gas,0.38187627126386803
 48201,325199,Diesel,CHP and/or Cogeneration Process,Diesel,0.3333333333333333
 48201,325199,Diesel,Conventional Boiler Use,Diesel,0.3333333333333333
@@ -6222,9 +6211,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48233,324110,Other,Conventional Boiler Use,Waste_gas,0.4677542386991305
 48233,324110,Other,Process Heating,Other,2.9971223185803407e-05
 48233,324110,Other,Process Heating,Waste_gas,0.48592267788536586
-48233,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2372068268527789
-48233,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.22540264752507083
-48233,325180,Natural_gas,Process Heating,Natural_gas,0.5373905256221503
+48233,325180,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.23720682685277888
+48233,325180,Natural_gas,Conventional Boiler Use,Natural_gas,0.2254026475250709
+48233,325180,Natural_gas,Process Heating,Natural_gas,0.5373905256221502
 48233,325199,Diesel,CHP and/or Cogeneration Process,Diesel,0.33333333333333337
 48233,325199,Diesel,Conventional Boiler Use,Diesel,0.33333333333333337
 48233,325199,Diesel,Process Heating,Diesel,0.33333333333333337
@@ -6235,17 +6224,17 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48233,325199,Other,Conventional Boiler Use,Other,0.1
 48233,325311,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 48241,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.089520547181687
-48241,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5372966310543256
+48241,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5372966310543257
 48241,322130,Natural_gas,Process Heating,Natural_gas,0.3731828217639873
 48241,322130,Other,Conventional Boiler Use,Biomass,0.2913316450644583
 48241,322130,Other,Process Heating,Biomass,0.7086683549355417
 48245,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.08797602036096458
-48245,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5837043693724094
+48245,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.5837043693724095
 48245,324110,Natural_gas,Process Heating,Natural_gas,0.3283196102666259
 48245,324110,Other,CHP and/or Cogeneration Process,Other,3.0671329611989314e-07
 48245,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.018957753745233417
-48245,324110,Other,Conventional Boiler Use,Other,7.188399271739512e-06
-48245,324110,Other,Conventional Boiler Use,Waste_gas,0.4443103867358367
+48245,324110,Other,Conventional Boiler Use,Other,7.188399271739513e-06
+48245,324110,Other,Conventional Boiler Use,Waste_gas,0.4443103867358368
 48245,324110,Other,Process Heating,Other,8.68340404731986e-06
 48245,324110,Other,Process Heating,Waste_gas,0.5367156810023148
 48245,324199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.14285714285714282
@@ -6257,25 +6246,23 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48245,325110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.6951442137550263
 48245,325110,Natural_gas,Conventional Boiler Use,Natural_gas,0.16021470008449548
 48245,325110,Natural_gas,Process Heating,Natural_gas,0.14464108616047816
-48245,325110,Other,CHP and/or Cogeneration Process,Waste_gas,0.3485479413465555
+48245,325110,Other,CHP and/or Cogeneration Process,Waste_gas,0.34854794134655553
 48245,325110,Other,Conventional Boiler Use,Waste_gas,0.3100240709380841
-48245,325110,Other,Process Heating,Waste_gas,0.34142798771536037
-48245,325120,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.8276165054588014
-48245,325120,Natural_gas,Conventional Boiler Use,Natural_gas,0.143279870255138
+48245,325110,Other,Process Heating,Waste_gas,0.3414279877153604
+48245,325120,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.8276165054588013
+48245,325120,Natural_gas,Conventional Boiler Use,Natural_gas,0.14327987025513803
 48245,325120,Natural_gas,Process Heating,Natural_gas,0.0291036242860606
 48245,325120,Other,Conventional Boiler Use,Waste_gas,1.0
 48245,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.45722886242441385
 48245,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.26487740995621223
 48245,325199,Natural_gas,Process Heating,Natural_gas,0.277893727619374
-48245,325199,Other,CHP and/or Cogeneration Process,Other,0.0
 48245,325199,Other,CHP and/or Cogeneration Process,Waste_gas,0.6849257261479539
-48245,325199,Other,Conventional Boiler Use,Other,0.0
 48245,325199,Other,Conventional Boiler Use,Waste_gas,0.31507427385204617
 48245,325211,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4363858800200115
 48245,325211,Natural_gas,Conventional Boiler Use,Natural_gas,0.4413581535930592
 48245,325211,Natural_gas,Process Heating,Natural_gas,0.1222559663869293
 48245,325212,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4857426762560696
-48245,325212,Natural_gas,Conventional Boiler Use,Natural_gas,0.46568023563076316
+48245,325212,Natural_gas,Conventional Boiler Use,Natural_gas,0.4656802356307631
 48245,325212,Natural_gas,Process Heating,Natural_gas,0.04857708811316716
 48245,325320,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4088586030664395
 48245,325320,Natural_gas,Conventional Boiler Use,Natural_gas,0.1890971039182283
@@ -6318,9 +6305,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48339,325199,Natural_gas,Process Heating,Natural_gas,0.277602523659306
 48341,311611,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 48341,311611,Other,Conventional Boiler Use,Biomass,1.0
-48341,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11138698432516483
+48341,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.11138698432516485
 48341,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.6329627124439503
-48341,324110,Natural_gas,Process Heating,Natural_gas,0.2556503032308849
+48341,324110,Natural_gas,Process Heating,Natural_gas,0.25565030323088495
 48341,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.06080903791144522
 48341,324110,Other,Conventional Boiler Use,Waste_gas,0.8968890226718972
 48341,324110,Other,Process Heating,Waste_gas,0.042301939416657545
@@ -6335,8 +6322,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48355,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.5324001252761451
 48355,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.07813881658699073
 48355,324110,Natural_gas,Process Heating,Natural_gas,0.38946105813686427
-48355,324110,Other,CHP and/or Cogeneration Process,Other,8.612223640149835e-07
-48355,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.04060554367233227
+48355,324110,Other,CHP and/or Cogeneration Process,Other,8.612223640149837e-07
+48355,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.04060554367233228
 48355,324110,Other,Conventional Boiler Use,Other,1.1657997385108452e-05
 48355,324110,Other,Conventional Boiler Use,Waste_gas,0.549659811138765
 48355,324110,Other,Process Heating,Other,8.68980789684456e-06
@@ -6383,8 +6370,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 48409,325120,Natural_gas,Conventional Boiler Use,Natural_gas,0.25
 48409,325120,Natural_gas,Process Heating,Natural_gas,0.5833333333333334
 48409,325199,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.9431141305323913
-48409,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.02778147113534377
-48409,325199,Natural_gas,Process Heating,Natural_gas,0.0291043983322649
+48409,325199,Natural_gas,Conventional Boiler Use,Natural_gas,0.027781471135343773
+48409,325199,Natural_gas,Process Heating,Natural_gas,0.029104398332264903
 48409,331313,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2376237623762376
 48409,331313,Natural_gas,Conventional Boiler Use,Natural_gas,0.0297029702970297
 48409,331313,Natural_gas,Process Heating,Natural_gas,0.7326732673267327
@@ -6499,9 +6486,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 50001,311513,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.009803921568627453
 50001,311513,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.9803921568627453
 50001,311513,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.009803921568627453
-50011,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.05356837729576682
-50011,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.9297122161443697
-50011,322130,Natural_gas,Process Heating,Natural_gas,0.016719406559863533
+50011,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.053568377295766814
+50011,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.9297122161443698
+50011,322130,Natural_gas,Process Heating,Natural_gas,0.01671940655986353
 50011,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 51001,311615,Diesel,CHP and/or Cogeneration Process,Diesel,0.9803921568627452
 51001,311615,Diesel,Conventional Boiler Use,Diesel,0.00980392156862745
@@ -6518,7 +6505,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 51005,322130,Diesel,Conventional Boiler Use,Diesel,0.009803921568627449
 51005,322130,Diesel,Process Heating,Diesel,0.009803921568627447
 51005,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.12248175652771584
-51005,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5814635823983204
+51005,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.5814635823983205
 51005,322130,Natural_gas,Process Heating,Natural_gas,0.2960546610739636
 51005,322130,Other,Conventional Boiler Use,Biomass,0.30961968965357517
 51005,322130,Other,Process Heating,Biomass,0.6903803103464248
@@ -6528,9 +6515,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 51019,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.9838621471658014
 51019,322130,Natural_gas,Process Heating,Natural_gas,0.0038327400481221927
 51019,322130,Other,Conventional Boiler Use,Biomass,0.7393368132487138
-51019,322130,Other,Conventional Boiler Use,Other,0.0
 51019,322130,Other,Process Heating,Biomass,0.2606631867512862
-51019,322130,Other,Process Heating,Other,0.0
 51023,327310,Natural_gas,Process Heating,Natural_gas,1.0
 51027,324199,Diesel,Process Heating,Diesel,1.0
 51031,311514,Diesel,CHP and/or Cogeneration Process,Diesel,0.008888888888888889
@@ -6551,9 +6536,9 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 51069,311511,Natural_gas,Conventional Boiler Use,Natural_gas,0.35593220338983056
 51069,311511,Natural_gas,Process Heating,Natural_gas,0.25423728813559326
 51071,325220,Coal,Conventional Boiler Use,Coal,1.0
-51071,325220,Diesel,CHP and/or Cogeneration Process,Diesel,0.004961882007162328
+51071,325220,Diesel,CHP and/or Cogeneration Process,Diesel,0.004961882007162327
 51071,325220,Diesel,Conventional Boiler Use,Diesel,0.9942194074616559
-51071,325220,Diesel,Process Heating,Diesel,0.0008187105311817842
+51071,325220,Diesel,Process Heating,Diesel,0.000818710531181784
 51071,325220,Natural_gas,Conventional Boiler Use,Natural_gas,0.7691360300033058
 51071,325220,Natural_gas,Process Heating,Natural_gas,0.23086396999669426
 51071,327410,Coal,Process Heating,Coal,1.0
@@ -6577,15 +6562,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 51101,322130,Coal,Conventional Boiler Use,Coal,1.0
 51101,322130,Diesel,CHP and/or Cogeneration Process,Diesel,0.5681930019325973
 51101,322130,Diesel,Conventional Boiler Use,Diesel,0.4261250680480767
-51101,322130,Diesel,Process Heating,Diesel,0.005681930019325973
+51101,322130,Diesel,Process Heating,Diesel,0.005681930019325972
 51101,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.18258429221977862
-51101,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.760545190531438
+51101,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.7605451905314379
 51101,322130,Natural_gas,Process Heating,Natural_gas,0.05687051724878351
 51101,322130,Other,Conventional Boiler Use,Biomass,0.5276519960655
 51101,322130,Other,Process Heating,Biomass,0.47234800393450016
-51101,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.16270224561612243
-51101,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.7288295906397959
-51101,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.10846816374408164
+51101,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.16270224561612245
+51101,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.7288295906397958
+51101,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.10846816374408165
 51121,327999,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.03942652329749104
 51121,327999,Natural_gas,Conventional Boiler Use,Natural_gas,0.007168458781362006
 51121,327999,Natural_gas,Process Heating,Natural_gas,0.953405017921147
@@ -6615,15 +6600,15 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 51590,326211,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 51590,326211,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,1.0
 51670,322130,Coal,Conventional Boiler Use,Coal,1.0
-51670,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.28874721791395763
+51670,322130,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2887472179139577
 51670,322130,Natural_gas,Conventional Boiler Use,Natural_gas,0.6213151240472686
-51670,322130,Natural_gas,Process Heating,Natural_gas,0.08993765803877367
-51670,322130,Other,CHP and/or Cogeneration Process,Biomass,0.0005765253868654737
-51670,322130,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,3.6978671255291274e-07
+51670,322130,Natural_gas,Process Heating,Natural_gas,0.0899376580387737
+51670,322130,Other,CHP and/or Cogeneration Process,Biomass,0.0005765253868654738
+51670,322130,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,3.697867125529128e-07
 51670,322130,Other,Conventional Boiler Use,Biomass,0.34837477419737556
 51670,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,0.0002234495920244196
-51670,322130,Other,Process Heating,Biomass,0.65040770577845
-51670,322130,Other,Process Heating,Waste_oils_tars_waste_materials,0.00041717525857194585
+51670,322130,Other,Process Heating,Biomass,0.6504077057784501
+51670,322130,Other,Process Heating,Waste_oils_tars_waste_materials,0.0004171752585719459
 51670,322130,Residual_fuel_oil,CHP and/or Cogeneration Process,Residual_fuel_oil,0.5988023952095809
 51670,322130,Residual_fuel_oil,Conventional Boiler Use,Residual_fuel_oil,0.0019960079840319364
 51670,322130,Residual_fuel_oil,Process Heating,Residual_fuel_oil,0.39920159680638717
@@ -6687,7 +6672,7 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 53011,322121,Other,Process Heating,Biomass,0.7869166769832426
 53015,322122,Coal,Conventional Boiler Use,Coal,1.0
 53015,322122,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.4024147100343559
-53015,322122,Natural_gas,Conventional Boiler Use,Natural_gas,0.46344705328752545
+53015,322122,Natural_gas,Conventional Boiler Use,Natural_gas,0.46344705328752533
 53015,322122,Natural_gas,Process Heating,Natural_gas,0.13413823667811864
 53015,322122,Other,Conventional Boiler Use,Biomass,0.3471020033008206
 53015,322122,Other,Process Heating,Biomass,0.6528979966991794
@@ -6753,8 +6738,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 53053,327420,Natural_gas,Process Heating,Natural_gas,1.0
 53057,321113,Natural_gas,Conventional Boiler Use,Natural_gas,1.0
 53057,321113,Other,Conventional Boiler Use,Biomass,1.0
-53057,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.2226450822351763
-53057,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.2371303683195952
+53057,324110,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.22264508223517634
+53057,324110,Natural_gas,Conventional Boiler Use,Natural_gas,0.23713036831959527
 53057,324110,Natural_gas,Process Heating,Natural_gas,0.5402245494452285
 53057,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.047448766727159204
 53057,324110,Other,Conventional Boiler Use,Waste_gas,0.6472741866255395
@@ -6784,8 +6769,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 53073,324110,Other,CHP and/or Cogeneration Process,Waste_gas,0.01746624276554142
 53073,324110,Other,Conventional Boiler Use,Other,0.0002115066311809727
 53073,324110,Other,Conventional Boiler Use,Waste_gas,0.3204268509048714
-53073,324110,Other,Process Heating,Other,0.0004366066143293479
-53073,324110,Other,Process Heating,Waste_gas,0.6614472640060477
+53073,324110,Other,Process Heating,Other,0.00043660661432934773
+53073,324110,Other,Process Heating,Waste_gas,0.6614472640060475
 53073,331313,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.23762376237623764
 53073,331313,Natural_gas,Conventional Boiler Use,Natural_gas,0.029702970297029705
 53073,331313,Natural_gas,Process Heating,Natural_gas,0.7326732673267327
@@ -6958,8 +6943,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 55069,322130,Natural_gas,Process Heating,Natural_gas,0.0344629939174675
 55069,322130,Other,CHP and/or Cogeneration Process,Biomass,0.6323039556609847
 55069,322130,Other,CHP and/or Cogeneration Process,Waste_oils_tars_waste_materials,6.829641654171967e-05
-55069,322130,Other,Conventional Boiler Use,Biomass,0.11595451837616291
-55069,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,1.2524479747456934e-05
+55069,322130,Other,Conventional Boiler Use,Biomass,0.11595451837616293
+55069,322130,Other,Conventional Boiler Use,Waste_oils_tars_waste_materials,1.2524479747456936e-05
 55069,322130,Other,Process Heating,Biomass,0.25163352562552355
 55069,322130,Other,Process Heating,Waste_oils_tars_waste_materials,2.7179441039582065e-05
 55071,327410,Natural_gas,Process Heating,Natural_gas,1.0
@@ -7069,8 +7054,8 @@ COUNTY_FIPS,naics,MECS_FT,End_use,MECS_FT_byp,MMBtu_fraction
 55117,331511,LPG_NGL,Process Heating,LPG_NGL,1.0
 55117,331511,Natural_gas,Process Heating,Natural_gas,1.0
 55127,327999,Coke_and_breeze,Process Heating,Coke_and_breeze,1.0
-55127,327999,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.017973856209150325
-55127,327999,Natural_gas,Conventional Boiler Use,Natural_gas,0.0032679738562091504
+55127,327999,Natural_gas,CHP and/or Cogeneration Process,Natural_gas,0.01797385620915033
+55127,327999,Natural_gas,Conventional Boiler Use,Natural_gas,0.003267973856209151
 55127,327999,Natural_gas,Process Heating,Natural_gas,0.9787581699346405
 55135,331511,Coke_and_breeze,Process Heating,Coke_and_breeze,1.0
 55135,331511,Diesel,Process Heating,Diesel,1.0
