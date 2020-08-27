@@ -9,6 +9,7 @@ import datetime as dt
 from calc_GHGRP_energy_IPH import GHGRP
 from calc_GHGRP_AA_IPH import subpartAA
 
+# Uncertainty calculations are not fully operational
 ghgrp = GHGRP((2010, 2017), calc_uncertainty=False)
 
 ghgrp_data = {}

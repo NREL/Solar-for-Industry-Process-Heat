@@ -3,7 +3,6 @@ import numpy as np
 import itertools as itools
 import os
 import re
-import dask.dataframe as dd
 import enduse_temps_IPH
 
 
@@ -14,24 +13,21 @@ class Manufacturing_energy:
     below for remaining manufacturing facilities.
     """
 
-    #Set analysis year and required file paths
+    # Set analysis year and required file paths
     def __init__(self, year, energy_ghgrp):
-
         self.year = year
 
         if self.year > 2012:
-
             self.naics_column = 'PRIMARY_NAICS_CODE_12'
 
         else:
-
             self.naics_column = 'PRIMARY_NAICS_CODE'
 
         self.file_dir = './calculation_data/'
         self.fuelxwalk_file = 'MECS_FT_IPF.csv'
         self.naics_2012_file = 'mecs_naics_2012.csv'
         self.naics_old_file = 'mecs_naics.csv'
-        self.ipf_results_file = 'mecs_'+str(self.year)+\
+        self.ipf_results_file = 'mecs_'+str(self.year) +\
             '_ipf_results_naics_employment.csv'
 
         self.mecs_naics = pd.DataFrame()
@@ -52,8 +48,8 @@ class Manufacturing_energy:
                 )[["EPA_FUEL_TYPE", "MECS_FT"]].values)
 
         self.empsize_dict = {'Under 50': 'n1_49', '50-99': 'n50_99',
-                             '100-249': 'n100_249','250-499': 'n250_499',
-                             '500-999': 'n500_999','1000 and Over': 'n1000'}
+                             '100-249': 'n100_249', '250-499': 'n250_499',
+                             '500-999': 'n500_999', '1000 and Over': 'n1000'}
 
         self.energy_ghgrp_y = pd.DataFrame(
                 energy_ghgrp[energy_ghgrp.REPORTING_YEAR == self.year]
@@ -70,16 +66,15 @@ class Manufacturing_energy:
             Method for matching 6-digit NAICS codes with adjusted
             MECS NAICS.
             """
-            DF[naics_column].fillna(0, inplace = True)
+            DF[naics_column].fillna(0, inplace=True)
 
             DF.loc[:, naics_column] = DF[naics_column].astype('int')
 
             DF_index = DF[DF[naics_column].between(310000, 400000,
                           inclusive=False)]
 
-            #split ghgrp data into pre- and post-2012 to account for the
+            # split ghgrp data into pre- and post-2012 to account for the
             # change in NAICS base year for CBP data.
-
             nctest = DF.loc[DF_index.index, [naics_column, 'REPORTING_YEAR']]
 
             for n in ['N6', 'N5', 'N4', 'N3']:
@@ -89,28 +84,25 @@ class Manufacturing_energy:
                 nctest[n] = nctest[naics_column].apply(
                         lambda x: int(str(x)[0:n_level]))
 
-
-            #Match GHGRP NAICS to highest-level MECS NAICS. Will match to
-            #"dummy" "-09" NAICS where available. This is messy, but
-            #functional.
+            # Match GHGRP NAICS to highest-level MECS NAICS. Will match to
+            # "dummy" "-09" NAICS where available. This is messy, but
+            # functional.
             if self.year < 2012:
-
                 ncmatch = pd.concat(
                     [pd.merge(nctest,
                               self.mecs_naics[self.mecs_naics.vintage == 2010],
                               left_on=column, right_on='MECS_NAICS',
-                              how= 'left')['MECS_NAICS']
+                              how='left')['MECS_NAICS']
                         for column in ['N6', 'N5', 'N4', 'N3']], axis=1
                     )
 
             else:
-
                 ncmatch = pd.concat(
                     [pd.merge(nctest,
                               self.mecs_naics[self.mecs_naics.vintage == 2012],
                               left_on=column, right_on='MECS_NAICS',
                               how='left')['MECS_NAICS']
-                        for column in ['N6', 'N5', 'N4', 'N3']], axis =1
+                        for column in ['N6', 'N5', 'N4', 'N3']], axis=1
                     )
 
             ncmatch.columns = ['N6', 'N5', 'N4', 'N3']
@@ -120,30 +112,27 @@ class Manufacturing_energy:
             ncmatch['NAICS_MATCH'] = 0
 
             for n in range(3, 7):
-
                 column = 'N'+str(n)
-
                 ncmatch.NAICS_MATCH.update(ncmatch[column].dropna())
 
-            #Update GHGRP dataframe with matched MECS NAICS.
+            # Update GHGRP dataframe with matched MECS NAICS.
             DF['MECS_NAICS'] = 0
 
             DF['MECS_NAICS'].update(ncmatch.NAICS_MATCH)
 
             return DF
 
-
         # Map EPA fuel types to MECS fuel types. Note this doens't cover all
         # custom fuel types in GHGRP.
         self.energy_ghgrp_y['MECS_FT'] = np.nan
 
-        for f in ['FUEL_TYPE_OTHER','FUEL_TYPE_BLEND', 'FUEL_TYPE']:
+        for f in ['FUEL_TYPE_OTHER', 'FUEL_TYPE_BLEND', 'FUEL_TYPE']:
 
             self.energy_ghgrp_y['MECS_FT'].update(
                     self.energy_ghgrp_y[f].map(self.fuelxwalkDict)
                     )
 
-        #Match GHGRP-reported 6-digit NAICS code with MECS NAICS
+        # Match GHGRP-reported 6-digit NAICS code with MECS NAICS
         self.energy_ghgrp_y = \
             pd.merge(self.energy_ghgrp_y,
                      ghgrp_matching[['FACILITY_ID',
@@ -159,8 +148,8 @@ class Manufacturing_energy:
         # Filter out facilities that use PRIMARY_NAICS_CODE == 486210 and
         # NAICS_USED == 0
         self.energy_ghgrp_y = self.energy_ghgrp_y[
-                (self.energy_ghgrp_y[self.naics_column] != 486210) &\
-                (self.energy_ghgrp_y.MECS_NAICS !=0)
+                (self.energy_ghgrp_y[self.naics_column] != 486210) &
+                (self.energy_ghgrp_y.MECS_NAICS != 0)
                 ]
 
         if self.naics_column == 'PRIMARY_NAICS_CODE_12':
@@ -173,7 +162,6 @@ class Manufacturing_energy:
                 inplace=True
                 )
 
-
     def GHGRP_Totals_byMECS(self):
         """
         From calculated GHGRP energy data, create sums by MECS Region,
@@ -182,11 +170,11 @@ class Manufacturing_energy:
 
         ghgrp_mecs = pd.DataFrame(
             self.energy_ghgrp_y[self.energy_ghgrp_y.MECS_NAICS != 0][
-                        ['MECS_Region', 'MECS_NAICS', 'MECS_FT','MMBtu_TOTAL']
+                        ['MECS_Region', 'MECS_NAICS', 'MECS_FT', 'MMBtu_TOTAL']
                         ]
             )
 
-        ghgrp_mecs.dropna(inplace = True)
+        ghgrp_mecs.dropna(inplace=True)
 
         ghgrp_mecs['MECS_R_FT'] = ghgrp_mecs['MECS_Region'] + '_' + \
             ghgrp_mecs['MECS_FT']
@@ -235,7 +223,6 @@ class Manufacturing_energy:
 
         return ghgrp_mecstotals
 
-
     def calc_intensities(self, cbp_matching):
         """
         Calculate MECS intensities (energy per establishment) based on 2010 or
@@ -248,17 +235,17 @@ class Manufacturing_energy:
         value of zero.
         """
 
-        #Format results from IPF of MECS energy data by region, fuel type,
-        #and employment size.
+        # Format results from IPF of MECS energy data by region, fuel type,
+        # and employment size.
         ipf_results_formatted = pd.read_csv(
                 self.file_dir+self.ipf_results_file, index_col=0
                 )
 
-        mecs_intensities = pd.melt(
-                ipf_results_formatted,
-                id_vars=['MECS_Region', 'Emp_Size', 'MECS_FT'],
-                var_name=['MECS_NAICS_dummies'], value_name='energy'
-                )
+        mecs_intensities = pd.melt(ipf_results_formatted,
+                                   id_vars=['MECS_Region', 'Emp_Size',
+                                            'MECS_FT'],
+                                   var_name=['MECS_NAICS_dummies'],
+                                   value_name='energy')
 
         mecs_intensities['MECS_NAICS_dummies'] =\
             mecs_intensities.MECS_NAICS_dummies.astype('int')
@@ -293,7 +280,7 @@ class Manufacturing_energy:
 
         mecs_intensities.reset_index(inplace=True)
 
-        #Fill NaN values for intensities with 0.
+        # Fill NaN values for intensities with 0.
         mecs_intensities.fillna(0, inplace=True)
 
         mecs_intensities.replace(np.inf, 0, inplace=True)
@@ -321,16 +308,16 @@ class Manufacturing_energy:
 
         # Drop est_count == 0
         energy_nonghgrp = \
-            energy_nonghgrp.where(energy_nonghgrp.est_count!=0).dropna()
+            energy_nonghgrp.where(energy_nonghgrp.est_count != 0).dropna()
 
         energy_nonghgrp.set_index(['MECS_Region','MECS_NAICS_dummies',
                                    'Emp_Size'], inplace=True)
         mecs_intensities = mecs_intensities[
-            mecs_intensities.MECS_FT!='Net_electricity'
+            mecs_intensities.MECS_FT != 'Net_electricity'
             ].where(
-                mecs_intensities.intensity>0
-                ).dropna().set_index(['MECS_Region','MECS_NAICS_dummies',
-                                      'Emp_Size','MECS_FT'])
+                mecs_intensities.intensity > 0
+                ).dropna().set_index(['MECS_Region', 'MECS_NAICS_dummies',
+                                      'Emp_Size', 'MECS_FT'])
 
         energy_nonghgrp = energy_nonghgrp.join(mecs_intensities, how='inner')
 
@@ -358,7 +345,8 @@ class Manufacturing_energy:
         energy_nonghgrp['MMBtu_TOTAL'] = \
             energy_nonghgrp.est_count.multiply(energy_nonghgrp.intensity)*10**6
 
-        energy_nonghgrp['COUNTY_FIPS'] = energy_nonghgrp.COUNTY_FIPS.astype(int)
+        energy_nonghgrp['COUNTY_FIPS'] = \
+            energy_nonghgrp.COUNTY_FIPS.astype(int)
 
 #        energy_nonghgrp = energy_nonghgrp.groupby(
 #                ['MECS_Region', 'COUNTY_FIPS', 'naics', 'MECS_NAICS',
@@ -376,11 +364,11 @@ class Manufacturing_energy:
 
         energy_ghgrp_y = self.energy_ghgrp_y.groupby(
             ['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
-             'MECS_NAICS','MECS_FT'], as_index=False
+             'MECS_NAICS', 'MECS_FT'], as_index=False
             ).MMBtu_TOTAL.sum()
 
         #Drop non-manufacturing industries (MECS_NAICS == 0)
-        energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y.MECS_NAICS !=0]
+        energy_ghgrp_y = energy_ghgrp_y[energy_ghgrp_y.MECS_NAICS != 0]
 
         energy_ghgrp_y['data_source'] = 'ghgrp'
 
@@ -403,8 +391,8 @@ class Manufacturing_energy:
 
         energy_ghgrp_y.reset_index(inplace=True)
 
-        energy_ghgrp_y.rename(columns={'PRIMARY_NAICS_CODE':'naics'},
-                                       inplace=True)
+        energy_ghgrp_y.rename(columns={'PRIMARY_NAICS_CODE': 'naics'},
+                              inplace=True)
 
         energy_ghgrp_y['COUNTY_FIPS'] = energy_ghgrp_y.COUNTY_FIPS.astype(int)
 
@@ -458,35 +446,35 @@ class Manufacturing_energy:
         Returns Dask DataFrame
         """
         unitname_eu_dict = {
-                'Process Heating': ['furnace', 'kiln', 'dryer', 'heater',
-                                    'oven','calciner', 'stove', 'htr', 'furn',
-                                    'cupola'],
-                'Conventional Boiler Use': ['boiler'],
-                'CHP and/or Cogeneration Process': ['turbine'],
-                'Facility HVAC': ['building heat', 'space heater'],
-                'Machine Drive': ['engine','compressor', 'pump', 'rice'],
-                'Conventional Electricity Generation': ['generator'],
-                'Other Nonprocess Use': ['hot water', 'crane', 'water heater',
+            'Process Heating': ['furnace', 'kiln', 'dryer', 'heater',
+                                'oven', 'calciner', 'stove', 'htr', 'furn',
+                                'cupola'],
+            'Conventional Boiler Use': ['boiler'],
+            'CHP and/or Cogeneration Process': ['turbine'],
+            'Facility HVAC': ['building heat', 'space heater'],
+            'Machine Drive': ['engine', 'compressor', 'pump', 'rice'],
+            'Conventional Electricity Generation': ['generator'],
+            'Other Nonprocess Use': ['hot water', 'crane', 'water heater',
                                      'comfort heater', 'RTO', 'TODF',
                                      'oxidizer', 'RCO']
                 }
 
         unittype_eu_dict = {
-                'Process Heating': ['F', 'PD', 'K', 'PRH', 'O', 'NGLH', 'CF',
-                                 'HMH', 'C', 'HPPU', 'CatH', 'COB', 'FeFL',
-                                 'Chemical Recovery Furnace', 'IFCE',
-                                 'Pulp Mill Lime Kiln', 'Lime Kiln',
-                                 'Chemical Recovery Combustion Unit',
-                                 'Direct Reduction Furnace',
-                                 'Sulfur Recovery Plant'],
-                'Conventional Boiler Use': ['OB', 'S', 'PCWW', 'BFB', 'PCWD',
+            'Process Heating': ['F', 'PD', 'K', 'PRH', 'O', 'NGLH', 'CF',
+                                'HMH', 'C', 'HPPU', 'CatH', 'COB', 'FeFL',
+                                'IFCE', 'Pulp Mill Lime Kiln', 'Lime Kiln',
+                                'Direct Reduction Furnace',
+                                'Sulfur Recovery Plant'],
+            'Conventional Boiler Use': ['OB', 'S', 'PCWW', 'BFB', 'PCWD',
                                         'PCT', 'CFB', 'PCO', 'OFB', 'PFB'],
-                'CHP and/or Cogeneration Process': ['CCCT', 'SCCT'],
-                'Facility HVAC': ['CH'],
-                'Other Nonprocess Use': ['HWH', 'TODF', 'ICI', 'FLR', 'RTO',
-                                         'II', 'MWC', 'Flare', 'RCO' ],
-                'Conventional Electricity Generation': ['RICE',
-                                                        'Electricity Generator']
+            'CHP and/or Cogeneration Process': ['CCCT', 'SCCT',
+                                                'Chemical Recovery Furnace',
+                                                'Chemical Recovery Combustion Unit'],
+            'Facility HVAC': ['CH'],
+            'Other Nonprocess Use': ['HWH', 'TODF', 'ICI', 'FLR', 'RTO',
+                                     'II', 'MWC', 'Flare', 'RCO'],
+            'Conventional Electricity Generation': ['RICE',
+                                                    'Electricity Generator']
                 }
 
         def eu_dict_to_df(eu_dict):
@@ -514,7 +502,7 @@ class Manufacturing_energy:
 
             enduse = re.match('(\w+) \(', unit_type)
 
-            if enduse != None:
+            if enduse is not None:
                 enduse = re.match('(\w+)', enduse.group())[0]
                 if enduse in unittype_eu_df.index:
                     enduse = unittype_eu_df.loc[enduse, 'end_use']
@@ -534,7 +522,7 @@ class Manufacturing_energy:
 
             for i in unitname_eu_df.index:
                 enduse = re.search(i, unit_name.lower())
-                if enduse == None:
+                if enduse is None:
                     continue
                 else:
                     enduse = unitname_eu_df.loc[i, 'end_use']
@@ -551,7 +539,7 @@ class Manufacturing_energy:
         # unit name.
         eu_ghgrp = self.energy_ghgrp_y.copy(deep=True)
 
-        eu_ghgrp = eu_ghgrp[eu_ghgrp.MECS_NAICS !=0]
+        eu_ghgrp = eu_ghgrp[eu_ghgrp.MECS_NAICS != 0]
 
         # First match end uses to provided unit types. Most unit types are
         # specified as OCS (other combustion source).
@@ -582,23 +570,23 @@ class Manufacturing_energy:
         eu_ghgrp.end_use.update(eu_ocs.end_use)
 
         eu_ghgrp.drop(eu_ghgrp.columns.difference(
-                set(['COUNTY_FIPS','MECS_Region', 'MMBtu_TOTAL', 'MECS_FT',
-                     'PRIMARY_NAICS_CODE', 'MECS_NAICS','end_use',
+                set(['COUNTY_FIPS', 'MECS_Region', 'MMBtu_TOTAL', 'MECS_FT',
+                     'PRIMARY_NAICS_CODE', 'MECS_NAICS', 'end_use',
                      'FACILITY_ID'])
                 ), axis=1, inplace=True)
 
         # sum energy of unit types and unit names matched to an end use
         eu_ghgrp_matched = eu_ghgrp[eu_ghgrp.end_use.notnull()].pivot_table(
-                values='MMBtu_TOTAL', columns='end_use',
-                index=['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
-                       'MECS_NAICS', 'MECS_FT'], aggfunc='sum', fill_value=0
-                )
+            values='MMBtu_TOTAL', columns='end_use',
+            index=['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
+                   'MECS_NAICS', 'MECS_FT'], aggfunc='sum', fill_value=0
+            )
 
-        eu_ghgrp_matched = eu_ghgrp_matched.join(
-                eu_ghgrp.pivot_table(values='FACILITY_ID',
-                index=['MECS_Region', 'COUNTY_FIPS', 'PRIMARY_NAICS_CODE',
-                       'MECS_NAICS', 'MECS_FT'], aggfunc='count')
-                )
+        eu_ghgrp_matched = eu_ghgrp_matched.join(eu_ghgrp.pivot_table(
+            values='FACILITY_ID', index=['MECS_Region', 'COUNTY_FIPS',
+                                         'PRIMARY_NAICS_CODE', 'MECS_NAICS',
+                                         'MECS_FT'], aggfunc='count')
+            )
 
         # Calculate the remaining GHGRP facilities energy use
         # with MECS data.
@@ -639,7 +627,7 @@ class Manufacturing_energy:
                 )
 
         for df in [eu_ghgrp_matched, eu_ghgrp_notmatched]:
-            df.rename(columns={'PRIMARY_NAICS_CODE':'naics',
+            df.rename(columns={'PRIMARY_NAICS_CODE': 'naics',
                                'FACILITY_ID': 'est_count'}, inplace=True)
             df['Emp_Size'] = 'ghgrp'
             df['data_source'] = 'ghgrp'
@@ -649,7 +637,7 @@ class Manufacturing_energy:
         enduses = eu_fraction_dict['nonGHGRP'].columns.values
 
         eu_energy = county_energy_dd[
-            county_energy_dd.data_source=='mecs_ipf'
+            county_energy_dd.data_source == 'mecs_ipf'
             ].set_index(['MECS_NAICS', 'MECS_FT']).join(
                 eu_fraction_dict['nonGHGRP'], how='inner'
                 )
@@ -678,8 +666,8 @@ class Manufacturing_energy:
         #         join='outer', interleave_partitions=True)
 
         eu_energy = pd.concat(
-            [x for x in [eu_energy,eu_ghgrp_matched,eu_ghgrp_notmatched]],
-            axis=0, ignore_index=False, sort=True
+            [x.reset_index() for x in [eu_energy,eu_ghgrp_matched,eu_ghgrp_notmatched]],
+            axis=0, ignore_index=True, sort=True
             )
 
         # eu_energy_dd_final = dd.melt(
@@ -689,17 +677,15 @@ class Manufacturing_energy:
         #                  'fipstate', 'naics'], var_name='End_use',
         #         value_name='MMBtu'
         #         )
-        eu_energy = pd.melt(
-            eu_energy.reset_index(), value_vars=enduses.tolist(),
-            id_vars=['MECS_NAICS','COUNTY_FIPS','Emp_Size','MECS_FT',
-                     'MECS_Region','data_source','est_count','fipscty',
-                     'fipstate','naics'], var_name='End_use',value_name='MMBtu'
-                )
+        eu_energy = pd.melt(eu_energy, value_vars=enduses.tolist(),
+                            id_vars=['MECS_NAICS', 'COUNTY_FIPS', 'Emp_Size',
+                                     'MECS_FT', 'MECS_Region', 'data_source',
+                                     'est_count', 'fipscty', 'fipstate',
+                                     'naics'], var_name='End_use',
+                            value_name='MMBtu')
 
         # clean up by removing MMBtu values == 0..
-        # eu_energy_dd_final = \
-        #     eu_energy_dd_final[eu_energy_dd_final.MMBtu !=0]
-        eu_energy = eu_energy.where(eu_energy.MMBtu>0).dropna()
+        eu_energy = eu_energy[eu_energy.MMBtu != 0]
 
         # eu_energy_dd_final = eu_energy_dd_final.set_index('MECS_NAICS')
         eu_energy = eu_energy.set_index('MECS_NAICS')
@@ -727,7 +713,8 @@ class Manufacturing_energy:
             df = df.drop(['fipscty'], axis=1)
 
             if 'Temp_C' in df.columns:
-                df.drop(['MMBtu','Fraction','Heat_type'], axis=1, inplace=True)
+                df.drop(['MMBtu', 'Fraction', 'Heat_type'], axis=1,
+                        inplace=True)
                 df.rename(columns={'MMBtu_Temp': 'MMBtu'}, inplace=True)
 
             return df
@@ -739,18 +726,13 @@ class Manufacturing_energy:
                     ].index.get_level_values(0).unique().values
             eu_energy_final_temps = temp_methods.temp_mapping(MECS_NAICS,
                                                               eu_energy)
-            eu_energy_final_temps = \
-                final_formatting(eu_energy_final_temps)
+            eu_energy_final_temps = final_formatting(eu_energy_final_temps)
 
             return eu_energy_final_temps
 
-
         else:
             eu_energy = final_formatting(eu_energy)
-
             return eu_energy
-
-
 
     ##
     # #Results analysis

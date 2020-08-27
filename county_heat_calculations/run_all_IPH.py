@@ -12,16 +12,14 @@ import mecs_ipf_IPH as ipf
 import MECS_IPF_seed_format_IPH as ipf_seed
 import mecs_table5_2_formatting
 import datetime as dt
-import dask.dataframe as dd
-import os
 
 today = dt.datetime.now().strftime('%Y%m%d-%H%M')
 
 energy_ghgrp = pd.read_parquet(
-        '../results/ghgrp_energy_20190801-2337.parquet',
+        '../results/ghgrp_energy_20200826-1725.parquet',
         engine='pyarrow'
         )
-#%%
+
 cbp = get_cbp.CBP(2014)
 
 tcm = county_matching.County_matching(2014)
@@ -45,13 +43,13 @@ seed_methods = ipf_seed.IPF_seed(year=2014)
 seed_df = seed_methods.create_seed(cbp.cbp_matching)
 
 ipf_methods = ipf.IPF(2014, table3_2=seed_methods.table3_2,
-                   table3_3=seed_methods.table3_3)
+                      table3_3=seed_methods.table3_3)
 
 # Run IPF. Saves resulting energy values as csv
 ipf_methods.mecs_ipf(seed_df)
 
 mecs_intensities = tcmfg.calc_intensities(cbp.cbp_matching)
-#%%
+
 # Calculates non-ghgrp combustion energy use and combines with
 # ghgrp energy use. Distinguishes between data sources with 'data_source'
 # column.
@@ -68,7 +66,8 @@ enduse_fraction = enduse_methods.calculate_eu_share()
 mfg_energy_enduse = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
                                       temps=False)
 mfg_energy_enduse.to_parquet('../results/mfg_eu_'+today+'.parquet.gzip',
-                             index=True,engine='pyarrow',compression='gzip')
+                             index=True, engine='pyarrow',
+                             compression='gzip')
 # Save as parquet
 # os.mkdir('../results/mfg_eu_'+today)
 
@@ -87,6 +86,6 @@ mfg_energy_enduse_temps = tcmfg.calc_enduse(enduse_fraction, mfg_energy,
 
 # Save as parquet
 mfg_energy_enduse_temps.to_parquet(
-        '../results/mfg_eu_temps_'+dt.datetime.now().strftime('%Y%m%d_%H%M')+\
+        '../results/mfg_eu_temps_'+dt.datetime.now().strftime('%Y%m%d_%H%M') +
         '.parquet.gzip', engine='pyarrow', compression='gzip'
         )

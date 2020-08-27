@@ -12,7 +12,7 @@ import find_fips
 import ghg_tiers_IPH
 import Get_GHGRP_data_IPH
 
-# %%
+
 class GHGRP:
     """
     Estimates industrial (i.e., manufacturing, ag, construction, mining)
@@ -24,30 +24,30 @@ class GHGRP:
                   'subpartD': 'D_FUEL_LEVEL_INFORMATION',
                   'subpartV_fac': 'V_GHG_EMITTER_FACILITIES',
                   'subpartV_emis': 'V_GHG_EMITTER_SUBPART',
-                  'subpartAA_ff':'AA_FOSSIL_FUEL_INFORMATION',
+                  'subpartAA_ff': 'AA_FOSSIL_FUEL_INFORMATION',
                   'subpartAA_liq': 'AA_SPENT_LIQUOR_INFORMATION'}
 
     tier_data_columns = ['FACILITY_ID', 'REPORTING_YEAR',
-                         'FACILITY_NAME','UNIT_NAME', 'UNIT_TYPE',
-                         'FUEL_TYPE','FUEL_TYPE_OTHER',
+                         'FACILITY_NAME', 'UNIT_NAME', 'UNIT_TYPE',
+                         'FUEL_TYPE', 'FUEL_TYPE_OTHER',
                          'FUEL_TYPE_BLEND']
 
     # Set calculation data directories
     file_dir = os.path.join('./', 'calculation_data')
 
-    ## Set GHGRP data file directory
+    # Set GHGRP data file directory
     ghgrp_file_dir = \
-        os.path.join('./','calculation_data/ghgrp_data/')
+        os.path.join('./', 'calculation_data/ghgrp_data/')
 
     # List of facilities for correction of combustion emissions from Wood
-    #and Wood Residuals for using Subpart C Tier 4 calculation methodology.
+    # and Wood Residuals for using Subpart C Tier 4 calculation methodology.
     wood_facID = pd.read_csv(
             file_dir + '/WoodRes_correction_facilities.csv',
             index_col=['FACILITY_ID']
             )
 
     std_efs = pd.read_csv(file_dir + '/EPA_FuelEFs.csv',
-                               index_col = ['Fuel_Type'])
+                          index_col=['Fuel_Type'])
 
     std_efs.index.name = 'FUEL_TYPE'
 
@@ -86,17 +86,25 @@ class GHGRP:
 
             GHGs.loc[:, c] = GHGs[c].astype(int)
 
-        #Adjust multiple reporting of fuel types
+        #A djust multiple reporting of fuel types
         fuel_fix_index = GHGs[(GHGs.FUEL_TYPE.notnull() == True) &
-            (GHGs.FUEL_TYPE_OTHER.notnull() == True)].index
+                              (GHGs.FUEL_TYPE_OTHER.notnull() == True)].index
 
         GHGs.loc[fuel_fix_index, 'FUEL_TYPE_OTHER'] = np.nan
 
         # Fix errors in reported data.
         if 2014 in self.years:
+            # This facility CH4 combustion emissions off by factor of 1000
+            i1 = GHGs[(GHGs.FACILITY_ID == 1001143) &
+                      (GHGs.REPORTING_YEAR == 2014)].dropna(
+                        subset=['T4CH4COMBUSTIONEMISSIONS']
+                        ).index
+            GHGs.loc[i1, 'T4CH4COMBUSTIONEMISSIONS'] = \
+                GHGs.loc[i1, 'T4CH4COMBUSTIONEMISSIONS']/1000
+            GHGs.loc[i1, 'ANNUAL_HEAT_INPUT'] = np.nan
 
-            for i in list(GHGs[(GHGs.FACILITY_ID == 1005675) & \
-                (GHGs.REPORTING_YEAR == 2014)].index):
+            for i in list(GHGs[(GHGs.FACILITY_ID == 1005675) &
+                               (GHGs.REPORTING_YEAR == 2014)].index):
 
                 GHGs.loc[i, 'TIER2_CH4_EMISSIONS_CO2E'] = \
                     GHGs.loc[i, 'TIER2_CH4_COMBUSTION_EMISSIONS'] * 25.135135
@@ -105,7 +113,7 @@ class GHGRP:
                     GHGs.loc[i, 'TIER2_N2O_COMBUSTION_EMISSIONS'] * 300
 
             for i in GHGs[(GHGs.FACILITY_ID == 1001143) & \
-                (GHGs.REPORTING_YEAR == 2014)].index:
+                          (GHGs.REPORTING_YEAR == 2014)].index:
 
         	        GHGs.loc[i, 'T4CH4COMBUSTIONEMISSIONS'] = \
                     GHGs.loc[i, 'T4CH4COMBUSTIONEMISSIONS']/1000
@@ -128,14 +136,12 @@ class GHGRP:
         total_co2 = pd.DataFrame()
 
         for tier in ['TIER1_', 'TIER2_', 'TIER3_']:
-
-            for ghg in ['CH4_EMISSIONS_CO2E', 'N2O_EMISSIONS_CO2E', \
-                'CO2_COMBUSTION_EMISSIONS']:
+            for ghg in ['CH4_EMISSIONS_CO2E', 'N2O_EMISSIONS_CO2E',
+                        'CO2_COMBUSTION_EMISSIONS']:
 
                 total_co2 = pd.concat([total_co2, GHGs[tier + ghg]], axis=1)
 
         for ghg in ['TIER4_CH4_EMISSIONS_CO2E', 'TIER4_N2O_EMISSIONS_CO2E']:
-
             total_co2 = pd.concat([total_co2, GHGs[ghg]], axis=1)
 
         total_co2.fillna(0, inplace=True)
@@ -163,30 +169,27 @@ class GHGRP:
             """
 
             if type(ffile) == pd.core.frame.DataFrame:
-
                 facdata = ffile.copy(deep=True)
 
             else:
-
                 facdata = pd.read_csv(ffile)
 
-    #        Duplicate entries in facility data query. Remove them to enable a 1:1
-    #        mapping of facility info with ghg data via FACILITY_ID.
-    #        First ID facilities that have cogen units.
+           # Duplicate entries in facility data query. Remove them to enable a
+           # 1:1 mapping of facility info with ghg data via FACILITY_ID.
+           # First ID facilities that have cogen units.
             fac_cogen = facdata.FACILITY_ID[
                 facdata['COGENERATION_UNIT_EMISS_IND'] == 'Y'
                 ]
 
-            #facdata.drop_duplicates('FACILITY_ID', inplace=True)
-
             facdata.dropna(subset=['FACILITY_ID'], inplace=True)
 
-            #Reindex dataframe based on facility ID
+            # Reindex dataframe based on facility ID
             facdata.FACILITY_ID = facdata.FACILITY_ID.astype(int)
 
-            #Correct PRIMARY_NAICS_CODE from 561210 to 324110 for Sunoco Toledo
-            #Refinery (FACILITY_ID == 1001056); correct PRIMARY_NAICS_CODE from
-            #331111 to 324199 for Mountain State Carbon, etc.
+            # Correct PRIMARY_NAICS_CODE from 561210 to 324110 for Sunoco
+            # Toldeo Refinery (FACILITY_ID == 1001056); correct
+            # PRIMARY_NAICS_CODE from 331111 to 324199 for Mountain
+            # State Carbon, etc.
             fix_dict = {1001056: {'PRIMARY_NAICS_CODE': 324110},
                         1001563: {'PRIMARY_NAICS_CODE': 324119},
                         1006761: {'PRIMARY_NAICS_CODE': 331221},
@@ -201,7 +204,6 @@ class GHGRP:
                                   'SECONDARY_NAICS_CODE': 322222},
                         1002440: {'SECONDARY_NAICS_CODE': 221210,
                                   'PRIMARY_NAICS_CODE': 325311},
-                        1003006: {'PRIMARY_NAICS_CODE': 324110},
                         1003006: {'PRIMARY_NAICS_CODE': 424710},
                         1004861: {'PRIMARY_NAICS_CODE': 325193},
                         1005954: {'PRIMARY_NAICS_CODE': 311211},
@@ -228,12 +230,13 @@ class GHGRP:
 
         all_fac = all_fac.append(fac_read_fix(oth_facfile))
 
-    #    Drop duplicated facility IDs, keeping first instance (i.e., year).
-        all_fac = pd.DataFrame(all_fac[~all_fac.index.duplicated(keep='first')])
+        # Drop duplicated facility IDs, keeping first instance (i.e., year).
+        all_fac = \
+            pd.DataFrame(all_fac[~all_fac.index.duplicated(keep='first')])
 
-    #    Identify facilities with missing County FIPS data and fill missing data.
-    #    Most of these facilities are mines or natural gas/crude oil processing
-    #    plants.
+        # Identify facilities with missing County FIPS data and fill missing
+        # data. Most of these facilities are mines or natural gas/crude oil
+        # processing plants.
         ff_index = all_fac[all_fac.COUNTY_FIPS.isnull() == False].index
 
         all_fac.loc[ff_index, 'COUNTY_FIPS'] = \
@@ -266,20 +269,20 @@ class GHGRP:
 
         all_fac['COUNTY_FIPS'].fillna(0, inplace=True)
 
-    #    Assign MECS regions and NAICS codes to facilities and merge location data
-    #    with GHGs dataframe.
+    #    Assign MECS regions and NAICS codes to facilities and merge location
+    #    data with GHGs dataframe.
     #    EPA data for some facilities are missing county fips info
         all_fac.COUNTY_FIPS = all_fac.COUNTY_FIPS.apply(np.int)
 
         concat_mecs_region = \
             pd.concat(
-                [all_fac.MECS_Region, self.MECS_regions.MECS_Region], axis=1, \
-                    join_axes=[all_fac.COUNTY_FIPS]
+                [all_fac.MECS_Region, self.MECS_regions.MECS_Region], axis=1,
+                join_axes=[all_fac.COUNTY_FIPS]
                 )
 
-        all_fac.loc[:,'MECS_Region'] = concat_mecs_region.iloc[:, 1].values
+        all_fac.loc[:, 'MECS_Region'] = concat_mecs_region.iloc[:, 1].values
 
-        all_fac.rename(columns = {'YEAR': 'FIRST_YEAR_REPORTED'}, inplace=True)
+        all_fac.rename(columns={'YEAR': 'FIRST_YEAR_REPORTED'}, inplace=True)
 
         all_fac.reset_index(drop=False, inplace=True)
 
@@ -315,7 +318,7 @@ class GHGRP:
 
                     data_y = Get_GHGRP_data_IPH.get_GHGRP_records(y, table)
 
-                    data_y.to_csv(self.ghgrp_file_dir  + filename_y)
+                    data_y.to_csv(self.ghgrp_file_dir + filename_y)
 
                 ghgrp_data = ghgrp_data.append(data_y, ignore_index=True)
 
@@ -360,27 +363,20 @@ class GHGRP:
             return formatted_ghgrp_data
 
         if subpart == 'subpartV_fac':
-
             filename = 'fac_table_'
-
             ghgrp_data = download_or_read_ghgrp_file(subpart, filename)
-
             formatted_ghgrp_data = self.format_facilities(ghgrp_data)
 
             return formatted_ghgrp_data
 
         if subpart == 'subpartAA_liq':
-
             filename = 'aa_sl_'
-
             formatted_ghgrp_data = \
                 download_or_read_ghgrp_file(subpart, filename)
-
             formatted_ghgrp_data['REPORTING_YEAR'] = \
                 formatted_ghgrp_data.REPORTING_YEAR.astype(int)
-
             pre2013_emissions = formatted_ghgrp_data[
-                formatted_ghgrp_data.REPORTING_YEAR <=2012
+                formatted_ghgrp_data.REPORTING_YEAR <= 2012
                 ].SPENT_LIQUOR_CH4_EMISSIONS
 
             # Pre 2013 overestimates of CH4 emissions appear to be ~15.79x
@@ -396,11 +392,9 @@ class GHGRP:
         else:
 
             if subpart == 'subpartV_emis':
-
                 filename = 'V_GHGs_'
 
             if subpart == 'subpartAA_ff':
-
                 filename = 'aa_ffuel_'
 
             formatted_ghgrp_data = \
@@ -424,9 +418,9 @@ class GHGRP:
                 ])
 
         part75_mmbtu.rename(
-                columns={'PART_75_ANNUAL_HEAT_INPUT':'MMBtu_TOTAL'},
-                inplace=True
-                )
+            columns={'PART_75_ANNUAL_HEAT_INPUT': 'MMBtu_TOTAL'},
+            inplace=True
+            )
 
         # Correct for revision in 2013 to Table AA-1 emission factors for kraft
         # pulping liquor emissions. CH4 changed from 7.2g CH4/MMBtu HHV to
@@ -437,20 +431,21 @@ class GHGRP:
             [x in [2010, 2011, 2012] for x in energy_subC.REPORTING_YEAR]
 
         energy_subC.loc[(energy_subC.wood_correction == True),
-                           'T4CH4COMBUSTIONEMISSIONS'] =\
+            'T4CH4COMBUSTIONEMISSIONS'] =\
             energy_subC.loc[
                 (energy_subC.wood_correction == True),
                 'T4CH4COMBUSTIONEMISSIONS'
                 ].multiply(1.9 / 7.2)
 
         # Separate, additional correction for facilities appearing to have
-        # continued reporting with previous CH4 emission factor for kraft liquor
-        #combusion (now reported as Wood and Wood Residuals (dry basis).
+        # continued reporting with previous CH4 emission factor for kraft
+        # liqour combusion (now reported as Wood and Wood Residuals
+        # (dry basis).
         wood_fac_add = [1001892, 1005123, 1006366, 1004396]
 
         energy_subC.loc[:, 'wood_correction_add'] = \
-                [x in wood_fac_add for x in energy_subC.FACILITY_ID] and \
-                [y == 2013 for y in energy_subC.REPORTING_YEAR]
+            [x in wood_fac_add for x in energy_subC.FACILITY_ID] and \
+            [y == 2013 for y in energy_subC.REPORTING_YEAR]
 
         energy_subC.loc[(energy_subC.wood_correction_add == True) &
             (energy_subC.FUEL_TYPE == 'Wood and Wood Residuals (dry basis)'),
@@ -462,7 +457,7 @@ class GHGRP:
         tier_calcs = ghg_tiers_IPH.tier_energy(years=self.years,
                                                std_efs=self.std_efs)
 
-        #New method for calculating energy based on tier methodology
+        # New method for calculating energy based on tier methodology
         energy_subC = tier_calcs.calc_all_tiers(energy_subC)
 
         part75_subC_columns = list(
@@ -472,11 +467,9 @@ class GHGRP:
         energy_subC = energy_subC.append(part75_mmbtu[part75_subC_columns])
 
         energy_subC['GWh_TOTAL'] = energy_subC['MMBtu_TOTAL']/3412.14
-
         energy_subC['TJ_TOTAL'] = energy_subC['GWh_TOTAL'] * 3.6
 
         merge_cols = list(all_fac.columns.difference(energy_subC.columns))
-
         merge_cols.append('FACILITY_ID')
 
         energy_subC = pd.merge(
@@ -566,5 +559,8 @@ class GHGRP:
                     'REPORTING_YEAR']:
 
             ghgrp_energy[col] = ghgrp_energy[col].astype(int)
+
+        # Drop all MMBtu_TOTAL == Nan
+        ghgrp_energy = ghgrp_energy.dropna(subset=['MMBtu_TOTAL'])
 
         return ghgrp_energy
