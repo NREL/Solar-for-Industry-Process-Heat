@@ -2,6 +2,7 @@
 import pandas as pd
 import os
 
+
 class Other_fuels:
 
     def __init__(self, year):
@@ -14,13 +15,10 @@ class Other_fuels:
                            'Tables3_'+str(self.year)+'_formatted.xlsx']
 
         for f in formatted_files:
-
             if f in os.listdir('./calculation_data/'):
-
                 continue
 
             else:
-
                 print(f, 'does not exist in ./calculation_data/', '\n',
                       'Please create it')
 
@@ -72,11 +70,11 @@ class Other_fuels:
         """
 
         # MECS Table3.6
-        bio_table = pd.read_csv('./calculation_data/' + \
+        bio_table = pd.read_csv('./calculation_data/' +
                                 'bio'+str(self.year)+'_formatted.csv')
 
-        #MECS Table 3.5
-        byp_table = pd.read_csv('./calculation_data/' +\
+        # MECS Table 3.5
+        byp_table = pd.read_csv('./calculation_data/' +
                                 'byp'+str(self.year)+'_formatted.csv')
 
         eu_frac_nonGHGRP = pd.read_csv(
@@ -93,31 +91,24 @@ class Other_fuels:
         def format_biobyp_tables(df):
 
             try:
-
                 df['naics'].replace({'31-33': 31}, inplace=True)
 
             except TypeError as e:
-
                 print('Formatting error in bio, byp table import:', e)
 
             for c in df.columns:
-
                 if c in ['region', 'n_naics', 'naics_desc']:
-
                     continue
 
                 elif c == 'naics':
-
                     df[c] = df[c].astype('int')
 
                 else:
-
                     df[c] = df[c].astype('float32')
 
             return df
 
         bio_table = format_biobyp_tables(bio_table)
-
         byp_table = format_biobyp_tables(byp_table)
 
         # Import table3_2 for total "Other"
@@ -127,24 +118,18 @@ class Other_fuels:
             )
 
         # Correct negative value
-        table3_2.update(table3_2.where(table3_2.Other>0).Other.fillna(0))
-
-        table3_2.replace({'United States':'us'}, inplace=True)
-
+        table3_2.update(table3_2.where(table3_2.Other > 0).Other.fillna(0))
+        table3_2.replace({'United States': 'us'}, inplace=True)
         table3_2['Region'] = table3_2.Region.apply(lambda x: x.lower())
-
         table3_2.set_index(['NAICS', 'Region'], inplace=True)
-
         table3_2.index.names = ['MECS_NAICS', 'MECS_Region']
-
         table3_2.sort_index(inplace=True)
 
-        #Totals show up under NAICS 339, creating duplicate index entries.
+        # Totals show up under NAICS 339, creating duplicate index entries.
         totals3_2 = \
             table3_2[table3_2.index.duplicated(keep='first')].reset_index()
 
         totals3_2['MECS_NAICS'] = 31
-
         totals3_2.set_index(['MECS_NAICS', 'MECS_Region'], inplace=True)
 
         table3_2 = table3_2.loc[~table3_2.index.duplicated(keep='first')]
@@ -169,7 +154,7 @@ class Other_fuels:
                      'blast_furnace': 'Blast_furnace_coke_oven_gases',
                      'waste_gas': 'Waste_gas',
                      'waste_oils': 'Waste_oils_tars_waste_materials',
-                     'total':'Total'}, inplace=True
+                     'total': 'Total'}, inplace=True
             )
 
         other_table.Biomass.fillna(0, inplace=True)
@@ -189,12 +174,10 @@ class Other_fuels:
 
         def check_totals(r):
 
-             if r['Other'] - r['Total'] < 0:
+            if r['Other'] - r['Total'] < 0:
+                return 0
 
-                 return 0
-
-             else:
-
+            else:
                 return r['Other'] - r['Total']
 
         steam['Total_star'] = steam.apply(lambda x: check_totals(x), axis=1)
@@ -202,7 +185,7 @@ class Other_fuels:
         table3_2.loc[:, 'Steam'] = steam['Total_star']
 
         # Subtract blast furnace and coke oven gases from total other because
-        #these are captured by GHGRP data and non-integrated mills would not
+        # these are captured by GHGRP data and non-integrated mills would not
         # have blast furnace gas emissions.
         other_table.Total.update(
             other_table.Total.subtract(
@@ -214,8 +197,8 @@ class Other_fuels:
         other_table.loc[:, 'Blast_furnace_coke_oven_gases'] = 0
 
         # List of fuels to diaggregate Other fuel use by.
-        other_disag = ['Waste_gas','Petroleum_coke',
-                       'Waste_oils_tars_waste_materials','Biomass', 'Steam'
+        other_disag = ['Waste_gas', 'Petroleum_coke',
+                       'Waste_oils_tars_waste_materials', 'Biomass', 'Steam'
                        ]
 
         other_table = table3_2[['Other', 'Steam']].join(
