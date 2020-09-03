@@ -7,10 +7,8 @@ revised by cmcmilla
 """
 
 import pandas as pd
-import numpy as np
-import itertools
-import re
 import os
+
 
 class electricity(object):
     """
@@ -20,14 +18,14 @@ class electricity(object):
 
     data_wd = './calculation_data'
 
-    fips_to_zip_file = os.path.join(data_wd,'COUNTY_ZIP_032014.csv')
+    fips_to_zip_file = os.path.join(data_wd, 'COUNTY_ZIP_032014.csv')
 
     e_grid_file = \
-        os.path.join(data_wd,'power_profiler_zipcode_tool_2014_v7.1_1.xlsx')
+        os.path.join(data_wd, 'power_profiler_zipcode_tool_2014_v7.1_1.xlsx')
 
     egrid_ef = pd.read_excel(
         e_grid_file, sheet_name='eGRID Subregion Emission Factor',
-        skiprows=[0, 1 ,2]
+        skiprows=[0, 1, 2]
         )
 
     zip_sub_region = pd.concat(
@@ -65,15 +63,15 @@ class electricity(object):
         subregions_ef_rm = pd.merge(subregions_ef_rm, cls.resource_mix,
                                     on=['SUBRGN'], how='left')
 
-        new_cols = list(set(['SRCO2RTA','SRCH4RTA','SRN2ORTA']).union(
-            resource_mix.columns[1:]
+        new_cols = list(set(['SRCO2RTA', 'SRCH4RTA', 'SRN2ORTA']).union(
+            cls.resource_mix.columns[1:]
             ))
 
         subregions_ef_rm = subregions_ef_rm.groupby(
             ['ZIP (numeric)'], as_index=False
             )[new_cols].mean()
 
-        subregions_ef_rm.rename(columns={'ZIP (numeric)':'ZIP'}, inplace=True)
+        subregions_ef_rm.rename(columns={'ZIP (numeric)': 'ZIP'}, inplace=True)
 
         # Convert emissions fractors from lb/MWh to metric tons CO2e per MWh
         # (MTCO2e/MWh)
@@ -82,13 +80,13 @@ class electricity(object):
              subregions_ef_rm.SRN2ORTA * 298) * (0.453592 / 10**3)
 
         subregions_ef_rm = subregions_ef_rm.set_index('ZIP').join(fips_zips,
-                                                            how='left')
+                                                                  how='left')
 
         county_ef_rm = subregions_ef_rm.reset_index().groupby(
             'COUNTY_FIPS', as_index=False
             )['grid_losses', 'MTCO2e_per_MWh', 'Natural_gas', 'Coal', 'Oil',
-              'Other_fossil','Solar', 'Biomass', 'Other', 'Hydro', 'Wind',
-              'Nuclear','Geothermal'].mean()
+              'Other_fossil', 'Solar', 'Biomass', 'Other', 'Hydro', 'Wind',
+              'Nuclear', 'Geothermal'].mean()
 
         county_ef_rm['COUNTY_FIPS'] = county_ef_rm.COUNTY_FIPS.astype('int')
 
