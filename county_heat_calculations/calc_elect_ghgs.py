@@ -199,7 +199,7 @@ class electricity():
             )
 
         county_elect_ghgs.loc[:, 'MTCO2e'] = county_elect_ghgs.MMBtu.multiply(
-            county_elect_ghgs.MTCO2e_per_MWh * 3.412142
+            county_elect_ghgs.MTCO2e_per_MWh * 0.293297222
             )
 
         return county_elect_ghgs
@@ -240,7 +240,7 @@ class electricity():
             county_elect_fuel[['Coal_hr', 'Other_hr', 'Other_fossil_hr',
                                'Oil_hr', 'Natural_gas_hr']].multiply(
                                 electricity_fuel, axis=0
-                                ) * 3.412142  # unit conversion
+                                ) * 0.293297222  # unit conversion
 
         county_elect_fuel.update(electricity_fuel, overwrite=True)
         county_elect_fuel.rename(columns={
