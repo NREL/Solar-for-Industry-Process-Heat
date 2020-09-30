@@ -149,7 +149,6 @@ class rev_postprocessing:
         # Sum hourly resource (kW/m2) for annual kWh/m2
         # Convert to kWh/km2
         # resource_annual = self.resource.sum()*1000**2
-
         county_gen_month = get_county_gen_month(county_gen, county_fips)
 
         month_yield = county_gen_month.xs(month)['yield']

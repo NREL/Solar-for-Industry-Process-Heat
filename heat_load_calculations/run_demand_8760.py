@@ -1,7 +1,6 @@
-import os
-import shutil
+
 import pandas as pd
-import numpy as np
+
 
 class demand_hourly_load:
     """
@@ -19,17 +18,13 @@ class demand_hourly_load:
         #     'national_loads_8760/'
 
         if type(county_filepath_or_dataframe) == pd.core.frame.DataFrame:
-
             county_energy = county_filepath_or_dataframe
 
         elif type(county_filepath_or_dataframe) == str:
-
             if '.csv' in county_filepath_or_dataframe:
-
                 county_energy = pd.read_csv(county_filepath_or_dataframe)
 
             if '.parquet' in county_filepath_or_dataframe:
-
                 county_energy = pd.read_parquet(
                     county_filepath_or_dataframe
                     )
@@ -42,81 +37,81 @@ class demand_hourly_load:
 
         # Import load shapes (defined by naics and employment size class)
         self.boiler_ls = pd.read_csv(
-            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +
             'all_load_shapes_boiler_20200728.gzip', compression='gzip',
             index_col=['naics', 'Emp_Size']
             )
-
         self.ph_ls = pd.read_csv(
-            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +\
+            'c:/users/cmcmilla/solar-for-industry-process-heat/results/' +
             'all_load_shapes_process_heat_20200728.gzip', compression='gzip',
             index_col=['naics', 'Emp_Size']
             )
 
-        # Condense these load shapes down by quarter because they only change
-        # from quarter to quarter.
         def condense_by_quarter(load_shape):
-
+            """
+            Condenses load shapes down by quarter because they only change
+            from quarter to quarter.
+            """
             load_shape['Q'] = \
-                pd.cut(load_shape.month, 4, labels=[1,2,3,4])
-
+                pd.cut(load_shape.month, 4, labels=[1, 2, 3, 4])
             load_shape = load_shape.reset_index().drop_duplicates(
                 ['naics', 'Emp_Size', 'Q', 'dayofweek', 'hour']
                 )
-
             load_shape.set_index(['naics', 'Emp_Size'], inplace=True)
 
             return load_shape
 
         self.boiler_ls = condense_by_quarter(self.boiler_ls)
-
         self.ph_ls = condense_by_quarter(self.ph_ls)
 
-        # Calculate temperature fraction by county, naics, employment size,
-        # and end use. Split approach into data calcualted from ghgrp and
-        # from MECS.
         def calc_data_aggs(county_energy, size_class, column):
+            """
+            Calculate temperature fraction by county, naics, employment size,
+            and end use. Split approach into data calcualted from ghgrp and
+            from MECS.
+
+            Parameters
+            ----------
+            county_energy : dataframe
+
+            size_class : str
+
+            column : str
+
+            Returns
+            -------
+            agg : dataframe
+
+            """
 
             if size_class == 'ghgrp':
-
                 agg = \
-                    county_energy[county_energy.Emp_Size==size_class].groupby(
+                    county_energy[county_energy.Emp_Size == size_class].groupby(
                         ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', column]
                         ).MMBtu.sum()
 
             else:
-
                 agg = \
-                    county_energy[county_energy.Emp_Size!='ghgrp'].groupby(
+                    county_energy[county_energy.Emp_Size != 'ghgrp'].groupby(
                         ['COUNTY_FIPS', 'naics', 'Emp_Size', 'End_use', column]
                         ).MMBtu.sum()
 
-            agg = agg.divide(agg.sum(level=[0,1,2,3]))
+            agg = agg.divide(agg.sum(level=[0, 1, 2, 3]))
 
             return agg
 
-        ## Not used
-        # self.temp_fraction_ghgrp = calc_data_aggs(self.county_energy, 'ghgrp',
-        #                                           'Temp_C')
-        #
-        # self.temp_fraction_mecs = calc_data_aggs(self.county_energy, 'mecs',
-        #                                          'Temp_C')
-
-
         def make_blank_8760(year):
-
+            """
+            Make a dataframe for a given year, including columns for month,
+            dayofweek, quarter, and hour.
+            """
             dtindex = pd.date_range(
                 str(year)+'-01-01', str(year+1)+'-01-01', freq='H'
                 )[0:-1]
-
             load_8760_blank = pd.DataFrame(index=dtindex)
-
             load_8760_blank['month'] = load_8760_blank.index.month
-
             load_8760_blank['dayofweek'] = load_8760_blank.index.dayofweek
-
             load_8760_blank['Q'] = load_8760_blank.index.quarter
-
             load_8760_blank['hour'] = load_8760_blank.index.hour
 
             return load_8760_blank
@@ -159,24 +154,35 @@ class demand_hourly_load:
     #     else:
     #         raise OSError ('File {} NOT saved.'.format(file_name))
 
-
     def calculate_8760_load(self, county, enduse):
         """
-        Select county
+        Calculate hourly load for a single county for a single end use type.
+
+        Parameters
+        ----------
+        county : int
+            FIPS code of county
+
+        enduse : {'boier', 'process heat'}
+            End use type for representative load shapes by NAICS and
+            employment size class.
+
+        Returns
+        -------
+        load_8760 : dataframe
+            Hourly load in MW, indexed by enduse, timestamp, and operating
+            hours category (mean, high, and low).
         """
 
         annual_energy = self.county_energy[
             self.county_energy.COUNTY_FIPS == county
             ].copy(deep=True)
 
-        if annual_energy.empty == True:
-
+        if annual_energy.empty:
             return pd.DataFrame()
 
         else:
-
             if enduse == 'boiler':
-
                 ph_or_boiler_energy_df = annual_energy[
                     (annual_energy.End_use != 'Process Heating')
                     ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size',
@@ -185,47 +191,37 @@ class demand_hourly_load:
                 ph_or_boiler_ls = self.boiler_ls
 
             if enduse == 'process heat':
-
                 ph_or_boiler_energy_df = annual_energy[
                     (annual_energy.End_use == 'Process Heating')
-                    ].groupby(['COUNTY_FIPS','naics', 'Emp_Size',
+                    ].groupby(['COUNTY_FIPS', 'naics', 'Emp_Size',
                                'End_use']).MMBtu.sum()
 
                 ph_or_boiler_ls = self.ph_ls
 
         if ph_or_boiler_energy_df.empty:
-
             return pd.DataFrame()
 
         # Not all counties have boiler and process heating loads.
         # Return an empty dataframe
         try:
-
             ph_or_boiler_energy_df.reset_index(['COUNTY_FIPS'], drop=True,
-                                                inplace=True)
+                                               inplace=True)
 
         except:
-
             print('EXCEPTION')
-
             return pd.DataFrame()
 
         else:
-
             try:
-
                 load_8760 = pd.DataFrame(ph_or_boiler_energy_df).join(
                     ph_or_boiler_ls
                     )
 
             except IndexError as e:
-
                 print(e)
-
                 return pd.DataFrame()
 
             else:
-
                 # Currently merges on quarter because load shapes only change by
                 # quarter, dayofweek, and hour by NAICS-emp_size pair.
                 load_8760 = pd.merge(
@@ -234,19 +230,17 @@ class demand_hourly_load:
                     ).set_index(['naics', 'Emp_Size'])
 
                 load_factor = load_8760[
-                    ['Weekly_op_hours','Weekly_op_hours_low',
+                    ['Weekly_op_hours', 'Weekly_op_hours_low',
                      'Weekly_op_hours_high']
-                     ].mean(level=[0,1])
+                     ].mean(level=[0, 1])
 
         # Determine peak demand using monthly load factor
         # Units are in power, not energy
         peak_demand = load_factor**-1
 
         try:
-
             peak_demand = peak_demand.multiply(ph_or_boiler_energy_df,
                                                axis=0)/8760
-
         # Process heat enduses are throwing assertion errors for an unknown
         # reason. Traceback as follows:
         # ~\AppData\Local\Continuum\anaconda3\lib\site-packages\pandas\core\frame.py in _combine_match_index(self, other, func, level)
@@ -254,32 +248,29 @@ class demand_hourly_load:
         #    5097                                  copy=False)
         # -> 5098         assert left.index.equals(right.index)
         except AssertionError:
-
             peak_demand = peak_demand.join(ph_or_boiler_energy_df)
-
             peak_demand = peak_demand.multiply(peak_demand.MMBtu, axis=0)/8760
 
         load_8760.set_index(['End_use', 'index'], append=True, inplace=True)
-
         load_8760.sort_index(inplace=True)
 
         load_8760.update(
-            load_8760[['Weekly_op_hours','Weekly_op_hours_low',
+            load_8760[['Weekly_op_hours', 'Weekly_op_hours_low',
                        'Weekly_op_hours_high']].multiply(peak_demand)
             )
 
         load_8760.rename(columns={'Weekly_op_hours': 'ophours_mean',
                                   'Weekly_op_hours_low': 'ophours_low',
                                   'Weekly_op_hours_high': 'ophours_high'},
-                        inplace=True)
+                         inplace=True)
 
-        load_8760.drop(['MMBtu', 'month_x', 'month_y','dayofweek', 'Q', 'hour',
-                        'enduse'], axis=1, inplace=True)
+        load_8760.drop(['MMBtu', 'month_x', 'month_y', 'dayofweek', 'Q',
+                        'hour', 'enduse'], axis=1, inplace=True)
 
         # Melt data
         load_8760 = load_8760.reset_index().melt(
             id_vars=load_8760.index.names, var_name='op_hours',
-            value_vars=['ophours_mean', 'ophours_low','ophours_high'],
+            value_vars=['ophours_mean', 'ophours_low', 'ophours_high'],
             value_name='load_MMBtu_per_hour'
             ).set_index(load_8760.index.names)
 
@@ -288,9 +279,7 @@ class demand_hourly_load:
             load_8760.load_MMBtu_per_hour.multiply(0.293297)
 
         load_8760['MW'] = load_8760.MW.astype('float32')
-
         load_8760.drop(['load_MMBtu_per_hour'], axis=1, inplace=True)
-
         load_8760.set_index('op_hours', append=True, inplace=True)
 
         return load_8760
@@ -371,33 +360,26 @@ class demand_hourly_load:
 
         peak_load = load_8760.copy(deep=True)
 
-        peak_load.reset_index(['naics', 'Emp_Size','End_use'], drop=True,
+        peak_load.reset_index(['naics', 'Emp_Size', 'End_use'], drop=True,
                               inplace=True)
 
         peak_load.reset_index(['op_hours'], drop=False, inplace=True)
 
         if month != 'all':
+            peak_load = peak_load[peak_load.index.month == month]
 
-            peak_load = peak_load[peak_load.index.month==month]
-
-        if power == True:
-
+        if power:
             peak_load = peak_load.groupby([peak_load.index, 'op_hours']).sum()
-
             peak_by_hrs_type = peak_load.max(level=1)
 
         else:
-
             peak_load = peak_load.groupby(['op_hours']).sum()
-
             peak_by_hrs_type = peak_load
-
             peak_by_hrs_type.columns = ['MWh']
 
         return peak_by_hrs_type
 
-
-    def calculate_county_8760_and_peak(self, county, peak_month=1,
+    def calculate_county_8760_and_peak(self, county, peak_month=12,
                                        peak_MW=False):
 
         eu_load_8760 = pd.concat(
@@ -409,6 +391,6 @@ class demand_hourly_load:
         peak_load = self.find_peak_load(eu_load_8760, month=peak_month,
                                         power=peak_MW)
 
-        peak_load.columns = [str(county)+'_'+ peak_load.columns[0]]
+        peak_load.columns = [str(county)+'_' + peak_load.columns[0]]
 
         return eu_load_8760, peak_load

@@ -16,6 +16,9 @@ class demand_results:
         self.demand_data.drop(['MMBtu', 'fipstate'], axis=1, inplace=True)
         self.demand_data.rename(columns={'proc_MMBtu': 'MMBtu'}, inplace=True)
 
+        # Remove any zero values in original colum proc_MMBtu
+        self.demand_data = self.demand_data.query('MMBtu > 0')
+
         # Map county FIPS from 2014 vintage to later vintage used by reV.
         self.demand_data.replace({'COUNTY_FIPS': {46113: 46102, 51515: 51019,
                                                   51595: 51081, 51690: 51089}},

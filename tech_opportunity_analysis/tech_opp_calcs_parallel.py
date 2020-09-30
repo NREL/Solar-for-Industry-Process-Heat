@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import os
-import sys
+# import os
+# import sys
 from format_rev_output import rev_postprocessing
 
 
@@ -13,6 +13,9 @@ class tech_opportunity(rev_postprocessing):
         Tech packages: 'swh', 'dsg_lf', 'ptc_notes', 'ptc_tes', 'pv_ac', or
         'pv_dc'
         """
+
+        self.sizing_month = sizing_month
+        print('Sizing month is {}'.format(self.sizing_month))
 
         self.calc_datadir = './calculation_data/'
 
@@ -86,7 +89,7 @@ class tech_opportunity(rev_postprocessing):
 
         # Set month to size generation (default=1 [January]). Default approach
         # is to size by month energy, not month peak power.
-        self.sizing_month = 1
+
 
         # Fuel types to break out tech opportunity
         self.fuels_breakout = ['Natural_gas', 'Coal']

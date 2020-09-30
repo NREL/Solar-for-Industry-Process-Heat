@@ -13,20 +13,20 @@ from heat_load_calculations.run_demand_8760 import demand_hourly_load
 
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
-tech_package = 'ptc_tes'
+tech_package = 'dsg_lf'
 sizing_month = 6
 
 # Dictionary by tech package of all solar gen and process energy inputs
 tech_opp_inputs = {
-    'dsg_lf': {'supply': 'dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
+    'dsg_lf': {'supply': '/dsg_lf/dsg_lf_sc0_t0_or0_d0_gen_2014.h5',
                'demand': 'LF_process_energy.csv.gz'},
-    'swh': {'supply': 'swh/swh_sc0_t0_or0_d0_gen_2014.h5',
+    'swh': {'supply': '/swh/swh_sc0_t0_or0_d0_gen_2014.h5',
             'demand': 'fpc_hw_process_energy.csv.gz'},
-    'pv_boiler': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+    'pv_boiler': {'supply': '/pv/pv_sc0_t0_or0_d0_gen_2014.h5',
                   'demand': 'eboiler_process_energy.csv.gz'},
-    'pv_resist': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+    'pv_resist': {'supply': '/pv/pv_sc0_t0_or0_d0_gen_2014.h5',
                   'demand': 'resistance_process_energy.csv.gz'},
-    'pv_whrhp': {'supply': 'pv/pv_sc0_t0_or0_d0_gen_2014.h5',
+    'pv_whrhp': {'supply': '/pv/pv_sc0_t0_or0_d0_gen_2014.h5',
                  'demand': 'whr_hp_process_energy.csv.gz'},
     'ptc_tes': {'supply': '/ptc_tes/ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5',
                 'demand': 'ptc_process_energy.csv.gz'},
@@ -153,11 +153,8 @@ if __name__ == "__main__":
     target_file_path = '{}_sizing_{}_{}.hdf5'.format(tech_package,
                                                      sizing_month, time_stamp)
 
-    # test_counties = [16059, 47059, 6101, 47061, 6103, 47063, 6105, 47065,
-                       # 6107,
-    #                  6109, 47069, 6111, 47071, 6113, 47073,  6115]
     # Run calculations in parallel
-    with multiprocessing.Pool(processes=7) as pool:
+    with multiprocessing.Pool(6) as pool:
         results = pool.map(calc_county, counties)
 
     if pickle_results:
