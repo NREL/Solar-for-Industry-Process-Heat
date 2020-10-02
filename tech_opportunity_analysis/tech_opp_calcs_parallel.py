@@ -144,7 +144,7 @@ class tech_opportunity(rev_postprocessing):
         """
 
         avail_land = self.rev_output.area_avail.xs(county)[
-            'County Available area km2'
+            'county_included_area_km2'
             ].astype('float32')
 
         timezone = \
