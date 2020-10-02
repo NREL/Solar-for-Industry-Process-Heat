@@ -32,7 +32,7 @@ class rev_postprocessing:
         # Import available county area (km2)
         self.area_avail = pd.read_csv(
             os.path.join(self.data_dir, county_avail_area_file),
-            index_col=['County FIPS']
+            index_col=['county_fips']
             )
 
         # Footprints in m2
