@@ -27,8 +27,7 @@ class rev_postprocessing:
 
         gid_to_fips.rename(columns={'FIPS': 'COUNTY_FIPS'}, inplace=True)
 
-        county_avail_area_file = \
-            'county_rural_ten_percent_results_20200330.csv'
+        county_avail_area_file = 'county_rural_five_percent_results.csv'
 
         # Import available county area (km2)
         self.area_avail = pd.read_csv(
