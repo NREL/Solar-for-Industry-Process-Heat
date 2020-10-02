@@ -14,7 +14,7 @@ from heat_load_calculations.run_demand_8760 import demand_hourly_load
 # Parameters for running tech opportunity
 data_dir = 'c:/users/cmcmilla/desktop/'
 tech_package = 'dsg_lf'
-sizing_month = 6
+sizing_month = 12
 
 # Dictionary by tech package of all solar gen and process energy inputs
 tech_opp_inputs = {
@@ -154,7 +154,7 @@ if __name__ == "__main__":
                                                      sizing_month, time_stamp)
 
     # Run calculations in parallel
-    with multiprocessing.Pool(6) as pool:
+    with multiprocessing.Pool() as pool:
         results = pool.map(calc_county, counties)
 
     if pickle_results:

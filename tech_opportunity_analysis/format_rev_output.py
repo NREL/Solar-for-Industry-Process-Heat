@@ -156,7 +156,7 @@ class rev_postprocessing:
         month_gen = county_gen_month.xs(month)['kWh']/1000
 
         area_avail = self.area_avail.xs(county_fips)[
-            'County Available area km2'
+            'county_included_area_km2'
             ]
 
         # Convert footprint from m2/MW to km2/MW
