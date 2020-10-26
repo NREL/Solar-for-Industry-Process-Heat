@@ -34,7 +34,6 @@ stop = input("Enter stop to stop the script. Else, type anything: ")
 if stop.lower() == "stop":
     sys.exit()
 
-
 t0 = time.time()
 path = "./calculation_data"
 PVfilename = "SAM_PV_Model Output_Hourly Data USA.xlsx"

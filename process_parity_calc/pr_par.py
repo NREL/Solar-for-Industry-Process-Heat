@@ -18,27 +18,34 @@ import seaborn as sns
 
 class PrPar:
     
-    def __init__(self, new_obj = True):
+    def __init__(self, new_obj = True, form = False):
         """ solar_tech, comb_tech should be appropriate factory objects"""
-        county_list = [1133, 5149, 4027, 6115, 8125, 9015, 10005, 12133, 13321, 19197, 16087, 17203,
-                       18183, 20209, 21239, 22127, 25027, 24510, 23031, 26165, 27173, 29510, 28163, 30111, 37199, 38105,
-                       31185, 33019, 34041, 35061, 32510, 36123, 39175, 40153, 41071, 42133, 44009, 45091, 46137, 47189,
-                       48507, 49057, 51840, 50027, 53077, 55141, 54109, 56045]
+# =============================================================================
+#         county_list = [1133, 5149, 4027, 6115, 8125, 9015, 10005, 12133, 13321, 19197, 16087, 17203,
+#                        18183, 20209, 21239, 22127, 25027, 24510, 23031, 26165, 27173, 29510, 28163, 30111, 37199, 38105,
+#                        31185, 33019, 34041, 35061, 32510, 36123, 39175, 40153, 41071, 42133, 44009, 45091, 46137, 47189,
+#                        48507, 49057, 51840, 50027, 53077, 55141, 54109, 56045]
+# =============================================================================
 
         #county_list = [6085, 6085, 6085, 6085, 6085, 6085]
         #heat_list = [5000,10000, 15000, 20000, 25000, 30000]
-        #solar_tech = ["PVHP", "PVHP"]
-        #comb_tech = ["BOILER", "CHP"]
-        if new_obj:
+        solar_tech = ["PTCTES"]
+        comb_tech = ["BOILER"]
+        counties =["6037"]
+ 
 
-            print("\nCreating solar object")
-            self.s_form = FormatMaker().create_format({"county": county_list})
+        if new_obj:
+            if form:
+                self.s_form = form[0]
+                self.c_form = form[1]
                 
-            print("\nCreating combustion object")  
-            self.c_form = FormatMaker().create_format({"county": county_list})
-            
-        #this node is executed by default when the object is reseting
-            
+            else:
+                print("\nCreating solar object")
+                self.s_form = FormatMaker().create_format({"tech": solar_tech, "county":counties})
+                    
+                print("\nCreating combustion object")  
+                self.c_form = FormatMaker().create_format({"tech": comb_tech, "county":counties})
+                
         self.solar = [CLO.LCOHFactory().create_LCOH(i) for i in self.s_form]
         self.comb = [CLO.LCOHFactory().create_LCOH(i) for i in self.c_form]
         self.solar_current = list(map(lambda x: x.calculate_LCOH(), self.solar))
@@ -47,7 +54,7 @@ class PrPar:
             
     def reset(self):
         """ Reset the object to default state after running an analysis"""
-        self.__init__(False)
+        self.__init__(new_obj = False)
         
     def mc_analysis(self, index):
         """ Process Monte Carlo results"""
@@ -79,6 +86,8 @@ class PrPar:
             val_LCOH = df["LCOH Value US c/kwh"][0]
             # Find % change from default LCOH value
             df["LCOH Value US c/kwh"] = (df["LCOH Value US c/kwh"] - val_LCOH)/val_LCOH * 100
+            #round % changes
+            df = df.round({"LCOH Value US c/kwh":2})
             # Grab no. of parameters, no. of data points per parameter
             length = len(df.columns) - 1
             no_vals = int(len(df)/length)
@@ -148,6 +157,14 @@ class PrPar:
                     print("No solution")
                 
                 else: 
+                    try:
+                        # convert to kwdc
+
+                        root /= self.solar[i].model.sys_size
+                    except AttributeError:
+
+                        root /= self.solar[i].smodel.sys_size
+                        
                     roots.append(root)
                     
                 #print("The investment price for process parity is {:.2f} $USD".format(root))
@@ -155,7 +172,7 @@ class PrPar:
         elif iter_name.upper() == "FUELPRICE":
             for i in range(len(self.comb)):
                 self.comb[i].iter_name = "FUELPRICE"
-                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar_current[i], 0, 20, 100)
+                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar_current[i], -50, 50, 100)
 
                 if root == None:
                     print("No solution")
@@ -171,7 +188,7 @@ class PrPar:
         
         return roots
         
-    def pp_nD(self, tol = 10, no_val = 3):
+    def pp_nD(self, no_val = 50):
         
         no_plots = len(self.solar)
         """Solution Space"""
@@ -181,20 +198,28 @@ class PrPar:
             self.comb[i].iter_name = "FUELPRICE"
             
         #df_sol = pd.DataFrame(columns = ["fuelprice", "investment", "LCOH"])
-        i_vals = np.linspace(0 ,10 ** 8, no_val)
         
-        fig, ax = plt.subplots(no_plots)
+        i_vals = np.linspace(0 ,10 ** 7, no_val)
+        
+        fig, ax = plt.subplots(no_plots, figsize = (10,15))
 
         # for each capital investment (i_vals) iterate to find associated fuel price
         for i in range(no_plots):
+            i_vals = np.linspace(0 ,10 ** 8, no_val)
             all_roots = []
             for j in i_vals:
-                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(j), -10, 30, 100)
+                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(j), -100, 100, 100)
                 all_roots.append(root)
-                #df_sol = df_sol.append({"fuelprice": root, "investment" : i / 10**7}, ignore_index = True)     
-            ax[i].scatter(all_roots, i_vals / 10**7)
+                #df_sol = df_sol.append({"fuelprice": root, "investment" : i / 10**7}, ignore_index = True)
+            try:
+                #Normalize to kwdc
+                i_vals_norm = i_vals / self.solar[i].model.sys_size
+            except AttributeError:
+                i_vals_norm = i_vals / self.solar[i].smodel.sys_size
+                
+            ax[i].scatter(all_roots, i_vals_norm)
             ax[i].set_xlabel("Fuel Price (c/kWh)") 
-            ax[i].set_ylabel("Investment(10 MM USD)")
+            ax[i].set_ylabel("USD/kwp")
             
         fig.tight_layout()
         fig.suptitle("Process Parity Solution Space", fontweight = "bold", fontsize = 14)
@@ -236,11 +261,11 @@ class PrPar:
             # If total savings less than cost of solar system over lifetime
             if np.sum(value[1:]) < -value[0]:
                 
-                while (np.sum(value[1:]) < -value[0]) & (pb_year <= 49):
+                while (np.sum(value[1:]) < -value[0]) & (pb_year <= 149):
                     value.append(self.comb[index].OM(pb_year)[0]/(1+self.solar[index].discount_rate[0])**pb_year)
                     pb_year += 1
         
-                if pb_year == 50:
+                if pb_year == 150:
                     print("No Payback Year")                
                 
             else: 
@@ -291,16 +316,24 @@ if __name__ == "__main__":
     
     import pandas as pd
     test_obj = PrPar()
-
-    state_abbr =[]
-    comb_lcoh = []
-    
-    for i in test_obj.comb:
-        comb_lcoh.append(i.em_costs)
-        state_abbr.append(i.state_abbr)
-
-    results = pd.DataFrame()
-    results["STUSPS"] = state_abbr
-    results["comblcoh"] = comb_lcoh
-    
-    results.to_csv("state_lcoh_em.csv")
+    print(test_obj.pp_1D("INVESTMENT"))
+    test_obj.solar[0].OM(10)
+    test_obj.comb[0].OM(10)
+# =============================================================================
+#     test_obj = PrPar()
+# 
+#     state_abbr =[]
+#     comb_lcoh = []
+#     solar_lcoh = []
+# 
+#     for i in range(len(test_obj.comb)):
+#         comb_lcoh.append(test_obj.comb[i].calculate_LCOH())
+#         solar_lcoh.append(test_obj.solar[i].calculate_LCOH())
+#         state_abbr.append(test_obj.comb[i].state_abbr)
+# 
+#     results = pd.DataFrame()
+#     results["STUSPS"] = state_abbr
+#     results["lcohdiff"] = [s/c for s,c in zip(solar_lcoh, comb_lcoh)]
+#     
+#     results.("state_lcoh_pveb.csv")
+# =============================================================================

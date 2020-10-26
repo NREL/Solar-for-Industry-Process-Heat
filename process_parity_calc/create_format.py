@@ -14,7 +14,7 @@ class FormatMaker:
     
         self.invest = ['REPLACE', 'GREENFIELD', 'EXTENSION']
         self.tech = ['DSGLF', 'PTC', 'PTCTES', 'SWH', 'PVEB', 'PVRH', 'PVWHR',
-                     'PVHP', 'BOILER', 'CHP', 'FURNACE', 'KILN', 'OVEN']
+                     'PVHP', 'BOILER', 'CHP', 'FURNACE', "EBOILER"]
         #self.iter_var = ['INVESTMENT', 'FUELPRICE']
         self.param = ""
         self.fips_data = pd.read_csv(os.path.join("./calculation_data", "US_FIPS_Codes.csv"),
@@ -25,15 +25,15 @@ class FormatMaker:
         invest = True
         tech = True
         county = True
-        load = True
+        mult = True
 
         """Create format for factory object."""
         if iter_dict:
             for k in iter_dict.keys():
-                if k.upper() == "HEAT":
-                    avg_load = iter_dict[k]
-                    if not all(i >=0 for i in avg_load):
-                        raise AssertionError("Negative heat loads.")
+                if k.upper() == "SOLARM":
+                    multiplier = iter_dict[k]
+                    if not all(i >=0 for i in multiplier):
+                        raise AssertionError("Negative solar multiplier")
                     load = False
                 elif k.upper() == "COUNTY":
                     county_no = list(map(str,iter_dict[k]))
@@ -88,14 +88,14 @@ class FormatMaker:
 
             print("No such county.")
 
-        while load:
+        while mult:
 
             try:
+                message = ' For solar technologies enter -1 for auto-sizing, 0 for no solar, positive number for 1 MW multiplier. For combustion technologies enter -1:  '
+                multiplier = float(input(message))
 
-                avg_load = float(input("Enter the average load (kW): "))
-
-                if avg_load <= 0:
-                    raise AssertionError("Enter a load above 0")
+                if multiplier < -2:
+                    raise AssertionError("Enter an appropriate multiplier: ")
                 
                 break
 
@@ -107,7 +107,7 @@ class FormatMaker:
 
                 print(e)
         
-        variables = [type_invest, type_tech, avg_load, county_no]
+        variables = [type_invest, type_tech, multiplier, county_no]
         
         if any([type(var) == list for var in variables]):
             length = []
@@ -133,7 +133,7 @@ class FormatMaker:
           
         else:
 
-            self.param = [(type_invest.upper(), type_tech.upper(), avg_load, county_no)]
+            self.param = [(type_invest.upper(), type_tech.upper(), multiplier, county_no)]
 
         return self.param
 

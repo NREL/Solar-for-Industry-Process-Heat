@@ -3,6 +3,8 @@
 Created on Tue Jun  9 17:03:09 2020
 
 @author: wxi
+residential land prices dataset - from fhfa
+agricultural land prices from USDA
 """
 import pandas as pd
 
@@ -25,15 +27,16 @@ def get_avg_price(county_id):
     adj_counties = adj_county[adj_county["County GEOID"] == county_id]["Neighbor GEOID"].to_list()
     for adj_id in adj_counties[1:]:
         try:
-            land_prices.append(float(landprice.loc[landprice["County"] == adj_id, "Price (1/4 acre)"]))
+            land_prices.append(float(landprice.loc[landprice["County"] == adj_id, "Price Per Acre"]))
         except TypeError:
             continue
     if not len(land_prices):
-        return landprice[landprice["state_fips"] == round(county_id,-3)]["Price (1/4 acre)"].mean()
+        return landprice[landprice["state_fips"] == round(county_id,-3)]["Price Per Acre"].mean()
     else:
         return sum(land_prices) / len(land_prices)
 
 est_landprice = [get_avg_price(i) for i in disjoint]
-landprice = landprice.append(pd.DataFrame({"County": disjoint, "Price (1/4 acre)": est_landprice, "state_fips" : list(map(lambda x: round(x,-3),disjoint))}))
+landprice = landprice.append(pd.DataFrame({"County": disjoint, "Price Per Acre": est_landprice, "state_fips" : list(map(lambda x: round(x,-3),disjoint))}))
 landprice = landprice.sort_values(by = ["County"]).reset_index()
+landprice.drop(columns = ["index"], inplace = True)
 landprice.to_csv("./calculation_data/landprices.csv")

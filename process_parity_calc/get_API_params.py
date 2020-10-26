@@ -268,7 +268,16 @@ class UpdateParams:
                 
                 headers = {'Content-type': 'application/json'}
                 # please label your series as "PPI series id" : "df label name"
-                series_list = OrderedDict({'WPU061': "Industrial Chemicals", "PCU33241-33241-": "Boilers"})
+                series_list = \
+                OrderedDict({
+                        'WPU061': "Industrial Chemicals", 
+                        "PCU33241033241052": "Boiler",
+                        "PCU333994333994": "Furnace",
+                        "PCU333414333414": "Solar Field",
+                        "PCU33361133361105": "CHP",
+                        "WPU10250105": "Aluminum",
+                        "WPU11790105": "BatteryStorage"
+                        })
                 data = json.dumps({"seriesid": list(series_list.keys()), "annualaverage":"true","startyear":str(year_tracker-noyears+1), "endyear":str(year_tracker), "registrationkey":"2ad8d1d2aa574a05a389c070bee5e070"})
                 p = requests.post('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
                 json_data = json.loads(p.text)   
@@ -295,74 +304,4 @@ class UpdateParams:
         comb_index.to_csv(os.path.join(path, "cost_index_data.csv"))    
         
 if __name__ == "__main__":
-    #a = UpdateParams.get_fuel_price("AL")
-
-    # create chloropeth map
-    from plotly.offline import plot
-    import pandas as pd
-    
-# =============================================================================
-#     def fuel_price_by_state():
-#         state_abbr = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
-#                       "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-#                       "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-#                       "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-#                       "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
-#         fuel_price = list(map(lambda x: round(UpdateParams.get_fuel_price(x)[0],2), state_abbr))
-#         #print(fuel_price)
-#         df = pd.DataFrame()
-#         df["state"] = state_abbr
-#         df["fp"] = fuel_price
-#         return df
-#     
-#     def plotly(csv):
-#         df = csv
-#         for col in df.columns:
-#             df[col] = df[col].astype(str)
-#         
-#         scl = [[0.0, 'rgb(242,240,247)'],[0.2, 'rgb(218,218,235)'],[0.4, 'rgb(188,189,220)'],\
-#                     [0.6, 'rgb(158,154,200)'],[0.8, 'rgb(117,107,177)'],[1.0, 'rgb(84,39,143)']]
-#         
-#         df['text'] = df['state'] + '<br>' + df["fp"] + " $/thousand cuf"
-#         
-#         data = [ dict(
-#                 type='choropleth',
-#                 colorscale = scl,
-#                 autocolorscale = False,
-#                 locations = df['state'],
-#                 z = df['fp'].astype(float),
-#                 locationmode = 'USA-states',
-#                 #text = df['text'],
-#                 marker = dict(
-#                     line = dict (
-#                         color = 'rgb(255,255,255)',
-#                         width = 2
-#                     )
-#                 ),
-#                 colorbar = dict(
-#                     title = "$/Mcf"
-#                 )
-#             ) , 
-#                  dict(
-#                 type = 'scattergeo',
-#                 locations = df['state'],
-#                 locationmode = 'USA-states',
-#                 text = df["fp"],
-#                 mode = 'text') ]
-#         
-#         layout = dict(
-#                 title = 'Fuel Price by State',
-#                 geo = dict(
-#                     scope='usa',
-#                     projection=dict( type='albers usa' ),
-#                     showlakes = True,
-#                     lakecolor = 'rgb(255, 255, 255)',
-#                 ),
-#             )
-#         
-#         fig = dict( data=data, layout=layout )
-#         
-#         plot(fig, validate=False, filename='fp-USAmap.html')
-# 
-#     plotly(fuel_price_by_state())
-# =============================================================================
+    UpdateParams.create_index()

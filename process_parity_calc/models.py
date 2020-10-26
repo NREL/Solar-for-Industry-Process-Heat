@@ -16,29 +16,24 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from bisect import bisect
 from emission_dicts import state_costs as sc
+from model_config import ModelParams as mp
 
 class Tech(metaclass=ABCMeta):
     path = "./calculation_data"
     cost_index = pd.read_csv(os.path.join(path, "cost_index_data.csv"), index_col = 0)
-    land_price = pd.read_csv(os.path.join(path, "landprices.csv"), index_col = 0)
-    fips_data = pd.read_csv(os.path.join(path, "US_FIPS_Codes.csv"),
-                            usecols=['State', 'COUNTY_FIPS', 'Abbrev']) 
 
     @abstractmethod
     def __init__(self, county, hload, fuel):
         self.fuel_price, self.fuel_type = fuel
         self.county = county
-        self.peak_load = hload[0]
+        self.mult = hload[0]
+        self.peak_load = max(hload[1])
         self.load_8760 = hload[1]
-        self.hv_vals = {"PETRO" : 4.641, "NG" : 1039, "COAL" : 20.739}
-        # convert heating_values to the appropriate volume/mass basis and energy basis (kW)
-        self.hv_vals["PETRO"] = 4.641 * 1055055.85 / 42 # / to gallon, * to kJ
-        self.hv_vals["NG"] = 1039 * 1.05506 / 0.001 # / to thousand cuf * to kJ
-        self.hv_vals["COAL"] = 20.739 * 1055055.85 # already in short ton, * to kJ
+        self.hv_vals = mp.hv_vals[self.fuel_type]
+
         # Land Price
-        self.valperacre = Tech.land_price.loc[Tech.land_price["County"] == int(self.county), "Price (1/4 acre)"].max()
-        self.state_name = Tech.fips_data.loc[Tech.fips_data['COUNTY_FIPS'] == self.county,
-                                        'State'].values[0].strip()
+        self.state_name = mp.get_state_names(self.county)[0]
+        
     @abstractmethod
     def om(self):
 
@@ -61,7 +56,6 @@ class Tech(metaclass=ABCMeta):
             
             lastyear = Tech.cost_index.loc[index_name,:].last_valid_index()
             firstyear= Tech.cost_index.loc[index_name,:].first_valid_index()
-            
             if year1 < int(firstyear) or year2 > int(lastyear):
                     
                 print("Please pick year between {} to {}".format(
@@ -70,7 +64,7 @@ class Tech(metaclass=ABCMeta):
                     
                 print("Not a valid cost index.")
     
-    def solar_sizing(self, filepath, month, storeval = False):
+    def solar_sizing(self, storeval = False):
         '''
         peak load will be defined by month for the solar technologies
         
@@ -79,31 +73,61 @@ class Tech(metaclass=ABCMeta):
         month on 0 - 11 for jan - dec
         
         '''
+        filepath = mp.gen_dict[self.tech_type]
+        month = mp.month
+        
         df = pd.read_json(os.path.join(Tech.path, filepath))
-        self.gen = df.loc[df["FIPS"] == self.county]["gen"][0]
-        monthlysums = df.loc[df["FIPS"] == self.county]["monthlysums"][0]
+        
+        if self.tech_type in ["PTC", "PTCTES"]:
+            eff = 0.98
+        elif self.tech_type in ["PVRH"]:
+            eff = 0.86 * 0.99 # elec efficiency * melt loss
+        else: 
+            eff = 1
+            
+        self.gen = np.array(df.loc[df["FIPS"] == int(self.county)]["gen"].values[0])
+        monthlysums = np.array(df.loc[df["FIPS"] == int(self.county)]["monthlysums"].values[0])
         del df
          
-
         length = np.array([31,28,31,30,31,30,31,31,30,31,30,31]) * 24
         start = np.array([0,31,59,90,120,151,181,212,243,273,304,334])*24
-            
-        peak_load = max(self.load_8760[start[month] : start[month] + length[month]])
         
-        self.mult = np.ceil(peak_load * length[month]/monthlysums[month])
-        
+        if self.mult>=0:
+            pass         
+        elif mp.sizing == "techopp":
+            peak_load = max(self.load_8760[start[month] : start[month] + length[month]])
+            #monthly sums in kwh length is also in hours 
+            self.mult = peak_load * length[month]/(monthlysums[month] *eff)
+        elif mp.sizing == "annual":
+            demand = sum(self.load_8760)
+            supply = sum(monthlysums) *eff
+            self.mult = demand/supply
+        elif mp.sizing == "peakload":
+            peak_load = max(self.load_8760)            
+            self.mult = peak_load / (1000 *eff)
+        else:
+            print("No Sizing Method Defined")
+
+        #self.gen is the actual energy delivered to end use 
         self.gen = self.gen * self.mult
-        
+ 
+        #expect storeeval to be (storage size, fluid type)
+        #storage size always in kwh
         self.storeval = storeval
+        
+        # round trip efficiency dict. Electricity assume Li-ion
+        #assume hw1 elec from https://www.energy.gov/sites/prod/files/2019/07/f65/Storage%20Cost%20and%20Performance%20Characterization%20Report_Final.pdf
+        rteff = {"elec": 0.86, "steam": 0.25, "hw" : 1}
         
         # steam accumulator in ps10 can capture 50% of load for 50 min (20 Mwh system) for 11 Mw tower
         # assume efficiency is 25%, apply efficiency on removal
         if storeval:
-           
+            #this variable represents flows
             self.store_8760 = []
-            kw_diff = self.gen - self.load_8760
+            kw_diff = self.gen  - self.load_8760/eff
+            # this variable represents the level of storage
             storage = 0
-            eff = 0.25
+            storeff = rteff[self.fluid]
             for i in range(len(kw_diff)):
                 val = kw_diff[i]
                 if val > 0:
@@ -112,85 +136,35 @@ class Tech(metaclass=ABCMeta):
                     storage = min(storage+val, storeval)
                     continue
 
-                if (val < 0) & ((storage*eff - abs(val)) >= 0):
-                    storage += val/eff
-                    self.store_8760.append(val/eff)
+                if (val < 0) & ((storage*storeff - abs(val)) >= 0):
+                    storage += val/storeff
+                    self.store_8760.append(val/storeff)
                     kw_diff[i] = 0
                     continue
                 
-                if (val < 0) & ((storage*eff - abs(val)) < 0):
-                    kw_diff[i] += storage*eff
+                if (val < 0) & ((storage*storeff - abs(val)) < 0):
+                    kw_diff[i] += storage*storeff
                     self.store_8760.append(-storage)
                     storage = 0
                     continue  
                 if val == 0:
                     self.store_8760.append(val)
                     
-        self.gen = self.load_8760 + kw_diff
-        
-        self.load_remain = (np.array(self.load_8760) - self.gen).clip(min=0)
-        
-    def gf_size(self):
-        
-        # redo the previous sizing on the generation
-        self.gen = self.gen/self.mult
+            self.gen = self.load_8760/eff + kw_diff
 
-        ratio = np.array(self.load_8760[self.gen>0]) / self.gen[self.gen>0] 
-        storeval = np.linspace(1,20,20)
-        mult = np.array(range(1,np.ceil(max(ratio)) + 1))
-        
-        X,Y = np.meshgrid(storeval, mult)
-        
-        
-        @np.vectorize
-        def get_load_rp(mult, storeval, done = False):
-            store_8760 = []
-            kw_diff = self.gen *mult - self.load_8760
-            storage = 0
-            eff = 0.25
-            for i in range(len(kw_diff)):
-                val = kw_diff[i]
-                if val > 0:
-                    kw_diff[i] -= min(storeval-storage, val)
-                    storage = min(storage+val, storeval)
-                    store_8760.append(min(storage+val, storeval))
-                    continue
-
-                if (val < 0) & ((storage*eff - abs(val)) >= 0):
-                    storage += val/eff
-                    kw_diff[i] = 0
-                    store_8760.append(val/eff)
-                    continue
-                
-                if (val < 0) & ((storage*eff - abs(val)) < 0):
-                    kw_diff[i] += storage*eff
-                    storage = 0
-                    store_8760.append(-storage)
-                    continue  
-                if val == 0:
-                    store_8760.append(val)
-                    continue
-                
-            if done:
-                return (kw_diff + self.load_8760, store_8760)
-            
-            return (sum(self.load_8760) - sum(kw_diff[kw_diff<0])) /(sum(self.load_8760))
-        
-        # get max Z and the  X,Y corresponding to it
-        Z = get_load_rp(X,Y)
-        
-        
-        if np.max(Z) <= 0.9:
-            print("Greenfield Investment is not Suggested")
-
-        # check for local maximum
-        pairs = np.argwhere(Z>0.9)
-        self.storeval = storeval[pairs[0][0]]
-        self.mult = mult[pairs[0][1]]
-
-        self.gen , self.store_8760 = get_load_rp(self.storeval, self.mult, done = True)
-        
-        self.load_remain = (self.load_8760 - self.gen).clip(min = 0)
+        # load not met - theoretical energy
+        self.load_remain = (np.array(self.load_8760) - self.gen*eff).clip(min=0)
+        # excess load generation - actual energy
+        self.elec_gen = (self.gen - np.array(self.load_8760)/eff).clip(min=0)
+        # load met by solar - theoretical value
+        self.load_met = np.array([min(i,j) for i,j in zip(self.load_8760, self.gen*eff)])
+        # solar utilization
+        if self.mult == 0:
+            self.su = 0
+        else:
+            self.su = sum(self.load_met/eff)/sum(self.gen)
+        # solar fraction - only for greenfield
+        self.sf = sum(self.load_met)/sum(self.load_8760)
 
     def get_emission_cost(self, eff_map, target = False):
         '''
@@ -208,6 +182,7 @@ class Tech(metaclass=ABCMeta):
             
         Let assume pure coal is used for now 
         em targets are not boiler specific -> it's any combustion source
+        Assume limits applied to boilers and CHP (doesn't apply to furnaces). 
         '''
         em_limits = [
                      {"COAL": 300, "PETRO": 129, "NG": 86 },
@@ -218,16 +193,6 @@ class Tech(metaclass=ABCMeta):
                      {"COAL": 22, "PETRO": 10**6, "NG": 10**6},
                      {"COAL": 22, "PETRO": 13, "NG": 13}
                     ]
-        
-# =============================================================================
-#         [(0,9999999, "COAL", "PM", 22, "PURE"), 
-#                      (0,9999999, "COAL", "PM", 43, "MIXED"), 
-#                      (0,99, "COAL", "PM", 43, "LOW"), 
-#                      (100,9999999, "COAL", "PM", 86, "LOW"),
-#                      (0,9999999, "WOOD", "PM", 43), 
-#                      (251,9999999, "NG", "PM", 13),
-#                      (251,9999999, "OIL", "PM", 13)]  
-# =============================================================================
         if target:
             em_target = target
         else:
@@ -248,17 +213,19 @@ class Tech(metaclass=ABCMeta):
                 pm_lim = em_limits[6][self.fuel_type]                
 
             em_target = [nox_lim, sox_lim, pm_lim]
-
+            
         if self.tech_type == "BOILER":
             fuel_input_8760 = [a/b for a,b in zip(self.load_8760, eff_map)]
         if self.tech_type == "CHP":
             fuel_input = self.char["fuel_input"](self.peak_load)
             fuel_input_8760 = [fuel_input * eff for eff in eff_map]
-
+        if self.tech_type == "FURNACE":
+            # the emission factors are based on theoretical load
+            fuel_input_8760 =  self.load_8760
         def get_emissions(fuel_input_8760, control = [False, False, False]):
 
             '''
-            CHECK VALIDITY OF NUMBERS -> IF NOT WE HAVE TO DO FACILITY MAPPING
+
 
             tech specific
             control = [NG, FUEL OIL, COAL]
@@ -274,10 +241,11 @@ class Tech(metaclass=ABCMeta):
             # coal assume 0.7% weight https://www.engineeringtoolbox.com/classification-coal-d_164.html
             # assume residual oil: https://nefi.com/files/5515/2840/4209/Fuel_Sulfur_Content_Limitations_Fact_Sheet.pdf
             #^ can also extend to distillate vermont has similar guidelines
+            t_energy = 3600 * sum(fuel_input_8760)  
+
             if self.tech_type in ("BOILER", "CHP"):
                 
                 sulfur_dict = {"COAL": 0.7, "PETRO": 0.3}
-                t_energy = 3600 * sum(fuel_input_8760)
 
                 if self.fuel_type == "NG":
                     # lb/(10^6 scf) to ton/kJ = 10^-6 * 0.0005 /1085
@@ -340,19 +308,23 @@ class Tech(metaclass=ABCMeta):
 
                     except AttributeError:
                         pass   
-                # Assign emissions
-                self.nox = nox_mult * t_energy
-                self.nox_8760 = [nox_mult * fuel * 3600 for fuel in fuel_input_8760]
-                self.sox = sox_mult * t_energy
-                self.sox_8760 = [sox_mult * fuel * 3600 for fuel in fuel_input_8760]
-                self.PM = pm_mult * t_energy
-                self.PM_8760 = [pm_mult * fuel *3600 for fuel in fuel_input_8760]  
-            
-            # check if its solar
-            if self.tech_type == "PVHP":
-                self.nox = 0
-                self.sox = 0
-                self.PM = 0
+            if self.tech_type == "FURNACE":
+                # emission factors are based on fuel combustion but provided in /metric ton
+                # of aluminum produced. Since input fuel_input_8760 is in theoretical we use theoretical
+                #t_energy is in kJ -500 btu/lb ->1.163 *10**6 kJ/metric ton
+                #ultimately nox_mult is in ton pollutant/kJ energy
+                
+                nox_mult = 1 / (1.163*10**6) * 0.63/1000
+                sox_mult = 1 / (1.163*10**6) * 0.96/1000
+                pm_mult = 1 / (1.163*10**6) * 0.27/1000
+
+            # Assign emissions all in tons of emissions
+            self.nox = nox_mult * t_energy
+            self.nox_8760 = [nox_mult * fuel * 3600 for fuel in fuel_input_8760]
+            self.sox = sox_mult * t_energy
+            self.sox_8760 = [sox_mult * fuel * 3600 for fuel in fuel_input_8760]
+            self.PM = pm_mult * t_energy
+            self.PM_8760 = [pm_mult * fuel *3600 for fuel in fuel_input_8760]  
                 
             self.em_t = self.nox + self.sox + self.PM
 
@@ -363,6 +335,9 @@ class Tech(metaclass=ABCMeta):
             identify 30 day regions within 8760 hours where emissions
             do not comply and thus needs emission reduction costs  
             '''
+            if self.tech_type == "FURNACE":
+                return 0 
+                
             def em_sum(val_8760):
 
                 def m_avg(a, n=720):
@@ -479,87 +454,9 @@ class Tech(metaclass=ABCMeta):
             
         em_cost = get_reg_costs()
         
-        # check if solar
-        if self.tech_type == "PVHP":
-            em_cost = 0
-            reduc_cost = 0
-
         return em_cost + reduc_cost
         
-class PVHP(Tech):
-    """
-       Steven's PVHP model
-    """
-    def __init__(self, county, hload, fuel):
-        
-        Tech.__init__(self, county, hload, fuel)        
-        # Simulation File and Cost Index File
-        self.simr = pd.read_csv(os.path.join(Tech.path,"pvhp_sim.csv"))
-        self.fuel_type = False
-        self.tech_type = "PVHP"
-        # Sizing Function
-        def select_PVHP():
-            
-            self.sfid = self.simr["Solar Fraction"].idxmax()
-            self.sflcoh = self.simr.loc[self.sfid, "LCOH ($/kWh)"]
-            
-            self.lcohid = self.simr["LCOH ($/kWh)"].idxmin()
-            self.lcoh = self.simr["LCOH ($/kWh)"].min()
-            
-            #use lowest lcoh by default
 
-            self.sfcount = math.ceil(self.peak_load / self.simr.loc[self.sfid, "PVHP Design Output (kWth)"])
-            self.lcohcount = math.ceil(self.peak_load / self.simr.loc[self.lcohid, "PVHP Design Output (kWth)"])
-            
-            self.dep_year = 5
-            
-        select_PVHP()
-        
-        # process csv file from data request. Use incidence rate as likelihood 
-        self.incrate = 0.1
-
-    def om(self):
-        '''
-        source: https://prod-ng.sandia.gov/techlib-noauth/access-control.cgi/2016/160649r.pdf
-        26$/kwp-yr for O&M
-        '''
-        
-        year = 2015
-        deflate_price = [Tech.index_mult("Equipment", year)] 
-        
-        # Direct labor costs
-        #o_m = 0.6/1.6 * self.simr.loc[self.lcohid, "CapEx ($)"]
-        o_m = self.simr.loc[self.sfid, " PVkW Installed (kWel)"] * 26
-        # O&M, Fuel, Electricity Costs, Decomm Costs
-        self.om_val = sum(a * b for a, b in zip(deflate_price, [o_m])) * self.sfcount
-        self.fc = 0
-        self.elec_gen = 0
-        self.decomm = 0
-        self.em_costs = 0
-    
-    def capital(self):
-        
-        year = 2018
-        deflate_capital = [Tech.index_mult("Equipment", year)]     
-        
-        # capital costs
-        equip = self.simr.loc[self.sfid, "CapEx ($)"] 
-        
-        # contingency
-        ctg = 0.2
-        
-        # capital value
-        self.cap_val = (1+ctg) * sum(a * b for a, b in zip(deflate_capital, [equip])) * self.sfcount
-        
-    def get_efficiency(self):
-
-        """
-        PVHP thermal efficiency 
-        
-        """
-        # returns 0 because assume that Solar doesn't use fuel
-        
-        return 1
 
 class DSGLF(Tech):
     """
@@ -569,9 +466,83 @@ class DSGLF(Tech):
     """    
     def __init__(self, county, hload, fuel):
         
-        Tech.__init__(self, county, hload, fuel)     
-        self.solar_sizing("dsg_lf_gen.json",0)
+        Tech.__init__(self, county, hload, fuel)
+        self.fluid = "steam"
+        self.tech_type = "DSGLF"
         
+        self.solar_sizing()
+        
+        self.sys_size = 1200 * self.mult 
+        
+        self.fuel_type = False
+        self.dep_year = 5
+        self.elec_gen = np.array([0 for i in range(8760)])
+        #this value is in kW
+
+    def om(self):
+        '''
+        All costs from SAM - dsg lf commercial owner
+        
+        ''' 
+        year = 2018
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]     
+        
+        # capital costs
+        aperture = 3081.6
+        siteimprov = aperture * 20
+        solarfield = aperture * 150
+        HTF = aperture * 35
+        capex = [siteimprov,solarfield,HTF]
+        
+        self.landarea = 3698 * 0.000247105 * self.mult
+        
+        indirect = 0.185
+        
+
+        self.om_val = 0.02* (1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
+        
+# =============================================================================
+#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
+#                          Tech.index_mult("Engineering Supervision", year)]
+#         
+#         # fixed_om + var_om
+#         om = 55 * self.sys_size
+#         var_om = sum(self.gen)*0.004
+#         
+# 
+#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om]))
+# =============================================================================
+        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+    
+    def capital(self):
+        """
+        All costs from SAM - dsg lf direct steam commercial owner
+        """
+        year = 2018
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]     
+        
+        # capital costs
+        aperture = 3081.6
+        siteimprov = aperture * 20
+        solarfield = aperture * 150
+        HTF = aperture * 35
+        capex = [siteimprov,solarfield,HTF]
+        
+        self.landarea = 3698 * 0.000247105 * self.mult
+        
+        indirect = 0.185
+        ctg = 0.1
+        
+
+        self.cap_val = (1+ctg + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
+                        
         
 class PTC(Tech):
     """
@@ -579,9 +550,80 @@ class PTC(Tech):
     """  
     def __init__(self, county, hload, fuel):
         
-        Tech.__init__(self, county, hload, fuel)     
-        self.solar_sizing("ptc_notes_gen.json",0)
+        Tech.__init__(self, county, hload, fuel)   
         
+        self.tech_type = "PTC"
+        self.solar_sizing()
+        
+        self.fuel_type = False
+        self.dep_year = 5
+        #this value is in kW
+        self.sys_size = self.mult * 1500
+
+    def om(self):
+        '''
+        All costs from SAM
+        
+        ''' 
+        year = 2018
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
+        
+        #m^2
+        aperture = 2624
+        siteimprov = aperture * 25
+        HTF = aperture*60
+        solarfield = aperture * 150
+        indirect = 0.185    
+        
+        self.landarea = 8094 * 0.000247105 *self.mult
+        
+        capex = [siteimprov,HTF,solarfield]
+
+        self.om_val = 0.02*(1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
+# =============================================================================
+#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
+#                          Tech.index_mult("Engineering Supervision", year)]
+#         
+#         # fixed_om + var_om
+#         om = 66 * self.sys_size
+#         var_om = sum(self.gen)*0.004
+#         
+# 
+#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om]))
+# =============================================================================
+        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+        self.elec_gen = np.array([0 for i in range(8760)])
+        
+    def capital(self):
+        """
+        All costs from SAM - see sam cost notes
+        """
+        year = 2018
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
+        
+        #m^2
+        aperture = 2624
+        siteimprov = aperture * 25
+        HTF = aperture*60
+        solarfield = aperture * 150
+        indirect = 0.185    
+        
+        self.landarea = 8094 * 0.000247105 *self.mult
+        
+        capex = [siteimprov,HTF,solarfield]
+
+        ctg = 0.1
+
+        self.cap_val = (1+ctg + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
+        
+
 class PTCTES(Tech):
     
     """
@@ -590,40 +632,374 @@ class PTCTES(Tech):
     def __init__(self, county, hload, fuel):
         
         Tech.__init__(self, county, hload, fuel)   
-        self.solar_sizing("ptc_tes_gen.json",0)             
+        self.tech_type = "PTCTES"        
+        self.solar_sizing()             
+        self.fuel_type = False
+        self.dep_year = 5
+        self.elec_gen = np.array([0 for i in range(8760)])
+        #this value is in kW
+        self.sys_size = self.mult * 2500     
+
+    def om(self):
+        '''
+        All costs from SAM
         
+        ''' 
+        year = 2018
+
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
+        
+        # capital costs -> 560$/kW
+        aperture = 5248
+        siteimprov = aperture * 25
+        HTF = aperture*60
+        solarfield = aperture * 150
+        #62$/kwth
+        storage = 62 * 6000
+        indirect = 0.185
+        self.landarea = 16187 * 0.000247105 * self.mult
+        
+        capex = [siteimprov, HTF, solarfield, storage]
+        
+        # capital value
+        self.om_val = 0.02* (1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
 # =============================================================================
-# class SWH(Tech):
-#     """
-#        solar water heater
-#     """ 
-#     def __init__(self, county, hload, fuel):
+#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
+#                          Tech.index_mult("Engineering Supervision", year)]
 #         
-#         Tech.__init__(self, county, hload, fuel)     
-# 
-# class PVEB(Tech):
-#     """
-#        PV -> Electric Boiler
-#     """
-#     def __init__(self, county, hload, fuel):
+#         # fixed_om + var_om
+#         om = 66 * self.sys_size
+#         var_om = sum(self.gen)*0.004
 #         
-#         Tech.__init__(self, county, hload, fuel) 
-# class PVRH(Tech):
-#     """
-#        PV -> resistance heating
-#    """  
-#     def __init__(self, county, hload, fuel):
-#         
-#         Tech.__init__(self, county, hload, fuel)      
-# class PVWHR(Tech):
-#     """
-#         PV -> waste heat recovery
-#     """
-#     def __init__(self, county, hload, fuel):
-#         
-#         Tech.__init__(self, county, hload, fuel) 
-# 
+#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om])) 
 # =============================================================================
+        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+        self.elec_gen = np.array([0 for i in range(8760)])        
+    
+    def capital(self):
+        """
+        All costs from SAM
+        """
+        year = 2018
+        deflate_capital = [Tech.index_mult("Construction Labor", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year),
+                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
+        
+        # capital costs -> 560$/kW
+        aperture = 5248
+        siteimprov = aperture * 25
+        HTF = aperture*60
+        solarfield = aperture * 150
+        #62$/kwth
+        storage = 62 * 6000
+        indirect = 0.185
+        self.landarea = 16187 * 0.000247105 * self.mult
+        
+        capex = [siteimprov, HTF, solarfield, storage]
+        
+        #contingency
+        ctg = 0.1
+        
+        # capital value
+        self.cap_val = (1+ctg + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
+        
+    
+class SWH(Tech):
+    """
+       solar water heater
+    """ 
+    def __init__(self, county, hload, fuel):
+        
+        Tech.__init__(self, county, hload, fuel)
+        self.tech_type = "SWH"
+        self.solar_sizing()   
+        self.fluid = "hw"
+        self.fuel_type = False
+        self.dep_year = 5
+        self.elec_gen = np.array([0 for i in range(8760)])  
+        #this value is in kW
+        self.sys_size = self.mult * 1270.36
+
+    def om(self):
+        '''
+        All costs from SAM Single Owner Commercial
+        
+        ''' 
+        year = 2015
+        deflate_price = [Tech.index_mult("Engineering Supervision", year)]
+        
+        # fixed cost by capacity per kW
+        om = 16 * 1270.36
+
+        self.om_val = sum(a * b for a, b in zip(deflate_price, [om])) * self.mult
+        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+    
+    def capital(self):
+        """
+        All costs from SAM single Owner Commercial
+        Already includes storage costs but does not include land costs
+        """
+        year = 2015
+        deflate_capital = [Tech.index_mult("Solar Field", year)]     
+        
+        # capital costs or 560$/kW from LCOE calculator
+        capex = 1332020
+        
+        ctg = 0.2
+        # convert land area to acre
+        self.landarea = 2024 * 0.000247105 * self.mult
+        # capital value
+        self.cap_val = (1+ctg) * sum(a * b for a, b in zip(deflate_capital, [capex])) * self.mult
+        
+class PVEB(Tech):
+    """
+       PV -> Electric Boiler AC
+    """
+    def __init__(self, county, hload, fuel):
+        
+        Tech.__init__(self, county, hload, fuel) 
+        #assume 100% efficiency to thermal heat
+        self.fluid = "elec"
+        self.tech_type = "PVEB"
+        self.solar_sizing()      
+         
+        self.fuel_type = False
+
+        self.dep_year = 5
+        #this value is in kWac
+        self.sys_size = self.mult * 1000
+        
+        #for electric boiler sizing 
+        self.design_load = max(self.load_met)
+
+    def om(self):
+        '''
+        PV + EB costs
+        PV: NREL ATB
+        EB: times model
+        storage electricity OM from NREL ATB
+        
+        '''
+        
+        year = 2018
+        deflate_price = [Tech.index_mult("Engineering Supervision", year),
+                         Tech.index_mult("Engineering Supervision", 2017),
+                         Tech.index_mult("Engineering Supervision", year)] 
+        
+        # no variable OM from ATB/SAM
+        om = self.sys_size * 1.2 * 16
+        
+        if self.sys_size > 5000:
+            om = self.sys_size * 1.2 * 14
+
+        #very low maintenance costs relative to boiler
+        om_eb = self.design_load * 61.02 * 0.01
+        
+        if self.storeval:
+            om_batt = (self.storeval*335 + 4*292) * 0.025
+        else: 
+            om_batt=0
+        # O&M, Fuel, Electricity Costs, Decomm Costs
+        self.om_val = sum(a * b for a, b in zip(deflate_price, [om, om_eb, om_batt])) 
+        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+    
+    def capital(self):
+        """
+        PV + EB costs
+        PV: NREL ATB
+        PV storage costs: NREL ATB
+        """
+        year = 2018
+        deflate_capital = [Tech.index_mult("Solar Field", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Electrical equipment", year),
+                           Tech.index_mult("Construction Labor", year),
+                           Tech.index_mult("Engineering Supervision", year),
+                           Tech.index_mult("CE INDEX", year),
+                           Tech.index_mult("Boiler", 2017),
+                           Tech.index_mult("BatteryStorage", year)]     
+        # 1.11 usd to 1 euro in 2016
+
+        # in order: Module, Inverter, balance of system, installation labor, permitting/environmental studies, overhead (get cost up to right number)
+        cap_dict = {
+                "utility50": (0.47,0.05,0.25,0.11,0.11,0.22),
+                "utility10": (0.47,0.05,0.30,0.12,0.11,0.30), 
+                "utility5": (0.47,0.05,0.30,0.12,0.11,0.30),
+                "commercial": (0.32,0.07,0.25,0.12,0.11,0.65)
+                }
+        
+        if self.sys_size > 50000:
+            key = "utility50"
+        elif self.sys_size >= 10000:
+            key = "utility10"
+        elif self.sys_size >= 5000:
+            key = "utility5"
+        else:
+            key = "commercial"
+            
+        module, inverter, bos, instlab, permit, overhead = \
+            (self.sys_size * 1000 * 1.2 * i for i in cap_dict[key])
+        
+        #add EB costs - $/kw for electric boiler in 2017 usd converted from euro
+        capex_eb = self.design_load * 61.02 
+
+        #no self.mult on battery cause sizing analysis is done with sized system in mind
+        #storage cost = per energy storage + per kW, assume E/P ratio of 4
+        if self.storeval:
+            capex_batt = (self.storeval*335 + 4*292)
+        else:
+            capex_batt = 0
+        
+        capex = [module, inverter, bos, instlab, permit, overhead, capex_eb, capex_batt]
+        # contingency
+        ctg = 0.2
+        
+        def la(hload):       
+            """ 
+            see the csv file with cleaver brooks/babcock boilers. Returns a value in quarter acre
+            subtracts diff between normal boiler and eboiler size
+            
+            """
+            hload = hload/293
+            return ((1.68 *hload - 26.1) - (0.1176*hload + 1.1498)) / 4046.86 
+
+        if self.mult == 0:
+            self.landarea = 0
+        else:
+            self.landarea = 35208 * 0.000247105 * self.mult + la(self.peak_load) 
+
+        # capital value
+        self.cap_val = (1+ctg) * sum(a * b for a, b in zip(deflate_capital, capex))
+        
+    def get_efficiency(self):
+        return 1
+
+    
+class PVRH(Tech):
+    """
+       PV -> resistance heating DC
+   """  
+    def __init__(self, county, hload, fuel):
+        
+        Tech.__init__(self, county, hload, fuel)   
+        #assume 100% efficiency to thermal heat
+        self.fluid = "elec"
+        self.tech_type = "PVRH" 
+        self.solar_sizing() 
+        self.fuel_type = False
+        self.meltloss = 1
+        #this value is in kWdc
+        self.sys_size = self.mult * 1200  
+        #this value for furnace - in tons/hr (Us tons)
+        self.design_load = max(self.load_met)/293/ ((100 -self.meltloss)/100)
+        self.dep_year = 5
+
+    def om(self):
+        
+        '''
+        PV + RH costs
+        PV: NREL ATB
+        RH: electrical cast melting in aluminum foundries
+        
+        '''
+        
+        year = 2018
+        deflate_price = [Tech.index_mult("Engineering Supervision", year),
+                         Tech.index_mult("Engineering Supervision", 2011),
+                         Tech.index_mult("Aluminum", year)]
+# =============================================================================
+#                          ,
+#                          Tech.index_mult("Engineering Supervision", year)
+#                          ] 
+#         
+# =============================================================================
+
+        # no variable OM from ATB/SAM
+        om = self.sys_size * 16
+        
+        if self.sys_size > 5000:
+            om = self.sys_size  * 14
+
+        # rh om
+        rh_maint = 32000/(1.05) * self.design_load
+        meltcost = 1700 * sum(self.load_met)/293 * self.meltloss/(100-self.meltloss)
+        #labor = 101434
+        self.om_val = sum(a * b for a, b in zip(deflate_price, [om, rh_maint,meltcost])) 
+        
+        # O&M, Fuel, Electricity Costs, Decomm Costs        
+        self.fc = 0
+        self.decomm = 0
+        self.em_costs = 0
+    
+    def capital(self):
+        
+        """
+        PV + RH costs
+        PV: NREL ATB
+        """
+        year = 2018
+        deflate_capital = [Tech.index_mult("Solar Field", year), 
+                           Tech.index_mult("Solar Field", year),
+                           Tech.index_mult("Electrical equipment", year),
+                           Tech.index_mult("Construction Labor", year),
+                           Tech.index_mult("Engineering Supervision", year),
+                           Tech.index_mult("CE INDEX", year),
+                           Tech.index_mult("Furnace", 2011),
+                           Tech.index_mult("BatteryStorage", year)]    
+        
+        # in order: Module, Inverter, balance of system, installation labor, permitting/environmental studies
+  
+        cap_dict = {
+                "utility50": (0.47,0.05,0.25,0.11,0.11,0.22),
+                "utility10": (0.47,0.05,0.30,0.12,0.11,0.30), 
+                "utility5": (0.47,0.05,0.30,0.12,0.11,0.30),
+                "commercial": (0.32,0.07,0.25,0.12,0.11,0.65)
+                }
+        
+        if self.sys_size > 50000:
+            key = "utility50"
+        elif self.sys_size >= 10000:
+            key = "utility10"
+        elif self.sys_size >= 5000:
+            key = "utility5"
+        else:
+            key = "commercial"
+            
+        module, inverter, bos, instlab, permit, overhead = \
+            (self.sys_size * 1000 * i for i in cap_dict[key])
+            
+        if self.storeval:
+            capex_batt = (self.storeval*335 + 4*292)
+        else:
+            capex_batt = 0
+            
+        #add RH costs
+        capex_rh = self.design_load * 553000/ 1.05
+        
+        capex = [module, inverter, bos, instlab, permit, overhead, capex_rh, capex_batt]       
+        # contingency
+        ctg = 0.2
+        
+        self.landarea = 42250 * 0.000247105 * self.mult
+        
+        # capital value
+        self.cap_val = (1+ctg) * sum(a * b for a, b in zip(deflate_capital, capex))
+        
+    def get_efficiency(self):
+        return 0.86*(100-self.meltloss)/100   
 
 class Boiler(Tech):
     """
@@ -662,6 +1038,11 @@ class Boiler(Tech):
         ESTCP -> cost performance report
         
         APH + economizer -> aph not used due to NOX increase
+        
+        part load efficiency curve new type boiler
+            https://github.com/NREL/EnergyPlus/blob/b9cb942be372e765a93aa96cd02d72597ccab895/datasets/Boilers.idf
+            or https://www.osti.gov/servlets/purl/6519
+            use osti one for now
     """
     
     def __init__(self,county, hload,fuel):
@@ -669,22 +1050,25 @@ class Boiler(Tech):
         Tech.__init__(self, county, hload, fuel)
         
         """ Temp in Kelvins, heat load in kW """
-        self.economizer = False
-        
-        # Imported values
+
+        # Imported values - 75% efficiency at lowest bound for sizing - margin of error for safety
         self.eff_dict = {"NG": [70,75], "COAL": [75,85], "PETRO": [72,80]}
-        
-        if self.economizer:
-            self.eff_dict = {"NG": [75,80], "COAL": [80,90], "PETRO": [77,85]}
             
         # Format String processing
+        if self.mult > 0:
+            self.peak_load = self.mult
+            
         self.design_load = self.peak_load * 0.00341 / (self.eff_dict[self.fuel_type][1]/100) #specific to boilers
         self.dep_year = 15
         
         # process csv file from data request. Use incidence rate as likelihood 
         self.incrate = 0.1
-        
+        # efficiency improvement
+        self.inc_eff = 100
+        self.eff_cost = 0
         self.tech_type = "BOILER"
+        self.sys_size = self.peak_load
+        self.load_met = np.array(self.load_8760)
 
         # Boiler Sizing Function
         def select_boilers():
@@ -754,33 +1138,53 @@ class Boiler(Tech):
                 return [list(Counter(boiler_list).keys()), list(Counter(boiler_list).values())]
             
         self.boiler_list = select_boilers()
-            
-        self.incrate = 0.1      
+                
     def get_efficiency(self):
 
         """
         
             Efficiency defined by iea technology brief
             by fuel type (full load) - coal: 85% oil: 80% NG:75%
-        
+            quintic fit - since generalizability not necessary for 1 eff curve
+            y = 11.534x5 - 34.632x4 + 39.736x3 - 21.955x2 + 6.2306x + 0.0967
         """
+
+
+# =============================================================================
+#         # Old Boiler Efficiency part load
+#         maxeff = self.eff_dict[self.fuel_type][1]
+#         #mineff = self.eff_dict[self.fuel_type][0]
+#         def boiler_eff(pload):
+#             c0 = 0.0967 
+#             c1 = 6.2306 * pload
+#             c2 = -21.955 * pload**2
+#             c3 = 39.736 * pload**3
+#             c4 = -34.632 * pload**4
+#             c5 = 11.534 * pload**5
+#             return sum([c0,c1,c2,c3,c4,c5])
+#         
+#         effmap = [min(self.inc_eff/100 * maxeff * boiler_eff(load/self.peak_load) / 100,1)
+#                   for load in self.load_8760] 
+# =============================================================================
+        # jingyi Boiler Efficiency Part Load
         
-        # Linear interpolation between min and maxeff
-        maxeff = self.eff_dict[self.fuel_type][1]
-        mineff = self.eff_dict[self.fuel_type][0]
-        effmap = [(mineff + (maxeff-mineff) * load/self.peak_load) / 100 for load in self.load_8760] 
+        def boiler_eff(pload):
+            return -0.1574 * pload**2 + 0.2697 * pload + 0.7019
+               
+        effmap = [min(self.inc_eff/100 * boiler_eff(load/self.peak_load),1)
+                  for load in self.load_8760] 
         
         return effmap
     
 
-    def om(self,capacity = 1, shifts = 0.75, ash = 6):
+    def om(self,capacity = 1, shifts = 1, ash = 6):
 
         """ 
         
             all the om equations do not include fuel or any sort of taxes
             labor cost cut by factor of 0.539 bc not designing new power plant - field-erected only
             - EPA cited
-            - use only 0.75 shifts -> unlikely new person will be hired
+            - shifts = 1 person operates multiple boilers... assume just 1 large boiler
         """
 
         cap = capacity
@@ -790,39 +1194,38 @@ class Boiler(Tech):
         
         # price deflation
         deflate_price = [
-                         Tech.index_mult("CE INDEX", year), 
-                         Tech.index_mult("CE INDEX", year), 
-                         Tech.index_mult("Construction Labor", year),
-                         Tech.index_mult("Engineering Supervision", year),
-                         Tech.index_mult("Construction Labor", year),
-                         Tech.index_mult("Equipment", year),
-                         Tech.index_mult("CE INDEX", year),
+                         Tech.index_mult("Industrial Chemicals", year), 
+                         Tech.index_mult("Engineering Supervision", year), 
+                         Tech.index_mult("Engineering Supervision", 2018),
+                         Tech.index_mult("Engineering Supervision", 2018),
+                         Tech.index_mult("Engineering Supervision", 2018),
+                         Tech.index_mult("Heat Exchangers and Tanks", year),
+                         Tech.index_mult("Engineering Supervision", 2018),
                         ]
         
         def om(cap, shifts, ash, hload, count = 1):
-            """Assume 18% similar to times model -> VT_EPA"""
-            
-            return 0.18*(25554*hload + 134363) * deflate_price[5] * count
+            """Assume 5% from european report"""
+            return 0.05*(25554*hload + 134363) * deflate_price[3] * count
 
         def om1(cap, shifts, hload, ash, HV = 20.739, count = 1): 
 
             u_c = cap / 0.60 * (hload / (0.00001105 * hload + 0.0003690)) * (11800/(HV*500)) ** 0.9 * (ash/10.6) ** 0.3
             a_d = cap / 0.60 * 700 * hload * (11800/(HV*500)) ** 0.9 * (ash/10.6) ** 0.3 * 0.38
-            d_l = (shifts*2190)/8760 * (38020 * math.log(hload) + 28640) * 30.62/23.32 #bls divided by inflated labor price in document
-            s = (shifts*2190)/8760 * ((hload+5300000)/(99.29-hload)) * 30.62/23.32
-            m = (shifts*2190)/8760 * ((hload+4955000)/(99.23-hload)) * 30.62/23.32
+            d_l = (shifts*2190)/8760 * (38020 * math.log(hload) + 28640) 
+            s = (shifts*2190)/8760 * ((hload+5300000)/(99.29-hload)) 
+            m = (shifts*2190)/8760 * ((hload+4955000)/(99.23-hload)) 
             r_p = (1.705 * 10 ** 8 *hload - 2.959 * 10 ** 8)**0.5 * (11800/(HV*500)) ** 1.0028 
             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
-            
+
             return sum(a * b for a, b in zip(deflate_price, [u_c, a_d, d_l, s, m, r_p, o])) * count
 
         def om2(cap, shifts, hload, ash, HV = 28.608, count = 1):
 
             u_c = cap * (29303 + 719.8 * hload)
             a_d = cap * 0.38 * (547320 + 66038 * math.log(ash/(HV*500))) * (hload/150) ** 0.9754
-            d_l = (shifts*2190)/8760 * (202825 + 5.366*hload**2) * 0.539 * 30.62/23.32
-            s = (shifts*2190)/8760 * 136900 * 0.539 * 30.62/23.32
-            m = (shifts*2190)/8760 * (107003 + 1.873* hload**2) * 0.539 * 30.62/23.32
+            d_l = (shifts*2190)/8760 * (202825 + 5.366*hload**2) * 0.539 
+            s = (shifts*2190)/8760 * 136900 * 0.539 
+            m = (shifts*2190)/8760 * (107003 + 1.873* hload**2) * 0.539 
             r_p = (50000 + 1000 * hload) * 0.539
             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
@@ -832,9 +1235,9 @@ class Boiler(Tech):
 
             u_c = cap * (189430 + 1476.7 * hload)
             a_d = cap*(-641.08 + 70679828*ash/(HV*500))*(hload/200) ** 1.001 * 0.38
-            d_l = (shifts*2190)/8760 * (244455 + 1157 * hload) * 0.539 * 30.62/23.32
-            s = (shifts*2190)/8760 * (243895 - 20636709/hload) * 0.539 * 30.62/23.32
-            m = (shifts*2190)/8760 *(-1162910 + 256604 * math.log(hload)) * 0.539 * 30.62/23.32
+            d_l = (shifts*2190)/8760 * (244455 + 1157 * hload) * 0.539 
+            s = (shifts*2190)/8760 * (243895 - 20636709/hload) * 0.539 
+            m = (shifts*2190)/8760 *(-1162910 + 256604 * math.log(hload)) * 0.539 
             r_p = (180429 + 405.4 * hload) * 0.539
             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
@@ -842,26 +1245,38 @@ class Boiler(Tech):
 
         def om4(cap, shifts, hload, ash, HV = 28.608, count = 1):
       
-            u_c = cap/0.45 * (580 * hload + 3900)
-            d_l = (shifts*2190)/8760 * 105300 * 30.62/23.32
-
-            if hload < 15:
-                s = (shifts*2190)/8760 * (hload - 5)/10 * 68500 * 30.62/23.32
-                m = (shifts*2190)/8760 * (1600 * hload + 8000) * 30.62/23.32
-            else:
-                s = (shifts*2190)/8760 * 68500 * 30.62/23.32
-                m = (shifts*2190)/8760 * 32000 * 30.62/23.32
-            r_p = 708.7 * hload + 4424 
-            o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
+# =============================================================================
+#             u_c = cap/0.45 * (580 * hload + 3900)
+#             d_l = (shifts*2190)/8760 * 105300 * 30.62/23.32
+# 
+#             if hload < 15:
+#                 s = (shifts*2190)/8760 * (hload - 5)/10 * 68500 * 30.62/23.32
+#                 m = (shifts*2190)/8760 * (1600 * hload + 8000) * 30.62/23.32
+#             else:
+#                 s = (shifts*2190)/8760 * 68500 * 30.62/23.32
+#                 m = (shifts*2190)/8760 * 32000 * 30.62/23.32
+#             r_p = 708.7 * hload + 4424 
+#             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
+# =============================================================================
+            #use costs from cost breakdown instead
+            u_c = 771.36*hload + 2101.6 #electricity + chemical costs
+            #direct labor (how many shifts/year of work is being dedicated)
+            d_l = 62150 * (shifts*2190)/8760
+            s = 0 #No supervision required
+            m = 16000/105300 * 62150  * (shifts*2190)/8760 
+            r_p = 708.72 * hload + 4424.3 #replacement parts
+            o = 0.23 *(d_l+m+s) #burden rate of 23% 
+            
+            #preserve maint/d_l cost when adjusting d_l
     
             return sum(a * b for a, b in zip(deflate_price, [u_c, 0, d_l, s, m, r_p, o])) * count
 
         def om5(cap, shifts, hload, ash, HV = 28.608, count = 1):
 
             u_c = cap/0.55 * (202 * hload + 24262)
-            d_l = (shifts*2190)/8760 * (hload**2/(0.0008135 * hload - 0.01585)) * 30.62/23.32
-            s = (shifts*2190)/8760 * 68500 * 30.62/23.32
-            m = (shifts*2190)/8760 * (-1267000/hload + 77190) * 30.62/23.32
+            d_l = (shifts*2190)/8760 * (hload**2/(0.0008135 * hload - 0.01585)) 
+            s = (shifts*2190)/8760 * 68500 
+            m = (shifts*2190)/8760 * (-1267000/hload + 77190) 
             r_p = 7185 * hload ** 0.4241
             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
 
@@ -870,9 +1285,9 @@ class Boiler(Tech):
         def om6(cap, shifts, hload, ash, HV = 28.608, count = 1):
 
             u_c = cap * (43671.7 + 479.6 * hload)
-            d_l = (shifts*2190)/8760 * (173197 + 734 * hload) * 0.539 * 30.62/23.32
-            s = (shifts*2190)/8760 * (263250 - 30940000 / hload) * 0.539 * 30.62/23.32
-            m = (shifts*2190)/8760 * (32029 + 320.4 * hload) * 0.539 * 30.62/23.32
+            d_l = (shifts*2190)/8760 * (173197 + 734 * hload) * 0.539 
+            s = (shifts*2190)/8760 * (263250 - 30940000 / hload) * 0.539 
+            m = (shifts*2190)/8760 * (32029 + 320.4 * hload) * 0.539
             r_p = (50000 + 250 * hload) * 0.539
             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) * 0.539  
 
@@ -894,19 +1309,20 @@ class Boiler(Tech):
        
         # all cost attributes
         self.om_val = cost
-        self.elec_gen = 0 
+        self.elec_gen = np.array([0 for i in range(8760)])
         eff_map = self.get_efficiency()
-        self.fc = (3600 * sum([a/b for a,b in zip(self.load_8760, eff_map)]) / self.hv_vals[self.fuel_type])
+        self.fc = (3600 * sum([a/b for a,b in zip(self.load_8760, eff_map)]) / self.hv_vals)
         self.decomm = 0
         self.em_costs = self.get_emission_cost(eff_map)
-        
+
     def capital(self):
         
         """ capital cost models do not include contingencies, land, working capital"""
         
         year = 1978
 
-        deflate_capital = [Tech.index_mult("Equipment", year), Tech.index_mult("Equipment", year), 
+        deflate_capital = [Tech.index_mult("Heat Exchangers and Tanks", year), 
+                           Tech.index_mult("Heat Exchangers and Tanks", year), 
                            Tech.index_mult("CE INDEX", year) ]
         
         def cap(hload, count = 1):
@@ -939,10 +1355,17 @@ class Boiler(Tech):
             return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
         
         def cap4(hload, count = 1):
-            
-            equip = 15981 * hload ** 0.561
-            inst = 4261 * hload + 56041
-            i_c = 2256 * hload + 28649
+            # adjust these values below in the future- more costs than necessary 
+# =============================================================================
+#             equip = 15981 * hload ** 0.561
+#             inst = 4261 * hload + 56041
+#             i_c = 2256 * hload + 28649
+# =============================================================================
+            # refer to boiler cost spreadsheet
+            equip = 2540.8 * hload + 27867
+            #everything excluding buildings
+            inst = 2702.3 * hload + 28496
+            i_c = 1677.8 * hload + 20036
             
             return sum(a * b for a, b in zip(deflate_capital, [equip, inst, i_c])) * count
         
@@ -981,8 +1404,9 @@ class Boiler(Tech):
 
         """ for now heating values done manually from Table_A5_...Coal in calculation_data"""
         coal_cap = OrderedDict({'A': cap1, 'B': cap2, 'C': cap3})
-        ng_cap = OrderedDict({'A': cap, 'B': cap4, 'C': cap5, 'D': cap6})
         petro_cap = OrderedDict({'A': cap, 'B': cap4, 'C': cap5, 'D': cap6})
+        ng_cap = OrderedDict({'A': cap, 'B': cap4, 'C': cap5, 'D': cap6})
+
 
         boiler_cap = {'COAL': coal_cap, 'NG': ng_cap, 'PETRO': petro_cap}
         
@@ -997,7 +1421,7 @@ class Boiler(Tech):
         
             def calc_area(hload, count = 1):
                 """ see the csv file with cleaver brooks/babcock boilers. Returns a value in quarter acre"""
-                return (1.68 *hload - 26.1) * count / 1011.714
+                return (1.68 *hload - 26.1) * count / 4046.86
 
             total_land_area = 0
             
@@ -1008,13 +1432,128 @@ class Boiler(Tech):
         
         self.landarea = la()
         
-        eff_cost = 0
+        # add 20% for contingencies as suggested by EPA report
+        self.cap_val = cost_cap * 1.2 + self.eff_cost
+        
+        if mp.deprc:
+            self.landarea = 0
+            self.cap_val = 0
 
-        if self.economizer:
-            eff_cost += 0
+class Furnace(Tech):
+    """
+        Aluminum Melting Furnace Model
+        #refer to model lit word doc for sources
+        #for assume the load profile
+    """
+    
+    def __init__(self,county, hload,fuel):
+        
+        Tech.__init__(self, county, hload, fuel)
+
+        # efficiency dictionary - function of melting furnace type
+        self.eff_dict = {"CRUCIBLE": 19, "REVERB": 40, "TOWER": 48}
+        #theoretical energy to melt 1 ton of aluminum is 500 btu/lb or 293 kwh/ton
+        # 8760 load profile must be actual energy delivered to end source (ie aluminum)
+        self.meltloss = {"CRUCIBLE": 3.5, "REVERB": 3, "TOWER": 2}
+        # design load in ton/hr - energy efficiency doesn't affect steel production -> tons/hr steel
+        if self.mult > 0:
+            self.peak_load = self.mult
+        self.design_load = self.peak_load/293 / ((100 - self.meltloss[mp.furnace])/100)
+        #check if this is fair
+        self.dep_year = 15
+        # process csv file from data request. Use incidence rate as likelihood 
+        self.incrate = 0.1
+        # efficiency improvement
+        self.inc_eff = 100
+        self.eff_cost = 0
+        self.tech_type = "FURNACE"
+        self.sys_size = self.peak_load
+        self.load_met = np.array(self.load_8760)
+        self.plc = pd.read_csv('./calculation_data/furnacepload.csv')
+     
+    def get_efficiency(self):
+
+        """
+            Part load efficiency for aluminum furnace
+        """
+
+        def get_mult(pload):
+            pos = np.searchsorted(np.array(self.plc["percent"]),pload)
+            if pos == 0:
+                return self.plc.loc[pos, "multiplier"]
+            elif pos == 30:
+                return 1
+            else:
+                uvalm = self.plc.loc[pos+1, "multiplier"]
+                lvalm = self.plc.loc[pos-1, "multiplier"]
+                uvalp = self.plc.loc[pos+1, "percent"]
+                lvalp = self.plc.loc[pos-1, "percent"]
+                slope = (uvalm-lvalm)/(uvalp-lvalp)
+
+                return slope * (pload - lvalp) + lvalm
+        #efficiency on 8760 basis 
+        eff = self.eff_dict[mp.furnace] *  (100 -self.meltloss[mp.furnace])/100
+        effmap = [min(eff / get_mult(load/self.peak_load *100) *self.inc_eff/100,1) for load in self.load_8760]
+
+        return effmap
+    
+
+    def om(self,capacity = 1, shifts = 1, ash = 6):
+
+        """ 
+            Aluminum Furnace OM Costs
+            refer to cost spreadsheet
+        """
+        year = 2018
+        #assume labor costs are not normalized to production rate - sum of averages instead
+        # euro to usd in 2018 conversion : 1.18 usd to 1 euro 
+        #normalized to standard (rated production rates)
+        labor = {"CRUCIBLE": 164950/self.design_load , "REVERB": 101434/self.design_load, "TOWER": 154178/self.design_load}
+        maint_labor = {"CRUCIBLE": 4294, "REVERB": 4438, "TOWER": 5068}
+        materials = {"CRUCIBLE": 30190, "REVERB": 3784, "TOWER": 6642}   
+        
+        #cost of lost aluminum based on theoretical since load in theoretical - 0.85/lb - assume no dross sale
+        meltcost = 1700 * sum(self.load_8760)/293 * self.meltloss[mp.furnace] /(100 - self.meltloss[mp.furnace])/self.design_load
+
+        # price deflation                          Tech.index_mult("Engineering Supervision", year),
+        deflate_price = [
+                         Tech.index_mult("Engineering Supervision", year),
+                         Tech.index_mult("Furnace", year),
+                         Tech.index_mult("Aluminum", year)
+                        ]
+        #labor[mp.furnace], 
+        o_m = [maint_labor[mp.furnace], materials[mp.furnace], meltcost]
+
+        # Need to deflate costs where appropriate
+        self.om_val = sum(a * b for a, b in zip(deflate_price, o_m)) * self.design_load
+        self.elec_gen = np.array([0 for i in range(8760)])
+        eff_map = self.get_efficiency()
+        self.fc = (3600 * sum([a/b for a,b in zip(self.load_8760, eff_map)])/self.hv_vals)
+        self.decomm = 0
+        self.em_costs = self.get_emission_cost(eff_map)
+
+    def capital(self):
+        
+        """ Aluminum Capital Costs"""
+        
+        year = 2018
+        cap = {"CRUCIBLE": 147658 , "REVERB": 98607, "TOWER": 135659}
+        deflate_capital = [Tech.index_mult("Furnace", year)]
+        
+       
+        def la():
+            '''
+            get land area for the furnace in acres
+            '''
+            return 0
+        self.landarea = la()
 
         # add 20% for contingencies as suggested by EPA report
-        self.cap_val = cost_cap * 1.2 + self.landarea*self.valperacre + eff_cost
+        self.cap_val = sum(a * b for a, b in zip(deflate_capital, [cap[mp.furnace]*self.design_load])) * 1.2 + self.eff_cost
+         
+        if mp.deprc:
+            self.landarea = 0
+            self.cap_val = 0      
 
 class CHP(Tech):
     def __init__(self,county, hload, fuel):
@@ -1028,16 +1567,20 @@ class CHP(Tech):
         https://www.faberburner.com/resource-center/conversion-charts/emissions-conversions-calculator/
         emission conversions
         
+        https://www.strata.org/pdf/2017/footprints-full.pdf : us power plant land use -> ng est for chp?
         """
         Tech.__init__(self, county, hload, fuel)
         # Not using sys 2 for energy model in excel file
-        self.chp_t = "gas"
-        # MW Load - select within model for now -is this factor really needed with 8760 data?
-        self.avail_fac = 0.9
+        self.chp_t = mp.chp
         self.dep_year = 5
         self.tech_type = "CHP"
         # process csv file from data request. Use incidence rate as likelihood 
         self.incrate = 0.1
+        # efficiency improvement
+        self.inc_eff = 100
+        self.eff_cost = 0
+        self.load_met = np.array(self.load_8760)
+        self.sys_size = self.peak_load
         def get_params(hload):
             # make linear extrapolation assumption
             # R^2 - i_om = 0.782
@@ -1091,34 +1634,39 @@ class CHP(Tech):
         #define fuel eff as a func of load_replaced
         year = 2017
         load_replaced = [(self.peak_load - i)/self.peak_load for i in self.load_8760]
+
         eff_map = list(map(self.get_efficiency, load_replaced))
         
         # removing count for now -this unit is in kwh so cost needs to be per kwh
-        self.elec_gen = -1 * self.avail_fac * [self.char["net_ep"](self.peak_load) * i/self.peak_load for i in self.load_8760]   
-
+        self.elec_gen = self.avail_fac * np.array([self.char["net_ep"](self.peak_load) * i/self.peak_load for i in self.load_8760])
         # since p2h ratio same, just multiply by useful power initially
         net_ep = sum(self.elec_gen)
-        self.om_val = self.avail_fac * self.char["i_om"](self.peak_load) * net_ep * Tech.index_mult("Equipment", year)
+        self.om_val = self.char["i_om"](self.peak_load) * net_ep * Tech.index_mult("Engineering Supervision", year)
         
-        self.decomm = self.char["i_decomm"](self.peak_load)
+        self.decomm = self.char["i_decomm"](self.peak_load) * Tech.index_mult("CHP", year)
         
         fuel_input = self.char["fuel_input"](self.peak_load)
-        self.fc = self.avail_fac * (3600 * sum([fuel_input * eff for eff in eff_map]) /  self.hv_vals[self.fuel_type])
+        self.fc = self.avail_fac * (3600 * sum([fuel_input * eff for eff in eff_map]) / self.hv_vals)
+
 
         self.em_costs = self.get_emission_cost(eff_map)
         
     def capital(self):
         year = 2017
-        deflate_capital = [Tech.index_mult("Equipment", year), Tech.index_mult("Equipment", year), Tech.index_mult("CE INDEX", year)]
+        deflate_capital = [Tech.index_mult("CHP", year), Tech.index_mult("CHP", year), Tech.index_mult("CE INDEX", year)]
         ctg = 0.2 #contingency
         i_equip = self.char["i_equip"](self.peak_load)
         i_install = self.char["i_install"](self.peak_load)
         i_other = self.char["i_other"](self.peak_load)
         
-        self.cap_val = (1+ctg) * sum(a*b for a,b in zip(deflate_capital, [i_equip + i_install + i_other]))
+        #0.343 acres per MW
+        self.landarea = 0.343 * self.char["net_ep"](self.peak_load)/1000
+        
+        self.cap_val = (1+ctg) * sum(a*b for a,b in zip(deflate_capital, [i_equip + i_install + i_other])) + self.eff_cost
         
     def get_efficiency(self, load_replaced):
         
+        self.inc_eff = 100
         if self.chp_t == "gas":
             """provides partial load of CHP for a given system and % load replaced (p_load) """
             index = bisect(self.useful_t, self.peak_load)
@@ -1135,11 +1683,12 @@ class CHP(Tech):
             c = -1 * self.peak_load * (1-load_replaced)/self.char["fuel_input"](self.peak_load)
             a = interp_results[sys][0]
             b = interp_results[sys][1]
-            return (-b + math.sqrt(b**2 - 4*a*c))/(2*a)
+            return min((-b + math.sqrt(b**2 - 4*a*c))/(2*a) *self.inc_eff,1)
 
         if self.chp_t == "steam":
-            
-            load_replaced = [0.6 for x in load_replaced if x > 0.6 ]
+
+            if load_replaced > 0.6:
+                load_replaced = 0.6
             index = bisect(self.useful_t, self.peak_load)
             if not index:
                 sys = 0
@@ -1159,7 +1708,7 @@ class CHP(Tech):
             roots = np.roots(eq)
             mask = (roots <= 1) * (roots >= 0)
             
-            return roots[mask][0]
+            return min(roots[mask][0]*self.inc_eff,1)
 
 
 class TechFactory():
@@ -1168,8 +1717,16 @@ class TechFactory():
         try:
             if form.upper() == "BOILER":
                 return Boiler(county,hload,fuel)
-            if form.upper() == "PVHP":
-                return PVHP(county,hload,fuel)
+            if form.upper() == "FURNACE":
+                return Furnace(county,hload,fuel)
+# =============================================================================
+#             if form.upper() == "EBOILER":
+#                 return Eboiler(county,hload,fuel)
+# =============================================================================
+# =============================================================================
+#             if form.upper() == "PVHP":
+#                 return PVHP(county,hload,fuel)
+# =============================================================================
             if form.upper() == "CHP":
                 return CHP(county,hload,fuel)
             if form.upper() == "PTC":
@@ -1184,17 +1741,20 @@ class TechFactory():
                 return PVEB(county,hload,fuel)
             if form.upper() == "PVRH":
                 return PVRH(county,hload,fuel)
-            if form.upper() == "PVWHR":
-                return PVWHR(county,hload,fuel)
-# =============================================================================
-#             if re.search("EXTENSION",format):
-#                 return Extension(format)
-#             if re.search("REPLACE",format):
-#                 return Replace(format)
-# =============================================================================
             raise AssertionError("No Such Technology")
-        except AssertionError as e:
+        except AssertionError as e: 
             print(e)
             
 if __name__ == "__main__":
-    pass
+    test = TechFactory.create_tech(
+                         'Furnace', '4027',
+                         (0, [35168 for i in range(8760)]), 
+                         (4.00,"NG")
+                        )
+    print(test.capital())
+    print(test.model.cap_val/test.model.sys_size)
+    print(test.sys_size/1000)
+    # https://www.epa.gov/sites/production/files/2015-07/documents/fact_sheet_chp_as_a_boiler_replacement_opportunity.pdf
+    # seems to match the om costs 
+    # CHP om is about 600000 higher 
+    # boiler costs match http://2050-calculator-tool-wiki.decc.gov.uk/cost_sources/61 per kW roughly
