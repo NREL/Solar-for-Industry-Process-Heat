@@ -317,8 +317,7 @@ if __name__ == "__main__":
     import pandas as pd
     test_obj = PrPar()
     print(test_obj.pp_1D("INVESTMENT"))
-    test_obj.solar[0].OM(10)
-    test_obj.comb[0].OM(10)
+
 # =============================================================================
 #     test_obj = PrPar()
 # 

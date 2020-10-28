@@ -16,10 +16,10 @@ from lcoh_config import ParamMethods as pm
 
 assert pm.config["mode"] == "su", "set solar sizing mode to su"
  #, "PTCTES","PTC","PVEB"
-for county in ['47043', '55071', '18005', '21141', '27079', '29113', '39149', '40047', '48181']:
-    print(county)
-    for tech in ["PVRH"]:
-         model = clo.LCOHFactory().create_LCOH(('REPLACE', tech, False, county))
+for county in ['39049', '6037', '12031', '8059', '51095']:
+    for tech in ["DSGLF", "PTCTES", "PTC", "PVEB"]:
+         print(tech + county)
+         model = clo.LCOHFactory().create_LCOH(('REPLACE', tech, -1, county))
          model.calculate_LCOH()
          df = pd.DataFrame()
          df["mult"] = model.mult_l
@@ -31,12 +31,12 @@ for county in ['47043', '55071', '18005', '21141', '27079', '29113', '39149', '4
          investpar = []
          for mult in model.mult_l:
              solarform = [('REPLACE', tech, mult, county)]
-             combform = [("GREENFIELD", pm.config["comb"], 0, county)]
+             combform = [("GREENFIELD", pm.config["comb"], -1, county)]
              parity = pp.PrPar(form = [solarform,combform])
              lcoh.append(parity.solar_current[0][0])
              year0.append(parity.solar[0].year0[0])
-             fuelpar.append(parity.pp_1D("FUELPRICE")[0])
-             investpar.append(parity.pp_1D("INVESTMENT")[0])
+             fuelpar.append(parity.pp_1D("FUELPRICE"))
+             investpar.append(parity.pp_1D("INVESTMENT"))
          df["LCOH (USD Cents/kwh)"] = lcoh
          df["Year0 (USD)"] = year0
          df["Fuel Parity ($/1000 cuf)"] = fuelpar

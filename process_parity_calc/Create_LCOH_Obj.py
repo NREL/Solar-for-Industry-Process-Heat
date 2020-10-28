@@ -25,7 +25,7 @@ class LCOH(metaclass=ABCMeta):
     def __init__(self, form):
         # format processing
         self.sim = False
-        self.measurements = False
+        self.measurements = pm.config["measurements"]["state"]
         self.iter_name = None
         self.form = form
         self.invest_type, self.tech_type, self.mult, self.county = form
@@ -258,13 +258,11 @@ class Greenfield(LCOH):
                     
                 self.em_costs = self.model.em_costs
                 
-                if self.measurements:
-                    #self.m_omcosts = pm.config["measurements"][str(pm.config["naics"])][self.model.tech_type][1]
-                    self.m_omcosts = 0
-                else:
-                    self.m_omcosts = 0 
-                
-                return np.array([(self.model.om_val + self.m_omcosts) * omp * (1 + self.OM_esc) ** t + 
+                if self.tech_type == "BOILER":
+                    ompermitfees = sum(pm.config["permit"]["annual"][self.state_abbr])     
+                    
+                #ompermit fees are escalated using 2% - approx assumption of inflation since permit fees adjusted by CPI
+                return np.array([(self.model.om_val) * omp * (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + 
                                  self.fc + self.ec + self.e_grid_costs + self.em_costs]).flatten()
                 
             self.OM = get_OM
@@ -287,14 +285,9 @@ class Greenfield(LCOH):
                     
                     cmp = self.rand_c
                     lmp = self.rand_l
+                     
                     
-                if self.measurements:
-                    self.m_capcosts = pm.config["measurements"][str(pm.config["naics"])][self.model.tech_type][0]
-                    self.m_capcosts = 0
-                else:
-                    self.m_capcosts = 0    
-                    
-                cap = np.array([self.model.cap_val + self.m_capcosts]) * cmp
+                cap = np.array([self.model.cap_val]) * cmp
                 # land prep costs : https://www.nrel.gov/docs/fy12osti/53347.pdf
                 if self.tech_type not in ["BOILER", "EBOILER", "CHP", "FURNACE"]:
                     site_prep = 25000
@@ -302,8 +295,11 @@ class Greenfield(LCOH):
                     site_prep = 0
 
                 land = (lmp + site_prep) * np.array([self.model.landarea])
+                
+                if self.tech_type == "BOILER":
+                    permitfees = sum(pm.config["permit"]["year0"][self.state_abbr])
 
-                return [cap,land]
+                return [cap,land + permitfees]
 
             self.capital = get_capital
             
@@ -342,29 +338,6 @@ class Greenfield(LCOH):
         # convert to cents USD/kwh  
         self.year0 = undiscounted
         return (undiscounted + total_d_cost)/t_energy_yield * 100
-
-    def optimize(self):    
-
-     if self.tech_type in ["BOILER", "CHP"]:
-         eff_cost = [100000,500000,1000000]
-         # % efficiency improvement
-         eff_imp = [50,20,10]
-         
-         lcoh = []
-
-         for i in range(len(eff_cost)):
-             self.model.eff_cost = eff_cost[i]
-             self.model.inc_eff += eff_imp[i]
-             self.model.capital()
-             self.model.om()
-             lcoh.append(self.calculate_LCOH())
-             self.model.eff_cost = 0 
-             self.model.inc_eff = 100
-
-         self.model.inc_eff += eff_imp[np.argmin(lcoh)]
-         self.model.eff_cost = eff_cost[np.argmin(lcoh)]
-         self.model.capital()
-         self.model.om()
 
     def simulate(self, a_type, no_sims = 100):
         
@@ -473,10 +446,10 @@ class Replace(LCOH):
                         (mult, (1 - pm.config["td"]) * self.load_8760), 
                         (self.fuel_price,self.fuel_type)
                         ) 
-                return (smodel.su, smodel.sf, mult)
+                return (smodel.su, sum(smodel.load_met)/sum(self.load_8760), mult)
 
-            #   upper bound on bisection
-            upper = 50
+            #   upper bound on bisection - MW of system
+            upper = 5
             
             if mode == "default":
                 return -1
@@ -484,7 +457,7 @@ class Replace(LCOH):
             #code below- do while for target solar frac - sf will stop at target while su will use
             # sf setting as the minimum sf (lower bound) for root search
             mult = bisection(get_sf,0,upper,50)
-    
+
             # get maximum possible solar fraction 
             while mult == None:
                 self.sf -= 0.01
@@ -606,13 +579,13 @@ class Replace(LCOH):
                         ind = np.argmin(diff[start[month] : start[month] + length[month]])
                         peakind.append(ind)
                         peaks.append(self.smodel.elec_gen[ind])
-                    print(peaks)
+
                     if type(self.edrate) == list:
                         peakrates = np.array([self.edrate[i] for i in peakind])
                         demand_cost = sum(np.array(peaks) * peakrates)
                     else:
                         demand_cost = sum(self.edrate*np.array(peaks))
-                    print(mit_cost, demand_cost)
+      
                     return mit_cost + demand_cost   
 
                 self.ec = -1 * get_elec_cost() *(1 + self.elec_esc)**t
@@ -626,7 +599,12 @@ class Replace(LCOH):
                     self.m_omcosts = [0,0]
                 else:
                     self.m_omcosts = [0,0]
-                return np.array([(self.smodel.om_val + self.dmodel.om_val + sum(self.m_omcosts)) * omp * (1 + self.OM_esc) ** t + self.fc + self.ec]).flatten()
+
+                if self.dmodel.tech_type == "BOILER":
+                    ompermitfees = sum(pm.config["permit"]["annual"][self.state_abbr]) 
+
+                return np.array([(self.smodel.om_val + self.dmodel.om_val + sum(self.m_omcosts)) * omp * \
+                                 (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + self.fc + self.ec]).flatten()
                 
             self.OM = get_OM
 
@@ -651,19 +629,10 @@ class Replace(LCOH):
                     lmp = np.array([self.rand_l, self.rand_l])
                     
                 site_prep = 25000    
-                
-                if self.measurements:
-                    self.m_capcosts = 0
-# =============================================================================
-#                         np.array([pm.config["measurements"][str(pm.config["naics"])][self.smodel.tech_type][0],
-#                          pm.config["measurements"][str(pm.config["naics"])][self.dmodel.tech_type][0]]).reshape(-1,1)
-# =============================================================================
-                else:
-                    self.m_capcosts = np.array([0,0]).reshape(-1,1)
                     
-                cap = np.array([0, self.smodel.cap_val]).reshape(-1,1) + self.m_capcosts
+                cap = np.array([0, self.smodel.cap_val]).reshape(-1,1) 
                 cap = np.multiply(cap, cmp)
-                
+                                    
                 land = np.multiply(np.array([0, self.smodel.landarea]).reshape(-1,1), lmp + site_prep)
                 return [cap,land]
                         
@@ -804,8 +773,8 @@ if __name__ == "__main__":
 # =============================================================================
     cost = []
     #''PVEB', "DSGLF", "PTC", "PTCTES","CHP", 
-    for i in ['PVEB']:
-        test1 = LCOHFactory().create_LCOH(('REPLACE', i, -1, '6037'))
+    for i in ['BOILER']:
+        test1 = LCOHFactory().create_LCOH(('Greenfield', i, -1, '6037'))
         print(test1.calculate_LCOH())
 # =============================================================================
 #         for j in np.linspace(0.5,10.5,21):

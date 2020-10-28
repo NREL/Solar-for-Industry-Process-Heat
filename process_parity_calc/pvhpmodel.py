@@ -7,7 +7,7 @@ Created on Wed Apr  8 17:27:40 2020
 
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr  6 17:30:47 2020
+Created on Mon Apr 6 17:30:47 2020
 
 By vectorizing it took ~20 seconds to run the entire simulation. 
 In comparison, for loops in MATLAB take 90 seconds and no vectorization + simple modifications takes 2500 seconds. 
@@ -35,12 +35,14 @@ if stop.lower() == "stop":
     sys.exit()
 
 t0 = time.time()
+
+#Adjust below accordingly
 path = "./calculation_data"
 PVfilename = "SAM_PV_Model Output_Hourly Data USA.xlsx"
 
-#INITIAL VARIABLE SETUP
+
 # Load main PV Yield Outputs with geographic information
-cities = np.array(['Austin, TX', 'Baton Rouge, LO', 'Denver, CO', 'Lancaster, CA', 'Pittsburg, PA']) # 5x1
+cities = np.array(['Austin, TX', 'Baton Rouge, LO', 'Denver, CO', 'Lancaster, CA', 'Pittsburg, PA']) 
 nSN = len(cities)
 
 # Set Value Ranges
@@ -48,49 +50,46 @@ TProRet = np.array([[90, 70], [80, 50], [70, 45]]) # 3 x2. Units of Celsius
 nTPR = np.shape(TProRet)[0]
 
 # Load main file with the process load profiles
-load = pd.read_csv(os.path.join(path,"load_profile.csv")).to_numpy() # 8760 x n (n=1 currently).
-nLP = np.shape(load)[1] # only 1 column atm it seems
+load = pd.read_csv(os.path.join(path,"load_profile.csv")).to_numpy() 
+nLP = np.shape(load)[1] 
 
-LoadSize = np.array([100, 1000, 10000]).reshape(3,1) # 1 x 3 - units = dimensionless -> loadsize in kW (small plant)
+LoadSize = np.array([100, 1000, 10000]).reshape(3,1) 
 nLPS = len(LoadSize)
 
-PVSizing = np.linspace(0.0025, 0.1, 40).reshape(40,1) # 40 x 1. Units = kWp(elec)/kWh*day   (kWp electric based on energy processes uses in 1 day)
+PVSizing = np.linspace(0.0025, 0.1, 40).reshape(40,1) 
 nPVsize = np.shape(PVSizing)[0]
 
-StoreVolume = np.array(range(0,21)).reshape(1,21)# 1 x 21. Units = kWhth/kWpth of PVHP system
+StoreVolume = np.array(range(0,21)).reshape(1,21)
 nSV = np.shape(StoreVolume)[1]
 
-num_sims = nSN * nTPR * nLP * nLPS * nSV * nPVsize #37800
+num_sims = nSN * nTPR * nLP * nLPS * nSV * nPVsize 
 
 SAMPVOutput = pd.read_excel(os.path.join(path, PVfilename), sheet_name = None)
 
-#CREATE SIMULATION nD ARRAYS
+#define arrays
 
 TambC = np.array([SAMPVOutput[a]["Tamb (C)"].to_numpy() for a in cities]) # Celsius
 Tambmean = np.mean(TambC, axis=1).reshape(nSN,1) # Celsius
 Tambmax = np.max(TambC, axis=1).reshape(nSN,1) # Celsius
-# TPro1-> TPro3 for 3 rows, Cities 1->5 columns so row index * column index gives the index of the flattened array
 COPmax = np.array([0.0006652 * a ** 2 - 0.001948 * a * Tambmax + 0.00063526 * Tambmax ** 2 - 0.12737 * a + 0.17914 * Tambmax + 7.80747 
-                   for a in TProRet[:,0]]).reshape(nTPR,nSN,1,1) # 1 x 15 
-print(COPmax)
-PVkWInstall = (PVSizing * LoadSize.T) # 40 x 3  nPVsize x nLPS. Units = kWp(elec)/kWh*day 
+                   for a in TProRet[:,0]]).reshape(nTPR,nSN,1,1)
 
-PeakHeating = COPmax * PVkWInstall.reshape(1,1,nPVsize,nLPS) # 3 x 5 x 40 x 3, nTPR x nSN x nPVsize x nLPS. Units = kWhth
+PVkWInstall = (PVSizing * LoadSize.T)# Units = kWp(elec)/kWh*day 
 
-LPkW = LoadSize * load.T #3 x 8760 ->  nLPS x hourly. Units = kWh
+PeakHeating = COPmax * PVkWInstall.reshape(1,1,nPVsize,nLPS) #Units = kWhth
 
-StorekWh = StoreVolume.reshape(nSV,1,1,1,1) * PeakHeating.reshape(1,nTPR,nSN,nPVsize,nLPS) # 21 x 3 x 5 x 40 x 3. nSV x nTPR x nSN x nPVsize x nLPS Units = kWh
+LPkW = LoadSize * load.T #Units = kWh
 
-Storem3 = (StorekWh*3600)/(4190) # 21 x 3 x 5 x 40 x 3  nSV x nTPR x nSN x nPVsize x nLPS. Units = m3
+StorekWh = StoreVolume.reshape(nSV,1,1,1,1) * PeakHeating.reshape(1,nTPR,nSN,nPVsize,nLPS)# Units = kWh
+
+Storem3 = (StorekWh*3600)/(4190) #Units = m3
 
 for i in range(nTPR):
     Storem3[:,i,:,:,:] = Storem3[:,i,:,:,:] / (TProRet[i,0] - TProRet[i,1])
     
-#Extract other stuff
-    
-GHI = np.array([SAMPVOutput[a]["GHI (W/m2)"].to_numpy() for a in cities]) # 5 x 8760
+GHI = np.array([SAMPVOutput[a]["GHI (W/m2)"].to_numpy() for a in cities]) # units in W/m2
 
-PV_OutputAC = np.array([SAMPVOutput[a]["AC Energy (MWhe)"].to_numpy() for a in cities]) # 5x 8760. Units = kWAC/kW_dc installed
+PV_OutputAC = np.array([SAMPVOutput[a]["AC Energy (MWhe)"].to_numpy() for a in cities])# Units = kWAC/kW_dc installed
 
 #Begin Hourly Simulation here
 
@@ -101,7 +100,7 @@ COPhourly = np.array([0.0006652 * a ** 2 - 0.001948 * a * TambC + 0.00063526 * T
                     
 PVHPyield = np.broadcast_to(PV_OutputAC, (nTPR,nSN,8760)).reshape(nTPR,nSN,1,1,8760) * COPhourly.reshape(nTPR,nSN,1,1,8760) * np.repeat(PVkWInstall[:,:, np.newaxis], 8760, axis=2).reshape(1,1,nPVsize,nLPS,8760)
 
-#EXPAND SIMULATION ARRAYS TO FULL SIZE
+# vectorizing simulation arrays
 StorageStatus = []      
 HeatDump = []
 ElecDump = []
@@ -128,13 +127,13 @@ for i in range(8760):
         
         Eavail.append(PVHPyield[:,:,:,:,:,i] + StorageStatus[i-1])
       
-    LP_Remain.append(LPkW[:,:,:,:,:,i] - Eavail[i]) # units = kWh?
+    LP_Remain.append(LPkW[:,:,:,:,:,i] - Eavail[i]) # units = kWh
     
     temp_storage = np.zeros((21,3,5,40,3), dtype = np.float32)
     temphdump = np.zeros((21,3,5,40,3), dtype = np.float32)
     tempedump = np.zeros((21,3,5,40,3), dtype = np.float32)
     
-    mask1 = (abs(LP_Remain[i]) <= StorekWh) & (LP_Remain[i] < 0) # locations of leftover load
+    mask1 = (abs(LP_Remain[i]) <= StorekWh) & (LP_Remain[i] < 0)
     mask2 =(abs(LP_Remain[i]) > StorekWh) & (LP_Remain[i] < 0)
     
     temp_storage[mask1] = abs(LP_Remain[i][mask1])
@@ -169,7 +168,7 @@ PVCapEx = USDperWattPV*PVkWInstall*1000 # USD
 USDperkWthHP = 4000 *(PeakHeating) ** -0.558 # USD/kW installed -
 HPCapEx = USDperkWthHP*PeakHeating # USD
 
-#make a copy with same dimensions -> inherently assign 0 storem3 to 0 USD cost
+#
 USDperm3Store = Storem3
 USDperm3Store[Storem3 > 400] = 11680*np.float_power(Storem3[Storem3 > 400], -0.5545) + 130
 
@@ -188,10 +187,6 @@ SpecCapExPVHP = CapEx_PVHP/PeakHeating # ($/kW)
 # financial input parameters, Carbon taxes/credits,
 # etc to show lower LCOH
     
-# create a function to do all the LCOH Calculations
-    
-# LCOH, various carbon prices, and financial
-# parameters
     
 years = 20;                       
 
@@ -271,14 +266,6 @@ SV = np.array([[StoreVolume[0,:][i]]*1800 for i in range(len(StoreVolume[0,:]))]
 PVkW = np.repeat(PVSizing.flatten()[:, np.newaxis], nLPS, axis = 1)
 PVkW = np.broadcast_to(PVkW,(nSV,nTPR,nSN,nPVsize,nLPS)).flatten()
 
-
-#StorekWH can be flattened
-#Storem3 can be flattened
-#PVkWInstall can be flattened
-#PeakHeating can be flattened
-#max LPkW can be flattened
-#sum LPkW /8760 is obvious
-
 Main_Inputs = pd.DataFrame({"Location": a, "T Process (C)": Tpro, "T return (C)": Tret, "Load Profile Type": c, "Load Size (kWh*day)": LS,
                            "Storage Size (kWh/kWp)": SV, "Storage (kWh)": StorekWh.flatten(), "Storage (m3)": Storem3.flatten(), "PVkW Scale (kW/kWp Process)": PVkW,
                            " PVkW Installed (kWel)": PVkWInstall.flatten(), "PVHP Design Output (kWth)": PeakHeating.flatten(),
@@ -293,7 +280,7 @@ Main_Results = pd.DataFrame({"PV Yield (kWhe)": PV_OutputAC.flatten(), "PVHP Yie
 
 Summary_Matrix = pd.concat([Main_Inputs, Main_Meteo, Main_Results, Financial_Results], axis = 1)
 
-Summary_Matrix.to_csv("./calculation_data/pvhp_sim.csv")
+#Summary_Matrix.to_csv("./calculation_data/pvhp_sim.csv")
 
 t1 = time.time()
 print("The script run time is: ", t1-t0)

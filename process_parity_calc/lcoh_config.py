@@ -20,10 +20,9 @@ class ParamMethods:
     land_price = pd.read_csv(os.path.join(path, "landprices.csv"), index_col = 0)
     agland_price = pd.read_csv(os.path.join(path, "aglandprices.csv"), index_col = 0)
     #
-    mset1 = [44089,749]
     mset2 = [43756, 746]
     config = {"fuel" : "NG", 
-          "ptime": np.array([20]),
+          "ptime": np.array([25]),
           "discount": {"BOILER": 0.0658, "CHP": 0.0658, "PVHP": 0.0658, "PTC" : 0.0658, 
                        "PTCTES" : 0.0658, "DSGLF" : 0.0658, "SWH": 0.0658, "PVEB" : 0.0658,
                        "PVRH" : 0.0658, "FURNACE": 0.0658, "EBOILER": 0.0658},
@@ -32,21 +31,24 @@ class ParamMethods:
           "op_hour": "avg",
           "omesc": np.array([0.02]),
           "elecesc": np.array([0.0125]),
-          "sf": 0.2, 
+          "sf": 0.05, 
           "comb": "BOILER",
           "td": 0.25,
           "srange": 0.5,
           #mode in sf or su or default
-          "mode" : "sf",
+          "mode" : "su",
           #fuel usage reduction is in kw
-          "measurements": {
-                          "312120": {"BOILER": mset1, "CHP" : mset2, "PTC" : mset2, 
+          "measurements": {"state" : False,
+                          "312120": {"BOILER": mset2, "CHP" : mset2, "PTC" : mset2, 
                                      "PTCTES" : mset2, "DSGLF" : mset2, "PVEB" : mset2,
-                                     "EBOILER": mset2, "FUEL": 282.5 },
+                                     "EBOILER": mset2, "FUEL": 264.9 },
                           "331524": 
                               {"BOILER": 0.0658, "CHP": 0.0658, "PVHP": 0.0658, "PTC" : 0.0658, 
                               "PTCTES" : 0.0658, "DSGLF" : 0.0658, "SWH": 0.0658, "PVEB" : 0.0658,
-                              "PVRH" : 0.0658, "FURNACE": 0.0658, "EBOILER": 0.0658}}
+                              "PVRH" : 0.0658, "FURNACE": 0.0658, "EBOILER": 0.0658}},
+          "permit": {"year0": {"CA": [2724.67, 7356.83, 2676.30], "FL": [5000,250,1500], "VA": [11192], "CO": [4649.16], "OH": [100,100]},
+                     "annual": {"CA": [1135.61, 457.69], "FL": [300], "VA": [0], "CO": [216, 216.24], "OH": [170]}}
+                            
         }
     with open('./calculation_data/elec_curve.json') as f:
         elec_curves = json.load(f)

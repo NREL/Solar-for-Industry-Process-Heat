@@ -20,6 +20,11 @@ class ModelParams:
      sizing = "peakload"
      #caps only
      furnace = "REVERB"
+     boilereff = False
+     #flue gas monitoring/process control, automatic steam trap monitoring, economizer
+     boilereffcap = [84, 250, 20913]
+     boilereffom = [0, 2.5, 0]
+     boilereffinc = [0.0109, 0.0882/100, 0.0914]
      
      gen_dict= {"DSGLF": "dsg_lf_gen.json", "PTC": "ptc_notes_gen.json", 
                 "PTCTES": "ptc_tes_gen.json", "SWH": "swh_gen.json",

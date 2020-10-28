@@ -165,7 +165,13 @@ class Tech(metaclass=ABCMeta):
             self.su = sum(self.load_met/eff)/sum(self.gen)
         # solar fraction - only for greenfield
         self.sf = sum(self.load_met)/sum(self.load_8760)
-
+        
+        #check land area
+        self.avland = pd.read_csv("./calculation_data/county_rural_ten_percent_results_20200330.csv", usecols = [0,1])
+        landareas = {"PVRH": 35208, "PVEB": 35208, "DSGLF": 3698, "SWH": 2024, "PTCTES": 16187 , "PTC": 8094}
+        assert self.mult * landareas[self.tech_type]/10**6 <=  self.avland.loc[self.avland["County FIPS"] == int(self.county)]["County Area km2"].values[0], \
+        "land area exceeded"
+        
     def get_emission_cost(self, eff_map, target = False):
         '''
         target emissions is a function of peak load of boiler (size) will be 
@@ -453,7 +459,7 @@ class Tech(metaclass=ABCMeta):
                 return min([var_cost,cap]) + fix_cost
             
         em_cost = get_reg_costs()
-        
+
         return em_cost + reduc_cost
         
 
@@ -494,13 +500,9 @@ class DSGLF(Tech):
         siteimprov = aperture * 20
         solarfield = aperture * 150
         HTF = aperture * 35
-        capex = [siteimprov,solarfield,HTF]
-        
-        self.landarea = 3698 * 0.000247105 * self.mult
-        
+        capex = [siteimprov,solarfield,HTF]    
         indirect = 0.185
         
-
         self.om_val = 0.02* (1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
         
 # =============================================================================
@@ -576,8 +578,6 @@ class PTC(Tech):
         HTF = aperture*60
         solarfield = aperture * 150
         indirect = 0.185    
-        
-        self.landarea = 8094 * 0.000247105 *self.mult
         
         capex = [siteimprov,HTF,solarfield]
 
@@ -660,7 +660,6 @@ class PTCTES(Tech):
         #62$/kwth
         storage = 62 * 6000
         indirect = 0.185
-        self.landarea = 16187 * 0.000247105 * self.mult
         
         capex = [siteimprov, HTF, solarfield, storage]
         
@@ -802,8 +801,9 @@ class PVEB(Tech):
         if self.sys_size > 5000:
             om = self.sys_size * 1.2 * 14
 
-        #very low maintenance costs relative to boiler
-        om_eb = self.design_load * 61.02 * 0.01
+        #very low maintenance costs relative to boiler + assume same stationary engineer needed for boiler (0.23 burden rate)
+        #https://www.epsalesinc.com/electric-boilers-vs-gas-boilers/ says no annual maint cost- > 0.01 as an estimate to cover maint+maintlabor
+        om_eb = self.design_load * 61.02 * 0.01 + 62150 * 1.23 
         
         if self.storeval:
             om_batt = (self.storeval*335 + 4*292) * 0.025
@@ -1063,13 +1063,10 @@ class Boiler(Tech):
         
         # process csv file from data request. Use incidence rate as likelihood 
         self.incrate = 0.1
-        # efficiency improvement
-        self.inc_eff = 100
-        self.eff_cost = 0
         self.tech_type = "BOILER"
         self.sys_size = self.peak_load
         self.load_met = np.array(self.load_8760)
-
+        
         # Boiler Sizing Function
         def select_boilers():
             # extended coal packaged upper limit from 60 to 74 (not supposed to usually)
@@ -1163,15 +1160,20 @@ class Boiler(Tech):
 #             c5 = 11.534 * pload**5
 #             return sum([c0,c1,c2,c3,c4,c5])
 #         
-#         effmap = [min(self.inc_eff/100 * maxeff * boiler_eff(load/self.peak_load) / 100,1)
+#         effmap = [min(maxeff * boiler_eff(load/self.peak_load) / 100,1)
 #                   for load in self.load_8760] 
 # =============================================================================
         # jingyi Boiler Efficiency Part Load
         
         def boiler_eff(pload):
             return -0.1574 * pload**2 + 0.2697 * pload + 0.7019
-               
-        effmap = [min(self.inc_eff/100 * boiler_eff(load/self.peak_load),1)
+        
+        if mp.boilereff:
+            self.inceff = 1/(1- sum(mp.boilereffinc))
+        else:
+            self.inceff = 1
+                    
+        effmap = [min(boiler_eff(load/self.peak_load) * self.inceff,1)
                   for load in self.load_8760] 
         
         return effmap
@@ -1308,7 +1310,13 @@ class Boiler(Tech):
             cap = cap, shifts = shifts / sum(self.boiler_list[1]) , ash = ash, hload = self.boiler_list[0][i][1], count = self.boiler_list[1][i])
        
         # all cost attributes
-        self.om_val = cost
+        if mp.boilereff:
+            #cost data in 2019 dollars
+            self.inceffom = sum(mp.boilereffom)
+        else:
+            self.inceffom = 0
+            
+        self.om_val = cost + self.inceffom
         self.elec_gen = np.array([0 for i in range(8760)])
         eff_map = self.get_efficiency()
         self.fc = (3600 * sum([a/b for a,b in zip(self.load_8760, eff_map)]) / self.hv_vals)
@@ -1416,9 +1424,7 @@ class Boiler(Tech):
                         (hload = self.boiler_list[0][i][1], count = self.boiler_list[1][i])
        
         def la():
-        #year = 2013
-        # add in the appropriate deflation
-        
+
             def calc_area(hload, count = 1):
                 """ see the csv file with cleaver brooks/babcock boilers. Returns a value in quarter acre"""
                 return (1.68 *hload - 26.1) * count / 4046.86
@@ -1432,8 +1438,14 @@ class Boiler(Tech):
         
         self.landarea = la()
         
+        if mp.boilereff:
+            #cost data in 2019 dollars
+            self.inceffcap = sum(mp.boilereffcap)
+        else:
+            self.inceffcap = 0       
+            
         # add 20% for contingencies as suggested by EPA report
-        self.cap_val = cost_cap * 1.2 + self.eff_cost
+        self.cap_val = cost_cap * 1.2 + self.inceffcap
         
         if mp.deprc:
             self.landarea = 0
@@ -1463,9 +1475,6 @@ class Furnace(Tech):
         self.dep_year = 15
         # process csv file from data request. Use incidence rate as likelihood 
         self.incrate = 0.1
-        # efficiency improvement
-        self.inc_eff = 100
-        self.eff_cost = 0
         self.tech_type = "FURNACE"
         self.sys_size = self.peak_load
         self.load_met = np.array(self.load_8760)
@@ -1493,7 +1502,7 @@ class Furnace(Tech):
                 return slope * (pload - lvalp) + lvalm
         #efficiency on 8760 basis 
         eff = self.eff_dict[mp.furnace] *  (100 -self.meltloss[mp.furnace])/100
-        effmap = [min(eff / get_mult(load/self.peak_load *100) *self.inc_eff/100,1) for load in self.load_8760]
+        effmap = [min(eff / get_mult(load/self.peak_load *100) ,1) for load in self.load_8760]
 
         return effmap
     
@@ -1549,7 +1558,7 @@ class Furnace(Tech):
         self.landarea = la()
 
         # add 20% for contingencies as suggested by EPA report
-        self.cap_val = sum(a * b for a, b in zip(deflate_capital, [cap[mp.furnace]*self.design_load])) * 1.2 + self.eff_cost
+        self.cap_val = sum(a * b for a, b in zip(deflate_capital, [cap[mp.furnace]*self.design_load])) * 1.2
          
         if mp.deprc:
             self.landarea = 0
@@ -1576,9 +1585,6 @@ class CHP(Tech):
         self.tech_type = "CHP"
         # process csv file from data request. Use incidence rate as likelihood 
         self.incrate = 0.1
-        # efficiency improvement
-        self.inc_eff = 100
-        self.eff_cost = 0
         self.load_met = np.array(self.load_8760)
         self.sys_size = self.peak_load
         def get_params(hload):
@@ -1662,11 +1668,10 @@ class CHP(Tech):
         #0.343 acres per MW
         self.landarea = 0.343 * self.char["net_ep"](self.peak_load)/1000
         
-        self.cap_val = (1+ctg) * sum(a*b for a,b in zip(deflate_capital, [i_equip + i_install + i_other])) + self.eff_cost
+        self.cap_val = (1+ctg) * sum(a*b for a,b in zip(deflate_capital, [i_equip + i_install + i_other]))
         
     def get_efficiency(self, load_replaced):
         
-        self.inc_eff = 100
         if self.chp_t == "gas":
             """provides partial load of CHP for a given system and % load replaced (p_load) """
             index = bisect(self.useful_t, self.peak_load)
@@ -1683,7 +1688,7 @@ class CHP(Tech):
             c = -1 * self.peak_load * (1-load_replaced)/self.char["fuel_input"](self.peak_load)
             a = interp_results[sys][0]
             b = interp_results[sys][1]
-            return min((-b + math.sqrt(b**2 - 4*a*c))/(2*a) *self.inc_eff,1)
+            return min((-b + math.sqrt(b**2 - 4*a*c))/(2*a),1)
 
         if self.chp_t == "steam":
 
@@ -1708,7 +1713,7 @@ class CHP(Tech):
             roots = np.roots(eq)
             mask = (roots <= 1) * (roots >= 0)
             
-            return min(roots[mask][0]*self.inc_eff,1)
+            return min(roots[mask][0],1)
 
 
 class TechFactory():
