@@ -8,13 +8,11 @@ import os
 class rev_postprocessing:
 
     def __init__(self, rev_output_filepath, solar_tech):
-
         """
         Solar_tech is 'ptc_tes', 'ptc_notes', 'dsg_lf', 'pv', or 'swh'.
         """
 
         self.data_dir = './calculation_data/'
-
         gid_fips_file = 'county_center.csv'
 
         self.solar_tech = solar_tech
@@ -80,28 +78,25 @@ class rev_postprocessing:
             """
 
             if dataset == 'resource':
-
                 dataset_name = 'gh'
 
             else:
-
                 dataset_name = generation_groups[self.solar_tech][dataset][0]
 
             resampled_df = pd.DataFrame(
                 h5py_file[dataset_name][:, :], index=time_index
                 )
 
-            resampled_df = resampled_df.resample('H').sum()
+            # reV output in 30-min intervals
+            resampled_df = resampled_df.resample('H').sum() * 0.5
 
             # PTC and thermal generation in MWt; SWH in kW
             # Solar resources for both in kW/m2.
             if (dataset_name == 'q_dot_to_heat_sink'):
-
                 resampled_df = resampled_df*1000
 
             # PV generation in W
             if (dataset == 'power') & (self.solar_tech in ['pv_ac', 'pv_dc']):
-
                 resampled_df = resampled_df/1000
 
             return resampled_df
@@ -129,18 +124,18 @@ class rev_postprocessing:
         county_gen.iloc[:, 0] = np.roll(county_gen, timezone)
 
         def get_county_gen_month(county_gen, county_fips):
+            """Sums county generation by month (in MWh); calculates MW peak"""
 
-            # calc January yield (kWh/kWp)
             county_gen_month = \
                 county_gen.groupby(by=county_gen.index.month)[h5_index].agg(
                     ['sum', 'max']
-                    )
+                    )/1000
 
-            county_gen_month.rename(columns={'sum': 'kWh', 'max': 'kW_peak'},
+            county_gen_month.rename(columns={'sum': 'MWh', 'max': 'MW_peak'},
                                     inplace=True)
 
-            county_gen_month['yield'] = county_gen_month.kWh.divide(
-                county_gen_month.kW_peak
+            county_gen_month['yield'] = county_gen_month.MWh.divide(
+                county_gen_month.MW_peak
                 )
 
             return county_gen_month
@@ -150,10 +145,9 @@ class rev_postprocessing:
         # resource_annual = self.resource.sum()*1000**2
         county_gen_month = get_county_gen_month(county_gen, county_fips)
 
-        month_yield = county_gen_month.xs(month)['yield']
+        month_yield = county_gen_month.xs(month)['yield']  # MWh/MWpeak
 
-        # Convert from kWh to MWh
-        month_gen = county_gen_month.xs(month)['kWh']/1000
+        month_gen = county_gen_month.xs(month)['MWh']
 
         area_avail = self.area_avail.xs(county_fips)[
             'county_included_area_km2'
@@ -162,24 +156,29 @@ class rev_postprocessing:
         # Convert footprint from m2/MW to km2/MW
         footprint = self.generation_group['footprint']/1000**2
 
-        # county_peak is in MWh (or MW).
+        # county_peak is in MWh (or MW); county_gen in kW
         # (MWh/MW)/(km2/MW)*km2
-        # rounds up
-        if (np.ceil(area_avail/footprint)*month_gen) <= county_peak:
-            scaled_gen = county_gen*np.ceil(area_avail/footprint)/1000
+        # rounds down
+        if [area_avail] == [np.nan]:  # for any counties missing area_avail
+            used_area_pct = np.inf
+            scaled_gen = county_gen * 0
+
+        elif np.floor(area_avail/footprint) == 0:  # No system size < 1 MW
+            used_area_pct = 0
+            scaled_gen = county_gen * 0
+
+        elif (np.floor(area_avail/footprint)*month_gen) <= county_peak:
+            scaled_gen = county_gen*np.floor(area_avail/footprint)/1000
             used_area_abs = area_avail
+            used_area_pct = used_area_abs / area_avail
 
         else:
-            # round up for number of generating units
+            # scaled_gen is equivalent to the number of ~1MW generating
+            # units required to meet demand.
+            # round down for number of generating units
             scaled_gen = np.ceil(county_peak/month_yield)
             used_area_abs = scaled_gen*footprint
             scaled_gen = scaled_gen * county_gen/1000
-
-        # There are 2 counties missing available land area
-        if (area_avail == 0) | ([area_avail] == [np.nan]):
-            used_area_pct = np.inf
-
-        else:
             used_area_pct = used_area_abs / area_avail
 
         scaled_gen.index.name = 'index'
