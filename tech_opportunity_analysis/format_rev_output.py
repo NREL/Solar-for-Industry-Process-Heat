@@ -124,21 +124,18 @@ class rev_postprocessing:
         county_gen.iloc[:, 0] = np.roll(county_gen, timezone)
 
         def get_county_gen_month(county_gen, county_fips):
-            """Sums county generation by month (in MWh); calculates kW peak"""
+            """Sums county generation by month (in MWh); calculates MW peak"""
 
             county_gen_month = \
                 county_gen.groupby(by=county_gen.index.month)[h5_index].agg(
                     ['sum', 'max']
-                    )
+                    )/1000
 
-            # Convert from kWh to MWh
-            county_gen_month['sum'] = county_gen_month['sum']/1000
-
-            county_gen_month.rename(columns={'sum': 'MWh', 'max': 'kW_peak'},
+            county_gen_month.rename(columns={'sum': 'MWh', 'max': 'MW_peak'},
                                     inplace=True)
 
             county_gen_month['yield'] = county_gen_month.MWh.divide(
-                county_gen_month.kW_peak
+                county_gen_month.MW_peak
                 )
 
             return county_gen_month
@@ -148,7 +145,7 @@ class rev_postprocessing:
         # resource_annual = self.resource.sum()*1000**2
         county_gen_month = get_county_gen_month(county_gen, county_fips)
 
-        month_yield = county_gen_month.xs(month)['yield']
+        month_yield = county_gen_month.xs(month)['yield']  # MWh/MWpeak
 
         month_gen = county_gen_month.xs(month)['MWh']
 
