@@ -159,23 +159,26 @@ class rev_postprocessing:
         # county_peak is in MWh (or MW); county_gen in kW
         # (MWh/MW)/(km2/MW)*km2
         # rounds down
-        if (np.floor(area_avail/footprint)*month_gen) <= county_peak:
+        if [area_avail] == [np.nan]:  # for any counties missing area_avail
+            used_area_pct = np.inf
+            scaled_gen = county_gen * 0
+
+        elif np.floor(area_avail/footprint) == 0:  # No system size < 1 MW
+            used_area_pct = 0
+            scaled_gen = county_gen * 0
+
+        elif (np.floor(area_avail/footprint)*month_gen) <= county_peak:
             scaled_gen = county_gen*np.floor(area_avail/footprint)/1000
             used_area_abs = area_avail
+            used_area_pct = used_area_abs / area_avail
 
         else:
             # scaled_gen is equivalent to the number of ~1MW generating
             # units required to meet demand.
             # round down for number of generating units
-            scaled_gen = np.floor(county_peak/month_yield)
+            scaled_gen = np.ceil(county_peak/month_yield)
             used_area_abs = scaled_gen*footprint
             scaled_gen = scaled_gen * county_gen/1000
-
-        # There are 2 counties missing available land area
-        if (area_avail == 0) | ([area_avail] == [np.nan]):
-            used_area_pct = np.inf
-
-        else:
             used_area_pct = used_area_abs / area_avail
 
         scaled_gen.index.name = 'index'
