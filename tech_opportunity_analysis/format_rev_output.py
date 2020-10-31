@@ -162,10 +162,12 @@ class rev_postprocessing:
         if [area_avail] == [np.nan]:  # for any counties missing area_avail
             used_area_pct = np.inf
             scaled_gen = county_gen * 0
+            used_area_abs = 0
 
         elif np.floor(area_avail/footprint) == 0:  # No system size < 1 MW
             used_area_pct = 0
             scaled_gen = county_gen * 0
+            used_area_abs = 0 
 
         elif (np.floor(area_avail/footprint)*month_gen) <= county_peak:
             scaled_gen = county_gen*np.floor(area_avail/footprint)/1000
