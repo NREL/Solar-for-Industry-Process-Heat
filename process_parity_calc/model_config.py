@@ -11,10 +11,12 @@ import pandas as pd
 class ModelParams:
     
      path = "./calculation_data"
-     hv_vals = {"PETRO" : 4.641 * 1055055.85 / 42, "NG" : 1039 * 1.05506 / 0.001, 
+     #ng conversion is from kJ to 1000 cuf
+     hv_vals = {"PETRO" : 4.641 * 1055055.85 / 42, "NG" : 1084597, 
                 "COAL" : 20.739 * 1055055.85}
      month = 6
      fips_data = pd.read_csv(os.path.join(path, "US_FIPS_Codes.csv"), usecols=['State', 'COUNTY_FIPS', 'Abbrev']) 
+     br_data = pd.read_csv(os.path.join(path,"burdenrates.csv"), usecols = ["State", "br"])
      chp = "gas"
      # techopp, peakload, annual (perfect demand supply match) - max sizing
      sizing = "peakload"
@@ -22,9 +24,11 @@ class ModelParams:
      furnace = "REVERB"
      boilereff = False
      #flue gas monitoring/process control, automatic steam trap monitoring, economizer
-     boilereffcap = [84, 250, 20913]
-     boilereffom = [0, 2.5, 0]
-     boilereffinc = [0.0109, 0.0882/100, 0.0914]
+     boilereffcap = [84, 250]
+     boilereffom = [0, 2.5]
+     boilereffinc = [0.0109, 0.0882/100]
+     #adjust this value below based on op hours
+     capacity = 0.622
      
      gen_dict= {"DSGLF": "dsg_lf_gen.json", "PTC": "ptc_notes_gen.json", 
                 "PTCTES": "ptc_tes_gen.json", "SWH": "swh_gen.json",
@@ -37,5 +41,8 @@ class ModelParams:
          state_name = ModelParams.fips_data.loc[ModelParams.fips_data['COUNTY_FIPS'] == county,'State'].values[0].strip()
          state_abbr = ModelParams.fips_data.loc[ModelParams.fips_data['COUNTY_FIPS'] == county,'Abbrev'].values[0].strip()
          return (state_name, state_abbr)
+     @classmethod
+     def get_burden_rate(cls,state):
+         return float(ModelParams.br_data.loc[ModelParams.br_data["State"] == state, "br"].values[0])
 
 

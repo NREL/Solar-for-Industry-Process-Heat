@@ -20,19 +20,11 @@ class PrPar:
     
     def __init__(self, new_obj = True, form = False):
         """ solar_tech, comb_tech should be appropriate factory objects"""
-# =============================================================================
-#         county_list = [1133, 5149, 4027, 6115, 8125, 9015, 10005, 12133, 13321, 19197, 16087, 17203,
-#                        18183, 20209, 21239, 22127, 25027, 24510, 23031, 26165, 27173, 29510, 28163, 30111, 37199, 38105,
-#                        31185, 33019, 34041, 35061, 32510, 36123, 39175, 40153, 41071, 42133, 44009, 45091, 46137, 47189,
-#                        48507, 49057, 51840, 50027, 53077, 55141, 54109, 56045]
-# =============================================================================
 
-        #county_list = [6085, 6085, 6085, 6085, 6085, 6085]
-        #heat_list = [5000,10000, 15000, 20000, 25000, 30000]
-        solar_tech = ["PTCTES"]
-        comb_tech = ["BOILER"]
-        counties =["6037"]
- 
+        solar_tech = ["PTC", "PTC"]
+        comb_tech = ["BOILER", "BOILER"]
+        counties =["6037", "51095"]
+
 
         if new_obj:
             if form:
@@ -41,10 +33,10 @@ class PrPar:
                 
             else:
                 print("\nCreating solar object")
-                self.s_form = FormatMaker().create_format({"tech": solar_tech, "county":counties})
+                self.s_form = FormatMaker().create_format({"tech": solar_tech, "county": counties})
                     
                 print("\nCreating combustion object")  
-                self.c_form = FormatMaker().create_format({"tech": comb_tech, "county":counties})
+                self.c_form = FormatMaker().create_format({"tech": comb_tech, "county": counties})
                 
         self.solar = [CLO.LCOHFactory().create_LCOH(i) for i in self.s_form]
         self.comb = [CLO.LCOHFactory().create_LCOH(i) for i in self.c_form]
@@ -83,7 +75,7 @@ class PrPar:
             # Drop unnecessary columns
             df.drop(columns = ["Capital Cost", "Operating Cost"], inplace = True)
             # Grab default LCOH value
-            val_LCOH = df["LCOH Value US c/kwh"][0]
+            val_LCOH = df["LCOH Value US c/kwh"][1]
             # Find % change from default LCOH value
             df["LCOH Value US c/kwh"] = (df["LCOH Value US c/kwh"] - val_LCOH)/val_LCOH * 100
             #round % changes
@@ -105,22 +97,23 @@ class PrPar:
                 df.loc[no_vals*i+1:no_vals*i+no_vals, :] = copy.loc[no_vals*old_ind[i]+1:no_vals*old_ind[i]+no_vals,:].values
             
             # Beginning of tornado plot code
-            fig , ax = plt.subplots(length,1, figsize = (15,10))
-            title = fig.suptitle(techtype + " Tornado Diagram", fontsize = 30, fontweight="bold", x = 0.58)
+            fig , ax = plt.subplots(length,1, figsize = (15,10), dpi = 150)
+            title = fig.suptitle(techtype + " Replacement Tornado Diagram", fontsize = 30, fontweight="bold", x = 0.58)
     
             for i in range(length):
-                # Define masks for LCOH changes greater and less than 0
-                pmask = df.loc[no_vals*i+1:no_vals*i+no_vals, ["LCOH Value US c/kwh"]] > 0
-                nmask = df.loc[no_vals*i+1:no_vals*i+no_vals:, ["LCOH Value US c/kwh"]] < 0
-                # if both masks are empty, delete the axis/parameter since no sensitivity
-                if (not any(pmask["LCOH Value US c/kwh"])) and (not any(nmask["LCOH Value US c/kwh"])):
+                # Define masks for LCOH changes greater and less than tolerance
+                tolerance = 0.005
+                pmask = df.loc[no_vals*i+1:no_vals*i+no_vals, ["LCOH Value US c/kwh"]] > tolerance
+                nmask = df.loc[no_vals*i+1:no_vals*i+no_vals:, ["LCOH Value US c/kwh"]] < tolerance
+                # if any masks is empty, delete the axis/parameter since no sensitivity
+                if (not any(pmask["LCOH Value US c/kwh"])) or (not any(nmask["LCOH Value US c/kwh"])):
                     fig.delaxes(ax[i])
                     continue
 
                 sns.barplot(df[pmask]["LCOH Value US c/kwh"], ax = ax[i], color = "b", ci=None)
                 sns.barplot(df[nmask]["LCOH Value US c/kwh"], ax = ax[i], color = "r", ci=None)
                 ax[i].xaxis.set_visible(False)
-                ax[i].set_xlim([-120, 120])
+                ax[i].set_xlim([-60, 60])
                 [s.set_visible(False) for s in ax[i].spines.values()]
                 ax[i].set_yticklabels(columns[old_ind[i]], fontsize = 15, fontweight = "bold")
                 ax[i].yaxis.set_tick_params(length = 0)
@@ -172,7 +165,8 @@ class PrPar:
         elif iter_name.upper() == "FUELPRICE":
             for i in range(len(self.comb)):
                 self.comb[i].iter_name = "FUELPRICE"
-                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar_current[i], -50, 50, 100)
+                self.solar[i].iter_name = "FUELPRICE"
+                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(x), -50, 50, 100)
 
                 if root == None:
                     print("No solution")
@@ -193,22 +187,20 @@ class PrPar:
         no_plots = len(self.solar)
         """Solution Space"""
         for i in range(no_plots):
-            self.solar[i].iter_name = "INVESTMENT"
+            self.solar[i].iter_name = "BOTH"
         for i in range(no_plots):
             self.comb[i].iter_name = "FUELPRICE"
             
         #df_sol = pd.DataFrame(columns = ["fuelprice", "investment", "LCOH"])
         
-        i_vals = np.linspace(0 ,10 ** 7, no_val)
-        
         fig, ax = plt.subplots(no_plots, figsize = (10,15))
 
         # for each capital investment (i_vals) iterate to find associated fuel price
         for i in range(no_plots):
-            i_vals = np.linspace(0 ,10 ** 8, no_val)
+            i_vals = np.linspace(0 ,5*10**6, no_val)
             all_roots = []
             for j in i_vals:
-                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(j), -100, 100, 100)
+                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH((x,j)), -100, 100, 100)
                 all_roots.append(root)
                 #df_sol = df_sol.append({"fuelprice": root, "investment" : i / 10**7}, ignore_index = True)
             try:
@@ -232,61 +224,70 @@ class PrPar:
         
         def get_pb(index):
             
-            # apply iter value
-# =============================================================================
-#             if iter_name == "FUELPRICE":
-#                 self.comb[index].fuel_price = iter_value
-#             elif iter_name == "INVESTMENT":
-#                 self.solar[index].iterLCOH("INVESTMENT", iter_value)
-#             else:
-#                 print("No such iteration parameter")
-# =============================================================================
+            # max year to check for payback period - else no point
+            ptime = [100]
+            # set period of analysis calculations
+            self.solar[index].p_time = ptime
+            self.comb[index].p_time = ptime
+            # calculate LCOH to get payback period variables
+            self.solar[index].calculate_LCOH()
+            self.comb[index].calculate_LCOH()
             
-            # Get the denominator of LCOH equation to calculate the numerator
-            energy_yield = sum([self.solar[index].load_avg * 31536000 / 
-                                (1 + self.solar[index].discount_rate[0]) ** i 
-                                for i in range(self.solar[index].p_time[0])])
-    
-            # numerator of the LCOH equation and first term (total solar cost discounted to year0)
-            value = list(-self.solar_current[index] * energy_yield / (3600*100))
-        
-            lifetime = self.solar[index].p_time[0]
+            i_solar = self.solar[index].year0[0]
+            a_solar = self.solar[index].cashflow
+            a_comb = self.comb[index].cashflow
+            savings = [i-j for i,j in zip(a_solar,a_comb)]
+            print(sum(savings), i_solar)
+            if sum(savings) + i_solar <=  0:
+                
+                year = 0
+                
+                while sum(savings[0:year+1]) + i_solar >= 0:
+                    year += 1
+                    
+                pb_year = year + (i_solar + sum(savings[0:year]))/(a_solar[year] - a_comb[year])
+                
+                #add year 0 solar cost to savings in year 0
+                savings[0] += -1 * i_solar
+                return (pb_year, savings[0:year+1])
+                
+            else:
+                savings[0] += -1 * i_solar               
+                return (False, savings[0:26])
             
-            # create the bar values for the cash flow diagram using combustion OM
-            for i in range(1, lifetime):
-                value.append(self.comb[index].OM(i)[0]/(1+self.solar[index].discount_rate[0])**i)
+        def get_irr(index):
+            
+            def irr_eq(dr):
+                # set period of analysis calculations
+                self.solar[index].discount_rate = dr
+                self.comb[index].discount_rate = dr
+                # calculate LCOH to get payback period variables
+                self.solar[index].calculate_LCOH()
+                self.comb[index].calculate_LCOH()
                 
-            pb_year = lifetime
-
-            # If total savings less than cost of solar system over lifetime
-            if np.sum(value[1:]) < -value[0]:
+                i_solar = self.solar[index].year0[0]
+                a_solar = self.solar[index].cashflow
+                a_comb = self.comb[index].cashflow
+                savings = [i-j for i,j in zip(a_solar,a_comb)]
                 
-                while (np.sum(value[1:]) < -value[0]) & (pb_year <= 149):
-                    value.append(self.comb[index].OM(pb_year)[0]/(1+self.solar[index].discount_rate[0])**pb_year)
-                    pb_year += 1
-        
-                if pb_year == 150:
-                    print("No Payback Year")                
-                
-            else: 
-                cash_flow = np.array(value[1:])
-                pb_year = np.argmax(cash_flow.cumsum() > -value[0])
-                
-            return pb_year, value
-        
+                return sum(savings) + i_solar    
+            
+            irr = bisection(lambda x: irr_eq([x]), 0 ,40, 100)
+            
+            return irr
             
         def plot_cf(index, value):  
             """ plot cash flow diagram"""
             t = np.arange(self.solar[index].year, self.solar[index].year + len(value), 1)
             
             fig, ax1 = plt.subplots(figsize=(12,6))
-            ax1.set_ylim([-5 * 10**7 , 10**7])
+            ax1.set_ylim([-2 * 10**6 , 3*10**5])
         
         
             title = fig.suptitle("Cash Flow Diagram", fontweight = "bold", fontsize = 20)
             ax1.xaxis.set_major_locator(MaxNLocator(integer=True))
         
-            ax1.bar(t[:20], value[:20], color = ["#85bb65" if val >= 0 else "#D43E3E" for val in value], alpha = 0.8)
+            ax1.bar(t, value, color = ["#85bb65" if val >= 0 else "#D43E3E" for val in value], alpha = 0.8)
             ax1.set_xlabel("Year", fontsize = 15)
         
             ax1.set_ylabel('Annualized Cash Flow', color = "black", fontsize = 15)
@@ -306,8 +307,8 @@ class PrPar:
         
         for i in no_plots:
             payback, value = get_pb(i)
-            #payback, t, value, iter_value = iter_pb(i,iter_name, 15)
-            #print("The payback period is achieved within the lifetime of {} years when the {} is {}.".format(payback,iter_name,iter_value))
+            irr = get_irr(i)
+            print(payback, irr)
             plot_cf(i, value)
         
         self.reset()
@@ -317,22 +318,3 @@ if __name__ == "__main__":
     import pandas as pd
     test_obj = PrPar()
     print(test_obj.pp_1D("INVESTMENT"))
-
-# =============================================================================
-#     test_obj = PrPar()
-# 
-#     state_abbr =[]
-#     comb_lcoh = []
-#     solar_lcoh = []
-# 
-#     for i in range(len(test_obj.comb)):
-#         comb_lcoh.append(test_obj.comb[i].calculate_LCOH())
-#         solar_lcoh.append(test_obj.solar[i].calculate_LCOH())
-#         state_abbr.append(test_obj.comb[i].state_abbr)
-# 
-#     results = pd.DataFrame()
-#     results["STUSPS"] = state_abbr
-#     results["lcohdiff"] = [s/c for s,c in zip(solar_lcoh, comb_lcoh)]
-#     
-#     results.("state_lcoh_pveb.csv")
-# =============================================================================

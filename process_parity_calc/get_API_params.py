@@ -175,12 +175,12 @@ class UpdateParams:
         if fuel_type.upper() == "NG":
             # series_LA is just the actual series not a series ID
             fp_mult = fp_state / series_LA[dict_key_LA][str(year-j) + "  "]
-            return (fp_mult * fp_USA, year-j)
+            return (fp_mult * fp_USA/1.037, year-j)
                 
         # return USA value if 2 years more recent vs state
         if ((year-i) - (year-j) >= 2) | (fp_state >= fp_USA):
                 
-            return (fp_USA, year-i)
+            return (fp_USA/1.037, year-i)
 
         return (fp_state, year-j)
     
@@ -304,4 +304,4 @@ class UpdateParams:
         comb_index.to_csv(os.path.join(path, "cost_index_data.csv"))    
         
 if __name__ == "__main__":
-    UpdateParams.create_index()
+    print(UpdateParams.get_fuel_price("FL"))

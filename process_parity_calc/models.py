@@ -33,6 +33,8 @@ class Tech(metaclass=ABCMeta):
 
         # Land Price
         self.state_name = mp.get_state_names(self.county)[0]
+        # burden rate
+        self.br = mp.get_burden_rate(self.state_name)
         
     @abstractmethod
     def om(self):
@@ -152,8 +154,6 @@ class Tech(metaclass=ABCMeta):
                     
             self.gen = self.load_8760/eff + kw_diff
 
-        # load not met - theoretical energy
-        self.load_remain = (np.array(self.load_8760) - self.gen*eff).clip(min=0)
         # excess load generation - actual energy
         self.elec_gen = (self.gen - np.array(self.load_8760)/eff).clip(min=0)
         # load met by solar - theoretical value
@@ -487,39 +487,32 @@ class DSGLF(Tech):
 
     def om(self):
         '''
-        All costs from SAM - dsg lf commercial owner
+        All costs from SAM
         
         ''' 
-        year = 2018
-        deflate_capital = [Tech.index_mult("Construction Labor", year), 
-                           Tech.index_mult("Solar Field", year),
-                           Tech.index_mult("Heat Exchangers and Tanks", year)]     
+        year = 2010
+        deflate_om = [Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Solar Field", year),
+                      Tech.index_mult("Heat Exchangers and Tanks", year),
+                      Tech.index_mult("Heat Exchangers and Tanks", year)]
         
-        # capital costs
-        aperture = 3081.6
-        siteimprov = aperture * 20
-        solarfield = aperture * 150
-        HTF = aperture * 35
-        capex = [siteimprov,solarfield,HTF]    
-        indirect = 0.185
+        #perf_eng, plant equip ops, maint supervisor, TES maint supervisor, service cont-mirro wash, site maint, solar field maint, HTF maint, TES Maint
+        om_breakdown = np.array([63000*(1+self.br), 40000*(1+self.br), 48000*(1+self.br), 48000*(1+self.br), 350000, 70485, 755274, 231642, 427410])
+        cost_kw = om_breakdown/110000
         
-        self.om_val = 0.02* (1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
-        
-# =============================================================================
-#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
-#                          Tech.index_mult("Engineering Supervision", year)]
-#         
-#         # fixed_om + var_om
-#         om = 55 * self.sys_size
-#         var_om = sum(self.gen)*0.004
-#         
-# 
-#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om]))
-# =============================================================================
-        
+        om = cost_kw * self.sys_size
+
+        self.om_val = sum(a * b for a, b in zip(deflate_om, om)) * self.mult
+
         self.fc = 0
         self.decomm = 0
         self.em_costs = 0
+        self.elec_gen = np.array([0 for i in range(8760)])
     
     def capital(self):
         """
@@ -567,33 +560,23 @@ class PTC(Tech):
         All costs from SAM
         
         ''' 
-        year = 2018
-        deflate_capital = [Tech.index_mult("Construction Labor", year), 
-                           Tech.index_mult("Solar Field", year),
-                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
+        year = 2010
+        deflate_om = [Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Solar Field", year),
+                      Tech.index_mult("Heat Exchangers and Tanks", year)]
         
-        #m^2
-        aperture = 2624
-        siteimprov = aperture * 25
-        HTF = aperture*60
-        solarfield = aperture * 150
-        indirect = 0.185    
+        #perf_eng, plant equip ops, maint supervisor, service cont-mirro wash, site maint, solar field maint, HTF maint
+        om_breakdown = np.array([63000*(1+self.br), 40000*(1+self.br), 48000*(1+self.br), 350000, 70485, 755274, 231642])
+        cost_kw = om_breakdown/110000
         
-        capex = [siteimprov,HTF,solarfield]
+        om = cost_kw * self.sys_size
 
-        self.om_val = 0.02*(1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
-# =============================================================================
-#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
-#                          Tech.index_mult("Engineering Supervision", year)]
-#         
-#         # fixed_om + var_om
-#         om = 66 * self.sys_size
-#         var_om = sum(self.gen)*0.004
-#         
-# 
-#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om]))
-# =============================================================================
-        
+        self.om_val = sum(a * b for a, b in zip(deflate_om, om)) * self.mult
+
         self.fc = 0
         self.decomm = 0
         self.em_costs = 0
@@ -645,41 +628,29 @@ class PTCTES(Tech):
         All costs from SAM
         
         ''' 
-        year = 2018
+        year = 2010
+        deflate_om = [Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Engineering Supervision", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Construction Labor", year),
+                      Tech.index_mult("Solar Field", year),
+                      Tech.index_mult("Heat Exchangers and Tanks", year),
+                      Tech.index_mult("Heat Exchangers and Tanks", year)]
+        
+        #perf_eng, plant equip ops, maint supervisor, TES maint supervisor, service cont-mirro wash, site maint, solar field maint, HTF maint, TES Maint
+        om_breakdown = np.array([63000*(1+self.br), 40000*(1+self.br), 48000*(1+self.br), 48000*(1+self.br), 350000, 70485, 755274, 231642, 427410])
+        cost_kw = om_breakdown/110000
+        
+        om = cost_kw * self.sys_size
 
-        deflate_capital = [Tech.index_mult("Construction Labor", year), 
-                           Tech.index_mult("Solar Field", year),
-                           Tech.index_mult("Heat Exchangers and Tanks", year),
-                           Tech.index_mult("Heat Exchangers and Tanks", year)]      
-        
-        # capital costs -> 560$/kW
-        aperture = 5248
-        siteimprov = aperture * 25
-        HTF = aperture*60
-        solarfield = aperture * 150
-        #62$/kwth
-        storage = 62 * 6000
-        indirect = 0.185
-        
-        capex = [siteimprov, HTF, solarfield, storage]
-        
-        # capital value
-        self.om_val = 0.02* (1 + indirect) * sum(a * b for a, b in zip(deflate_capital, capex)) * self.mult
-# =============================================================================
-#         deflate_price = [Tech.index_mult("Engineering Supervision", year),
-#                          Tech.index_mult("Engineering Supervision", year)]
-#         
-#         # fixed_om + var_om
-#         om = 66 * self.sys_size
-#         var_om = sum(self.gen)*0.004
-#         
-#         self.om_val = sum(a * b for a, b in zip(deflate_price, [om, var_om])) 
-# =============================================================================
-        
+        self.om_val = sum(a * b for a, b in zip(deflate_om, om)) * self.mult
+
         self.fc = 0
         self.decomm = 0
         self.em_costs = 0
-        self.elec_gen = np.array([0 for i in range(8760)])        
+        self.elec_gen = np.array([0 for i in range(8760)])
     
     def capital(self):
         """
@@ -801,9 +772,9 @@ class PVEB(Tech):
         if self.sys_size > 5000:
             om = self.sys_size * 1.2 * 14
 
-        #very low maintenance costs relative to boiler + assume same stationary engineer needed for boiler (0.23 burden rate)
+        #very low maintenance costs relative to boiler 
         #https://www.epsalesinc.com/electric-boilers-vs-gas-boilers/ says no annual maint cost- > 0.01 as an estimate to cover maint+maintlabor
-        om_eb = self.design_load * 61.02 * 0.01 + 62150 * 1.23 
+        om_eb = self.design_load * 61.02 * 0.01 #+ 62150 * 1.23 
         
         if self.storeval:
             om_batt = (self.storeval*335 + 4*292) * 0.025
@@ -1066,6 +1037,7 @@ class Boiler(Tech):
         self.tech_type = "BOILER"
         self.sys_size = self.peak_load
         self.load_met = np.array(self.load_8760)
+        self.capacity = mp.capacity
         
         # Boiler Sizing Function
         def select_boilers():
@@ -1146,24 +1118,6 @@ class Boiler(Tech):
             y = 11.534x5 - 34.632x4 + 39.736x3 - 21.955x2 + 6.2306x + 0.0967
         """
 
-
-# =============================================================================
-#         # Old Boiler Efficiency part load
-#         maxeff = self.eff_dict[self.fuel_type][1]
-#         #mineff = self.eff_dict[self.fuel_type][0]
-#         def boiler_eff(pload):
-#             c0 = 0.0967 
-#             c1 = 6.2306 * pload
-#             c2 = -21.955 * pload**2
-#             c3 = 39.736 * pload**3
-#             c4 = -34.632 * pload**4
-#             c5 = 11.534 * pload**5
-#             return sum([c0,c1,c2,c3,c4,c5])
-#         
-#         effmap = [min(maxeff * boiler_eff(load/self.peak_load) / 100,1)
-#                   for load in self.load_8760] 
-# =============================================================================
-        # jingyi Boiler Efficiency Part Load
         
         def boiler_eff(pload):
             return -0.1574 * pload**2 + 0.2697 * pload + 0.7019
@@ -1246,28 +1200,16 @@ class Boiler(Tech):
             return sum(a * b for a, b in zip(deflate_price, [u_c, a_d, d_l, s, m, r_p, o])) * count
 
         def om4(cap, shifts, hload, ash, HV = 28.608, count = 1):
-      
-# =============================================================================
-#             u_c = cap/0.45 * (580 * hload + 3900)
-#             d_l = (shifts*2190)/8760 * 105300 * 30.62/23.32
-# 
-#             if hload < 15:
-#                 s = (shifts*2190)/8760 * (hload - 5)/10 * 68500 * 30.62/23.32
-#                 m = (shifts*2190)/8760 * (1600 * hload + 8000) * 30.62/23.32
-#             else:
-#                 s = (shifts*2190)/8760 * 68500 * 30.62/23.32
-#                 m = (shifts*2190)/8760 * 32000 * 30.62/23.32
-#             r_p = 708.7 * hload + 4424 
-#             o = (0.3 * d_l + 0.26 * (d_l + s + r_p + m)) 
-# =============================================================================
+            shifts = self.capacity
             #use costs from cost breakdown instead
             u_c = 771.36*hload + 2101.6 #electricity + chemical costs
             #direct labor (how many shifts/year of work is being dedicated)
-            d_l = 62150 * (shifts*2190)/8760
+            d_l = 262800 * shifts * 0
             s = 0 #No supervision required
-            m = 16000/105300 * 62150  * (shifts*2190)/8760 
+            #maintenance is ~16% of direct labor costs usually
+            m = 16000/105300 * 262800  * shifts
             r_p = 708.72 * hload + 4424.3 #replacement parts
-            o = 0.23 *(d_l+m+s) #burden rate of 23% 
+            o = self.br *(d_l+m+s) #burden rate of 23% 
             
             #preserve maint/d_l cost when adjusting d_l
     
@@ -1466,7 +1408,7 @@ class Furnace(Tech):
         self.eff_dict = {"CRUCIBLE": 19, "REVERB": 40, "TOWER": 48}
         #theoretical energy to melt 1 ton of aluminum is 500 btu/lb or 293 kwh/ton
         # 8760 load profile must be actual energy delivered to end source (ie aluminum)
-        self.meltloss = {"CRUCIBLE": 3.5, "REVERB": 3, "TOWER": 2}
+        self.meltloss = {"CRUCIBLE": 3.5, "REVERB": 2, "TOWER": 2}
         # design load in ton/hr - energy efficiency doesn't affect steel production -> tons/hr steel
         if self.mult > 0:
             self.peak_load = self.mult
@@ -1507,7 +1449,7 @@ class Furnace(Tech):
         return effmap
     
 
-    def om(self,capacity = 1, shifts = 1, ash = 6):
+    def om(self,capacity = 1, shifts = 1):
 
         """ 
             Aluminum Furnace OM Costs

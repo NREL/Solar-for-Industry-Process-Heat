@@ -1,0 +1,52 @@
+State,State Code,Region,Division,br
+Alaska,AK,West,Pacific,0.426533524
+Alabama,AL,South,East South Central,0.404494382
+Arkansas,AR,South,West South Central,0.386962552
+Arizona,AZ,West,Mountain,0.420454545
+California,CA,West,Pacific,0.426533524
+Colorado,CO,West,Mountain,0.420454545
+Connecticut,CT,Northeast,New England,0.457725948
+District of Columbia,DC,South,South Atlantic,0.396648045
+Delaware,DE,South,South Atlantic,0.396648045
+Florida,FL,South,South Atlantic,0.396648045
+Georgia,GA,South,South Atlantic,0.396648045
+Hawaii,HI,West,Pacific,0.426533524
+Iowa,IA,Midwest,West North Central,0.43472023
+Idaho,ID,West,Mountain,0.420454545
+Illinois,IL,Midwest,East North Central,0.457725948
+Indiana,IN,Midwest,East North Central,0.457725948
+Kansas,KS,Midwest,West North Central,0.43472023
+Kentucky,KY,South,East South Central,0.404494382
+Louisiana,LA,South,West South Central,0.386962552
+Massachusetts,MA,Northeast,New England,0.457725948
+Maryland,MD,South,South Atlantic,0.396648045
+Maine,ME,Northeast,New England,0.457725948
+Michigan,MI,Midwest,East North Central,0.457725948
+Minnesota,MN,Midwest,West North Central,0.43472023
+Missouri,MO,Midwest,West North Central,0.43472023
+Mississippi,MS,South,East South Central,0.404494382
+Montana,MT,West,Mountain,0.420454545
+North Carolina,NC,South,South Atlantic,0.396648045
+North Dakota,ND,Midwest,West North Central,0.43472023
+Nebraska,NE,Midwest,West North Central,0.43472023
+New Hampshire,NH,Northeast,New England,0.457725948
+New Jersey,NJ,Northeast,Middle Atlantic,0.461988304
+New Mexico,NM,West,Mountain,0.420454545
+Nevada,NV,West,Mountain,0.420454545
+New York,NY,Northeast,Middle Atlantic,0.461988304
+Ohio,OH,Midwest,East North Central,0.457725948
+Oklahoma,OK,South,West South Central,0.386962552
+Oregon,OR,West,Pacific,0.426533524
+Pennsylvania,PA,Northeast,Middle Atlantic,0.461988304
+Rhode Island,RI,Northeast,New England,0.457725948
+South Carolina,SC,South,South Atlantic,0.457725948
+South Dakota,SD,Midwest,West North Central,0.43472023
+Tennessee,TN,South,East South Central,0.404494382
+Texas,TX,South,West South Central,0.386962552
+Utah,UT,West,Mountain,0.420454545
+Virginia,VA,South,South Atlantic,0.396648045
+Vermont,VT,Northeast,New England,0.457725948
+Washington,WA,West,Pacific,0.426533524
+Wisconsin,WI,Midwest,East North Central,0.457725948
+West Virginia,WV,South,South Atlantic,0.396648045
+Wyoming,WY,West,Mountain,0.420454545

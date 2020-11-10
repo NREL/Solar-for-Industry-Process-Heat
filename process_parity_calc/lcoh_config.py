@@ -25,7 +25,7 @@ class ParamMethods:
           "ptime": np.array([25]),
           "discount": {"BOILER": 0.0658, "CHP": 0.0658, "PVHP": 0.0658, "PTC" : 0.0658, 
                        "PTCTES" : 0.0658, "DSGLF" : 0.0658, "SWH": 0.0658, "PVEB" : 0.0658,
-                       "PVRH" : 0.0658, "FURNACE": 0.0658, "EBOILER": 0.0658},
+                       "PVRH" : 0.0723, "FURNACE": 0.0723, "EBOILER": 0.0658},
           "naics": 312120,
           "emp_size": "n1000",
           "op_hour": "avg",
@@ -95,7 +95,7 @@ class ParamMethods:
 
             return [np.array(ParamMethods.elec_rates[county]["touenergy"]), 
                     np.array([get_la(i.hour, i.dayofweek, i.month) * 0.13 for i in hourlystamp])]
-       
+        
         return [np.array(ParamMethods.elec_rates[county]["touenergy"]), np.array(ParamMethods.elec_curves[state_abbr])/1000]
     @classmethod 
     def get_demand_struc(cls,county):
