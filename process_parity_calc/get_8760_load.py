@@ -22,6 +22,12 @@ class get_load_8760:
         self.naics = naics
         self.emp_size = emp_size
         self.end_use = end_use
+        
+        if self.end_use == "Conventional Boiler Use":
+            self.td = 0.25
+        else:
+            self.td = 0.2
+            
         self.ft = ft
         self.county = int(county)
         self.fluid = steam
@@ -59,15 +65,18 @@ class get_load_8760:
             mmask = df['month'] == month
             return df[hmask & dmask & mmask][ophours].values[0]
     
-        self.hfrac_8760 = [get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours") for i in hourlystamp]
-        self.hfrac_8760_l = [get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_low") for i in hourlystamp]
-        self.hfrac_8760_h = [get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_high") for i in hourlystamp]       
-
+        self.hfrac_8760 = np.array([get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours") for i in hourlystamp])
+        self.hfrac_8760_l = np.array([get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_low") for i in hourlystamp])
+        self.hfrac_8760_h = np.array([get_load_frac(hloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_high") for i in hourlystamp])       
+        
         self.efrac_8760 = [get_load_frac(eloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours") for i in hourlystamp]
         self.efrac_8760_l = [get_load_frac(eloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_low") for i in hourlystamp]
         self.efrac_8760_h = [get_load_frac(eloadshapes, i.hour, i.dayofweek, i.month, "Weekly_op_hours_high") for i in hourlystamp]       
 
-    
+        self.hfrac_8760[self.hfrac_8760 <= self.td] = 0
+        self.hfrac_8760_l[self.hfrac_8760_l <= self.td] = 0
+        self.hfrac_8760_h[self.hfrac_8760_h <= self.td] = 0
+        
     def get_annual_loads(self, hload = False, eload = False):
         """
         if heat -> heat, false = electricity
@@ -124,9 +133,6 @@ class get_load_8760:
         self.h_8760 = self.hload/sum(self.hfrac_8760) * np.array(self.hfrac_8760)
         self.h_8760_l = self.hload/sum(self.hfrac_8760_l) * np.array(self.hfrac_8760_l)
         self.h_8760_h = self.hload/sum(self.hfrac_8760_h) * np.array(self.hfrac_8760_h)
-
-        if round(sum(self.h_8760)) != round(self.hload):
-            raise AssertionError("Heat loads don't add up")
             
         self.e_8760 = self.eload/sum(self.efrac_8760) * np.array(self.efrac_8760)
         self.e_8760_l = self.eload/sum(self.efrac_8760_l) * np.array(self.efrac_8760_l)
@@ -144,12 +150,4 @@ class get_load_8760:
         
         df.to_csv("./calculation_data/loads_8760_" + self.emp_size + "_" + str(self.naics) + ".csv")
 
-if __name__ == "__main__":
-    prh = "./calculation_data/all_load_shapes_process_heat_20200728.gzip"
-    boil = "./calculation_data/all_load_shapes_boiler_20200728.gzip"
-    test = get_load_8760(boil, 312120, 'n1000','Conventional Boiler Use', 'Natural_gas', '55063')
-    test.get_shape()
-    # in kwh
-    test.get_annual_loads(11800555.56  , 329478.282149*293.07)
-    test.get_8760_loads()
-    
+

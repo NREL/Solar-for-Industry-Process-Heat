@@ -9,7 +9,7 @@ import numpy as np
 import h5py
 
 def get_json(filepath, techname):
-    data = h5py.File("./calculation_data/" + filepath, "r")
+    data = h5py.File("./calculation_data/revh5files/" + filepath, "r")
     generation_groups = {
     'ptc_tes': {'power': ['q_dot_to_heat_sink'],  # in MWt
                 'footprint': 16187},
@@ -27,7 +27,7 @@ def get_json(filepath, techname):
     for idx in range(len(generation)):  
         if idx%100 == 0:
             print(idx)     
-        gen[idx] = np.array([sum(generation[idx][i:i + 2]) for i in range(0, len(generation[idx]), 2)])
+        gen[idx] = np.array([sum(generation[idx][i:i + 2])/2 for i in range(0, len(generation[idx]), 2)])
     
     gid_to_fips = pd.read_csv("./calculation_data/county_center.csv", usecols=['gid', 'FIPS'])
     
@@ -35,7 +35,7 @@ def get_json(filepath, techname):
     metagid = [i[10] for i in np.array(data['meta'])]
     metafips = [gid_to_fips[gid_to_fips["gid"] == i]["FIPS"].values[0] for i in metagid]
     metatzone = [i[3] for i in np.array(data['meta'])]
-    
+        
     solar_gen = pd.DataFrame()
 
     if techname in ['ptc_tes', 'dsg_lf', 'ptc_notes']:
@@ -63,7 +63,7 @@ def get_json(filepath, techname):
     solar_gen.to_json("./calculation_data/" + techname + "_gen.json")
     
 def is_sun():
-    data = h5py.File("./calculation_data/" + "pv_sc0_t0_or0_d0_gen_2014.h5", "r")
+    data = h5py.File("./calculation_data/revh5files/" + "pv_sc0_t0_or0_d0_gen_2014.h5", "r")
     solar = pd.DataFrame()
     arr = np.array(data["sunup"]).T
     sun = np.zeros((arr.shape[0], 8760))
@@ -85,21 +85,13 @@ def is_sun():
     
     solar.to_json("./calculation_data/issun.json")
     
-if __name__ == "__main__":
-# =============================================================================
-#     #script for json file generation
-#     techname = ["ptc_tes", "dsg_lf", "ptc_notes", "swh", "pv_ac", "pv_dc"]
-#     filepaths = ["ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5", 
-#                  "dsg_lf_sc0_t0_or0_d0_gen_2014.h5", 
-#                  "ptc_notes_sc0_t0_or0_d0_gen_2014.h5", 
-#                  "swh_sc0_t0_or0_d0_gen_2014.h5",
-#                  "pv_sc0_t0_or0_d0_gen_2014.h5"]
-# 
-#     for i,j in zip(filepaths, techname):
-#         get_json(i,j)
-#     
-# =============================================================================
-# =============================================================================
-#     # script for is_sun check
-#     is_sun()
-# =============================================================================
+def main():
+    techname = ["ptc_tes", "dsg_lf", "ptc_notes", "swh", "pv_ac", "pv_dc"]
+    filepaths = ["ptc_tes6hr_sc0_t0_or0_d0_gen_2014.h5", 
+                 "dsg_lf_sc0_t0_or0_d0_gen_2014.h5", 
+                 "ptc_notes_sc0_t0_or0_d0_gen_2014.h5", 
+                 "swh_sc0_t0_or0_d0_gen_2014.h5",
+                 "pv_sc0_t0_or0_d0_gen_2014.h5"]
+
+    for i,j in zip(filepaths, techname):
+        get_json(i,j)

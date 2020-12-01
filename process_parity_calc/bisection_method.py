@@ -42,7 +42,7 @@ def bisection(f,a,b,N):
         return None
     a_n = a
     b_n = b
-    tol = abs((f(a)-f(b))/10000)
+    tol = abs((f(a)-f(b))/100000)
 
     for n in range(1,N+1):
         m_n = (a_n + b_n)/2

@@ -21,10 +21,6 @@ def download_rate(rateid):
     url += rateid
     webbrowser.open(url)
 
-
-# Script below for converting openei json file to rate_8760 and storing it into a json file 
-
-
 def create_json_rates(jsonfile):
   
     with open('./calculation_data/openei/' + jsonfile) as f:
@@ -89,21 +85,15 @@ def create_json_rates(jsonfile):
     
     return ratesdict
 
-if __name__ == "__main__":
+def main():
 
-# =============================================================================
-# #cali , virginia, ohio, colorado, florida
-# ids = ["5cd30e495457a3f73d54e9d8", ]
-# 
-# for i in ids:
-#     download_rate(i)
-# =============================================================================
-    filepaths = ["losangeles.json", "jamescity.json", "franklin.json", "jefferson.json", "duval.json"]
-    counties = ["6037", "51095", "39049", "8059", "12031"]
+    filepaths = ["losangeles.json", "jamescity.json", "franklin.json", "jefferson.json", "duval.json", "dickson.json",
+                 "manitowoc.json", "bartholomew.json", "logan.json", "lesueur.json", "lincoln.json",
+                 "garfield.json", "madison.json", "grayson.json"]
+    counties = ["6037", "51095", "39049", "8059", "12031", "47043", "55071", "18005", "21141", "27079", "29113", "40047", "47113", "48181"]
     allrates = {}
     
     for i,j in zip(filepaths,counties):
-        print(i)
         allrates[j] = create_json_rates(i)
         
     with open('./calculation_data/allelecrates.json', 'w') as fp:

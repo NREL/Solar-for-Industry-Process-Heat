@@ -20,9 +20,10 @@ class ParamMethods:
     land_price = pd.read_csv(os.path.join(path, "landprices.csv"), index_col = 0)
     agland_price = pd.read_csv(os.path.join(path, "aglandprices.csv"), index_col = 0)
     #
+
     mset2 = [43756, 746]
     config = {"fuel" : "NG", 
-          "ptime": np.array([25]),
+          "ptime": np.array([20]),
           "discount": {"BOILER": 0.0658, "CHP": 0.0658, "PVHP": 0.0658, "PTC" : 0.0658, 
                        "PTCTES" : 0.0658, "DSGLF" : 0.0658, "SWH": 0.0658, "PVEB" : 0.0658,
                        "PVRH" : 0.0723, "FURNACE": 0.0723, "EBOILER": 0.0658},
@@ -31,7 +32,7 @@ class ParamMethods:
           "op_hour": "avg",
           "omesc": np.array([0.02]),
           "elecesc": np.array([0.0125]),
-          "sf": 0.05, 
+          "sf": 0.01, 
           "comb": "BOILER",
           "td": 0.25,
           "srange": 0.5,
@@ -43,9 +44,7 @@ class ParamMethods:
                                      "PTCTES" : mset2, "DSGLF" : mset2, "PVEB" : mset2,
                                      "EBOILER": mset2, "FUEL": 264.9 },
                           "331524": 
-                              {"BOILER": 0.0658, "CHP": 0.0658, "PVHP": 0.0658, "PTC" : 0.0658, 
-                              "PTCTES" : 0.0658, "DSGLF" : 0.0658, "SWH": 0.0658, "PVEB" : 0.0658,
-                              "PVRH" : 0.0658, "FURNACE": 0.0658, "EBOILER": 0.0658}},
+                              {"PVRH": [0], "FURNACE": [0], "FUEL": 0}},
           "permit": {"year0": {"CA": [2724.67, 7356.83, 2676.30], "FL": [5000,250,1500], "VA": [11192], "CO": [4649.16], "OH": [100,100]},
                      "annual": {"CA": [1135.61, 457.69], "FL": [300], "VA": [0], "CO": [216, 216.24], "OH": [170]}}
                             
@@ -132,7 +131,7 @@ class ParamMethods:
             schedule = [1/no_years for i in range(no_years)]
 
         try:
-            return schedule[t-1]
+            return schedule[t-1]/1.012**t
 
         except IndexError:
 
@@ -202,6 +201,3 @@ class ParamMethods:
         """
     
         return ParamMethods.corp_tax.loc[state_name, 'Total']  
-
-if __name__ == "__main__":
-    ParamMethods().config["discount"]["BOILER"]

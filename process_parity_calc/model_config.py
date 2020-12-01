@@ -27,8 +27,13 @@ class ModelParams:
      boilereffcap = [84, 250]
      boilereffom = [0, 2.5]
      boilereffinc = [0.0109, 0.0882/100]
-     #adjust this value below based on op hours
-     capacity = 0.622
+     
+     furnaceeff = False
+     furnaceeffcap = [0, 22127]
+     furnaceeffom = [0, 422]
+     furnaceeffinc =  [0.0133, 0.15]
+     
+     i_reduc = 0
      
      gen_dict= {"DSGLF": "dsg_lf_gen.json", "PTC": "ptc_notes_gen.json", 
                 "PTCTES": "ptc_tes_gen.json", "SWH": "swh_gen.json",

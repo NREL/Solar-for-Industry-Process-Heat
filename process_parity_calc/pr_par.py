@@ -18,13 +18,15 @@ import seaborn as sns
 
 class PrPar:
     
-    def __init__(self, new_obj = True, form = False):
+    def __init__(self, m_obj, l_obj, new_obj = True, form = False):
         """ solar_tech, comb_tech should be appropriate factory objects"""
 
-        solar_tech = ["PTC", "PTC"]
-        comb_tech = ["BOILER", "BOILER"]
-        counties =["6037", "51095"]
-
+        self.m_obj = m_obj
+        self.l_obj = l_obj
+        
+        solar_tech = ["PTC"]
+        comb_tech = ["BOILER"]
+        counties =["39049"]
 
         if new_obj:
             if form:
@@ -38,15 +40,15 @@ class PrPar:
                 print("\nCreating combustion object")  
                 self.c_form = FormatMaker().create_format({"tech": comb_tech, "county": counties})
                 
-        self.solar = [CLO.LCOHFactory().create_LCOH(i) for i in self.s_form]
-        self.comb = [CLO.LCOHFactory().create_LCOH(i) for i in self.c_form]
+        self.solar = [CLO.LCOHFactory().create_LCOH(i, self.m_obj, self.l_obj) for i in self.s_form]
+        self.comb = [CLO.LCOHFactory().create_LCOH(i, self.m_obj, self.l_obj) for i in self.c_form]
         self.solar_current = list(map(lambda x: x.calculate_LCOH(), self.solar))
         self.comb_current = list(map(lambda x: x.calculate_LCOH(), self.comb))
             
             
     def reset(self):
         """ Reset the object to default state after running an analysis"""
-        self.__init__(new_obj = False)
+        self.__init__(self.m_obj, self.l_obj, new_obj = False)
         
     def mc_analysis(self, index):
         """ Process Monte Carlo results"""
@@ -80,6 +82,7 @@ class PrPar:
             df["LCOH Value US c/kwh"] = (df["LCOH Value US c/kwh"] - val_LCOH)/val_LCOH * 100
             #round % changes
             df = df.round({"LCOH Value US c/kwh":2})
+            df = df.rename(columns = {"Operating Multiplier": "Operating Cost", "Capital Multiplier": "Capital Cost"})
             # Grab no. of parameters, no. of data points per parameter
             length = len(df.columns) - 1
             no_vals = int(len(df)/length)
@@ -97,7 +100,7 @@ class PrPar:
                 df.loc[no_vals*i+1:no_vals*i+no_vals, :] = copy.loc[no_vals*old_ind[i]+1:no_vals*old_ind[i]+no_vals,:].values
             
             # Beginning of tornado plot code
-            fig , ax = plt.subplots(length,1, figsize = (15,10), dpi = 150)
+            fig , ax = plt.subplots(length,1, figsize = (10,6.66), dpi = 150)
             title = fig.suptitle(techtype + " Replacement Tornado Diagram", fontsize = 30, fontweight="bold", x = 0.58)
     
             for i in range(length):
@@ -110,10 +113,10 @@ class PrPar:
                     fig.delaxes(ax[i])
                     continue
 
-                sns.barplot(df[pmask]["LCOH Value US c/kwh"], ax = ax[i], color = "b", ci=None)
+                sns.barplot(df[pmask]["LCOH Value US c/kwh"], ax = ax[i], color = "g", ci=None)
                 sns.barplot(df[nmask]["LCOH Value US c/kwh"], ax = ax[i], color = "r", ci=None)
                 ax[i].xaxis.set_visible(False)
-                ax[i].set_xlim([-60, 60])
+                ax[i].set_xlim([-25, 25])
                 [s.set_visible(False) for s in ax[i].spines.values()]
                 ax[i].set_yticklabels(columns[old_ind[i]], fontsize = 15, fontweight = "bold")
                 ax[i].yaxis.set_tick_params(length = 0)
@@ -123,10 +126,10 @@ class PrPar:
             ax[0].spines['top'].set_visible(True)
             ax[0].xaxis.set_visible(True)
             ax[0].xaxis.tick_top()
-            ax[0].set_xlabel("\u0394LCOH% (c/USD)", size = 15)
+            ax[0].set_xlabel("\u0394LCOH%", size = 15)
             ax[0].xaxis.set_label_position('top')
             plt.tight_layout(pad = 0.5)
-            title.set_y(0.95)
+            title.set_y(1.0)
             fig.subplots_adjust(top=0.85)
             
         plot_to(to_solar, self.solar[index].tech_type)
@@ -144,11 +147,11 @@ class PrPar:
             
             for i in range(len(self.solar)):
                 self.solar[i].iter_name = "INVESTMENT"
-                root = bisection(lambda x: self.solar[i].iterLCOH(x) - self.comb_current[i], -1 * 10**8, 10**8, 100)
+                root = bisection(lambda x: self.solar[i].iterLCOH(x) - self.comb_current[i], -1*10**8, 1*10**8, 200)
              
                 if root == None:
                     print("No solution")
-                
+                    
                 else: 
                     try:
                         # convert to kwdc
@@ -166,7 +169,7 @@ class PrPar:
             for i in range(len(self.comb)):
                 self.comb[i].iter_name = "FUELPRICE"
                 self.solar[i].iter_name = "FUELPRICE"
-                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(x), -50, 50, 100)
+                root = bisection(lambda x: self.comb[i].iterLCOH(x) - self.solar[i].iterLCOH(x), -100, 100, 200)
 
                 if root == None:
                     print("No solution")
@@ -219,6 +222,58 @@ class PrPar:
         self.reset()
         
         #return df_sol
+        
+    def fp_pb(self, index, itername = "FUELPRICE"):
+        pb=[]
+        if itername == "FUELPRICE":
+            vals = np.linspace(1,20,20)
+        if itername == "BOTH":
+            vals = np.linspace(1,20,20)
+    
+
+        def get_pb(index, itername, price):
+            if itername == "FUELPRICE":
+                self.comb[index].iter_name = itername
+                self.solar[index].iter_name = itername
+                
+                ptime = [100]
+                
+                self.comb[index].p_time = ptime
+                self.solar[index].p_time = ptime
+                
+                self.comb[index].iterLCOH(price)
+                self.solar[index].iterLCOH(price)               
+                self.comb[index].calculate_LCOH()
+                self.solar[index].calculate_LCOH()
+                
+            i_solar = self.solar[index].year0[0]
+            a_solar = self.solar[index].cashflow
+            a_comb = self.comb[index].cashflow
+            savings = [i-j for i,j in zip(a_solar,a_comb)]
+
+            if sum(savings) + i_solar <=  0:
+                
+                year = 1
+                
+                while sum(savings[0:year]) + i_solar > 0:
+                    year += 1
+
+                pb_year = year-1 + abs((i_solar + sum(savings[0:year-1]))/(savings[year-1]))
+
+                savings = -1 * np.array(savings)
+                savings[0] += -1 * i_solar
+                return pb_year
+                
+            else:
+                savings = -1 * np.array(savings)
+                savings[0] += -1 * i_solar               
+                return False
+            
+        for i in vals:
+            pb.append(get_pb(index, "FUELPRICE", i))
+
+        return pb
+
     
     def pb_irr(self):
         
@@ -237,21 +292,22 @@ class PrPar:
             a_solar = self.solar[index].cashflow
             a_comb = self.comb[index].cashflow
             savings = [i-j for i,j in zip(a_solar,a_comb)]
-            print(sum(savings), i_solar)
             if sum(savings) + i_solar <=  0:
                 
-                year = 0
+                year = 1
                 
-                while sum(savings[0:year+1]) + i_solar >= 0:
+                while sum(savings[0:year]) + i_solar > 0:
                     year += 1
-                    
-                pb_year = year + (i_solar + sum(savings[0:year]))/(a_solar[year] - a_comb[year])
+
+                pb_year = year-1 + abs((i_solar + sum(savings[0:year-1]))/(savings[year-1]))
                 
                 #add year 0 solar cost to savings in year 0
+                savings = -1 * np.array(savings)
                 savings[0] += -1 * i_solar
                 return (pb_year, savings[0:year+1])
                 
             else:
+                savings = -1 * np.array(savings)
                 savings[0] += -1 * i_solar               
                 return (False, savings[0:26])
             
@@ -281,10 +337,9 @@ class PrPar:
             t = np.arange(self.solar[index].year, self.solar[index].year + len(value), 1)
             
             fig, ax1 = plt.subplots(figsize=(12,6))
-            ax1.set_ylim([-2 * 10**6 , 3*10**5])
+            ax1.set_ylim([-10 * 10**6 , 0.8*10**6])
         
-        
-            title = fig.suptitle("Cash Flow Diagram", fontweight = "bold", fontsize = 20)
+            title = fig.suptitle("1 MWAC PVRH Cash Flow - Dickson, Tennessee", fontweight = "bold", fontsize = 20)
             ax1.xaxis.set_major_locator(MaxNLocator(integer=True))
         
             ax1.bar(t, value, color = ["#85bb65" if val >= 0 else "#D43E3E" for val in value], alpha = 0.8)
@@ -307,9 +362,10 @@ class PrPar:
         
         for i in no_plots:
             payback, value = get_pb(i)
+            self.payback = payback
             irr = get_irr(i)
-            print(payback, irr)
-            plot_cf(i, value)
+            self.irr = irr
+            #plot_cf(i, value)
         
         self.reset()
 
@@ -317,4 +373,4 @@ if __name__ == "__main__":
     
     import pandas as pd
     test_obj = PrPar()
-    print(test_obj.pp_1D("INVESTMENT"))
+    test_obj.fp_pb(0)
