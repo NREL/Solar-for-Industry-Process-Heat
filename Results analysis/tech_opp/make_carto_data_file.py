@@ -11,9 +11,32 @@ Carto CSV Data File Generation Script
 import pandas as pd
 import numpy as np
 import h5py
+from math import floor, log10
 
+# creating base county list dataframe as of 2018
+filepath = "pv_sc0_t0_or0_d0_gen_2014.h5"
+data = h5py.File(filepath, "r")
+gid_to_fips = pd.read_csv("county_center.csv", usecols=['gid', 'FIPS'])
+
+def getstate(a):
+    if len(str(a)) == 5:
+        return int(str(a)[0:2])
+    else:
+        return int(str(a)[0])
+
+metagid = [i[10] for i in np.array(data['meta'])]
+metafips = [gid_to_fips[gid_to_fips["gid"] == i]["FIPS"].values[0] for i in metagid]
+statefips = [getstate(fips) for fips in metafips]
+
+carto_data = pd.DataFrame(index = metafips)
+carto_data["state"] = statefips
+
+excl_state = [2, 66, 72, 15, 69, 78, 60]
+carto_data = carto_data[~carto_data["state"].isin(excl_state)]
+carto_data.drop(columns = ["state"], inplace = True)
+
+# Heat dataset
 heat = pd.read_parquet('mfg_eu_temps_20200826_2224.parquet.gzip')
-carto_data = pd.DataFrame(index = heat["COUNTY_FIPS"].unique())
 heat["Temp_C"] = heat["Temp_C"].apply(float)
 
 #Process Heat Demand Columns
@@ -26,27 +49,19 @@ heat501 = heat[heat["Temp_C"] > 500].groupby(["COUNTY_FIPS"])[["MMBtu"]].sum().r
 # missing values
 dfs = [heat90, heat150, heat300, heat500, heat501]
 for df in dfs:
-    carto_data = carto_data.merge(df, how = "outer", left_index = True, right_index = True)
-carto_data.fillna(0, inplace = True)
+    carto_data = carto_data.merge(df, how = "left", left_index = True, right_index = True)
 
-# resource data
-filepath = "pv_sc0_t0_or0_d0_gen_2014.h5"
-data = h5py.File(filepath, "r")
-gid_to_fips = pd.read_csv("county_center.csv", usecols=['gid', 'FIPS'])
-
-# matching county fips and converting gni/dni to (kwh/m^2_/year
-metagid = [i[10] for i in np.array(data['meta'])]
-metafips = [gid_to_fips[gid_to_fips["gid"] == i]["FIPS"].values[0] for i in metagid]
+# processing dni/ghi, matching county fips and converting gni/dni to (kwh/m^2_/year)
+resource = pd.DataFrame(index = metafips)
 dni = np.array(data["dn"]).T
 ghi = np.array(data["gh"]).T
 dni_annual = np.apply_along_axis(sum, 1, dni)/2000
 ghi_annual = np.apply_along_axis(sum, 1, ghi)/2000
-resource = pd.DataFrame(index = metafips)
 resource["dni"] = dni_annual
 resource["ghi"] = ghi_annual
 #var to store counties not in intersection
 symdiff = set(resource.index) ^ set(carto_data.index)
-carto_data = carto_data.merge(resource, how = "outer", left_index = True, right_index = True)
+carto_data = carto_data.merge(resource, how = "left", left_index = True, right_index = True)
 
 # tech opp results
 tech = ["DSG_LF", "PTC_NOTES", "PTC_TES", "SWH", "PV_BOILER", "PV_WHRHP", "PV_RESIST"]
@@ -64,10 +79,15 @@ for i,j in zip(tech, paths):
     df[i + " % of Year County Demand Met"] = np.sum(np.array(oppdata["ophours_mean"]["tech_opp"]).T >= 1, axis = 1)/8760*100
     df.set_index("COUNTY_FIPS", inplace = True)
     df.drop(columns  = ["avail_land", "timezone"], inplace = True)
-    carto_data = carto_data.merge(df, how = "outer", left_index = True, right_index = True)
+    carto_data = carto_data.merge(df, how = "left", left_index = True, right_index = True)
 
-# deal with missing values
-carto_data = carto_data[carto_data["Process Load Temp <=90 C (TBtu)"].notna()]
-exclcol = [i + " % of Year County Demand Met" for i in tech]
-carto_data.dropna(subset = exclcol, how = "all", inplace = True)
-carto_data.to_csv("siph_carto_data_county_res.csv")
+# missing demand and tech opp results are filled with 0   
+carto_data.fillna(0, inplace = True)
+
+def round_sig(x, N):
+    if x == 0:
+        return 0.0
+    return round(x, N-1-int(floor(log10(abs(x)))))
+carto_data = carto_data.applymap(lambda x: round_sig(x,2))
+
+carto_data.to_csv("siph_carto_data_county_res.csv", float_format='%f')
