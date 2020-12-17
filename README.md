@@ -4,7 +4,6 @@ This private repository is for the code generated during the Solar for Industria
 ## Project Links
 Non-GitHub links for project information
 * [NREL project website](https://www.nrel.gov/analysis/solar-industrial-process-heat.html)
-* [Box for files](https://nrel.app.box.com/folder/64691762692)
 * [NREL Data Catalog entry](https://dx.doi.org/10.7799/1570008)
 
 ## Basic Guide to Directories
@@ -13,4 +12,4 @@ Non-GitHub links for project information
 * [/tech_opportunity_analysis/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/tech_opportunity_analysis): Code for estimating county technical opportunity for each solar technology package. A brief summary of the important code files is provided by the subdirectory's readme.
 * [/process_parity_calc/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/process_parity_calc): Code for calculating process parity, including LCOH calculations. An overview of the approach and code is provided by the subdirectory's readme.
 * [/CHP/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/CHP): Contains code for analyzing the [CHP Installation Database](https://doe.icfwebservices.com/chpdb/) at the county level.
-* [/Results analysis/mapping/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/Results%20analysis/mapping): Contains code for analyzing results, including geographic analysis.
+* [/Results analysis/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/Results%20analysis/mapping): Contains code for analyzing results, including geographic analysis.
