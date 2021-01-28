@@ -1,10 +1,11 @@
 # Solar for IPH
-This private repository is for the code generated during the Solar for Industrial Process Heat project. The repo will be made public once the project is completed in December 2020.
+This private repository is for the code generated during the Solar for Industrial Process Heat project. 
 
 ## Project Links
-Non-GitHub links for project information
+Other links for project information
 * [NREL project website](https://www.nrel.gov/analysis/solar-industrial-process-heat.html)
 * [NREL Data Catalog entry](https://dx.doi.org/10.7799/1570008)
+* Report on [Opportunities for Solar Industrial Process Heat in the United States](https://www.nrel.gov/docs/fy21osti/77760.pdf)
 
 ## Basic Guide to Directories
 * [/county_heat_calculations/](https://github.com/NREL/Solar-for-Industry-Process-Heat/tree/master/county_heat_calculations): Contains code for calculating the county level process heat estimates for 2014, available on the [NREL Data Catalog](https://dx.doi.org/10.7799/1570008). 
