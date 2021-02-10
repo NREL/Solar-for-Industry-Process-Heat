@@ -1,0 +1,59 @@
+﻿NAICS,Industry,Unit processes,End use,fraction
+311221,Wet corn milling,evaporation,Boiler/CHP,0.657895
+311221,Wet corn milling,evaporation,Process heating,1
+311224,Soybean oil mills,evaporation,Boiler/CHP,0.413096
+311224,Soybean oil mills,evaporation,Process heating,1
+311313,Beet sugar,evaporation,Boiler/CHP,0.800582
+311313,Beet sugar,evaporation,Process heating,1
+311314,Cane sugar,evaporation,Boiler/CHP,0.361757
+311411,"Frozen Fruit, Juice, and Vegetable Manufacturing",extraction of fruit juice,Boiler/CHP,0.800171
+311421,Canned vegetable,blanching,Boiler/CHP,0.75
+311421,Canned fruit,peeling,Boiler/CHP,0.575758
+311423,Dried and dehydrateed food manufacturing,dehydration,Boiler/CHP,0.800171
+311511,Fluid milk,sterilisation and pasteurisation,Boiler/CHP,0.843137
+311511,Fluid milk,dryer,Process heating,1
+311710,Seafood product preparation and packaging,in preparation of fish product,Boiler/CHP,0.800171
+311811,Retail bakeries,fermentation,Boiler/CHP,1
+311812,Commercial bakeries,fermentation,Boiler/CHP,1
+311813,"Frozen cakes, pies and other pastries manufacturing",fermentation,Boiler/CHP,1
+311821,Cookies and cracker manufacturing,fermentation,Boiler/CHP,1
+311821,Cookies and cracker manufacturing,fermentation,Process heating,1
+311824,"Dry Pasta, Dough, and Flour Mixes Manufacturing from Purchased Flour",fermentation,Boiler/CHP,1
+311830,Tortilla Manufacturing,fermentation,Boiler/CHP,1
+312120,Malt beverages,sterilisation and pasteurisation,Boiler/CHP,0.800171
+331110,Iron and Steel Mills and Ferroalloy Manufacturing,"sintering, heating and annealing",Boiler/CHP,0.138966092
+331110,Iron and Steel Mills and Ferroalloy Manufacturing,"sintering, heating and annealing",Process heating,0.507312921
+331210,Iron and Steel Pipe and Tube Manufacturing from Purchased Steel,"sintering, heating and annealing",Boiler/CHP,0.138966092
+331210,Iron and Steel Pipe and Tube Manufacturing from Purchased Steel,"sintering, heating and annealing",Process heating,0.507312921
+331221,Rolled Steel Shape Manufacturing,"sintering, heating and annealing",Boiler/CHP,0.138966092
+331221,Rolled Steel Shape Manufacturing,"sintering, heating and annealing",Process heating,0.507312921
+331313,Alumina Refining and Primary Aluminum Production,Heat treatment,Process heating,1
+331314,Secondary Smelting and Alloying of Aluminum,Heat treatment,Process heating,0.842000129
+331315,"Aluminum Sheet, Plate, and Foil Manufacturing",Heat treatment,Process heating,1
+331318,"Other Aluminum Rolling, Drawing, and Extruding",Heat treatment,Process heating,1
+331410,Nonferrous Metal (except Aluminum) Smelting and Refining,Heat treatment,Process heating,1
+331511,Iron Foundries,Heat treatment,Process heating,0.63099631
+331513,Steel foundries (except investment),Heat treatment,Process heating,0
+331523,Nonferrous Metal Die-Casting Foundries,Heat treatment,Process heating,0.731325
+331524,Aluminum foundries (except die-casting),Heat treatment,Process heating,0.731325
+331529,Other nonferrous metal foundries (except die-casting),Heat treatment,Process heating,0.731325
+327110,"Pottery, Ceramics, and Plumbing Fixture Manufacturing","Melting, annealing, and glass tempering",Process heating,1
+327120,Clay Building Material and Refractories Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+327211,Flat Glass Manufacturing,"Melting, annealing, and glass tempering",Process heating,0.941599281
+327212,Other Pressed and Blown Glass and Glassware Manufacturing,"Melting, annealing, and glass tempering",Process heating,0.868486352
+327213,Glass Container Manufacturing,"Melting, annealing, and glass tempering",Process heating,0.940953039
+327215,Glass Product Manufacturing Made of Purchased Glass,"Melting, annealing, and glass tempering",Process heating,0.937759668
+327310,Cement Manufacturing,"Heating industrial materials like tiles, bricks, insulation and refractory material, and for domestic materials, like pottery or porcelain",Process heating,0.090909091
+327390,Other Concrete Product Manufacturing,"Heating industrial materials like tiles, bricks, insulation and refractory material, and for domestic materials, like pottery or porcelain",Process heating,0.090909091
+327410,Lime Manufacturing,"Heating industrial materials like tiles, bricks, insulation and refractory material, and for domestic materials, like pottery or porcelain",Process heating,1
+327420,Gypsum Product Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+327910,Abrasive Product Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+327992,Ground or Treated Mineral and Earth Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+327993,Mineral Wool Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+327999,All Other Miscellaneous Nonmetallic Mineral Product Manufacturing,"Melting, annealing, and glass tempering",Process heating,1
+325110,Petrochemical Manufacturing,"Heating chemical reactors, fluid heating (but excluding water)",Process heating,0.333333333
+325180,Other Basic Inorganic Chemical Manufacturing,"Heating chemical reactors, fluid heating (but excluding water)",Process heating,0.389003436
+325193,Ethyl Alcohol Manufacturing,"Heating chemical reactors, fluid heating (but excluding water)",Process heating,1
+325194,"Cyclic Crude, Intermediate, and Gum and Wood Chemical Manufacturing","Heating chemical reactors, fluid heating (but excluding water)",Process heating,0.333333333
+325199,All Other Basic Organic Chemical Manufacturing,"Heating chemical reactors, fluid heating (but excluding water)",Process heating,1
+324110,Petroleum refinery,"Heating chemical reactors, fluid heating (but excluding water), reforming, hydro treating, cracking, distillation",Process heating,0.719447098
