@@ -24,9 +24,9 @@ class PrPar:
         self.m_obj = m_obj
         self.l_obj = l_obj
         
-        solar_tech = ["PTC"]
+        solar_tech = ["PTCTES"]
         comb_tech = ["BOILER"]
-        counties =["39049"]
+        counties =["6037"]
 
         if new_obj:
             if form:
@@ -62,27 +62,21 @@ class PrPar:
         sns.distplot(mc_comb["LCOH Value US c/kwh"], kde = True, axlabel = "LCOH Cents/KWH", label = self.comb[index].tech_type)
         plt.legend()
         
-        self.reset()
-        
     def to_analysis(self, index):
         """Process Tornado Diagram Data"""
         
-        # Read in the tornado diagram simulation dataframes
-        
+        # Read in the tornado diagram simulation dataframe
         to_solar = self.solar[index].simulate("TO").reset_index(drop = True)
         to_comb = self.comb[index].simulate("TO").reset_index(drop = True)
 
         def plot_to(df, techtype):
             """ Plot Tornado Diagrams"""
-            # Drop unnecessary columns
-            df.drop(columns = ["Capital Cost", "Operating Cost"], inplace = True)
             # Grab default LCOH value
             val_LCOH = df["LCOH Value US c/kwh"][1]
             # Find % change from default LCOH value
             df["LCOH Value US c/kwh"] = (df["LCOH Value US c/kwh"] - val_LCOH)/val_LCOH * 100
             #round % changes
             df = df.round({"LCOH Value US c/kwh":2})
-            df = df.rename(columns = {"Operating Multiplier": "Operating Cost", "Capital Multiplier": "Capital Cost"})
             # Grab no. of parameters, no. of data points per parameter
             length = len(df.columns) - 1
             no_vals = int(len(df)/length)
@@ -98,26 +92,25 @@ class PrPar:
             # Rearranges data frame from the most sensitive to least sensitive parameters
             for i in range(length):
                 df.loc[no_vals*i+1:no_vals*i+no_vals, :] = copy.loc[no_vals*old_ind[i]+1:no_vals*old_ind[i]+no_vals,:].values
-            
             # Beginning of tornado plot code
             fig , ax = plt.subplots(length,1, figsize = (10,6.66), dpi = 150)
-            title = fig.suptitle(techtype + " Replacement Tornado Diagram", fontsize = 30, fontweight="bold", x = 0.58)
+            title = fig.suptitle(techtype + " Tornado Diagram", fontsize = 30, fontweight="bold", x = 0.58)
     
             for i in range(length):
                 # Define masks for LCOH changes greater and less than tolerance
                 tolerance = 0.005
                 pmask = df.loc[no_vals*i+1:no_vals*i+no_vals, ["LCOH Value US c/kwh"]] > tolerance
-                nmask = df.loc[no_vals*i+1:no_vals*i+no_vals:, ["LCOH Value US c/kwh"]] < tolerance
+                nmask = df.loc[no_vals*i+1:no_vals*i+no_vals:, ["LCOH Value US c/kwh"]] < -1 * tolerance
                 # if any masks is empty, delete the axis/parameter since no sensitivity
-                if (not any(pmask["LCOH Value US c/kwh"])) or (not any(nmask["LCOH Value US c/kwh"])):
+                if (not any(pmask["LCOH Value US c/kwh"])) and (not any(nmask["LCOH Value US c/kwh"])):
                     fig.delaxes(ax[i])
                     continue
-
-                sns.barplot(df[pmask]["LCOH Value US c/kwh"], ax = ax[i], color = "g", ci=None)
-                sns.barplot(df[nmask]["LCOH Value US c/kwh"], ax = ax[i], color = "r", ci=None)
+                sns.barplot(df[pmask]["LCOH Value US c/kwh"], ax = ax[i], color = "r", ci=None)
+                sns.barplot(df[nmask]["LCOH Value US c/kwh"], ax = ax[i], color = "g", ci=None)
                 ax[i].xaxis.set_visible(False)
                 ax[i].set_xlim([-25, 25])
                 [s.set_visible(False) for s in ax[i].spines.values()]
+
                 ax[i].set_yticklabels(columns[old_ind[i]], fontsize = 15, fontweight = "bold")
                 ax[i].yaxis.set_tick_params(length = 0)
                 
@@ -135,12 +128,9 @@ class PrPar:
         plot_to(to_solar, self.solar[index].tech_type)
         plot_to(to_comb, self.comb[index].tech_type)
         
-        self.reset()
         
     def pp_1D(self, iter_name):
-        
-        # Fuel unit dictionary for better readability
-        fuel_units = {"NG" : "$/thousand cuf", "PETRO" : "$/gallon", "COAL" : "$/short ton"}
+
         roots = []
         
         if iter_name.upper() == "INVESTMENT":
@@ -154,18 +144,16 @@ class PrPar:
                     
                 else: 
                     try:
-                        # convert to kwdc
-
                         root /= self.solar[i].model.sys_size
-                    except AttributeError:
 
+                    except AttributeError:
                         root /= self.solar[i].smodel.sys_size
                         
                     roots.append(root)
                     
-                #print("The investment price for process parity is {:.2f} $USD".format(root))
         
         elif iter_name.upper() == "FUELPRICE":
+
             for i in range(len(self.comb)):
                 self.comb[i].iter_name = "FUELPRICE"
                 self.solar[i].iter_name = "FUELPRICE"
@@ -176,12 +164,9 @@ class PrPar:
                     
                 else: 
                     roots.append(root)
-                    #print("The fuel price of {} for process parity is {:.2f} {}".format(self.comb.fuel_type, root, fuel_units[self.comb.fuel_type]))
         else:
             print("Not a valid iteration name.")
             return None
-        
-        self.reset()
         
         return roots
         
@@ -192,10 +177,7 @@ class PrPar:
         for i in range(no_plots):
             self.solar[i].iter_name = "BOTH"
         for i in range(no_plots):
-            self.comb[i].iter_name = "FUELPRICE"
-            
-        #df_sol = pd.DataFrame(columns = ["fuelprice", "investment", "LCOH"])
-        
+            self.comb[i].iter_name = "FUELPRICE"  
         fig, ax = plt.subplots(no_plots, figsize = (10,15))
 
         # for each capital investment (i_vals) iterate to find associated fuel price
@@ -219,17 +201,11 @@ class PrPar:
         fig.tight_layout()
         fig.suptitle("Process Parity Solution Space", fontweight = "bold", fontsize = 14)
         
-        self.reset()
+    def fp_pb(self, itername = "FUELPRICE"):
         
-        #return df_sol
-        
-    def fp_pb(self, index, itername = "FUELPRICE"):
         pb=[]
         if itername == "FUELPRICE":
             vals = np.linspace(1,20,20)
-        if itername == "BOTH":
-            vals = np.linspace(1,20,20)
-    
 
         def get_pb(index, itername, price):
             if itername == "FUELPRICE":
@@ -268,14 +244,17 @@ class PrPar:
                 savings = -1 * np.array(savings)
                 savings[0] += -1 * i_solar               
                 return False
+        
+        for i in range(len(self.solar)):
+            pblist = []
+            for j in vals:
+                pblist.append(get_pb(i, "FUELPRICE", j))
+            pb.append(pblist)
             
-        for i in vals:
-            pb.append(get_pb(index, "FUELPRICE", i))
-
         return pb
 
     
-    def pb_irr(self):
+    def pb(self):
         
         def get_pb(index):
             
@@ -311,27 +290,6 @@ class PrPar:
                 savings[0] += -1 * i_solar               
                 return (False, savings[0:26])
             
-        def get_irr(index):
-            
-            def irr_eq(dr):
-                # set period of analysis calculations
-                self.solar[index].discount_rate = dr
-                self.comb[index].discount_rate = dr
-                # calculate LCOH to get payback period variables
-                self.solar[index].calculate_LCOH()
-                self.comb[index].calculate_LCOH()
-                
-                i_solar = self.solar[index].year0[0]
-                a_solar = self.solar[index].cashflow
-                a_comb = self.comb[index].cashflow
-                savings = [i-j for i,j in zip(a_solar,a_comb)]
-                
-                return sum(savings) + i_solar    
-            
-            irr = bisection(lambda x: irr_eq([x]), 0 ,40, 100)
-            
-            return irr
-            
         def plot_cf(index, value):  
             """ plot cash flow diagram"""
             t = np.arange(self.solar[index].year, self.solar[index].year + len(value), 1)
@@ -360,17 +318,49 @@ class PrPar:
             
         no_plots = range(len(self.solar))
         
-        for i in no_plots:
-            payback, value = get_pb(i)
-            self.payback = payback
-            irr = get_irr(i)
-            self.irr = irr
-            #plot_cf(i, value)
+        payback = []
         
-        self.reset()
+        for i in no_plots:
+            payback.append(get_pb(i)[0])
+
+        return payback
+
+            
+    def irr(self):
+        def get_irr(index):
+            
+            def irr_eq(dr):
+                # set period of analysis calculations
+                self.solar[index].discount_rate = dr
+                self.comb[index].discount_rate = dr
+                # calculate LCOH to get payback period variables
+                self.solar[index].calculate_LCOH()
+                self.comb[index].calculate_LCOH()
+                
+                i_solar = self.solar[index].year0[0]
+                a_solar = self.solar[index].cashflow
+                a_comb = self.comb[index].cashflow
+                savings = [i-j for i,j in zip(a_solar,a_comb)]
+                
+                return sum(savings) + i_solar    
+            
+            irr = bisection(lambda x: irr_eq([x]), 0 ,40, 100)
+            
+            return irr
+        
+        no_plots = range(len(self.solar))        
+        irr = []
+        for i in no_plots:
+            irr.append(get_irr(i))
+        
+        return irr
+
 
 if __name__ == "__main__":
-    
-    import pandas as pd
-    test_obj = PrPar()
-    test_obj.fp_pb(0)
+
+    from lcoh_config import ParamMethods as pm
+    from model_config import ModelParams as mp    
+
+
+
+

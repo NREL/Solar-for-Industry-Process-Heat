@@ -53,6 +53,7 @@ class ParamMethods:
         elec_curves = json.load(f)
     with open('./calculation_data/allelecrates.json') as f:   
         elec_rates = json.load(f)
+
     @classmethod
     def get_lp(cls,county, ag = False):
         if ag:
@@ -61,7 +62,6 @@ class ParamMethods:
         return ParamMethods.land_price.loc[ParamMethods.land_price["County"] == int(county), "Price Per Acre"].max()        
     @classmethod
     def get_elec_curve(cls,county, state_abbr):
-        # convert $/mwh to $/kwh cap at facility max -> so no overprice
         # api for open ei: 6owfvbw5T75IsLK8LJU4vjVnXBMfB1sa38HvhRwu
         if county == str(6037):
             d = datetime.datetime.today()
@@ -131,7 +131,7 @@ class ParamMethods:
             schedule = [1/no_years for i in range(no_years)]
 
         try:
-            return schedule[t-1]/1.012**t
+            return schedule[t-1]#/1.012**t
 
         except IndexError:
 
@@ -160,7 +160,6 @@ class ParamMethods:
             return {"p_cap": p_cap, "cap": cap ,"size": size, "var_size": var_size}
 
         else:
-            """ For now to simplify, assume just the ITC tax credit """
             #% capital
             p_cap = 0
             #fixed capital
@@ -170,10 +169,11 @@ class ParamMethods:
             # function of kwh production
             var_size = 0
             
-            #ITC subsidy
+            # ITC subsidy
             ITC = lambda t: 0.26 if t == 2019 else(0.22 if (t == 2020) else 0.1)
             p_cap += ITC(ParamMethods.year)
             
+            # Specific subsidies below
             if tech_type in ["PVEB", "PVRH"]:
                 if state.upper() == "NY":
                     size += 13.4/100 * 8760 * 0.09
@@ -189,7 +189,8 @@ class ParamMethods:
             if state.upper() == "MN":
                 # assume 50000 rebate given cause system will always > 300 kW
                 cap += 50000
-            return {"p_cap": p_cap, "cap": cap ,"size": size, "var_size": var_size}            
+            return {"p_cap": p_cap, "cap": cap ,"size": size, "var_size": var_size}    
+        
     @classmethod  
     def get_corptax(cls, state_name):
     

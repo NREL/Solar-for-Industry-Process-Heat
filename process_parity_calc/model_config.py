@@ -12,7 +12,7 @@ class ModelParams:
     
      path = "./calculation_data"
      #ng conversion is from kJ to 1000 cuf
-     hv_vals = {"PETRO" : 4.641 * 1055055.85 / 42, "NG" : 1084597, 
+     hv_vals = {"PETRO" : 4.641 * 1055055.85 / 42, "NG" : 1055055, 
                 "COAL" : 20.739 * 1055055.85}
      month = 6
      fips_data = pd.read_csv(os.path.join(path, "US_FIPS_Codes.csv"), usecols=['State', 'COUNTY_FIPS', 'Abbrev']) 

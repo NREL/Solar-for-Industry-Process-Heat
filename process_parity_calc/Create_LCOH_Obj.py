@@ -27,12 +27,14 @@ class LCOH(metaclass=ABCMeta):
         self.iter_name = None
         self.form = form
         self.invest_type, self.tech_type, self.mult, self.county = form
-
         self.fuel_type = pm.config["fuel"]
         self.hv_vals = mp.hv_vals[self.fuel_type]
+        self.state_name, self.state_abbr = pm.get_state_names(self.county)
         
+        # import heat and electricity loads 
         path = "loads_8760_" + pm.config["emp_size"] + "_" + str(pm.config["naics"]) + ".csv"
         df = pd.read_csv(os.path.join(LCOH.path, path))
+        
         if pm.config["op_hour"] == "high":
             elec = "eload_h"
             heat = "hload_h"
@@ -44,48 +46,42 @@ class LCOH(metaclass=ABCMeta):
             heat = "hload"
         else:
             raise AssertionError("op_hour not specified")
-
         self.fe_load_8760 = np.array(df[elec])
         self.load_8760 = np.array(df[heat])
-        
         self.peak_load = max(self.load_8760)
-        self.fuel_reduc = 0
-        # energy in kwh required by process add tolerance in case of number processing problems
         self.energy = sum(self.load_8760)
         
+        # apply measurements
+        self.fuel_reduc = 0
         if self.measurements:
             self.fuel_reduc = pm.config["measurements"][str(pm.config["naics"])]["FUEL"]
             #reduce fuel usage
             self.load_8760 = (self.load_8760 - self.fuel_reduc).clip(0)
             #find old average for total energy delivered calculation
             self.energy = sum(self.load_8760)
-  
-        self.state_name, self.state_abbr = pm.get_state_names(self.county)
+          
+        self.elec_p = pd.read_csv("./calculation_data/p_elec.csv", index_col = 0)[self.state_name].values[0]
 
-        # convert $/mwh to $/kwh cap at facility max -> so no overprice
+        # import electricity and fuel prices and escalation rates
         self.pd_curve = pm.get_elec_curve(self.county, self.state_abbr)
         self.edrate = pm.get_demand_struc(self.county)
-
         self.fuel_price, self.fuel_year = gap.UpdateParams.get_fuel_price(
                                     self.state_abbr, self.fuel_type)
         self.fp_range = gap.UpdateParams.get_max_fp(self.state_abbr, self.fuel_type) - self.fuel_price
-        
-
         self.fuel_esc = np.array([gap.UpdateParams.get_esc(self.state_abbr, self.fuel_type) / 100])
+        self.elec_esc = pm.config["elecesc"]
         
+        # import land prices
         self.landprice = pm.get_lp(self.county)
         self.landpricel = pm.get_lp(self.county, ag = True)
         self.lp_range = self.landprice - self.landpricel
         
+        # general simulation parameters
         self.p_time = pm.config["ptime"]
-        
-        ndiscount = pm.config["discount"][self.tech_type]
-        
-        self.discount_rate = np.array([(ndiscount-0.012)/(1 + 0.012)])
-        
         self.OM_esc = pm.config["omesc"]
-        
-        self.elec_esc = pm.config["elecesc"]
+        nomdiscount = pm.config["discount"][self.tech_type]
+        self.discount_rate = np.array([(nomdiscount-0.012)/(1 + 0.012)])
+
         
     @abstractmethod
     def calculate_LCOH(self):
@@ -121,7 +117,6 @@ class LCOH(metaclass=ABCMeta):
         
         if a_type.upper() == "MC":
             self.p_time = np.array([self.p_time[0] for i in range(no_sims)])
-            #self.p_time = np.random.randint(25,40,size = no_sims)
             self.discount_rate = np.random.uniform(0.05,0.15, size =no_sims)
             self.OM_esc = np.random.uniform(0,0.03,size = no_sims)
             self.fuel_esc = np.random.uniform(0,0.03,size = no_sims)
@@ -133,14 +128,23 @@ class LCOH(metaclass=ABCMeta):
     
         if a_type.upper() == "TO":
             
-            numvars = 9
+            numvars = 11
             siml = int(no_sims/numvars)
-            srange = 0.5
 
             d_vals = [self.p_time[0], self.discount_rate[0], self.OM_esc[0], 
-                      self.fuel_esc[0], 1, 1, self.fuel_price, self.landpricel, 1]
+                      self.fuel_esc[0], 1, 1, 1, 1, self.fuel_price, self.landpricel, 1]
 
-            sim = [np.linspace(i*srange, i* (srange+1), num=siml) for i in d_vals]
+            sim = [np.linspace(15,25,num = siml),
+                   np.linspace(0.06, 0.09, num = siml),
+                   np.linspace(0,0.03, num = siml),
+                   np.linspace(0,0.03, num = siml),
+                   np.linspace(0.9,4, num = siml),
+                   np.linspace(0.9,4, num = siml),
+                   np.linspace(0.75,1.25, num = siml),
+                   np.linspace(0.75,1.25, num = siml),
+                   np.linspace(self.fuel_price, self.fuel_price + self.fp_range, num = siml),
+                   np.linspace(self.landpricel,self.landprice, num = siml),
+                   np.linspace(1-self.elec_p, 1+self.elec_p, num = siml)]
             
             vals = [np.concatenate(([val]*i*siml, sim[i], [val]*(numvars-1-i)*siml), axis=0) for i, val in enumerate(d_vals)]
             
@@ -149,11 +153,13 @@ class LCOH(metaclass=ABCMeta):
             self.discount_rate = vals[1]
             self.OM_esc = vals[2]       
             self.fuel_esc = vals[3]
-            self.rand_c = vals[4]
-            self.rand_o = vals[5]   
-            self.rand_f = vals[6]
-            self.rand_l = vals[7]
-            self.rand_e = vals[8]
+            self.rand_cs = vals[4]
+            self.rand_os = vals[5]
+            self.rand_c = vals[6]
+            self.rand_o = vals[7]
+            self.rand_f = vals[8]
+            self.rand_l = vals[9]
+            self.rand_e = vals[10]
 
 
 class Greenfield(LCOH):
@@ -162,10 +168,12 @@ class Greenfield(LCOH):
         
         self.mp = m_config
         self.pm = l_config
-        # Control variables
+        
+        # Initialize parameters
         LCOH.__init__(self, form, self.mp, self.pm)  
     
-        # Model Import
+        # self.mult is applied to solar technologies as they are multiples of 1 MW systems
+        # the actual peak load is passed to conventional technologies
         if (self.mp.deprc) and self.tech_type in ["FURNACE", "BOILER"]:
             self.mult = self.peak_load
             
@@ -174,12 +182,15 @@ class Greenfield(LCOH):
                      (self.mult, self.load_8760), 
                      (self.fuel_price,self.fuel_type), self.mp
                     )
-
+        # initialize om and capital costs
         self.model.om()
         self.model.capital()
 
         def import_param():
-
+            """ 
+            Function to import all parameters for the simulation. 
+            Primarily model parameters are imported. 
+            """
             self.corp_tax = self.pm.get_corptax(self.state_name)
             
             self.subsidies = self.pm.get_subsidies(self.tech_type, self.county, self.state_abbr)
@@ -187,12 +198,11 @@ class Greenfield(LCOH):
             self.depreciation = self.pm.get_dep_value
     
             def get_OM(t):
-                
-                """ Placeholders, OM fixed/var should be obtained from model.py"""
-                # only need to initalize during init - first calculate_LCOH
+                """# Obtain OM cost for a year t"""
                 if not self.sim:
                 
                     omp = 1
+                    omps = 1
                     fmp = self.fuel_price
                     emp = 1
                     
@@ -200,19 +210,20 @@ class Greenfield(LCOH):
                 if self.sim:
                     
                     omp = self.rand_o
+                    omps = self.rand_os
                     fmp = self.rand_f
                     emp = self.rand_e
                 
-                #
+                # fuel costs from the model as a function of time for escalation
                 self.fc = (self.model.fc) * (1 + self.fuel_esc)**t
                 
                 def get_elec_cost():
-                    
-                    if self.tech_type in ["BOILER", "FURNACE"]:
-                        return (0,0)
+                    """ Obtain electricity costs for a year t"""
+                    if self.tech_type in ["BOILER", "FURNACE", "DSGLF", "PTC", "PTCTES"]:
+                        return 0
                     
                     def get_demand_cost(load):
-                        
+                        """Finds the demand cost for each month"""
                         length = np.array([31,28,31,30,31,30,31,31,30,31,30,31]) * 24
                         start = np.array([0,31,59,90,120,151,181,212,243,273,304,334])*24
                         peaks = []
@@ -221,7 +232,7 @@ class Greenfield(LCOH):
                             ind = np.argmax(load[start[month] : start[month] + length[month]])
                             peakind.append(ind)
                             peaks.append(load[ind])
-                    
+                        # single value demand vs demand rate by month
                         if type(self.edrate) == list:
                             peakrates = np.array([self.edrate[i] for i in peakind])
                             demand_cost = sum(np.array(peaks) * peakrates)
@@ -229,57 +240,63 @@ class Greenfield(LCOH):
                             demand_cost = sum(self.edrate*np.array(peaks)) 
                             
                         return demand_cost
-                    
-
+                    # new facility electricity grid load after addition of electrified equipment and potential renewables
                     new_elec_load = (self.fe_load_8760 + self.load_8760/self.model.get_efficiency() - self.model.gen).clip(min=0)   
 
+                    # demand charge change due to renewables
                     new_elec_cost_demand = get_demand_cost(new_elec_load)
                     old_elec_cost_demand = get_demand_cost(self.fe_load_8760)
                     demand_diff = new_elec_cost_demand - old_elec_cost_demand
                     
+                    # reduced energy charges from renewables 
                     ediff = self.model.elec_gen - self.fe_load_8760
                     mit_cost = sum(self.model.elec_gen[ediff <= 0] * self.pd_curve[0][ediff <=0]) \
                                 + sum(self.fe_load_8760[ediff > 0] *self.pd_curve[0][ediff > 0])                                    
-
+                    
+                    # For PV assisted technologies, determine the energy charge from the grids
                     if self.tech_type == "PVEB":                            
                         
                         elec_energy_grid_cost = sum((self.load_8760 - self.model.load_met)/self.model.get_efficiency() * self.pd_curve[0])
                         
-                        return (demand_diff - mit_cost, elec_energy_grid_cost)
+                        return demand_diff - mit_cost + elec_energy_grid_cost
 
                     if self.tech_type == "PVRH":
                         
                         elec_energy_grid_cost = sum((self.load_8760 - self.model.load_met)/self.model.get_efficiency()* self.pd_curve[0])
                         
-                        return (demand_diff - mit_cost, elec_energy_grid_cost)
-                    
-                    if self.tech_type == "EBOILER":
-                        
-                        elec_energy_grid_cost = sum(self.model.load_8760/self.model.get_efficiency()*self.pd_curve[0])
-                        
-                        return (demand_diff - mit_cost, elec_energy_grid_cost)
-
-                self.ec = get_elec_cost()[0] * (1 + self.elec_esc)**t 
+                        return demand_diff - mit_cost + elec_energy_grid_cost
                 
-                self.e_grid_costs = get_elec_cost()[1] * (1 + self.elec_esc)**t 
-                     
+                # electricity cost cash flow in year t for 
+                self.ec = -1 * get_elec_cost() * (1 + self.elec_esc)**t 
+                
+                # emission costs
                 self.em_costs = self.model.em_costs
                 
                 if self.tech_type == "BOILER":
                     ompermitfees = sum(self.pm.config["permit"]["annual"][self.state_abbr])     
                 else:
                     ompermitfees = 0                     
-                #ompermit fees are escalated using 2% - approx assumption of inflation since permit fees adjusted by CPI
-                return np.array([(self.model.om_val) * omp * (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + 
-                                 self.fc * fmp + self.ec * emp + self.e_grid_costs * emp + self.em_costs]).flatten()
                 
+                # separate om sensitivity for solar components vs non-solar
+                if self.tech_type in ["PVRH", "PVEB"]:
+                    return np.array([(self.model.om_val[0] * omps + self.model.om_val[1] * omp) * (1 + self.OM_esc) ** t + ompermitfees + 
+                                     self.fc * fmp + self.ec * emp + self.em_costs]).flatten()
+                else:
+                    
+                    return np.array([(self.model.om_val) * omp * (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + 
+                                     self.fc * fmp + self.ec * emp  + self.em_costs]).flatten()                
             self.OM = get_OM
         
             def get_capital():
-                
+                # land prep costs : https://www.nrel.gov/docs/fy12osti/53347.pdf
+                if self.tech_type not in ["BOILER", "EBOILER", "CHP", "FURNACE"]:
+                    site_prep = 25000
+                else:
+                    site_prep = 0
+
                 try:
-                    #add land price to capital cost (equipment) since land not part of cost
-                    return [np.array([self.investment]), np.array([self.landpricel*self.model.landarea])]
+                    # land price and capital cost separately defined
+                    return [np.array([self.investment]), np.array([(self.landpricel+site_prep)*self.model.landarea])]
                 
                 except AttributeError:
                     pass
@@ -287,23 +304,25 @@ class Greenfield(LCOH):
                 if not self.sim:
                     
                     cmp = 1
+                    cmps = 1
                     lmp = self.landpricel
                     
                 if self.sim:
                     
                     cmp = self.rand_c
+                    cmps = self.rand_cs
                     lmp = self.rand_l
                      
+                if self.tech_type in ["PVEB", "PVRH"]:
                     
-                cap = np.array([self.model.cap_val]) * cmp
-                # land prep costs : https://www.nrel.gov/docs/fy12osti/53347.pdf
-                if self.tech_type not in ["BOILER", "EBOILER", "CHP", "FURNACE"]:
-                    site_prep = 25000
+                    cap = np.array([self.model.cap_val[0]]) * cmps + np.array([self.model.cap_val[1]]) * cmp
                 else:
-                    site_prep = 0
-
+                    cap = np.array([self.model.cap_val]) * cmp
+                
+                # land costs
                 land = (lmp + site_prep) * np.array([self.model.landarea])
                 
+                # boilers have year0 permit fees if its not depreciated
                 if (self.tech_type == "BOILER") & (not self.mp.deprc):
                     permitfees = sum(self.pm.config["permit"]["year0"][self.state_abbr])
                 else:
@@ -315,23 +334,24 @@ class Greenfield(LCOH):
             
         import_param()
 
-
     def calculate_LCOH(self):
 
         """using general LCOH equation"""
         
         capital = self.capital()[0]
         land = self.capital()[1]
-
-        subsidies = self.subsidies["p_cap"]* capital + self.model.sys_size * self.subsidies["size"]
-        undiscounted = capital + land - subsidies
-        # assign year 0 value
-        self.year0 = undiscounted
         
+        # %capital subsidies + /kW subsidies for year 0
+        subsidies = self.subsidies["p_cap"]* capital + self.model.sys_size * self.subsidies["size"]
+        
+        # assign year 0 value
+        self.year0 = capital + land - subsidies
+        
+        # initialize arrays
         total_d_cost = np.zeros(len(self.p_time))
-
         t_energy_yield = np.zeros(len(self.p_time))
         
+        # cashflow array
         self.cashflow = []
         
         for ind, p_time in enumerate(self.p_time):
@@ -340,35 +360,36 @@ class Greenfield(LCOH):
                 d_cost = (self.OM(i)[ind] *(1-self.corp_tax) - capital[ind] *
                 self.depreciation(i, self.model.dep_year) * self.corp_tax) / \
                 (1+self.discount_rate[ind]) ** i
-
+                
                 total_d_cost[ind] += d_cost
                 self.cashflow.append(d_cost)
                 
                 energy_yield = sum(self.model.load_met) / (1 + self.discount_rate[ind]) ** i
 
+                # for PV systems, some energy is from grid so load_met isnt used
                 if self.tech_type in ["PVEB", "PVRH"]:
                     energy_yield = self.energy / (1 + self.discount_rate[ind]) ** i
 
                 t_energy_yield[ind] += energy_yield * (1-self.corp_tax)
                 
             total_d_cost[ind] += self.model.decomm / (1+self.discount_rate[ind]) ** p_time
-            
-        # convert to cents USD/kwh  
-        self.year0 = undiscounted
-        return (undiscounted + total_d_cost)/t_energy_yield * 100
+        
+        # LCOH in cents/kwh
+        return (self.year0 + total_d_cost)/t_energy_yield * 100
 
     def simulate(self, a_type, no_sims = 200):
-        
+    """ code to run MC or TO analysis """
+
         if a_type.upper() == "MC":
             mc_results = pd.DataFrame(columns = [
                                                  "Lifetime",
                                                  "Nominal Discount Rate",
                                                  "O&M Escalation Rate",
                                                  "Fuel Escalation Rate",
-                                                 "Capital Cost",
-                                                 "Operating Cost",
-                                                 "Capital Multiplier",
-                                                 "Operating Multiplier",
+                                                 "Solar Capital Cost",
+                                                 "Solar Operating Cost",
+                                                 "Non-Solar Capital Cost",
+                                                 "Non-Solar Operating Cost",
                                                  "Fuel Price",
                                                  "Land Price",
                                                  "Electricity Price",                                                 
@@ -377,16 +398,14 @@ class Greenfield(LCOH):
             #initialize model capital and om attributes by running 1 calculate LCOH (default values)
             columns = list(mc_results.columns)
             structure = [self.p_time, self.discount_rate, self.OM_esc, 
-                         self.fuel_esc, self.model.cap_val, self.model.om_val,
-                         1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
+                         self.fuel_esc, 1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
 
             mc_results = mc_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)
             
             self.sim = True
             self.apply_dists("MC", no_sims)
             results = [self.p_time, self.discount_rate, self.OM_esc, 
-                       self.fuel_esc, self.model.cap_val, self.model.om_val,
-                       self.rand_c, self.rand_o, self.fuel_price + self.rand_f, 
+                       self.fuel_esc, self.rand_c, self.rand_o, self.fuel_price + self.rand_f, 
                        self.landpricel + self.rand_l, self.rand_e, self.calculate_LCOH()]
             mc_results = mc_results.append(pd.DataFrame({a:b for a,b in zip(columns,results)}))
             #mc_results.to_csv(os.path.join(LCOH.path, "mcsim" + self.tech_type + ".csv"))
@@ -399,10 +418,10 @@ class Greenfield(LCOH):
                                                  "Nominal Discount Rate",
                                                  "O&M Escalation Rate",
                                                  "Fuel Escalation Rate",
-                                                 "Capital Cost",
-                                                 "Operating Cost",
-                                                 "Capital Multiplier",
-                                                 "Operating Multiplier",
+                                                 "Solar Capital Cost",
+                                                 "Solar Operating Cost",
+                                                 "Non-Solar Capital Cost",
+                                                 "Non-Solar Operating Cost",
                                                  "Fuel Price",
                                                  "Land Price",
                                                  "Electricity Price",
@@ -411,16 +430,13 @@ class Greenfield(LCOH):
                     
             columns = list(to_results.columns)
             structure = [self.p_time, self.discount_rate, self.OM_esc, 
-                         self.fuel_esc, self.model.cap_val, self.model.om_val,
-                         1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
-            
+                         self.fuel_esc,1, 1, 1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
             to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)      
             
             self.sim = True                  
             self.apply_dists("TO", no_sims)
             results = [self.p_time, self.discount_rate, self.OM_esc, 
-                       self.fuel_esc, self.model.cap_val, self.model.om_val,
-                       self.rand_c, self.rand_o, self.rand_f, 
+                       self.fuel_esc, self.rand_cs, self.rand_os, self.rand_c, self.rand_o, self.rand_f, 
                        self.rand_l, self.rand_e, self.calculate_LCOH()]    
 
             to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,results)})) 
@@ -435,7 +451,7 @@ class Replace(LCOH):
         
         self.mp = m_config
         self.pm = l_config
-        # assert tech type to be solar only
+
         LCOH.__init__(self, form, self.mp, self.pm) 
         
         # add assertion
@@ -449,6 +465,7 @@ class Replace(LCOH):
                 '''
                 if mult == 0:
                     return 0  - self.sf
+                # model initialized to account for standby operation of conventional
                 smodel = models.TechFactory.create_tech(
                          self.tech_type, self.county,
                          (mult, (self.load_8760 - self.pm.config["td"]*self.peak_load).clip(min=0)), 
@@ -467,20 +484,19 @@ class Replace(LCOH):
                         ) 
                 return (smodel.su, sum(smodel.load_met)/sum(self.load_8760), mult)
 
-            #   upper bound on bisection - MW of system
+            # upper bound on bisection - MW of system
             upper = 4
             
+            # auto size based on config
             if mode == "default":
                 return -1
             
-            #code below- do while for target solar frac - sf will stop at target while su will use
-            # sf setting as the minimum sf (lower bound) for root search
+            # get the system multipler associated with target solar fraction
             if self.sf == 0:
                 mult = 0
             else:
                 mult = bisection(get_sf,0,upper,51)
-
-                # get maximum possible solar fraction 
+                
                 while mult == None:
                     self.sf -= 0.01
                     mult = bisection(get_sf,0,upper,50)
@@ -489,14 +505,14 @@ class Replace(LCOH):
                         break            
            
             if mode == "sf":
-
+                # this mode sizes based on target sf
                 return mult
             
             if mode == "su":
-
+                # this mode returns the maximum solar utilization above target sf and below max system size
                 self.su_l, self.sf_l, self.mult_l = ([],[],[])
                 
-                # of data points for plotting - randomly threw meta data into here
+                # of data points for plotting 
                 no = 25
                 for i in np.linspace(mult,upper,no):
                     self.su_l.append(get_su(i)[0])
@@ -506,6 +522,7 @@ class Replace(LCOH):
                 return self.mult_l[np.argmax(su)]
 
         if self.mult >= 0:
+            # if self.mult is already passed in LCOh initialization, the system size is specified
             mult = self.mult
             self.smodel = models.TechFactory.create_tech(
                          self.tech_type, self.county,
@@ -521,7 +538,7 @@ class Replace(LCOH):
                          (self.fuel_price,self.fuel_type), self.mp
                         )
         else:
-            #this mult value obtained through get_Target function has turndown ratio enforced already
+            # mult not specified (-1) in initialization so config used instead
             mult = get_target(self.pm.config["mode"])
 
             self.smodel = models.TechFactory.create_tech(
@@ -537,7 +554,7 @@ class Replace(LCOH):
                          (self.fuel_price,self.fuel_type)
                         )
 
-        # intialize om because all model inputs have been determined already
+        # intialize om for both models
         self.dmodel.om()
         self.smodel.om()
         
@@ -549,7 +566,6 @@ class Replace(LCOH):
 
         def import_param():
 
-    
             self.subsidies = np.array([self.pm.get_subsidies(self.pm.config["comb"], self.county, self.state_abbr), 
                                        self.pm.get_subsidies(self.tech_type, self.county, self.state_abbr)])
 
@@ -564,6 +580,7 @@ class Replace(LCOH):
                 if not self.sim:
                 
                     omp = 1
+                    omps = 1
                     fmp = self.fuel_price
                     emp = 1
                     
@@ -571,6 +588,7 @@ class Replace(LCOH):
                 if self.sim:
                     
                     omp = self.rand_o
+                    omps = self.rand_os
                     fmp = self.rand_f
                     emp = self.rand_e
                 
@@ -578,6 +596,11 @@ class Replace(LCOH):
                 self.fc = (self.smodel.fc + self.dmodel.fc) * (1 + self.fuel_esc)**t
 
                 def get_elec_cost():
+                    
+                    """ Obtain electricity costs for a year t"""
+                    if self.smodel in ["DSGLF", "PTC", "PTCTES"]:
+                        return 0
+                    
                     #refers to excess elec_gen
                     diff = self.smodel.elec_gen - self.fe_load_8760
                     mit_cost = sum(self.smodel.elec_gen[diff <= 0] * self.pd_curve[0][diff <=0]) \
@@ -588,10 +611,11 @@ class Replace(LCOH):
                     length = np.array([31,28,31,30,31,30,31,31,30,31,30,31]) * 24
                     start = np.array([0,31,59,90,120,151,181,212,243,273,304,334])*24
                     
-                    # peak demand for each mont
+                    # peak demand for each month
                     peaks = []
                     peakind = []
                     
+                    # identify the lowest peaks then find demand reduced due to solar generation
                     for month in range(len(length)):
                         ind = np.argmin(diff[start[month] : start[month] + length[month]])
                         peakind.append(ind)
@@ -607,49 +631,72 @@ class Replace(LCOH):
 
                 self.ec = -1 * get_elec_cost() *(1 + self.elec_esc)**t
     
-                #  fuel price - multiply to convert the kW to total energy in a year (kW)
-                #  divided by appropriate heating value 
+                # measurement om costs for the solar and backup conventional technology
                 if self.measurements:
                     self.m_omcosts = \
                         [self.pm.config["measurements"][str(self.pm.config["naics"])][self.smodel.tech_type][1],
                          self.pm.config["measurements"][str(self.pm.config["naics"])][self.dmodel.tech_type][1]]
-                    self.m_omcosts = [0,0]
                 else:
                     self.m_omcosts = [0,0]
-
+                
+                # om permit csots for boilers
                 if self.dmodel.tech_type == "BOILER":
                     ompermitfees = sum(self.pm.config["permit"]["annual"][self.state_abbr]) 
                 else:
                     ompermitfees = 0 
-                return np.array([(self.smodel.om_val + self.dmodel.om_val + sum(self.m_omcosts)) * omp * \
-                                 (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + self.fc * fmp + self.ec * emp]).flatten()
+                    
+                # 
+                if self.tech_type in ["PVRH", "PVEB"]:
+                    return np.array([(((self.smodel.om_val[0] + self.m_omcosts[0])* omps + \
+                                      (self.smodel.om_val[1] + self.dmodel.om_val + self.m_omcosts[1]) * omp) * \
+                                      (1 + self.OM_esc) ** t + \
+                                      ompermitfees * (1.02)**t + \
+                                      self.fc * fmp + self.ec * emp]).flatten()
+                else: 
+                    return np.array([((self.smodel.om_val + self.m_omcosts[0]) * omps + \
+                                     (self.dmodel.om_val * omp + self.m_omcosts[1] * omp)) * \
+                                     (1 + self.OM_esc) ** t + ompermitfees * (1.02)**t + \
+                                     self.fc * fmp + self.ec * emp]).flatten()                
                 
             self.OM = get_OM
 
             def get_capital():
                 
+                site_prep = 25000   
+                
                 try:
                     cap = np.array([0, self.investment]).reshape(-1,1)
-                    land = np.array([0, self.landpricel*self.smodel.landarea]).reshape(-1,1)
+                    land = np.array([0, self.landpricel*self.smodel.landarea + site_prep]).reshape(-1,1)
                     return [cap,land]
                 
                 except AttributeError:
                     pass
-              
+                
                 if not self.sim:
-                    
-                    cmp = np.array([1,1]).reshape(-1,1)
+                    if self.tech_type in ["PVEB", "PVRH"]:
+                        cmp = np.array([1,1,1]).reshape(-1,1)
+                    else:
+                        cmp = np.array([1,1]).reshape(-1,1)
                     lmp = np.array([0,0]).reshape(-1,1)
                     
                 if self.sim:
                     
-                    cmp = np.array([np.ones(len(self.rand_c)), self.rand_c])
+                    if self.tech_type in ["PVEB", "PVRH"]:
+                        cmp = np.array([np.ones(len(self.rand_cs)), self.rand_cs, self.rand_c])
+                    else:
+                        cmp = np.array([np.ones(len(self.rand_cs)), self.rand_cs])
                     lmp = np.array([self.rand_l, self.rand_l])
+                     
+                
+                if self.tech_type in ["PVEB", "PVRH"]:
+                    cap = np.array([0, self.smodel.cap_val[0], self.smodel.cap_val[1]]).reshape(-1,1)
+                    cap = np.multiply(cap,cmp)
+                    cap = np.array([cap[0], sum(cap[1:])])                    
+                
+                else:
                     
-                site_prep = 25000    
-                    
-                cap = np.array([0, self.smodel.cap_val]).reshape(-1,1) 
-                cap = np.multiply(cap, cmp)
+                    cap = np.array([0, self.smodel.cap_val]).reshape(-1,1) 
+                    cap = np.multiply(cap, cmp)
                                     
                 land = np.multiply(np.array([0, self.smodel.landarea]).reshape(-1,1), lmp + site_prep)
                 return [cap,land]
@@ -673,10 +720,8 @@ class Replace(LCOH):
         dland = capital[1][0]
 
         subsidies = self.subsidies[1]["p_cap"]*scapital + self.smodel.sys_size * self.subsidies[1]["size"]
- 
-        undiscounted = scapital + dcapital + sland + dland - subsidies 
         
-        self.year0 = undiscounted
+        self.year0 = scapital + dcapital + sland + dland - subsidies 
         
         self.cashflow = []
 
@@ -696,8 +741,7 @@ class Replace(LCOH):
                 t_energy_yield[ind] += energy_yield * (1-self.corp_tax)
 
         # convert to cents USD/kwh  
-        self.year0 = undiscounted
-        return (undiscounted + total_d_cost)/t_energy_yield * 100
+        return (self.year0 + total_d_cost)/t_energy_yield * 100
 
     def simulate(self, a_type, no_sims = 200):
         
@@ -707,8 +751,6 @@ class Replace(LCOH):
                                                  "Nominal Discount Rate",
                                                  "O&M Escalation Rate",
                                                  "Fuel Escalation Rate",
-                                                 "Capital Cost",
-                                                 "Operating Cost",
                                                  "Capital Multiplier",
                                                  "Operating Multiplier",
                                                  "Fuel Price",
@@ -719,8 +761,7 @@ class Replace(LCOH):
             #initialize model capital and om attributes by running 1 calculate LCOH (default values)
             columns = list(mc_results.columns)
             structure = [self.p_time, self.discount_rate, self.OM_esc, 
-                         self.fuel_esc, self.smodel.cap_val, self.smodel.om_val+self.dmodel.om_val,
-                         1, 1, self.fuel_price, self.landpricel, self.calculate_LCOH()]
+                         self.fuel_esc, 1, 1, self.fuel_price, self.landpricel, self.calculate_LCOH()]
     
 
             mc_results = mc_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)
@@ -737,15 +778,16 @@ class Replace(LCOH):
         
         if a_type.upper() == "TO":
             
+            
             to_results = pd.DataFrame(columns = [
                                                  "Lifetime",
                                                  "Nominal Discount Rate",
                                                  "O&M Escalation Rate",
                                                  "Fuel Escalation Rate",
-                                                 "Capital Cost",
-                                                 "Operating Cost",
-                                                 "Capital Multiplier",
-                                                 "Operating Multiplier",
+                                                 "Solar Capital Cost",
+                                                 "Solar Operating Cost",
+                                                 "Non-Solar Capital Cost",
+                                                 "Non-Solar Operating Cost",
                                                  "Fuel Price",
                                                  "Land Price",
                                                  "Electricity Price",
@@ -754,16 +796,15 @@ class Replace(LCOH):
                     
             columns = list(to_results.columns)
             structure = [self.p_time, self.discount_rate, self.OM_esc, 
-                         self.fuel_esc, self.smodel.cap_val, self.smodel.om_val + self.dmodel.om_val,
-                         1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
+                         self.fuel_esc, 1, 1, 1, 1, self.fuel_price, self.landpricel, 1, self.calculate_LCOH()]
             
             to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,structure)}), ignore_index = True)      
             
             self.sim = True                  
             self.apply_dists("TO", no_sims)
             results = [self.p_time, self.discount_rate, self.OM_esc, 
-                       self.fuel_esc, self.smodel.cap_val, self.smodel.om_val + self.dmodel.om_val,
-                       self.rand_c, self.rand_o, self.rand_f,
+                       self.fuel_esc,
+                       self.rand_cs, self.rand_os, self.rand_c, self.rand_o, self.rand_f,
                        self.rand_l, self.rand_e, self.calculate_LCOH()]
             to_results = to_results.append(pd.DataFrame({a:b for a,b in zip(columns,results)})) 
             
